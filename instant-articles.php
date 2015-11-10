@@ -10,6 +10,7 @@
  */
 
 
+require_once( dirname( __FILE__ ) . '/class-instant-articles-post.php' );
 
 /**
  * Plugin activation hook to add our rewrite rules
@@ -56,7 +57,17 @@ function instant_articles_feed() {
 		<title><?php bloginfo_rss( 'name' ); ?> - Instant Articles</title>
 		<link><?php bloginfo_rss('url') ?></link>
 		<description><?php bloginfo_rss( 'description' ) ?></description>
-
+		<?php while ( have_posts() ) : the_post(); ?>
+			<item>
+				<title><?php echo esc_html( get_the_title() ); ?></title>
+				<link><?php echo esc_url( get_permalink() ); ?></link>
+				<content:encoded><![CDATA[<?php instant_articles_render_post( get_the_ID() ); ?>]]></content:encoded>
+				<guid><?php echo esc_html( get_the_guid() ); ?></guid>
+				<description><?php echo esc_html( get_the_excerpt() ); ?></description>
+				<pubDate><?php echo esc_html( get_the_date( 'c' ) ); ?></pubDate>
+				<author><?php echo esc_html( get_the_author() ); ?></author>
+			</item>
+		<?php endwhile; ?>
 	</rss>
 	<?php
 }
