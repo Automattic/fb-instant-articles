@@ -61,3 +61,49 @@ function instant_articles_feed() {
 	<?php
 }
 
+/**
+ * Render post
+ *
+ * @since 0.1
+ * @param int $post_id The ID to the post to render
+ */
+function instant_articles_render_post( $post_id ) {
+	
+	/**
+     * Fires before the instant article is rendered
+     *
+     * @since 0.1
+     * @param int    $post_id  The ID to the post to render
+     */
+	do_action( 'pre_instant_article_render', $post_id );
+	
+	$instant_article_post = new Instant_Articles_Post( $post_id );
+	
+	$default_template = dirname( __FILE__ ) . '/template.php';
+
+	/**
+     * Filter the path to the template to use to render the instant article
+     *
+     * @since 0.1
+     * @param int    $post_id  The ID to the post to render
+     * @param string $template Path to the current (default) template.
+     */
+	$template = apply_filters( 'instant_articles_render_post_template', $post_id, $default_template );
+	
+	// Make sure the template exists. Devs do the darndest things.
+	if ( ! file_exists( $template ) ) {
+		$template = $default_template;
+	}
+	include $template;
+	
+	/**
+     * Fires after the instant article is rendered
+     *
+     * @since 0.1
+     * @param int    $post_id  The ID to the post to render
+     */
+	do_action( 'after_instant_article_render', $post_id );
+}
+
+
+
