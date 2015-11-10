@@ -64,7 +64,7 @@ function instant_articles_feed() {
 				<content:encoded><![CDATA[<?php instant_articles_render_post( get_the_ID() ); ?>]]></content:encoded>
 				<guid isPermaLink="false"><?php the_guid(); ?></guid>
 				<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
-				<pubDate><?php echo esc_html( get_the_date( 'c' ) ); ?></pubDate>
+				<pubDate><?php echo mysql2date( 'c', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
 				<author><![CDATA[<?php echo esc_html( get_the_author() ); ?>]]></author>
 			</item>
 		<?php endwhile; ?>
