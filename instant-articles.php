@@ -13,6 +13,8 @@
 
 /**
  * Plugin activation hook to add our rewrite rules
+ *
+ * @since 0.1
  */
 function instant_articles_activate(){
 	instant_articles_init();
@@ -22,6 +24,8 @@ register_activation_hook( __FILE__, 'instant_articles_activate' );
 
 /**
  * Plugin activation hook to remove our rewrite rules
+ *
+ * @since 0.1
  */
 function instant_articles_deactivate(){
 	flush_rewrite_rules();
@@ -30,6 +34,8 @@ register_deactivation_hook( __FILE__, 'instant_articles_deactivate' );
 
 /**
  * Register our specal feed
+ *
+ * @since 0.1
  */
 function instant_articles_init() {
 	add_feed( 'instant-articles', 'instant_articles_feed' );
@@ -38,6 +44,8 @@ add_action( 'init', 'instant_articles_init' );
 
 /**
  * Feed display callback
+ *
+ * @since 0.1
  */
 function instant_articles_feed() {
 
