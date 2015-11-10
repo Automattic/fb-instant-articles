@@ -53,19 +53,19 @@ function instant_articles_feed() {
 	header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
 	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
 	?>
-	<rss version="2.0">
+	<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 		<title><?php bloginfo_rss( 'name' ); ?> - Instant Articles</title>
 		<link><?php bloginfo_rss('url') ?></link>
 		<description><?php bloginfo_rss( 'description' ) ?></description>
 		<?php while ( have_posts() ) : the_post(); ?>
 			<item>
-				<title><?php echo esc_html( get_the_title() ); ?></title>
-				<link><?php echo esc_url( get_permalink() ); ?></link>
+				<title><?php the_title_rss(); ?></title>
+				<link><?php the_permalink(); ?></link>
 				<content:encoded><![CDATA[<?php instant_articles_render_post( get_the_ID() ); ?>]]></content:encoded>
-				<guid><?php echo esc_html( get_the_guid() ); ?></guid>
-				<description><?php echo esc_html( get_the_excerpt() ); ?></description>
+				<guid isPermaLink="false"><?php the_guid(); ?></guid>
+				<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
 				<pubDate><?php echo esc_html( get_the_date( 'c' ) ); ?></pubDate>
-				<author><?php echo esc_html( get_the_author() ); ?></author>
+				<author><![CDATA[<?php echo esc_html( get_the_author() ); ?>]]></author>
 			</item>
 		<?php endwhile; ?>
 	</rss>
