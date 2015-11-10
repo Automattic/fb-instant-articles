@@ -9,3 +9,47 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+
+
+/**
+ * Plugin activation hook to add our rewrite rules
+ */
+function instant_articles_activate(){
+	instant_articles_init();
+	flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'instant_articles_activate' );
+
+/**
+ * Plugin activation hook to remove our rewrite rules
+ */
+function instant_articles_deactivate(){
+	flush_rewrite_rules();
+}
+register_deactivation_hook( __FILE__, 'instant_articles_deactivate' );
+
+/**
+ * Register our specal feed
+ */
+function instant_articles_init() {
+	add_feed( 'instant-articles', 'instant_articles_feed' );
+}
+add_action( 'init', 'instant_articles_init' );
+
+/**
+ * Feed display callback
+ */
+function instant_articles_feed() {
+
+	header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
+	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
+	?>
+	<rss version="2.0">
+		<title><?php bloginfo_rss( 'name' ); ?> - Instant Articles</title>
+		<link><?php bloginfo_rss('url') ?></link>
+		<description><?php bloginfo_rss( 'description' ) ?></description>
+
+	</rss>
+	<?php
+}
+
