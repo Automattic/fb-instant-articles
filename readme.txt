@@ -13,9 +13,7 @@ Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/inst
 
 This plugin adds support for Instant Articles for Facebook, which is a new way for publishers to distribute stories on Facebook. Instant Articles are preloaded in the Facebook mobile app so they load instantly.
 
-With the plugin active, all posts on your site will have dynamically generated Instant Articles-compatible versions, accessible by appending `/instant/` to the end your permalinks. (If you do not have pretty permalinks enabled, you can do the same thing by appending `?instant=1`.)
-
-By default a special RSS feed will be available at the URL `/feed/instant-articles`. You can protect this with HTTP auth compatible with Facebook by using a filter.
+With the plugin active, a special RSS feed will be available at the URL `/feed/instant-articles`. You can protect this with HTTP auth compatible with Facebook by using a filter.
 
 Developers: please note that this plugin is still in early stages and the underlying APIs (like filters, classes, etc.) may change.
 
