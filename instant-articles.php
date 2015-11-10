@@ -76,7 +76,7 @@ function instant_articles_feed() {
  * Render post
  *
  * @since 0.1
- * @param int $post_id The ID to the post to render
+ * @param int  $post_id  The ID to the post to render
  */
 function instant_articles_render_post( $post_id ) {
 	
@@ -84,7 +84,7 @@ function instant_articles_render_post( $post_id ) {
      * Fires before the instant article is rendered
      *
      * @since 0.1
-     * @param int    $post_id  The ID to the post to render
+     * @param int  $post_id  The ID to the post to render
      */
 	do_action( 'pre_instant_article_render', $post_id );
 	
@@ -96,8 +96,8 @@ function instant_articles_render_post( $post_id ) {
      * Filter the path to the template to use to render the instant article
      *
      * @since 0.1
-     * @param int    $post_id  The ID to the post to render
-     * @param string $template Path to the current (default) template.
+     * @param int     $post_id   The ID to the post to render
+     * @param string  $template  Path to the current (default) template.
      */
 	$template = apply_filters( 'instant_articles_render_post_template', $post_id, $default_template );
 	
@@ -111,7 +111,7 @@ function instant_articles_render_post( $post_id ) {
      * Fires after the instant article is rendered
      *
      * @since 0.1
-     * @param int    $post_id  The ID to the post to render
+     * @param int  $post_id  The ID to the post to render
      */
 	do_action( 'after_instant_article_render', $post_id );
 }
