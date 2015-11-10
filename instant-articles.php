@@ -57,6 +57,7 @@ function instant_articles_feed() {
 		<title><?php bloginfo_rss( 'name' ); ?> - Instant Articles</title>
 		<link><?php bloginfo_rss('url') ?></link>
 		<description><?php bloginfo_rss( 'description' ) ?></description>
+		<lastBuildDate><?php echo mysql2date( 'c', get_lastpostmodified( 'GMT' ), false ); ?></lastBuildDate>
 		<?php while ( have_posts() ) : the_post(); ?>
 			<item>
 				<title><?php the_title_rss(); ?></title>
