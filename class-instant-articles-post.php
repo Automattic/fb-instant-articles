@@ -7,6 +7,9 @@
  */
 class Instant_Articles_Post {
 
+	/** @var int ID of the post */
+	protected $_ID;
+
 	/**
 	 * Setup data and build the content
 	 *
@@ -14,6 +17,8 @@ class Instant_Articles_Post {
 	 * @param int $post_id ID of the post
 	 */
 	function __construct( $post_id ) {
+		$this->_ID = $post_id;
+	}
 
 	}
 
