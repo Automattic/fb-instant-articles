@@ -54,8 +54,6 @@ register_deactivation_hook( __FILE__, 'instant_articles_deactivate' );
 function instant_articles_init() {
 	$feed_slug = apply_filters( 'instant_articles_slug', 'instant-articles' );
 	add_feed( $feed_slug, 'instant_articles_feed' );
-	
-	add_action( 'wp_head', 'instant_articles_style' );
 }
 add_action( 'init', 'instant_articles_init' );
 
@@ -72,6 +70,7 @@ function instant_articles_feed() {
  * Article <head> style
  *
  * @since 0.1
+ * @todo Per article or global? Move into Instant_Articles_Post? (refactor)
  */
 function instant_articles_style() {
 	if ( false === apply_filters( 'instant_articles_show_style', true ) ) {

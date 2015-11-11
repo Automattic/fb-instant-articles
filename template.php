@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="canonical" href="<?php echo esc_url( $instant_article_post->get_canonical_url() ); ?>">
     <meta property="op:markup_version" content="v1.0">
+    <?php instant_articles_style(); ?>
   </head>
   <body>
     <article>
