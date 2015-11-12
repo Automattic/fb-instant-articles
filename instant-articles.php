@@ -47,7 +47,17 @@ function instant_articles_deactivate(){
 register_deactivation_hook( __FILE__, 'instant_articles_deactivate' );
 
 /**
- * Register our specal feed
+ * Load plugin textdomain
+ *
+ * @since 0.1
+ */
+function instant_articles_load_textdomain() {
+	load_plugin_textdomain( 'instant_articles', false, plugin_dir_path( __FILE__ ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
+
+/**
+ * Register our special feed
  *
  * @since 0.1
  */
