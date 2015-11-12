@@ -5,6 +5,7 @@
  * Author: Dekode
  * Author URI: http://dekode.no
  * Version: 0.1
+ * Text Domain: instant-articles
  * License: GPLv2
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -52,7 +53,7 @@ register_deactivation_hook( __FILE__, 'instant_articles_deactivate' );
  * @since 0.1
  */
 function instant_articles_load_textdomain() {
-	load_plugin_textdomain( 'instant_articles', false, plugin_dir_path( __FILE__ ) . '/languages' );
+	load_plugin_textdomain( 'instant-articles', false, plugin_dir_path( __FILE__ ) . '/languages' );
 }
 add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
 
