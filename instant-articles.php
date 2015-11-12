@@ -3,7 +3,7 @@
  * Plugin Name: Instant Articles for WP
  * Description: Add support for Instant Articles for Facebook to your WordPress site.
  * Author: Dekode
- * Author URI: http://dekode.no
+ * Author URI: https://dekode.no
  * Version: 0.1
  * Text Domain: instant-articles
  * License: GPLv2
