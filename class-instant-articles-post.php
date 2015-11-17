@@ -206,6 +206,7 @@ class Instant_Articles_Post {
 	 * Article <head> style
 	 *
 	 * @since 0.1
+	 * @return string The article style
 	 */
 	function get_article_style() {
 
@@ -218,7 +219,7 @@ class Instant_Articles_Post {
 	     */
 		$article_style = apply_filters( 'instant_articles_style', 'default', $this );
 
-		printf( '', esc_attr( $article_style ) );
+		return $article_style;
 	}
 
 }
