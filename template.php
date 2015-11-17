@@ -2,15 +2,15 @@
 <html lang="en" prefix="op: http://media.facebook.com/op#">
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="<?php echo esc_url( $instant_article_post->get_canonical_url() ); ?>">
+    <link rel="canonical" href="<?php echo esc_url( $this->get_canonical_url() ); ?>">
     <meta property="op:markup_version" content="v1.0">
-    <?php instant_articles_style(); ?>
+    <meta property="fb:article_style" content="<?php echo esc_attr( $this->get_article_style() ); ?>">
   </head>
   <body>
     <article>
       <header>
 
-        <h1><?php echo esc_html( $instant_article_post->get_title() ); ?></h1>
+        <h1><?php echo esc_html( $this->get_the_title() ); ?></h1>
 
         <!-- The date and time when your article was originally published -->
         <time class="op-published" datetime="2014-11-11T04:44:16Z">November 11th, 4:44 PM</time>

@@ -69,73 +69,23 @@ function instant_articles_init() {
 add_action( 'init', 'instant_articles_init' );
 
 /**
+ *
+ *
+ * @since 0.1
+ */
+		return;
+	}
+
+}
+
+
+/**
  * Feed display callback
  *
  * @since 0.1
  */
 function instant_articles_feed() {
 	include( dirname( __FILE__ ) . '/feed-template.php' );
-}
-
-/**
- * Article <head> style
- *
- * @since 0.1
- * @todo Per article or global? Move into Instant_Articles_Post? (refactor)
- */
-function instant_articles_style() {
-	if ( false === apply_filters( 'instant_articles_show_style', true ) ) {
-		return;
-	}
-
-	$article_style = apply_filters( 'instant_articles_style', 'default' );
-
-	printf( '<meta property="fb:article_style" content="%s">', esc_attr( $article_style ) );
-}
-
-
-/**
- * Render post
- *
- * @since 0.1
- * @param int  $post_id  The ID to the post to render
- */
-function instant_articles_render_post( $post_id ) {
-	
-	/**
-     * Fires before the instant article is rendered
-     *
-     * @since 0.1
-     * @param int  $post_id  The ID to the post to render
-     */
-	do_action( 'pre_instant_article_render', $post_id );
-	
-	$instant_article_post = new Instant_Articles_Post( $post_id );
-	
-	$default_template = dirname( __FILE__ ) . '/template.php';
-
-	/**
-     * Filter the path to the template to use to render the instant article
-     *
-     * @since 0.1
-     * @param int     $post_id   The ID to the post to render
-     * @param string  $template  Path to the current (default) template.
-     */
-	$template = apply_filters( 'instant_articles_render_post_template', $post_id, $default_template );
-	
-	// Make sure the template exists. Devs do the darndest things.
-	if ( ! file_exists( $template ) ) {
-		$template = $default_template;
-	}
-	include $template;
-	
-	/**
-     * Fires after the instant article is rendered
-     *
-     * @since 0.1
-     * @param int  $post_id  The ID to the post to render
-     */
-	do_action( 'after_instant_article_render', $post_id );
 }
 
 
