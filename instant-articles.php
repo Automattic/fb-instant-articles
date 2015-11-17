@@ -68,7 +68,7 @@ function instant_articles_init() {
 
 	// If we’re on WPCOM, maybe flush rewrite rules?
 	if ( function_exists( 'wpcom_initiate_flush_rewrite_rules' ) ) {
-		instant_articles_wpcom_rewrites();
+		instant_articles_wpcom_rewrites( $feed_slug );
 	}
 }
 add_action( 'init', 'instant_articles_init' );
@@ -79,15 +79,14 @@ add_action( 'init', 'instant_articles_init' );
  * WordPress.com doesn’t call register_activation_hook(), but we need to make sure our feed URL is set up
  *
  * @since 0.1
+ * @param string  $feed_slug  The feed slug
  * @todo Should we really run this on every request? Use an option/transient?
  */
-function instant_articles_wpcom_rewrites() {
+function instant_articles_wpcom_rewrites( $feed_slug ) {
 
 	if ( ! function_exists( 'wpcom_initiate_flush_rewrite_rules' ) ) {
 		return;
 	}
-
-	$feed_slug = apply_filters( 'instant_articles_slug', 'instant-articles' );
 	
 	// Look for a matching rule
 	$rules = get_option( 'rewrite_rules' );
