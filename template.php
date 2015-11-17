@@ -13,10 +13,10 @@
         <h1><?php echo esc_html( $this->get_the_title() ); ?></h1>
 
         <!-- The date and time when your article was originally published -->
-        <time class="op-published" datetime="2014-11-11T04:44:16Z">November 11th, 4:44 PM</time>
+        <time class="op-published" datetime="<?php echo esc_attr( $this->get_the_pubdate_iso() ); ?>"><?php echo esc_html( $this->get_the_pubdate() ); ?></time>
 
         <!-- The date and time when your article was last updated -->
-        <time class="op-modified" dateTime="2014-12-11T04:44:16Z">December 11th, 4:44 PM</time>
+        <time class="op-modified" datetime="<?php echo esc_attr( $this->get_the_moddate_iso() ); ?>"><?php echo esc_html( $this->get_the_moddate() ); ?></time>
 
         <!-- The authors of your article -->
         <address>

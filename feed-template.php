@@ -17,7 +17,7 @@ echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>
 			<content:encoded><![CDATA[<?php $instant_article_post->render(); ?>]]></content:encoded>
 			<guid isPermaLink="false"><?php the_guid(); ?></guid>
 			<description><![CDATA[<?php echo $instant_article_post->get_the_excerpt_rss(); ?>]]></description>
-			<pubDate><?php echo $instant_article_post->get_pubdate_rss(); ?></pubDate>
+			<pubDate><?php echo $instant_article_post->get_the_pubdate_iso(); ?></pubDate>
 			<author><![CDATA[<?php echo esc_html( get_the_author() ); ?>]]></author>
 		</item>
 	<?php endwhile; ?>

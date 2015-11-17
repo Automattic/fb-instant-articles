@@ -150,13 +150,71 @@ class Instant_Articles_Post {
 	}
 
 	/**
-	 * Get the pubdate for the RSS
+	 * Get the published date for this post
 	 *
 	 * @since 0.1
-	 * @return string  The pubdate formatted suitable for use in the RSS feed (ISO 8601)
+	 * @return string  The published date
 	 */
-	public function get_pubdate_rss() {
+	public function get_the_pubdate() {
+
+		$date = get_post_time( get_option( 'date_format' ), true, $this->get_the_ID() );
+
+		/**
+		 * Filter the post date for instant articles
+		 *
+		 * @since 0.1
+		 *
+		 * @param string                 $date               The current post date.
+		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 */
+		$date = apply_filters( 'instant_articles_date', $date, $this );
+
+		return $date;
+
+	}
+
+	/**
+	 * Get the modified date for this post
+	 *
+	 * @since 0.1
+	 * @return string  The modified date
+	 */
+	public function get_the_moddate() {
+
+		$modified_date = get_post_modified_time( get_option('date_format'), true, $this->get_the_ID() );
+
+		/**
+		 * Filter the post modified date for instant articles
+		 *
+		 * @since 0.1
+		 *
+		 * @param string                 $modified_date         The current post modified date.
+		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 */
+		$modified_date = apply_filters( 'instant_articles_modified_date', $modified_date, $this );
+
+		return $modified_date;
+
+	}
+
+	/**
+	 * Get the published date (ISO 8601)
+	 *
+	 * @since 0.1
+	 * @return string  The pubdate formatted suitable for use in the RSS feed and the html time elements (ISO 8601)
+	 */
+	public function get_the_pubdate_iso() {
 		return mysql2date( 'c', get_post_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ), false );
+	}
+
+	/**
+	 * Get the modified date (ISO 8601)
+	 *
+	 * @since 0.1
+	 * @return string  The pubdate formatted suitable for use in the RSS feed and the html time elements (ISO 8601)
+	 */
+	public function get_the_moddate_iso() {
+		return mysql2date( 'c', get_post_modified_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ), false );
 	}
 
 	/**
