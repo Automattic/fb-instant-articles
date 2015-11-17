@@ -87,6 +87,7 @@ add_action( 'init', 'instant_articles_init' );
  * @since 0.1
  * @param string  $feed_slug  The feed slug
  * @todo Should we really run this on every request? Use an option/transient?
+ * @todo The flush_rewrite_rules() call is supposedly not necessary on WPCOM, but obviously in quickstart. Find out about this!
  */
 function instant_articles_wpcom_rewrites( $feed_slug ) {
 
@@ -106,6 +107,7 @@ function instant_articles_wpcom_rewrites( $feed_slug ) {
 	}
 	if ( ! $match ) {
 		wpcom_initiate_flush_rewrite_rules();
+		flush_rewrite_rules();
 	}
 }
 
