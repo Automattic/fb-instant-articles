@@ -150,6 +150,59 @@ class Instant_Articles_Post {
 	}
 
 	/**
+	 * Get the content for this post
+	 *
+	 * @since 0.1
+	 * @return string The content
+	 */
+	public function get_the_content() {
+
+		global $post, $more;
+
+		// force $more
+		$orig_more = $more;
+		$more = 1;
+
+		// If we’re not it the loop or otherwise properly setup
+		$reset_postdata = false;
+		if ( $this->get_the_ID() != $post->ID ) {
+			$post = get_post( $this->get_the_ID() );
+			setup_postdata( $post );
+			$reset_postdata = true;
+		}
+
+		// Now get the content
+		$content = get_the_content();
+
+		/**
+		 * Apply the default filter 'the_content' for the post content
+		 *
+		 * @since 0.1
+		 * @param string  $content  The current post content.
+		 */
+		$content = apply_filters( 'the_content', $content );
+
+		// Maybe cleanup some globals after us?
+		$more = $orig_more;
+		if ( $reset_postdata ) {
+			wp_reset_postdata();
+		}
+
+		// Some people choose to disable wpautop. Due to the Instant Articles spec, we really want it in!
+		$content = wpautop( $content );
+
+		/**
+		 * Filter the post content for Instant Articles
+		 *
+		 * @since 0.1
+		 * @param string  $content  The post content.
+		 */
+		$content = apply_filters( 'instant_articles_content', $content );
+
+		return $content;
+	}
+
+	/**
 	 * Get the published date for this post
 	 *
 	 * @since 0.1
