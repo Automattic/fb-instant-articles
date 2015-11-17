@@ -65,17 +65,43 @@ add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
 function instant_articles_init() {
 	$feed_slug = apply_filters( 'instant_articles_slug', 'instant-articles' );
 	add_feed( $feed_slug, 'instant_articles_feed' );
+
+	// If we’re on WPCOM, maybe flush rewrite rules?
+	if ( function_exists( 'wpcom_initiate_flush_rewrite_rules' ) ) {
+		instant_articles_wpcom_rewrites();
+	}
 }
 add_action( 'init', 'instant_articles_init' );
 
 /**
+ * Flush the rewrite rules if necessary on WPCOM
  *
+ * WordPress.com doesn’t call register_activation_hook(), but we need to make sure our feed URL is set up
  *
  * @since 0.1
+ * @todo Should we really run this on every request? Use an option/transient?
  */
+function instant_articles_wpcom_rewrites() {
+
+	if ( ! function_exists( 'wpcom_initiate_flush_rewrite_rules' ) ) {
 		return;
 	}
 
+	$feed_slug = apply_filters( 'instant_articles_slug', 'instant-articles' );
+	
+	// Look for a matching rule
+	$rules = get_option( 'rewrite_rules' );
+	$match = false;
+	foreach ( $rules as $rule => $rewrite ) {
+		// Look for e.g. "feed/(feed|rdf|rss|rss2|atom|instant-articles)/?$"
+		if ( preg_match( '/feed\/\(.*?' . $feed_slug . '.*?\)/', $rule ) ) {
+			$match = true;
+			break; // we just need one match;
+		}
+	}
+	if ( ! $match ) {
+		wpcom_initiate_flush_rewrite_rules();
+	}
 }
 
 
