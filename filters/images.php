@@ -46,5 +46,6 @@ function instant_articles_content_dom_images( DOMDocument $DOMDocument, $post_id
 	return $DOMDocument;
 
 }
-add_filter( 'instant_articles_content_dom', 'instant_articles_content_dom_images' );
+add_filter( 'instant_articles_content_dom', 'instant_articles_content_dom_images', 10, 2 );
+
 
