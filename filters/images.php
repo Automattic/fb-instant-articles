@@ -29,6 +29,8 @@ function instant_articles_content_dom_images( DOMDocument $DOMDocument ) {
 			} else {
 				$DOMNode->parentNode->removeChild( $DOMNode );
 			}
+
+			continue; // we’re done with this image
 		}
 
 		// Add the src to the stack so we can check for multiple uses later
