@@ -1,6 +1,6 @@
 <?php
 header( 'Content-Type: ' . feed_content_type( 'rss2' ) . '; charset=' . get_option( 'blog_charset' ), true );
-echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
+echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?' . '>';
 ?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 	<title><?php bloginfo_rss( 'name' ); ?> - Instant Articles</title>
