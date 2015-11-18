@@ -22,7 +22,13 @@ function instant_articles_content_dom_images( DOMDocument $DOMDocument ) {
 		
 		// If the image is used already, remove it
 		if ( in_array( $src, $used_images ) ) {
-			$DOMNode->parentNode->removeChild( $DOMNode );
+
+			// If the parent node will end up empty, remove it instead (unless it is the body element)
+			if ( 'body' != $DOMNode->parentNode->nodeName && 1 == $DOMNode->parentNode->childNodes->length ) {
+				$DOMNode->parentNode->parentNode->removeChild( $DOMNode->parentNode );
+			} else {
+				$DOMNode->parentNode->removeChild( $DOMNode );
+			}
 		}
 
 		// Add the src to the stack so we can check for multiple uses later
