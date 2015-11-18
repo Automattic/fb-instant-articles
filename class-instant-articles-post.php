@@ -225,7 +225,7 @@ class Instant_Articles_Post {
 
 				$filtered_content = '';
 				foreach ( $body->childNodes as $node ) {
-					$filtered_content .= $DOMDocument->saveXML( $node, LIBXML_NOEMPTYTAG );
+					$filtered_content .= $DOMDocument->saveXML( $node );
 				}
 
 				$content = $filtered_content;
