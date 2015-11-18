@@ -21,7 +21,7 @@ function instant_articles_content_dom_images( DOMDocument $DOMDocument, $post_id
 
 		$DOMNode = $DOMNodeList->item( $NodeListIndex );
 
-		$src = $DOMNode->attributes->getNamedItem( 'src' );
+		$src = $DOMNode->getAttribute( 'src' );
 
 		// See how far up the tree we can go
 		$replaceNode = $DOMNode;
