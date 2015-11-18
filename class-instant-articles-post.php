@@ -218,8 +218,9 @@ class Instant_Articles_Post {
 				 *
 				 * @since 0.1
 				 * @param DOMDocument  $DOMDocument  The DOMDocument with the content in the body element.
+				 * @param int          $post_id      The post_id to the post
 				 */
-				$DOMDocument = apply_filters( 'instant_articles_content_dom', $DOMDocument );
+				$DOMDocument = apply_filters( 'instant_articles_content_dom', $DOMDocument, $this->get_the_ID() );
 
 				$body = $DOMDocument->getElementsByTagName( 'body' )->item( 0 );
 

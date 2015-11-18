@@ -5,10 +5,11 @@
  * Filter the images in the body DOM element
  *
  * @since 0.1
- * @param DOMDocument $DOMDocument The current DOMDocument
+ * @param DOMDocument  $DOMDocument  The current DOMDocument
+ * @param int          $post_id      The post_id to the post
  * @return DOMDocument The filtered DOMDocument
  */
-function instant_articles_content_dom_images( DOMDocument $DOMDocument ) {
+function instant_articles_content_dom_images( DOMDocument $DOMDocument, $post_id ) {
 
 	// The Instant Articles spec says we can only use each image once. Let’s keep track of used images.
 	$used_images = array();
