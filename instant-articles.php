@@ -118,6 +118,11 @@ function instant_articles_wpcom_rewrites( $feed_slug ) {
  * @since 0.1
  */
 function instant_articles_feed() {
+
+	// Load included filters
+	include( dirname( __FILE__ ) . '/filters/images.php' );
+
+
 	include( dirname( __FILE__ ) . '/feed-template.php' );
 }
 
