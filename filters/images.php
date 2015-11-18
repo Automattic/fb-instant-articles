@@ -16,26 +16,31 @@ function instant_articles_content_dom_images( DOMDocument $DOMDocument, $post_id
 
 	$DOMNodeList = $DOMDocument->getElementsByTagName( 'img' );
 
-	foreach ( $DOMNodeList as $DOMNode ) {
+	$NodeListIndex = 0;
+	while ( $NodeListIndex < $DOMNodeList->length ) {
 
+		$DOMNode = $DOMNodeList->item( $NodeListIndex );
 
 		$src = $DOMNode->attributes->getNamedItem( 'src' );
+
+		// See how far up the tree we can go
+		$replaceNode = $DOMNode;
+		while ( 'body' != $replaceNode->parentNode->nodeName && 1 == $replaceNode->parentNode->childNodes->length ) {
+			$replaceNode = $replaceNode->parentNode;
+		}
 		
 		// If the image is used already, remove it
 		if ( in_array( $src, $used_images ) ) {
-
-			// If the parent node will end up empty, remove it instead (unless it is the body element)
-			if ( 'body' != $DOMNode->parentNode->nodeName && 1 == $DOMNode->parentNode->childNodes->length ) {
-				$DOMNode->parentNode->parentNode->removeChild( $DOMNode->parentNode );
-			} else {
-				$DOMNode->parentNode->removeChild( $DOMNode );
-			}
-
+			// Please note that when we remove the node, $DOMNodeList->length is n-1. Our $NodeListIndex will now point to the next item in the list.
+			$replaceNode->parentNode->removeChild( $replaceNode );
 			continue; // we’re done with this image
 		}
 
 		// Add the src to the stack so we can check for multiple uses later
 		$used_images[] = $src;
+
+		++$NodeListIndex;
+
 	}
 
 	return $DOMDocument;
