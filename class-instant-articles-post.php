@@ -283,23 +283,51 @@ class Instant_Articles_Post {
 	}
 
 	/**
-	 * Get the published date (ISO 8601)
+	 * Get the published date for this post (ISO 8601)
 	 *
 	 * @since 0.1
-	 * @return string  The pubdate formatted suitable for use in the RSS feed and the html time elements (ISO 8601)
+	 * @return string  The published date formatted suitable for use in the RSS feed and the html time elements (ISO 8601)
 	 */
 	public function get_the_pubdate_iso() {
-		return mysql2date( 'c', get_post_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ), false );
+
+		$published_date = mysql2date( 'c', get_post_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ), false );
+
+		/**
+		 * Filter the post published date (ISO 8601)
+		 *
+		 * @since 0.1
+		 *
+		 * @param string                 $published_date        The current post published date.
+		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 */
+		$published_date = apply_filters( 'instant_articles_published_date_iso', $published_date, $this );
+
+		return $published_date;
+
 	}
 
 	/**
-	 * Get the modified date (ISO 8601)
+	 * Get the modified date for this post (ISO 8601)
 	 *
 	 * @since 0.1
-	 * @return string  The pubdate formatted suitable for use in the RSS feed and the html time elements (ISO 8601)
+	 * @return string  The modified date formatted suitable for use in the RSS feed and the html time elements (ISO 8601)
 	 */
 	public function get_the_moddate_iso() {
-		return mysql2date( 'c', get_post_modified_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ), false );
+
+		$modified_date = mysql2date( 'c', get_post_modified_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ), false );
+
+		/**
+		 * Filter the post modified date (ISO 8601)
+		 *
+		 * @since 0.1
+		 *
+		 * @param string                 $modified_date        The current post modified date.
+		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 */
+		$modified_date = apply_filters( 'instant_articles_modified_date_iso', $modified_date, $this );
+
+		return $modified_date;
+
 	}
 
 	/**
