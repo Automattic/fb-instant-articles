@@ -24,6 +24,8 @@
 
 defined( 'ABSPATH' ) || die('Shame on you');
 
+require_once( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-dom-transform-filter-runner.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-post.php' );
 
 /**
@@ -82,8 +84,18 @@ add_action( 'init', 'instant_articles_init' );
  * @since 0.1
  */
 function instant_articles_feed() {
+
 	include( dirname( __FILE__ ) . '/feed-template.php' );
 }
 
-
+/**
+ * Register included DOM transformation filters
+ *
+ * @since 0.1
+ */
+function instant_articles_register_transformation_filters() {
+	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-image.php' );
+	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Image' );
+}
+add_action( 'instant_articles_register_dom_transformation_filters', 'instant_articles_register_transformation_filters' );
 

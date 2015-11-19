@@ -199,6 +199,38 @@ class Instant_Articles_Post {
 		 */
 		$content = apply_filters( 'instant_articles_content', $content );
 
+
+		if ( class_exists( 'DOMDocument' ) && has_action( 'instant_articles_register_dom_transformation_filters' ) ) {
+
+			/* If we have filters that wants to work on the DOM, we generate one instance of DOMDocument
+			   they can all work on, instead of having to handle the conversion themselves. */
+
+			$libxml_previous_state = libxml_use_internal_errors( true );
+			$DOMDocument = new DOMDocument;
+			$result = $DOMDocument->loadHTML( '<html><body>' . $content . '</body></html>' );
+			libxml_clear_errors();
+			libxml_use_internal_errors( $libxml_previous_state );
+
+			if ( $result ) {
+
+				do_action( 'instant_articles_register_dom_transformation_filters' );
+				Instant_Articles_DOM_Transform_Filter_Runner::run( $DOMDocument, $this->get_the_ID() );
+
+
+				$body = $DOMDocument->getElementsByTagName( 'body' )->item( 0 );
+
+				$filtered_content = '';
+				foreach ( $body->childNodes as $node ) {
+					$filtered_content .= $DOMDocument->saveXML( $node );
+				}
+
+				$content = $filtered_content;
+				unset( $filtered_content );
+
+			}
+
+		}
+
 		return $content;
 	}
 
@@ -334,4 +366,6 @@ class Instant_Articles_Post {
 	}
 
 }
+
+
 
