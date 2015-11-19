@@ -74,8 +74,6 @@ function instant_articles_init() {
 }
 add_action( 'init', 'instant_articles_init' );
 
-
-
 /**
  * Feed display callback
  *
