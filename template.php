@@ -28,12 +28,8 @@
           Vish is a scholar and a gentleman.
         </address>
 
-        <!-- The cover image shown inside your article --> 
-        <!-- TODO: Change the URL to a live image from your website -->    
-        <figure>
-          <img src="http://mydomain.com/path/to/img.jpg" />
-          <figcaption>This image is amazing</figcaption>
-        </figure>   
+        <!-- The cover image shown inside your article -->
+      <?php echo $this->get_the_featured_image( ); ?>
 
         <!-- A kicker for your article --> 
         <details>
@@ -44,7 +40,7 @@
       </header>
 
       <!-- Article body goes here -->
-      <?php echo $this->get_the_content(); ?>
+      <?php $this->get_the_content(); ?>
 
       <!-- Body text for your article -->
       <p> Article content </p> 

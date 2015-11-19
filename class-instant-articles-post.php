@@ -299,6 +299,36 @@ class Instant_Articles_Post {
 	}
 
 	/**
+	 * Get featured image url for cover
+	 *
+	 * @since 0.1
+	 * @return string  
+	 */
+	public function get_the_featured_image( ) {
+		
+		if ( has_post_thumbnail( $this->get_the_ID() ) ) {
+
+			$image_array = wp_get_attachment_image_src( get_post_thumbnail_id( $this->get_the_ID() ), 'full' ); 
+			$src = $image_array[0];
+
+			$attachment_id   = get_post_thumbnail_id( $this->get_the_ID() );
+			$attachment_caption = apply_filters( 'instant_articles_cover_img_caption', get_post( $attachment_id  )->post_excerpt ); 
+
+			ob_start(); ?>
+			<figure>
+				<img src="<?php echo esc_url( $src ); ?>" />
+				<figcaption><?php echo esc_html( $attachment_caption ); ?></figcaption>
+			</figure> 
+
+			<?php
+			$content = ob_get_clean();			
+			
+			return $content;        
+     
+		}	
+	}
+
+	/**
 	 * Render post
 	 *
 	 * @since 0.1
