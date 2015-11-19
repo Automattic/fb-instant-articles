@@ -200,7 +200,7 @@ class Instant_Articles_Post {
 		$content = apply_filters( 'instant_articles_content', $content );
 
 
-		if ( class_exists( 'DOMDocument' ) && has_filter( 'instant_articles_content_dom' ) ) {
+		if ( class_exists( 'DOMDocument' ) && has_action( 'instant_articles_register_dom_transformation_filters' ) ) {
 
 			/* If we have filters that wants to work on the DOM, we generate one instance of DOMDocument
 			   they can all work on, instead of having to handle the conversion themselves. */
@@ -213,14 +213,9 @@ class Instant_Articles_Post {
 
 			if ( $result ) {
 
-				/**
-				 * Filter a DOMDocument instance containing the content for the Instant Articles
-				 *
-				 * @since 0.1
-				 * @param DOMDocument  $DOMDocument  The DOMDocument with the content in the body element.
-				 * @param int          $post_id      The post_id to the post
-				 */
-				$DOMDocument = apply_filters( 'instant_articles_content_dom', $DOMDocument, $this->get_the_ID() );
+				do_action( 'instant_articles_register_dom_transformation_filters' );
+				Instant_Articles_DOM_Transform_Filter_Runner::run( $DOMDocument, $this->get_the_ID() );
+
 
 				$body = $DOMDocument->getElementsByTagName( 'body' )->item( 0 );
 
@@ -371,4 +366,6 @@ class Instant_Articles_Post {
 	}
 
 }
+
+
 
