@@ -31,8 +31,8 @@
         <!-- The cover image shown inside your article -->        
         <?php if ( $featured_image = $this->get_the_featured_image() ) : ?>
         <figure>
-          <img src="<?php echo $featured_image['src']; ?>" />
-          <figcaption><?php echo $featured_image['caption']; ?></figcaption>
+          <img src="<?php echo esc_url( $featured_image['src'] ); ?>" />
+          <figcaption><?php echo esc_html( $featured_image['caption'] ); ?></figcaption>
         </figure> 
       <?php endif; ?>
      
