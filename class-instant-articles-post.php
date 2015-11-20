@@ -445,6 +445,47 @@ class Instant_Articles_Post {
 	}
 
 	/**
+	 * Get credits for footer. 
+	 *
+	 * @since 0.1
+	 * @return string  
+	 */
+	public function get_the_footer_credits() {
+
+		/**
+		* Filter credits 
+		*
+		* @since 0.1
+		*
+		* @param string                 	        	   No credits set by default.
+		* @param int  									   The post ID
+		*/
+		$footer_credits = apply_filters( 'instant_articles_footer_credits', '', $this->get_the_ID() ); 				
+		return $footer_credits; 
+	}
+
+
+	/**
+	 * Get copyright for footer
+	 *
+	 * @since 0.1
+	 * @return string  
+	 */
+	public function get_the_footer_copyright() {
+
+		/**
+		* Filter copyright
+		*
+		* @since 0.1
+		*
+		* @param string                 	        	   No copyright set by default.
+		* @param int  									   The post ID
+		*/
+		$footer_copyright = apply_filters( 'instant_articles_footer_copyright', '', $this->get_the_ID() ); 				
+		return $footer_copyright; 
+	}
+
+	/**
 	 * Render post
 	 *
 	 * @since 0.1

@@ -77,7 +77,15 @@
           <iframe src="" hidden></iframe>
       </figure>
 
-      <footer>
+      <footer>  
+        <?php if ( $footer_credits = $this->get_the_footer_credits( ) ) : ?>
+         <!-- Credits for your article -->
+        <aside><?php echo esc_html( $footer_credits ); ?></aside>
+        <?php endif; ?>
+         <?php if ( $footer_copyright = $this->get_the_footer_copyright( ) ) : ?>
+        <!-- Copyright details for your article -->
+        <small><?php echo esc_html ( $footer_copyright ); ?></small>
+        <?php endif; ?> 
       </footer>
     </article>
   </body>
