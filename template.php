@@ -56,7 +56,7 @@
         if ( is_array( $this->get_the_authors() ) && count( $this->get_the_authors() ) ) { 
          
           foreach ( $this->get_the_authors() as $author ) {
-            
+
             $display_name = apply_filters( 'instant_articles_author_display_name', $author->display_name, $author );
             $link = apply_filters( 'instant_articles_author_link', get_author_posts_url( $author->ID, $author->user_nicename ), $author );
           
@@ -64,7 +64,7 @@
               $output = sprintf( '<address><a href="%1$s">%2$s</a>%3$s</address>',
                 esc_url( $link ),
                 esc_html( $display_name ),
-                esc_html( $author->bio ) )
+                esc_html( $author->bio )
               );
             } else {
               $output = '<address><a>' . esc_html( $display_name ) . '</a>' . esc_html ( $author->bio ) . '</address>';
