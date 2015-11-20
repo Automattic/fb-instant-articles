@@ -334,10 +334,10 @@ class Instant_Articles_Post {
 	}
 
 	/**
-	 * Get featured image url for cover
+	 * Get featured image for cover
 	 *
 	 * @since 0.1
-	 * @return string  
+	 * @return array  
 	 */
 	public function get_the_featured_image( ) {
 
@@ -355,7 +355,7 @@ class Instant_Articles_Post {
 			 *
 			 * @since 0.1
 			 *
-			 * @param array                 $image_data        The first category returned from get_the_category().
+			 * @param array                 $image_data        Array containg image source and caption.
 			 * @param int  									   The post ID
 			 */
 			$image_data = apply_filters( 'instant_articles_featured_image', $image_data, $this->get_the_ID() ); 				
