@@ -332,6 +332,33 @@ class Instant_Articles_Post {
 		return $modified_date;
 
 	}
+	/**
+	 * Get the author(s)
+	 *
+	 * @since 0.1
+	 * @return array  $authors  The post author(s)
+	 */
+	public function get_the_authors() {
+
+		$authors = array();
+
+		$post = get_post( $this->get_the_ID() );
+		if ( $userdata = get_userdata( $post->post_author ) ) {
+			$authors[] = $userdata;
+		}
+
+		/**
+		 * Filter the post author(s)
+		 *
+		 * @since 0.1
+		 *
+		 * @param array                  $authors         The current post author(s).
+		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 */
+		$authors = apply_filters( 'instant_articles_authors', $authors, $this );
+
+		return $authors;
+	}
 
 	/**
 	 * Get featured image for cover
