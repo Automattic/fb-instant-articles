@@ -360,6 +360,14 @@ class Instant_Articles_Post {
 		}	
 	}
 
+	public function get_the_kicker() {
+
+	}
+
+	public function get_the_footer() {
+
+	}
+
 	/**
 	 * Render post
 	 *
