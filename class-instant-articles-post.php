@@ -105,6 +105,9 @@ class Instant_Articles_Post {
 			return __( 'There is no excerpt because this is a protected post.' );
 		}
 
+		// Make sure no “read more” link is added
+		add_filter( 'excerpt_more', '__return_empty_string', 999 );
+
 		/**
 		 * Apply the default WP Filters for the post excerpt
 		 *
@@ -428,6 +431,69 @@ class Instant_Articles_Post {
 		$category_kicker = apply_filters('instant_articles_cover_kicker', $category,  $this->get_the_ID() );
 
 		return $category_kicker ? $category_kicker : '';
+	}
+
+	/**
+	 * Get newsfeed cover type, image or video
+	 *
+	 * @since 0.1
+	 * @return string  
+	 */
+	public function get_newsfeed_cover() {
+
+		$type = "video";
+
+		/**
+		 * Filter the cover type property 
+		 *
+		 * @since 0.1
+		 *
+		 * @param string                 $type        Set to "video" for video cover. Featured image is default.
+		 * @param int  								  The post ID
+		 */
+		$type = apply_filters('instant_articles_cover_type', $type,  $this->get_the_ID() );
+		return $type;
+	}
+
+	/**
+	 * Get credits for footer. 
+	 *
+	 * @since 0.1
+	 * @return string  
+	 */
+	public function get_the_footer_credits() {
+
+		/**
+		* Filter credits 
+		*
+		* @since 0.1
+		*
+		* @param string                 	        	   No credits set by default.
+		* @param int  									   The post ID
+		*/
+		$footer_credits = apply_filters( 'instant_articles_footer_credits', '', $this->get_the_ID() ); 				
+		return $footer_credits; 
+	}
+
+
+	/**
+	 * Get copyright for footer
+	 *
+	 * @since 0.1
+	 * @return string  
+	 */
+	public function get_the_footer_copyright() {
+
+		/**
+		* Filter copyright
+		*
+		* @since 0.1
+		*
+		* @param string                 	        	   No copyright set by default.
+		* @param int  									   The post ID
+		*/
+		$footer_copyright = apply_filters( 'instant_articles_footer_copyright', '', $this->get_the_ID() ); 				
+		return $footer_copyright; 
 	}
 
 	/**
