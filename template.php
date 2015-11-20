@@ -28,8 +28,14 @@
           Vish is a scholar and a gentleman.
         </address>
 
-        <!-- The cover image shown inside your article -->
-      <?php echo $this->get_the_featured_image( ); ?>
+        <!-- The cover image shown inside your article -->        
+        <?php if ( $featured_image = $this->get_the_featured_image() ) : ?>
+        <figure>
+          <img src="<?php echo $featured_image['src']; ?>" />
+          <figcaption><?php echo $featured_image['caption']; ?></figcaption>
+        </figure> 
+      <?php endif; ?>
+     
 
         <?php if ( $kicker_text = $this->get_the_kicker() ) : ?>
         <!-- A kicker for your article --> 
