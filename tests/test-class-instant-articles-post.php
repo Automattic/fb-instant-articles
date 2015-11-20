@@ -52,4 +52,8 @@ class InstantArticlesPost extends WP_UnitTestCase {
         $this->assertNull( $this->instant_articles_post->get_the_featured_image() ); 
     }
 
+    public function testGetTheKicker_NoCategory() {
+        $this->assertEmpty( $this->instant_articles_post->get_the_kicker() ); 
+    }
+
 }

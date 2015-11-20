@@ -360,12 +360,32 @@ class Instant_Articles_Post {
 		}	
 	}
 
+	/**
+	 * Get kicker text
+	 *
+	 * @since 0.1
+	 * @return string  
+	 */
 	public function get_the_kicker() {
 
-	}
+		if ( has_category() ) {
+			$categories = get_the_category();
+			$category = $categories[0]->name;
+		}
+		else {
+			$category = '';
+		}
+		
+		/**
+		 * Filter the kicker text
+		 *
+		 * @since 0.1
+		 *
+		 * @param string                 $category        The first category returned from get_the_category().
+		 */
+		$category_kicker = apply_filters('instant_articles_cover_kicker', $category);
 
-	public function get_the_footer() {
-
+		return $category_kicker ? $category_kicker : '';
 	}
 
 	/**

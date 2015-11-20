@@ -31,11 +31,10 @@
         <!-- The cover image shown inside your article -->
       <?php echo $this->get_the_featured_image( ); ?>
 
+        <?php if ( $kicker_text = $this->get_the_kicker() ) : ?>
         <!-- A kicker for your article --> 
-        <details>
-          <summary>Kicker</summary>
-          This is a kicker.
-        </details>
+        <h3 class="op-kicker"><?php echo esc_html( $kicker_text); ?></h3>
+        <?php endif; ?>
 
       </header>
 
@@ -65,11 +64,6 @@
       </figure>
 
       <footer>
-        <!-- Credits for your article -->
-        <aside>Acknowledgements</aside>
-
-        <!-- Copyright details for your article -->
-        <small>Legal notes</small>
       </footer>
     </article>
   </body>
