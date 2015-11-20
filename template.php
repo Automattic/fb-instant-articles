@@ -18,6 +18,31 @@
     <article>
       <header>
 
+        <!-- The cover -->        
+        <?php $cover_media = $this->get_cover_media(); ?>
+        <?php if ( 'image' == $cover_media->type ) : ?>
+          <figure>
+            <img src="<?php echo esc_url( $cover_media->src ); ?>" />
+            <?php if ( strlen( $cover_media->caption ) ) : ?>
+              <figcaption><?php echo esc_html( $cover_media->caption ); ?></figcaption>
+            <?php endif; ?>
+          </figure> 
+        <?php elseif ( 'video' == $cover_media->type ) : ?>
+          <figure>
+            <video>
+              <source src="<?php echo esc_url( $cover_media->src ); ?>" type="<?php echo esc_attr( $cover_media->mime_type ); ?>" />
+            </video>
+          </figure>
+        <?php elseif ( 'slideshow' == $cover_media->type ) : ?>
+          <figure class="op-slideshow">
+            <?php foreach ( $cover_media->items as $item ) : ?>
+              <figure>
+                <img src="<?php echo esc_url( $item->$src ); ?>" />
+              </figure>
+          <?php endforeach; ?>
+          </figure>
+        <?php endif; ?>
+
         <h1><?php echo esc_html( $this->get_the_title() ); ?></h1>
 
         <!-- The date and time when your article was originally published -->
@@ -35,14 +60,6 @@
           <a>TR Vishwanath</a>
           Vish is a scholar and a gentleman.
         </address>
-
-        <!-- The cover image shown inside your article -->        
-        <?php if ( $featured_image ) : ?>
-        <figure>
-          <img src="<?php echo esc_url( $featured_image['src'] ); ?>" />
-          <figcaption><?php echo esc_html( $featured_image['caption'] ); ?></figcaption>
-        </figure> 
-      <?php endif; ?>
      
 
         <?php if ( $kicker_text = $this->get_the_kicker() ) : ?>

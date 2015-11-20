@@ -405,6 +405,39 @@ class Instant_Articles_Post {
 	}
 
 	/**
+	 * Get the cover media
+	 *
+	 * @since 0.1
+	 * @return array  
+	 */
+	public function get_cover_media( ) {
+
+		$cover_media = new stdClass;
+		$cover_media->type = 'none';
+
+		// If someone else is handling this, let them. Otherwise fall back to us trying to use the featured image.
+		if ( has_filter( 'instant_articles_cover_media' ) ) {
+			/**
+			 * Filter the cover media
+			 *
+			 * @since 0.1
+			 * @param stdClass  $cover_media  The cover media object
+			 * @param int       $post_id      The current post ID
+			 */
+			$cover_media = apply_filters( 'instant_articles_cover_media', $cover_media, $this->get_the_ID() );
+		} else {
+			$featured_image_data = $this->get_the_featured_image();
+			if ( isset( $featured_image_data['src'] ) && strlen( $featured_image_data['src'] ) ) {
+				$cover_media->type = 'image';
+				$cover_media->src = $featured_image_data['src'];
+				$cover_media->caption = $featured_image_data['caption'];
+			}
+		}
+
+		return $cover_media;
+	}
+
+	/**
 	 * Get kicker text
 	 *
 	 * @since 0.1
