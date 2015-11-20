@@ -343,8 +343,19 @@ class Instant_Articles_Post {
 		$authors = array();
 
 		$post = get_post( $this->get_the_ID() );
-		if ( $userdata = get_userdata( $post->post_author ) ) {
-			$authors[] = $userdata;
+		$WP_User = get_userdata( $post->post_author );
+		if ( is_a( $WP_User, 'WP_User' ) ) {
+			$author = new stdClass;
+			$author->ID            = $WP_User->ID;
+			$author->display_name  = $WP_User->data->display_name;
+			$author->first_name    = $WP_User->data->first_name;
+			$author->last_name     = $WP_User->data->last_name;
+			$author->user_login    = $WP_User->data->user_login;
+			$author->user_nicename = $WP_User->data->user_nicename;
+			$author->user_email    = $WP_User->data->user_email;
+			$author->user_url      = $WP_User->data->user_url;
+
+			$authors[] = $author;
 		}
 
 		/**
