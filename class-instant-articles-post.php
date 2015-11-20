@@ -368,26 +368,26 @@ class Instant_Articles_Post {
 	 * @return string  
 	 */
 	public function get_the_featured_image( ) {
-		
-		if ( has_post_thumbnail( $this->get_the_ID() ) ) {
+
+		$image_data = array();
+		if ( has_post_thumbnail( $this->get_the_ID() ) ) {			
 
 			$image_array = wp_get_attachment_image_src( get_post_thumbnail_id( $this->get_the_ID() ), 'full' ); 
-			$src = $image_array[0];
-
 			$attachment_id   = get_post_thumbnail_id( $this->get_the_ID() );
-			$attachment_caption = apply_filters( 'instant_articles_cover_img_caption', get_post( $attachment_id  )->post_excerpt ); 
-
-			ob_start(); ?>
-			<figure>
-				<img src="<?php echo esc_url( $src ); ?>" />
-				<figcaption><?php echo esc_html( $attachment_caption ); ?></figcaption>
-			</figure> 
-
-			<?php
-			$content = ob_get_clean();			
 			
-			return $content;        
-     
+			$image_data['src'] = $image_array[0];
+			$image_data['caption'] = get_post( $attachment_id  )->post_excerpt; 		
+
+			/**
+			 * Filter
+			 *
+			 * @since 0.1
+			 *
+			 * @param array                 $image_data        The first category returned from get_the_category().
+			 * @param int  									   The post ID
+			 */
+			$image_data = apply_filters( 'instant_articles_featured_image', $image_data, $this->get_the_ID() ); 				
+			return $image_data;   
 		}	
 	}
 
@@ -406,15 +406,16 @@ class Instant_Articles_Post {
 		else {
 			$category = '';
 		}
-		
+
 		/**
 		 * Filter the kicker text
 		 *
 		 * @since 0.1
 		 *
 		 * @param string                 $category        The first category returned from get_the_category().
+		 * @param int  									  The post ID
 		 */
-		$category_kicker = apply_filters('instant_articles_cover_kicker', $category);
+		$category_kicker = apply_filters('instant_articles_cover_kicker', $category,  $this->get_the_ID() );
 
 		return $category_kicker ? $category_kicker : '';
 	}
