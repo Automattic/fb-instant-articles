@@ -83,6 +83,9 @@ add_action( 'init', 'instant_articles_init' );
  */
 function instant_articles_feed() {
 
+	// Load compat layers
+	include( dirname( __FILE__ ) . '/compat.php' );
+	
 	include( dirname( __FILE__ ) . '/feed-template.php' );
 }
 
