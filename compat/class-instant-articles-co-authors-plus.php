@@ -38,6 +38,7 @@ class Instant_Articles_Co_Authors_Plus {
 				$author->user_nicename = is_a( $coauthor, 'WP_User' ) ? $coauthor->data->user_nicename : $coauthor->user_nicename;
 				$author->user_email    = is_a( $coauthor, 'WP_User' ) ? $coauthor->data->user_email    : $coauthor->user_email;
 				$author->user_url      = is_a( $coauthor, 'WP_User' ) ? $coauthor->data->user_url      : $coauthor->website;
+				$author->bio           = is_a( $coauthor, 'WP_User' ) ? get_the_author_meta( 'description', $coauthor->ID ) : $coauthor->description;
 
 				$authors[] = $author;
 			}

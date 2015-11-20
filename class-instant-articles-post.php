@@ -357,6 +357,7 @@ class Instant_Articles_Post {
 			$author->user_nicename = $WP_User->data->user_nicename;
 			$author->user_email    = $WP_User->data->user_email;
 			$author->user_url      = $WP_User->data->user_url;
+			$author->bio           = get_the_author_meta( 'description', $WP_User->ID );
 
 			$authors[] = $author;
 		}
