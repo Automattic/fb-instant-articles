@@ -213,7 +213,10 @@ class Instant_Articles_Post {
 
 			if ( $result ) {
 
-				do_action( 'instant_articles_register_dom_transformation_filters' );
+				// Register the DOM transformation filters if not done yet
+				if ( ! did_action( 'instant_articles_register_dom_transformation_filters' ) ) {
+					do_action( 'instant_articles_register_dom_transformation_filters' );
+				}
 				Instant_Articles_DOM_Transform_Filter_Runner::run( $DOMDocument, $this->get_the_ID() );
 
 
