@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en" prefix="op: http://media.facebook.com/op#">
+  <?php  $featured_image = $this->get_the_featured_image(); 
+         $cover_type = $this->get_newsfeed_cover();
+  ?>
   <head>
+    <meta property="og:title" content="<?php echo esc_html( $this->get_the_title() ); ?>">
+    <meta property="og:description" content="<?php echo esc_html( $this->get_the_excerpt() ); ?>">
+<?php if ( $cover_type == "image" ) : ?>
+    <meta property="og:image" content="<?php echo esc_url( $featured_image['src'] ); ?>">
+<?php endif; ?>
     <meta charset="utf-8">
     <link rel="canonical" href="<?php echo esc_url( $this->get_canonical_url() ); ?>">
     <meta property="op:markup_version" content="v1.0">
@@ -29,7 +37,7 @@
         </address>
 
         <!-- The cover image shown inside your article -->        
-        <?php if ( $featured_image = $this->get_the_featured_image() ) : ?>
+        <?php if ( $featured_image ) : ?>
         <figure>
           <img src="<?php echo esc_url( $featured_image['src'] ); ?>" />
           <figcaption><?php echo esc_html( $featured_image['caption'] ); ?></figcaption>
@@ -52,8 +60,8 @@
 
       <!-- A video within your article -->
       <!-- TODO: Change the URL to a live video from your website -->    
-      <figure>
-        <video>
+      <figure<?php if ( $cover_type == "video" ) echo ' class="fb-feed-cover"' ?>>
+        <video autoplay>
           <source src="http://mydomain.com/path/to/video.mp4" type="video/mp4" />
         </video>
       </figure>
