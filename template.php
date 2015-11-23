@@ -83,7 +83,7 @@
 			</header>
 
 			<!-- Article body goes here -->
-			<?php $this->get_the_content(); ?>
+			<?php echo $this->get_the_content(); ?>
 
 			<!-- Body text for your article -->
 			<p> Article content </p>
