@@ -340,24 +340,27 @@ class Instant_Articles_Post {
 	 *
 	 * @since 0.1
 	 * @return array  $authors  The post author(s)
+	 * @todo Mapping guest users in Co-Authors Plus may cause duplicate entries. Remove those users before returning
 	 */
 	public function get_the_authors() {
 
 		$authors = array();
 
 		$post = get_post( $this->get_the_ID() );
+
 		$WP_User = get_userdata( $post->post_author );
+
 		if ( is_a( $WP_User, 'WP_User' ) ) {
 			$author = new stdClass;
 			$author->ID            = $WP_User->ID;
 			$author->display_name  = $WP_User->data->display_name;
-			$author->first_name    = $WP_User->data->first_name;
-			$author->last_name     = $WP_User->data->last_name;
+			$author->first_name    = $WP_User->first_name;
+			$author->last_name     = $WP_User->last_name;
 			$author->user_login    = $WP_User->data->user_login;
 			$author->user_nicename = $WP_User->data->user_nicename;
 			$author->user_email    = $WP_User->data->user_email;
 			$author->user_url      = $WP_User->data->user_url;
-			$author->bio           = get_the_author_meta( 'description', $WP_User->ID );
+			$author->bio           = $WP_User->description;
 
 			$authors[] = $author;
 		}
