@@ -73,7 +73,11 @@ function instant_articles_feed() {
 
 	// Load compat layers
 	include( dirname( __FILE__ ) . '/compat.php' );
+
+	// Load embedded content handlers
+	include( dirname( __FILE__ ) . '/embeds.php' );
 	
+	// Load the feed template
 	include( dirname( __FILE__ ) . '/feed-template.php' );
 }
 
