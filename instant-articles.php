@@ -76,7 +76,11 @@ function instant_articles_feed() {
 
 	// Load shortcode handlers
 	include( dirname( __FILE__ ) . '/shortcode-handlers.php' );
+
+	// Load embedded content handlers
+	include( dirname( __FILE__ ) . '/embeds.php' );
 	
+	// Load the feed template
 	include( dirname( __FILE__ ) . '/feed-template.php' );
 
 }
