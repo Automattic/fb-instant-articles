@@ -73,8 +73,12 @@ function instant_articles_feed() {
 
 	// Load compat layers
 	include( dirname( __FILE__ ) . '/compat.php' );
+
+	// Load shortcode handlers
+	include( dirname( __FILE__ ) . '/shortcode-handlers.php' );
 	
 	include( dirname( __FILE__ ) . '/feed-template.php' );
+
 }
 
 /**
