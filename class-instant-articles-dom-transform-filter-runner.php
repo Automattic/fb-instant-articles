@@ -16,7 +16,7 @@ class Instant_Articles_DOM_Transform_Filter_Runner {
 	 * @since 0.1
 	 * @param string  $className  The name of a class that extends Instant_Articles_DOM_Transform_Filter
 	 */
-	function register( $className ) {
+	static function register( $className ) {
 		if ( ! in_array( $className, self::$_stack ) && is_subclass_of( $className, 'Instant_Articles_DOM_Transform_Filter' ) ) {
 			self::$_stack[] = $className;
 		}
@@ -30,7 +30,7 @@ class Instant_Articles_DOM_Transform_Filter_Runner {
 	 * @param DOMDocument  $DOMDocument  The DOMDocument we are working on
 	 * @param int          $post_id      The current post ID
 	 */
-	function run( $DOMDocument, $post_id ) {
+	static function run( $DOMDocument, $post_id ) {
 		foreach ( self::$_stack as $className ) {
 			$obj = new $className( $DOMDocument, $post_id );
 			$obj->run();
