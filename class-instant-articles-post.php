@@ -475,17 +475,18 @@ class Instant_Articles_Post {
 	 */
 	public function get_newsfeed_cover() {
 
-		$type = "video";
+		$type = 'image';
 
 		/**
 		 * Filter the cover type property 
 		 *
 		 * @since 0.1
 		 *
-		 * @param string                 $type        Set to "video" for video cover. Featured image is default.
-		 * @param int  								  The post ID
+		 * @param string	$type  Set to 'video' for video cover. Featured image (image) is default.
+		 * @param int		The post ID
 		 */
-		$type = apply_filters('instant_articles_cover_type', $type,  $this->get_the_ID() );
+		$type = apply_filters( 'instant_articles_cover_type', $type,  $this->get_the_ID() );
+
 		return $type;
 	}
 
