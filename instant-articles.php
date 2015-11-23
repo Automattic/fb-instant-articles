@@ -10,18 +10,6 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-/**
- * Filters/Actions
- *
- * Filters:
- * instant_articles_slug - Change the feed slug. Default: instant-articles
- * instant_articles_show_style - Show/hide meta tag with style info. Default: true
- * instant_articles_style - Style attribute. Default: default
- *
- * Actions
- * -
- */
-
 defined( 'ABSPATH' ) || die('Shame on you');
 
 require_once( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter.php' );
@@ -99,4 +87,3 @@ function instant_articles_register_transformation_filters() {
 	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Image' );
 }
 add_action( 'instant_articles_register_dom_transformation_filters', 'instant_articles_register_transformation_filters' );
-
