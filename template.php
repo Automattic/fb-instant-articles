@@ -53,28 +53,28 @@
 				<time class="op-modified" datetime="<?php echo esc_attr( $this->get_the_moddate_iso() ); ?>"><?php echo esc_html( $this->get_the_moddate() ); ?></time>
 
 				<!-- The authors of your article -->
-				<?php
-				if ( is_array( $this->get_the_authors() ) && count( $this->get_the_authors() ) ) {
-
-					foreach ( $this->get_the_authors() as $author ) {
-
-						$display_name = apply_filters( 'instant_articles_author_display_name', $author->display_name, $author );
-						$link = apply_filters( 'instant_articles_author_link', get_author_posts_url( $author->ID, $author->user_nicename ), $author );
-
-						if ( ! empty( $link ) ) {
-							$output = sprintf( '<address><a href="%1$s">%2$s</a>%3$s</address>',
-								esc_url( $link ),
-								esc_html( $display_name ),
-								esc_html( $author->bio )
-							);
-						} else {
-							$output = '<address><a>' . esc_html( $display_name ) . '</a>' . esc_html ( $author->bio ) . '</address>';
-						}
-
-						echo apply_filters( 'instant_articles_author_content', $output, $author );
-					}
-				}
-				?>
+				<?php $authors = $this->get_the_authors(); ?>
+				<?php if ( is_array( $authors ) && count( $authors ) ) : ?>
+					<?php foreach ( $authors as $author ) : ?>
+						<address>
+							<?php
+							$attributes = '';
+							if ( strlen( $author->user_url ) ) {
+								$attributes = ' href="' . esc_url( $author->user_url ) . '"';
+								if ( isset( $author->user_url_rel ) && strlen( $author->user_url_rel ) ) {
+									$attributes .= ' rel="' . esc_attr( $author->user_url_rel ) . '"';
+								}
+							}
+							?>
+							<a<?php echo $attributes; ?>>
+								<?php echo esc_html( $author->display_name ); ?>
+							</a>
+							<?php if ( strlen( $author->bio ) ) : ?>
+								<?php echo esc_html( $author->bio ); ?>
+							<?php endif; ?>
+						</address>
+					<?php endforeach; ?>
+				<?php endif; ?>
 
 				<?php if ( $kicker_text = $this->get_the_kicker() ) : ?>
 					<!-- A kicker for your article -->

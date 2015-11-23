@@ -18,7 +18,12 @@ echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) )
 			<guid isPermaLink="false"><?php the_guid(); ?></guid>
 			<description><![CDATA[<?php echo $instant_article_post->get_the_excerpt_rss(); ?>]]></description>
 			<pubDate><?php echo $instant_article_post->get_the_pubdate_iso(); ?></pubDate>
-			<author><![CDATA[<?php echo esc_html( get_the_author() ); ?>]]></author>
+			<?php $authors = $instant_article_post->get_the_authors(); ?>
+			<?php if ( is_array( $authors ) && count( $authors ) ) : ?>
+				<?php foreach ( $authors as $author ) : ?>
+					<author><?php echo esc_html( $author->display_name ); ?></author>
+				<?php endforeach; ?>
+			<?php endif; ?>
 		</item>
 	<?php endwhile; ?>
 </rss>
