@@ -85,28 +85,6 @@
 			<!-- Article body goes here -->
 			<?php echo $this->get_the_content(); ?>
 
-			<!-- Body text for your article -->
-			<p> Article content </p>
-
-			<!-- A video within your article -->
-			<!-- TODO: Change the URL to a live video from your website -->
-			<figure<?php if ( $cover_type == "video" ) echo ' class="fb-feed-cover"' ?>>
-				<video autoplay>
-					<source src="http://mydomain.com/path/to/video.mp4" type="video/mp4" />
-				</video>
-			</figure>
-
-			<!-- An ad within your article -->
-			<!-- TODO: Change the URL to a live ad from your website -->
-			<figure class="op-ad">
-				<iframe src="https://www.adserver.com/ss;adtype=banner320x50" height="60" width="320"></iframe>
-			</figure>
-
-			<!-- Analytics code for your article -->
-			<figure class="op-tracker">
-				<iframe src="" hidden></iframe>
-			</figure>
-
 			<footer>
 				<?php if ( $footer_credits = $this->get_the_footer_credits( ) ) : ?>
 					<!-- Credits for your article -->
