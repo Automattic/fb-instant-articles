@@ -60,8 +60,6 @@ abstract class Instant_Articles_DOM_Transform_Filter {
 	 * @return DOMNode  The tranformed DOMNode. If you want to chain.
 	 */
 	protected function _transform_element( DOMNode $DOMNode ) {
-		
-		$src = $DOMNode->getAttribute( 'src' );
 
 		// See how far up the tree we can go.
 		$replaceNode = $DOMNode;
@@ -72,7 +70,6 @@ abstract class Instant_Articles_DOM_Transform_Filter {
 		if ( 'body' != $replaceNode->parentNode->nodeName ) {
 			return $DOMNode;
 		}
-
 
 		$properties = $this->get_properties( $DOMNode );
 		$DOMDocumentFragment = $this->_build_fragment( $properties );
