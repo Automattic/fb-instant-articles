@@ -75,7 +75,7 @@ function instant_articles_feed() {
 	include( dirname( __FILE__ ) . '/compat.php' );
 
 	// Load shortcode handlers
-	include( dirname( __FILE__ ) . '/shortcode-handlers.php' );
+	include( dirname( __FILE__ ) . '/shortcodes.php' );
 
 	// Load embedded content handlers
 	include( dirname( __FILE__ ) . '/embeds.php' );
