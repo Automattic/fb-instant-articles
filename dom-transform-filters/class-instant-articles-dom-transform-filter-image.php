@@ -106,11 +106,11 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 		
 		/* Try to use WP internals to get an image of the recommended size. Fallback to use the URL from the original img src in the post. */
 		
+
 		if ( $attachment_id ) {
 			// The recommended resolution is 2048x2048 pixels. 
 			$img_props = wp_get_attachment_image_src( $attachment_id, array( 2048, 2048 ) ); // Returns an array (url, width, height), or false, if no image is available.
-		}
-		if ( ! $img_props ) {
+		} else {
 			$imagesize = getimagesize( $src );
 			$img_props = array( $src, $imagesize[0], $imagesize[1] );
 		}
