@@ -27,3 +27,27 @@ function instant_articles_shortcode_handler_gallery( $atts ) {
 		</figure>
 		<?php return ob_get_clean();
 }
+
+add_shortcode( 'caption', 'instant_articles_shortcode_handler_caption' );
+
+/**
+ * Gallery Shortcode
+ * @param  array     $atts       Array of attributes passed to shortcode.
+ * @return string                The generated content.
+*/
+function instant_articles_shortcode_handler_caption( $atts, $content = "" ) {
+
+  	$doc = new DOMDocument();
+    $doc->loadHTML( $content );
+    $imageTags = $doc->getElementsByTagName('img');
+    $img_src = $imageTags[0]->getAttribute('src');
+    
+	ob_start(); ?>
+		<figure>
+  			<img src="<?php echo esc_url ( $img_src ); ?>" />
+  		<figcaption><?php echo $content ; ?></figcaption>
+		</figure>
+		
+	<?php return ob_get_clean();
+}
+
