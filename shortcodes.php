@@ -29,6 +29,7 @@ function instant_articles_shortcode_handler_gallery( $atts ) {
 }
 
 add_shortcode( 'caption', 'instant_articles_shortcode_handler_caption' );
+add_shortcode( 'wp_caption', 'instant_articles_shortcode_handler_caption' );
 
 /**
  * Gallery Shortcode
