@@ -60,6 +60,8 @@ function instant_articles_init() {
 	 * @param string  $feed_slug  The default feed slug
 	 */
 	$feed_slug = apply_filters( 'instant_articles_slug', 'instant-articles' );
+	define( 'INSTANT_ARTICLES_SLUG', $feed_slug );
+
 	add_feed( $feed_slug, 'instant_articles_feed' );
 }
 add_action( 'init', 'instant_articles_init' );
@@ -104,3 +106,33 @@ function instant_articles_register_transformation_filters() {
 	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Ordered_List' );
 }
 add_action( 'instant_articles_register_dom_transformation_filters', 'instant_articles_register_transformation_filters' );
+
+
+/**
+ * Modify the main query for our feed.
+ *
+ * We want the posts in the modified order, to provide Facebook with content updates even for older posts.
+ * Facebook will only import 100 posts at the time.
+ * Facebook will only update posts modified within the last 24 hours
+ *
+ * @param WP_Query  $query  The WP_Query object. Passed by reference.
+ */
+function instant_articles_query( $query ) {
+
+	if ( $query->is_main_query() && $query->is_feed( INSTANT_ARTICLES_SLUG ) ) {
+		
+		$query->set( 'orderby', 'modified' );
+		$query->set( 'posts_per_page', 100 );
+		$query->set( 'date_query', array(
+			array(
+				'column' => 'post_modified',
+				'after'  => '1 day ago',
+			),
+		) );
+	}
+
+}
+add_action( 'pre_get_posts', 'instant_articles_query', 10, 1 );
+
+
+
