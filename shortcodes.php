@@ -92,5 +92,45 @@ function instant_articles_shortcode_handler_audio( $atts ) {
 
 }
 
+add_shortcode( 'video', 'instant_articles_shortcode_handler_video' );
+
+/**
+ * Video Shortcode
+ * @param  array     $atts       Array of attributes passed to shortcode.
+ * @return string                The generated content.
+*/
+function instant_articles_shortcode_handler_video( $atts ) {	
+
+	if ( $atts['mp4'] ) {
+		$video_src =  $atts['mp4'];
+		$type = 'mp4';
+	} else if ( $atts['src'] ) {
+		$video_src =  $atts['src'];
+		$file_src_array = array_reverse( explode( '.', $video_src ) ) ;
+		$type = $file_src_array[0];
+	} else if ( $atts['ogv'] ) {
+		$video_src =  $atts['ogv'];
+		$type = 'ogv';
+	} else if ( $atts['webm'] ) {
+		$video_src =  $atts['webm'];
+		$type = 'webm';
+	} else {
+		$video_src = null;
+	}
+
+	if ( $video_src ) :
+	
+		ob_start(); ?>
+		<figure>
+		  <video>
+		    <source src="<?php echo esc_url( $video_src); ?>" type="video/<?php echo esc_html( $type); ?>" />  
+		  </video>
+		</figure>
+			
+		<?php return ob_get_clean();
+	endif;
+}
+
+
 
 
