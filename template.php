@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" prefix="op: http://media.facebook.com/op#">
+<html lang="<?php echo esc_attr( get_bloginfo( 'language' ) ); ?>" prefix="op: http://media.facebook.com/op#">
 	<head>
 		<meta property="og:title" content="<?php echo esc_html( $this->get_the_title() ); ?>">
 		<meta property="og:description" content="<?php echo esc_html( $this->get_the_excerpt() ); ?>">
