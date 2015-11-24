@@ -121,3 +121,40 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 	return $html;
 }
 
+
+
+/**
+ * Filter the oembed result for YouTube embeds
+ *
+ * @since 0.1
+ * @param string  $html     The original HTML returned from the external oembed provider (and potientially filtered locally)
+ * @param string  $url      The URL found in the content
+ * @param mixed   $attr     An array with extra attributes
+ * @param int     $post_ID  The post ID
+ * @return string  The filtered HTML
+ */
+function instant_articles_embed_oembed_html_youtube( $html, $url, $attr, $post_ID ) {
+
+	// strip the width and height attributes
+	$html = preg_replace( '#^<iframe width="\d+" height="\d+" (.+)$#i', '<iframe $1', $html );
+
+	$libxml_previous_state = libxml_use_internal_errors( true );
+	$DOMDocument = new DOMDocument;
+	$result = $DOMDocument->loadHTML( '<html><body>' . $html . '</body></html>' );
+	libxml_clear_errors();
+	libxml_use_internal_errors( $libxml_previous_state );
+
+	if ( $result ) {
+		$iframe = $DOMDocument->getElementsByTagName( 'iframe' )->item(0);
+		$iframe->removeAttribute( 'width' );
+		$iframe->removeAttribute( 'height' );
+		$iframe->setAttribute( 'allowfullscreen', 'allowfullscreen' );
+
+		$html = $DOMDocument->saveXML( $iframe, LIBXML_NOEMPTYTAG );
+}
+
+	return $html;
+}
+add_filter( 'instant_articles_social_embed_youtube', 'instant_articles_embed_oembed_html_youtube', 10, 4 );
+
+
