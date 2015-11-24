@@ -54,6 +54,11 @@
 							$attributes = '';
 							if ( strlen( $author->user_url ) ) {
 								$attributes = ' href="' . esc_url( $author->user_url ) . '"';
+
+								if ( isset( $author->role_contribution ) && strlen( $author->role_contribution ) ) {
+									$attributes .= ' title="' . esc_attr( $author->role_contribution ) . '"';
+								}
+
 								if ( isset( $author->user_url_rel ) && strlen( $author->user_url_rel ) ) {
 									$attributes .= ' rel="' . esc_attr( $author->user_url_rel ) . '"';
 								}
