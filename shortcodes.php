@@ -40,7 +40,7 @@ add_shortcode( 'wp_caption', 'instant_articles_shortcode_handler_caption' );
 function instant_articles_shortcode_handler_caption( $atts, $content = "" ) {
 
   	$doc = new DOMDocument();
-    $doc->loadHTML( $content );
+    $doc->loadHTML( '<html><body>' . $content . '</body></html>' );
     $imageTags = $doc->getElementsByTagName('img');
     $img_src =  $imageTags->item(0)->getAttribute('src');
 
