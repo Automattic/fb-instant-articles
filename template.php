@@ -1,15 +1,8 @@
 <!doctype html>
 <html lang="en" prefix="op: http://media.facebook.com/op#">
-	<?php
-	$featured_image = $this->get_the_featured_image();
-	$cover_type = $this->get_newsfeed_cover();
-	?>
 	<head>
 		<meta property="og:title" content="<?php echo esc_html( $this->get_the_title() ); ?>">
 		<meta property="og:description" content="<?php echo esc_html( $this->get_the_excerpt() ); ?>">
-		<?php if ( $cover_type == "image" ) : ?>
-			<meta property="og:image" content="<?php echo esc_url( $featured_image['src'] ); ?>">
-		<?php endif; ?>
 		<meta charset="utf-8">
 		<link rel="canonical" href="<?php echo esc_url( $this->get_canonical_url() ); ?>">
 		<meta property="op:markup_version" content="v1.0">
