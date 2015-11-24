@@ -131,6 +131,30 @@ function instant_articles_shortcode_handler_video( $atts ) {
 	endif;
 }
 
+add_shortcode( 'playlist', 'instant_articles_shortcode_handler_playlist' );
+/**
+ * Playlist Shortcode
+ * @param  array     $atts       Array of attributes passed to shortcode.
+ * @return string                The generated content.
+*/
+function instant_articles_shortcode_handler_playlist( $atts ) {	
 
+	$ids = explode( ',', $atts['ids'] );
+
+	if ( $atts['type'] == 'video' ) :
+		ob_start();  ?>
+		<figure><?php foreach ($ids as $id) { ?>
+			<video><source src="<?php echo wp_get_attachment_url( $id ); ?>" type="<?php $extension = wp_check_filetype( wp_get_attachment_url( $id ) ); echo 'video/'.$extension['ext']; ?>" /></video><?php } ?>
+		</figure><?php
+		return ob_get_clean();
+	else : 
+		ob_start();   ?>
+		<figure><?php foreach ($ids as $id) { ?>
+			<audio title="<?php echo basename( get_attached_file( $id ) );  ?>"><source src="<?php echo wp_get_attachment_url( $id ); ?>"></audio><?php } ?>
+		</figure><?php
+		return ob_get_clean();
+	endif; 
+
+}
 
 
