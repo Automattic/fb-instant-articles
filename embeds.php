@@ -77,7 +77,7 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 	*/
 
 	/*
-	Example output from the twitter:
+	Example output from twitter:
 	<blockquote class="twitter-tweet" width="550"><p lang="en" dir="ltr">Will my Drupal site upgrade itself automatically to version 8, or do I click a button somewhere?</p>
 	<p>— BjÃ¸rn Johansen (@bjornjohansen) <a href="https://twitter.com/bjornjohansen/status/667263124794417152">November 19, 2015</a></p>
 	</blockquote>
@@ -90,7 +90,7 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 	*/
 
 	/*
-	Example output from the vine:
+	Example output from vine:
 	<iframe class="vine-embed" src="https://vine.co/v/e9U7gav5e5h/embed/simple" width="660" height="660" frameborder="0"/><script async="" src="//platform.vine.co/static/scripts/embed.js"/>
 	*/
 
@@ -98,10 +98,10 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 	 * Filter the HTML that will go into the Instant Article Social Embed markup
 	 *
 	 * @since 0.1
-	 * @param string  $html  The HTML
-	 * @param string  $url            The URL found in the content
-	 * @param mixed   $attr           An array with extra attributes
-	 * @param int     $post_ID        The post ID
+	 * @param string  $html     The HTML
+	 * @param string  $url      The URL found in the content
+	 * @param mixed   $attr     An array with extra attributes
+	 * @param int     $post_ID  The post ID
 	 */
 	$html = apply_filters( "instant_articles_social_embed_{$provider_name}", $html, $url, $attr, $post_ID);
 
@@ -111,10 +111,10 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 	 * Filter the Instant Article Social Embed markup 
 	 *
 	 * @since 0.1
-	 * @param string  $html  The Social Embed markup
-	 * @param string  $url            The URL found in the content
-	 * @param mixed   $attr           An array with extra attributes
-	 * @param int     $post_ID        The post ID
+	 * @param string  $html     The Social Embed markup
+	 * @param string  $url      The URL found in the content
+	 * @param mixed   $attr     An array with extra attributes
+	 * @param int     $post_ID  The post ID
 	 */
 	$html = apply_filters( 'instant_articles_social_embed', $html, $url, $attr, $post_ID );
 
