@@ -135,9 +135,6 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
  */
 function instant_articles_embed_oembed_html_youtube( $html, $url, $attr, $post_ID ) {
 
-	// strip the width and height attributes
-	$html = preg_replace( '#^<iframe width="\d+" height="\d+" (.+)$#i', '<iframe $1', $html );
-
 	$libxml_previous_state = libxml_use_internal_errors( true );
 	$DOMDocument = new DOMDocument;
 	$result = $DOMDocument->loadHTML( '<html><body>' . $html . '</body></html>' );
