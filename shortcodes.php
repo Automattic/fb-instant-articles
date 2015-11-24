@@ -42,7 +42,7 @@ function instant_articles_shortcode_handler_caption( $atts, $content = "" ) {
   	$doc = new DOMDocument();
     $doc->loadHTML( $content );
     $imageTags = $doc->getElementsByTagName('img');
-    $img_src = $imageTags[0]->getAttribute('src');
+    $img_src =  $imageTags->item(0)->getAttribute('src');
 
 	ob_start(); ?>
 		<figure>
