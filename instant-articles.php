@@ -93,5 +93,10 @@ function instant_articles_feed() {
 function instant_articles_register_transformation_filters() {
 	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-image.php' );
 	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Image' );
+
+	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-blockquote.php' );
+	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Blockquote' );
+
+
 }
 add_action( 'instant_articles_register_dom_transformation_filters', 'instant_articles_register_transformation_filters' );
