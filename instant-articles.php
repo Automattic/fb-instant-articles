@@ -12,6 +12,12 @@
 
 defined( 'ABSPATH' ) || die('Shame on you');
 
+
+// Let users define their own feed slug
+if ( ! defined( 'INSTANT_ARTICLES_SLUG' ) ) {
+	define( 'INSTANT_ARTICLES_SLUG', 'instant-articles' );
+}
+
 require_once( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-dom-transform-filter-runner.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-post.php' );
@@ -53,16 +59,7 @@ add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
  * @since 0.1
  */
 function instant_articles_init() {
-	/**
-	 * Filter the feed slug
-	 *
-	 * @since 0.1
-	 * @param string  $feed_slug  The default feed slug
-	 */
-	$feed_slug = apply_filters( 'instant_articles_slug', 'instant-articles' );
-	define( 'INSTANT_ARTICLES_SLUG', $feed_slug );
-
-	add_feed( $feed_slug, 'instant_articles_feed' );
+	add_feed( INSTANT_ARTICLES_SLUG, 'instant_articles_feed' );
 }
 add_action( 'init', 'instant_articles_init' );
 
