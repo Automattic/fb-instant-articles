@@ -21,7 +21,7 @@
 function instant_articles_embed_oembed_html( $html, $url, $attr, $post_ID ) {
 
 	if ( ! class_exists( 'WP_oEmbed' ) ) {
-		include_once( WPINC . '/class-oembed.php' );
+		include_once( ABSPATH . WPINC . '/class-oembed.php' );
 	}
 
 	// Instead of checking all possible URL variants, use the provider list from WP_oEmbed
