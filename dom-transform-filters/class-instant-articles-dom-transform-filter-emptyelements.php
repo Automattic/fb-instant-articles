@@ -43,12 +43,12 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 			$DOMNode = $DOMNodeList->item( $NodeListIndex );
 
 			// Check all childnodes first
-			if ( is_a( $DOMNode, 'DOMElement' ) ) {
+			if ( is_a( $DOMNode, 'DOMElement' ) && isset( $DOMNode->childNodes ) && is_a( $DOMNode->childNodes, 'DOMNodeList' ) ) {
 				$this->_filter_empty_elements( $DOMNode->childNodes );
 			}
 
 			
-			if ( '' == trim( $DOMNode->nodeValue ) ) {
+			if ( isset( $DOMNode->nodeValue ) && '' == trim( $DOMNode->nodeValue ) ) {
 
 				if ( ! isset( $DOMNode->childnodes ) || is_null( $DOMNode->childnodes ) || ( is_a( $DOMNode->childnodes, 'DOMNodeList' ) && ! $DOMNode->childnodes->length ) ) {
 
