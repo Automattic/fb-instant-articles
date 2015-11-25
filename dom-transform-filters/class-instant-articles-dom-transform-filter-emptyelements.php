@@ -135,6 +135,17 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 				continue;
 			}
 
+			// Climb up to make sure we’re not in an Instant Article element (which should have proper handling elsewhere)
+			$parentNode = $DOMNode;
+			while ( isset( $parentNode->nodeName ) && $parentNode->nodeName != 'body' ) {
+				if ( 'figure' == $parentNode->nodeName && false !== strpos( $parentNode->getAttribute( 'class' ), 'op-' ) ) {
+					// We found an element that’s likely to be an Instant Article element
+					continue 2;
+				}
+				$parentNode = $parentNode->parentNode;
+			}
+
+
 			// Check all childnodes first
 			if ( is_a( $DOMNode, 'DOMElement' ) && isset( $DOMNode->childNodes ) && is_a( $DOMNode->childNodes, 'DOMNodeList' ) ) {
 				$this->_filter_empty_elements( $DOMNode->childNodes );
