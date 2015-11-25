@@ -95,7 +95,7 @@ abstract class Instant_Articles_DOM_Transform_Filter {
 	 *
 	 * @since 0.1
 	 * @param Object  $properties  The properties we need for this element
-	 * @return DOMDocumentFragment  The fragment ready to be inserted into the DOM
+	 * @return DOMDocumentFragment|false  The fragment ready to be inserted into the DOM. False if no replacement should happen.
 	 */
 	abstract protected function _build_fragment( $DOMNode );
 
