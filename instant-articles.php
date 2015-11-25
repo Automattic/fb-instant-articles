@@ -93,6 +93,10 @@ function instant_articles_feed() {
  * @since 0.1
  */
 function instant_articles_register_transformation_filters() {
+
+	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-video.php' );
+	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Video' );
+
 	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-image.php' );
 	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Image' );
 
