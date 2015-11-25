@@ -86,8 +86,18 @@ abstract class Instant_Articles_DOM_Transform_Filter {
 	 *
 	 * @since 0.1
 	 * @param $DOMNode  $DOMNode        The original domnode
+	 * @return Object  The properties we need to build the new fragment
 	 */
 	abstract protected function get_properties( $DOMNode );
+
+	/**
+	 * Build the new fragment
+	 *
+	 * @since 0.1
+	 * @param Object  $properties  The properties we need for this element
+	 * @return DOMDocumentFragment  The fragment ready to be inserted into the DOM
+	 */
+	abstract protected function _build_fragment( $DOMNode );
 
 }
 
