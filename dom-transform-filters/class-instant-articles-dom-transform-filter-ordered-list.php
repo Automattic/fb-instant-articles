@@ -37,10 +37,10 @@ class Instant_Articles_DOM_Transform_Filter_Ordered_List extends Instant_Article
 		$DOMDocumentFragment = $this->_DOMDocument->createDocumentFragment();
 		$ol = $this->_DOMDocument->createElement( 'ol' );
 
-		foreach ( $properties->childNodes as $childNode ) {
-			$ol->appendChild( $childNode );
+		for ( $i = 0; $i < $properties->childNodes->length; ++$i ) {
+			$ol->appendChild( $properties->childNodes->item( $i ) );
 		}
-		
+
 		$DOMDocumentFragment->appendChild( $ol );
 
 		return $DOMDocumentFragment;

@@ -37,8 +37,8 @@ class Instant_Articles_DOM_Transform_Filter_Unordered_List extends Instant_Artic
 		$DOMDocumentFragment = $this->_DOMDocument->createDocumentFragment();
 		$ul = $this->_DOMDocument->createElement( 'ul' );
 
-		foreach ( $properties->childNodes as $childNode ) {
-			$ul->appendChild( $childNode );
+		for ( $i = 0; $i < $properties->childNodes->length; ++$i ) {
+			$ul->appendChild( $properties->childNodes->item( $i ) );
 		}
 		
 		$DOMDocumentFragment->appendChild( $ul );
