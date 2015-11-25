@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="<?php echo esc_attr( get_bloginfo( 'language' ) ); ?>" prefix="op: http://media.facebook.com/op#">
 	<head>
-		<meta property="og:title" content="<?php echo esc_html( $this->get_the_title() ); ?>">
-		<meta property="og:description" content="<?php echo esc_html( $this->get_the_excerpt() ); ?>">
 		<meta charset="utf-8">
 		<link rel="canonical" href="<?php echo esc_url( $this->get_canonical_url() ); ?>">
 		<meta property="op:markup_version" content="v1.0">
