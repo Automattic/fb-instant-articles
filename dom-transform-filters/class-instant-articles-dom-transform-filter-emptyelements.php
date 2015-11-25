@@ -7,6 +7,95 @@
  */
 class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articles_DOM_Transform_Filter {
 
+	// Elements excluded from checking: img, iframe, html, head, body, base, br, hr, link, meta, meter, script, audio, video, map, canvas, col, data, embed, input, keygen, menuitem, object, output, param, progress, source, textarea, track
+	protected $_checkTagNames = array(
+		'a',
+		'abbr',
+		'address',
+		'article',
+		'aside',
+		'b',
+		'bdi',
+		'bdo',
+		'blockquote',
+		'button',
+		'caption',
+		'cite',
+		'code',
+		'colgroup',
+		'datalist',
+		'dd',
+		'del',
+		'details',
+		'dfn',
+		'dialog',
+		'div',
+		'dl',
+		'dt',
+		'em',
+		'fieldset',
+		'figcaption',
+		'figure',
+		'footer',
+		'form',
+		'h1',
+		'h2',
+		'h3',
+		'h4',
+		'h5',
+		'h6',
+		'header',
+		'hgroup',
+		'i',
+		'ins',
+		'kbd',
+		'label',
+		'legend',
+		'li ',
+		'main',
+		'map',
+		'mark',
+		'menu',
+		'nav',
+		'noscript',
+		'ol',
+		'optgroup',
+		'option',
+		'p',
+		'pre',
+		'q',
+		'rb',
+		'rp',
+		'rt',
+		'rtc',
+		'ruby',
+		's',
+		'samp',
+		'section',
+		'select',
+		'small',
+		'span',
+		'strong',
+		'style',
+		'sub',
+		'summary',
+		'sup',
+		'table',
+		'tbody',
+		'td',
+		'template',
+		'tfoot',
+		'th',
+		'thead',
+		'time',
+		'title',
+		'tr',
+		'u',
+		'ul',
+		'var',
+		'wbr',
+	);
+
 	/**
 	 * Run the transformation
 	 *
@@ -17,8 +106,8 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 	 */
 	public function run() {
 
-		// Elements excluded from checking: img, iframe, html, head, body, base, br, hr, link, meta, meter, script, audio, video, map, canvas, col, data, embed, input, keygen, menuitem, object, output, param, progress, source, textarea, track
-		$xpathQuery = '//a | //abbr | //address | //article | //aside | //b | //bdi | //bdo | //blockquote | //button | //caption | //cite | //code | //colgroup | //datalist | //dd | //del | //details | //dfn | //dialog | //div | //dl | //dt | //em | //fieldset | //figcaption | //figure | //footer | //form | //h1 | //h2 | //h3 | //h4 | //h5 | //h6 | //header | //hgroup | //i | //ins | //kbd | //label | //legend | //li  | //main | //map | //mark | //menu | //nav | //noscript | //ol | //optgroup | //option | //p | //pre | //q | //rb | //rp | //rt | //rtc | //ruby | //s | //samp | //section | //select | //small | //span | //strong | //style | //sub | //summary | //sup | //table | //tbody | //td | //template | //tfoot | //th | //thead | //time | //title | //tr | //u | //ul | //var | //wbr';
+		
+		$xpathQuery = '//' . implode( ' | //', $this->_checkTagNames );;
 
 		$xpath = new DOMXpath( $this->_DOMDocument );
 		$DOMNodeList = $xpath->query( $xpathQuery );
@@ -37,10 +126,14 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 
 		$NodeListIndex = 0;
 
-		// We’ll increase $NodeListIndex and/or reduce $DOMNodeList->length
-		while ( $NodeListIndex < $DOMNodeList->length ) {
+		// We might reduce $DOMNodeList->length during the loop
+		for ( $NodeListIndex = 0; $NodeListIndex < $DOMNodeList->length; ++$NodeListIndex ) {
 
 			$DOMNode = $DOMNodeList->item( $NodeListIndex );
+
+			if ( ! isset( $DOMNode->nodeName ) || ! in_array( $DOMNode->nodeName, $this->_checkTagNames ) ) {
+				continue;
+			}
 
 			// Check all childnodes first
 			if ( is_a( $DOMNode, 'DOMElement' ) && isset( $DOMNode->childNodes ) && is_a( $DOMNode->childNodes, 'DOMNodeList' ) ) {
@@ -59,9 +152,6 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 				}
 
 			}
-
-
-			++$NodeListIndex;
 
 		}
 
