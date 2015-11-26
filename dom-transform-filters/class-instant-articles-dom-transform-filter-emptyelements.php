@@ -154,7 +154,7 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 			
 			if ( isset( $DOMNode->nodeValue ) && '' == trim( $DOMNode->nodeValue ) ) {
 
-				if ( ! isset( $DOMNode->childnodes ) || is_null( $DOMNode->childnodes ) || ( is_a( $DOMNode->childnodes, 'DOMNodeList' ) && ! $DOMNode->childnodes->length ) ) {
+				if ( ! isset( $DOMNode->childNodes ) || is_null( $DOMNode->childNodes ) || ( is_a( $DOMNode->childNodes, 'DOMNodeList' ) && ! $DOMNode->childNodes->length ) ) {
 
 					// If the element is an empty node, remove it. But we must have a parentNode to remove a node
 					if ( is_a( $DOMNode->parentNode, 'DOMElement' ) ) {
