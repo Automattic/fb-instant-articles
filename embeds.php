@@ -148,10 +148,59 @@ function instant_articles_embed_oembed_html_youtube( $html, $url, $attr, $post_I
 		$iframe->setAttribute( 'allowfullscreen', 'allowfullscreen' );
 
 		$html = $DOMDocument->saveXML( $iframe, LIBXML_NOEMPTYTAG );
-}
+	}
 
 	return $html;
 }
 add_filter( 'instant_articles_social_embed_youtube', 'instant_articles_embed_oembed_html_youtube', 10, 4 );
+
+
+/**
+ * Filter the oembed result for Instagram embeds
+ *
+ * @since 0.1
+ * @param string  $html     The original HTML returned from the external oembed provider (and potientially filtered locally)
+ * @param string  $url      The URL found in the content
+ * @param mixed   $attr     An array with extra attributes
+ * @param int     $post_ID  The post ID
+ * @return string  The filtered HTML
+ */
+function instant_articles_embed_oembed_html_instagram( $html, $url, $attr, $post_ID ) {
+
+	$libxml_previous_state = libxml_use_internal_errors( true );
+	$DOMDocument = new DOMDocument;
+	$result = $DOMDocument->loadHTML( '<html><body>' . $html . '</body></html>' );
+	libxml_clear_errors();
+	libxml_use_internal_errors( $libxml_previous_state );
+
+	if ( $result ) {
+		$wrapper = $DOMDocument->getElementsByTagName( 'blockquote' )->item( 0 );
+		if ( is_a( $wrapper, 'DOMElement' ) ) {
+			$instagram_embed_version = $wrapper->getAttribute( 'data-instgrm-version' );
+			if ( is_numeric( $instagram_embed_version ) ) {
+				$a = $wrapper->getElementsByTagName( 'a' )->item( 0 );
+				if ( is_a( $a, 'DOMElement' ) ) {
+					$basesource = $a->getAttribute( 'href' );
+					$source = $basesource . 'embed/?v=' . $instagram_embed_version;
+
+					// Keep track of the instagram payload ids for each post. Each instagram embed needs it’s own unique ID.
+					global $instant_articles_instagram_payload_ids;
+					if ( ! is_array( $instant_articles_instagram_payload_ids ) ) {
+						$instant_articles_instagram_payload_ids = array();
+					}
+					if ( ! array_key_exists( $post_ID, $instant_articles_instagram_payload_ids ) ) {
+						$instant_articles_instagram_payload_ids[ $post_ID ] = -1;
+					}
+					++$instant_articles_instagram_payload_ids[ $post_ID ];
+
+					$html = sprintf( '<iframe scrolling="no" data-instgrm-payload-id="instagram-media-payload-%d" allowtransparency="true" src="%s" id="instagram-embed-0" class="instagram-media instagram-media-rendered" frameborder="0"></iframe>', $instant_articles_instagram_payload_ids[ $post_ID ], $source );
+				}
+			}
+		}
+	}
+
+	return $html;
+}
+add_filter( 'instant_articles_social_embed_instagram', 'instant_articles_embed_oembed_html_instagram', 10, 4 );
 
 
