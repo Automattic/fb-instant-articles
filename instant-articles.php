@@ -132,6 +132,7 @@ function instant_articles_query( $query ) {
 		
 		$query->set( 'orderby', 'modified' );
 		$query->set( 'posts_per_page', 100 );
+		$query->set( 'posts_per_rss', 100 );
 		$query->set( 'date_query', array(
 			array(
 				'column' => 'post_modified',
