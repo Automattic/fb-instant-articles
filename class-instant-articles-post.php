@@ -209,8 +209,14 @@ class Instant_Articles_Post {
 			   they can all work on, instead of having to handle the conversion themselves. */
 
 			$libxml_previous_state = libxml_use_internal_errors( true );
-			$DOMDocument = new DOMDocument;
-			$result = $DOMDocument->loadHTML( '<html><body>' . $content . '</body></html>' );
+			$DOMDocument = new DOMDocument( '1.0', get_option( 'blog_charset' ) );
+			
+			// DOMDocument isn’t handling encodings too well, so let’s help it a little
+			if ( function_exists( 'mb_convert_encoding' ) ) {
+				$content = mb_convert_encoding( $content, 'HTML-ENTITIES', get_option( 'blog_charset' ) );
+			}
+			
+			$result = $DOMDocument->loadHTML( '<!doctype html><html><body>' . $content . '</body></html>' );
 			libxml_clear_errors();
 			libxml_use_internal_errors( $libxml_previous_state );
 
