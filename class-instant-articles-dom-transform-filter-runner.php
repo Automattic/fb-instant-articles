@@ -17,7 +17,7 @@ class Instant_Articles_DOM_Transform_Filter_Runner {
 	 * @param string  $className  The name of a class that extends Instant_Articles_DOM_Transform_Filter
 	 */
 	static function register( $className ) {
-		if ( ! in_array( $className, self::$_stack ) && is_subclass_of( $className, 'Instant_Articles_DOM_Transform_Filter' ) ) {
+		if ( ! in_array( $className, self::$_stack, true ) && is_subclass_of( $className, 'Instant_Articles_DOM_Transform_Filter' ) ) {
 			self::$_stack[] = $className;
 		}
 	}

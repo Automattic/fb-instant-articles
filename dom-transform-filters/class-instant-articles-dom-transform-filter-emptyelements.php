@@ -131,7 +131,7 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 
 			$DOMNode = $DOMNodeList->item( $NodeListIndex );
 
-			if ( ! isset( $DOMNode->nodeName ) || ! in_array( $DOMNode->nodeName, $this->_checkTagNames ) ) {
+			if ( ! isset( $DOMNode->nodeName ) || ! in_array( $DOMNode->nodeName, $this->_checkTagNames, true ) ) {
 				continue;
 			}
 

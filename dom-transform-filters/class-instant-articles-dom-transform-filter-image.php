@@ -52,7 +52,7 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 			}
 			
 			// If the image is used already, remove it
-			if ( in_array( $src, $used_images ) ) {
+			if ( in_array( $src, $used_images, true ) ) {
 				// Please note that when we remove the node, $DOMNodeList->length is n-1. Our $NodeListIndex will thus point to the next item in the list.
 				$removeDOMNode->parentNode->removeChild( $removeDOMNode );
 			}
