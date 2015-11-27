@@ -99,7 +99,11 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 	protected function get_properties( $DOMNode ) {
 
 		$src = $DOMNode->getAttribute( 'src' );
-		$attachment_id = attachment_url_to_postid( $src );
+		if ( function_exists( 'wpcom_vip_attachment_url_to_postid' ) ) {
+			$attachment_id = wpcom_vip_attachment_url_to_postid( $src );
+		} else {
+			$attachment_id = attachment_url_to_postid( $src );
+		}
 
 		$properties = new stdClass;
 		$properties->img = new stdClass;
