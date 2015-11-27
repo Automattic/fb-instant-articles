@@ -158,17 +158,19 @@ add_action( 'pre_get_posts', 'instant_articles_query', 10, 1 );
  * Filter the SQL query to not include posts with empty content -- FB will complain
  *
  * @since 0.1
- * @param string  $where  The original where part of the SQL statement
+ * @param string   $where  The original where part of the SQL statement
+ * @param WP_Query $query  The WP_Query instance
  * @return string  The modified where part of the SQL statement
  */
-function instant_articles_query_where( $where ) {
+function instant_articles_query_where( $where, $query ) {
 
-	if ( is_feed( INSTANT_ARTICLES_SLUG ) ) {
+	if ( $query->is_main_query() && $query->is_feed( INSTANT_ARTICLES_SLUG ) ) {
 		global $wpdb;
 		$where .= " AND {$wpdb->posts}.post_content NOT LIKE ''";
 	}
 	return $where;
+
 }
-add_filter( 'posts_where' , 'instant_articles_query_where', 10, 1 );
+add_filter( 'posts_where' , 'instant_articles_query_where', 10, 2 );
 
 
