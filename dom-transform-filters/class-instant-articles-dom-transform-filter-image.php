@@ -118,7 +118,13 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 			$imagesize = getimagesize( $src );
 			$img_props = array( $src, $imagesize[0], $imagesize[1] );
 		}
-		list( $properties->img->url, $properties->img->width, $properties->img->height ) = $img_props;
+		if ( is_array( $img_props ) ) {
+			list( $properties->img->url, $properties->img->width, $properties->img->height ) = $img_props;
+		} else {
+			$properties->img->url = $src;
+			$properties->img->width = '';
+			$properties->img->height = '';
+		}
 
 		/**
 		 * Filter the image properties
