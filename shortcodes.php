@@ -3,33 +3,89 @@
 add_shortcode( 'gallery', 'instant_articles_shortcode_handler_gallery' );
 
 /**
- * Gallery Shortcode
- * @param  array     $atts       Array of attributes passed to shortcode.
- * @return string                The generated content.
+ * Gallery Shortcode. Based on the built in gallery shortcode
+ * @param  array     $attr    Array of attributes passed to shortcode.
+ * @return string             The generated content.
 */
-function instant_articles_shortcode_handler_gallery( $atts ) {
-		// Get the IDs
-		$ids = explode( ',', $atts['ids'] );
+function instant_articles_shortcode_handler_gallery( $attr ) {
 
-		ob_start(); ?>
-		<figure class="op-slideshow">
-			<?php foreach ( $ids as $id ) : ?>
-				<?php $image = wp_get_attachment_image_src( $id, 'large' ); ?>
-				<?php $url   = ( $image[0] ); ?>
-				<figure>
-					<img src="<?php echo esc_url( $url ); ?>" alt="<?php echo esc_attr( get_the_title( $id ) ); ?>">
-					<?php $caption = get_post_field( 'post_content', $id ); ?>
-					<?php if ( ! empty( $caption ) ) : ?>
-						<figcaption><?php echo esc_html( $caption ); ?></figcaption>
-					<?php endif; ?>
-				</figure>
-			<?php endforeach; ?>
-		</figure>
-		<?php return ob_get_clean();
+	$post = get_post();
+
+	if ( ! empty( $attr['ids'] ) ) {
+		// 'ids' is explicitly ordered, unless you specify otherwise.
+		if ( empty( $attr['orderby'] ) ) {
+			$attr['orderby'] = 'post__in';
+		}
+		$attr['include'] = $attr['ids'];
+	}
+
+	$atts = shortcode_atts( array(
+		'id'         => $post ? $post->ID : 0,
+		'order'      => 'ASC',
+		'orderby'    => 'menu_order ID',
+		'include'    => '',
+		'exclude'    => '',
+	), $attr, 'gallery' );
+
+	$id = intval( $atts['id'] );
+
+	if ( ! empty( $atts['include'] ) ) {
+		$attachments = get_posts( array(
+			'include' => $atts['include'],
+			'post_status' => 'inherit',
+			'post_type' => 'attachment',
+			'post_mime_type' => 'image',
+			'order' => $atts['order'],
+			'orderby' => $atts['orderby']
+		) );
+	} elseif ( ! empty( $atts['exclude'] ) ) {
+		$attachments = get_children( array(
+			'post_parent' => $id,
+			'exclude' => $atts['exclude'],
+			'post_status' => 'inherit',
+			'post_type' => 'attachment',
+			'post_mime_type' => 'image',
+			'order' => $atts['order'],
+			'orderby' => $atts['orderby']
+		) );
+	} else {
+		$attachments = get_children( array(
+			'post_parent' => $id,
+			'post_status' => 'inherit',
+			'post_type' => 'attachment',
+			'post_mime_type' => 'image',
+			'order' => $atts['order'],
+			'orderby' => $atts['orderby']
+		) );
+	}
+
+	if ( empty( $attachments ) ) {
+		return '';
+	}
+
+	$output = '<figure class="op-slideshow">';
+
+	foreach ( $attachments as $attachment ) {
+
+		$image_src = wp_get_attachment_image_src( $attachment->ID, 'large' );
+
+		if ( $image_src ) {
+			$output .= '<figure>';
+			$output .= '<img src="' . esc_url( $image_src[0] ) . '" alt="' . esc_attr( get_the_title( $attachment->ID ) ) . '">';
+
+			$caption = trim( strip_tags( $attachment->post_excerpt ) );
+			//wptexturize( $attachment->post_excerpt )
+			if ( trim( $attachment->post_excerpt ) ) {
+				$output .= '<figcaption>' . esc_html( $caption ) . '</figcaption>';
+			}
+			$output .= '</figure>';
+		}
+	}
+
+	$output .= '</figure>';
+
+	return $output;
 }
-
-add_shortcode( 'caption', 'instant_articles_shortcode_handler_caption' );
-add_shortcode( 'wp_caption', 'instant_articles_shortcode_handler_caption' );
 
 /**
  * Caption/WP-Caption Shortcode
