@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="<?php echo esc_attr( get_bloginfo( 'language' ) ); ?>" prefix="op: http://media.facebook.com/op#">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="<?php echo esc_attr( get_option( 'blog_charset' ) ); ?>">
 		<link rel="canonical" href="<?php echo esc_url( $this->get_canonical_url() ); ?>">
 		<meta property="op:markup_version" content="v1.0">
 		<meta property="fb:article_style" content="<?php echo esc_attr( $this->get_article_style() ); ?>">
