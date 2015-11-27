@@ -133,12 +133,21 @@ function instant_articles_query( $query ) {
 		$query->set( 'orderby', 'modified' );
 		$query->set( 'posts_per_page', 100 );
 		$query->set( 'posts_per_rss', 100 );
-		$query->set( 'date_query', array(
-			array(
-				'column' => 'post_modified',
-				'after'  => '1 day ago',
-			),
-		) );
+
+		/**
+		 * If the constant INSTANT_ARTICLES_LIMIT_POSTS is set to true, we will limit the feed
+		 * to only include posts which are modified within the last 24 hours.
+		 * Facebook will initially need 100 posts to pass the review, but will only update
+		 * already imported articles if they are modified within the last 24 hours.
+		 */
+		if ( defined( 'INSTANT_ARTICLES_LIMIT_POSTS' ) && INSTANT_ARTICLES_LIMIT_POSTS ) {
+			$query->set( 'date_query', array(
+				array(
+					'column' => 'post_modified',
+					'after'  => '1 day ago',
+				),
+			) );
+		}
 	}
 
 }
