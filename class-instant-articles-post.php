@@ -160,6 +160,15 @@ class Instant_Articles_Post {
 	 */
 	public function get_the_content() {
 
+		// Try to get the content from a transient, but only if the cached version have the same modtime
+		$cache_mod_time = get_transient( 'instantarticles_mod_' . $this->get_the_ID() );
+		if ( $cache_mod_time == get_post_modified_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ) ) {
+			$content = get_transient( 'instantarticles_content_' . $this->get_the_ID() );
+			if ( $content !== false && strlen( $content ) ) {
+				return $content;
+			}
+		}
+
 		global $post, $more;
 
 		// force $more
@@ -242,6 +251,10 @@ class Instant_Articles_Post {
 			}
 
 		}
+
+		// Cache the content
+		set_transient( 'instantarticles_mod_' . $this->get_the_ID(), get_post_modified_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ), WEEK_IN_SECONDS );
+		set_transient( 'instantarticles_content_' . $this->get_the_ID(), $content, WEEK_IN_SECONDS );
 
 		return $content;
 	}
