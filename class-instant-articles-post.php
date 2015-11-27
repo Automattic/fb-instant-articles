@@ -165,7 +165,7 @@ class Instant_Articles_Post {
 		if ( $cache_mod_time == get_post_modified_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ) ) {
 			$content = get_transient( 'instantarticles_content_' . $this->get_the_ID() );
 			if ( $content !== false && strlen( $content ) ) {
-				return $content;
+				//return $content;
 			}
 		}
 
@@ -401,30 +401,42 @@ class Instant_Articles_Post {
 	 * Get featured image for cover
 	 *
 	 * @since 0.1
-	 * @return array  
+	 * @return array {
+	 *     Array containg image source and caption.
+	 *
+	 *     @type string $src Image URL
+	 *     @type string $caption Image caption
+	 * }
 	 */
 	public function get_the_featured_image( ) {
 
-		$image_data = array();
+		$image_data = array(
+			'src' => '',
+			'caption' => '',
+		);
 		if ( has_post_thumbnail( $this->get_the_ID() ) ) {			
 
 			$image_array = wp_get_attachment_image_src( get_post_thumbnail_id( $this->get_the_ID() ), 'full' ); 
 			$attachment_id   = get_post_thumbnail_id( $this->get_the_ID() );
 			
 			$image_data['src'] = $image_array[0];
-			$image_data['caption'] = get_post( $attachment_id  )->post_excerpt; 		
+			$image_data['caption'] = get_post( $attachment_id )->post_excerpt;
+		}
 
-			/**
-			 * Filter
-			 *
-			 * @since 0.1
-			 *
-			 * @param array                 $image_data        Array containg image source and caption.
-			 * @param int  									   The post ID
-			 */
-			$image_data = apply_filters( 'instant_articles_featured_image', $image_data, $this->get_the_ID() ); 				
-			return $image_data;   
-		}	
+		/**
+		 * Filter the featured image
+		 *
+		 * @since 0.1
+		 * @param array $image_data {
+		 *     Array containg image source and caption.
+		 *
+		 *     @type string $src Image URL
+		 *     @type string $caption Image caption
+		 * }
+		 * @param int $post_id The post ID
+		 */
+		$image_data = apply_filters( 'instant_articles_featured_image', $image_data, $this->get_the_ID() ); 				
+		return $image_data;
 	}
 
 	/**
