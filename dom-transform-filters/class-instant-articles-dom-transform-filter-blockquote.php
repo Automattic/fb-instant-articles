@@ -35,13 +35,30 @@ class Instant_Articles_DOM_Transform_Filter_Blockquote extends Instant_Articles_
 	protected function _build_fragment( $properties ) {
 
 		$DOMDocumentFragment = $this->_DOMDocument->createDocumentFragment();
-		$blockquote = $this->_DOMDocument->createElement( 'blockquote' );
+		
+		$quoteContainerType = 'blockquote';
+		if ( strlen( $properties->cite ) ) {
+			$quoteContainerType = 'aside';
+		}
 
-		foreach ( $properties->childNodes as $childNode ) {
-			$blockquote->appendChild( $childNode );
+		$quoteContainer = $this->_DOMDocument->createElement( $quoteContainerType );
+		$quoteContainer->appendChild( $this->_DOMDocument->createTextNode( $properties->quote ) );
+		
+		if ( is_a( $properties->childNodes, 'DOMNodeList' ) ) {
+			foreach( $properties->childNodes as $pNode ) {
+				$newNode = $this->_DOMDocument->createElement( 'p' );
+				$newNode->appendChild( $this->_DOMDocument->createTextNode( trim( $pNode->nodeValue ) ) );
+				$quoteContainer->appendChild( $newNode );
+			}
 		}
 		
-		$DOMDocumentFragment->appendChild( $blockquote );
+		if ( strlen( $properties->cite ) ) {
+			$citeNode = $this->_DOMDocument->createElement( 'cite' );
+			$citeNode->appendChild( $this->_DOMDocument->createTextNode( $properties->cite ) );
+			$quoteContainer->appendChild( $citeNode );
+		}
+		
+		$DOMDocumentFragment->appendChild( $quoteContainer );
 
 		return $DOMDocumentFragment;
 	}
@@ -59,7 +76,34 @@ class Instant_Articles_DOM_Transform_Filter_Blockquote extends Instant_Articles_
 
 		$properties = new stdClass;
 
-		$properties->childNodes = $DOMNode->childNodes;
+		$properties->quote = $DOMNode->nodeValue;
+		$properties->cite = '';
+		$properties->childNodes = null;
+
+		$cite = $DOMNode->getAttribute( 'cite' );
+		if ( strlen( $cite ) ) {
+			$properties->cite = $cite;
+		}
+
+		$citeNodeList = $DOMNode->getElementsByTagName( 'cite' );
+		if ( $citeNodeList->length ) {
+			$citeNode = $citeNodeList->item( 0 );
+			if ( strlen( $citeNode->nodeValue ) ) {
+				$properties->cite = $citeNode->nodeValue;
+			}
+			while ( $citeNodeList->length ) {
+				$citeNode = $citeNodeList->item( 0 );
+				$citeNode->parentNode->removeChild( $citeNode );
+			}
+		}
+
+		$pNodeList = $DOMNode->getElementsByTagName( 'p' );
+		if ( 1 === $pNodeList->length ) {
+			$properties->quote = $pNodeList->item( 0 )->nodeValue;
+		} elseif ( $pNodeList->length ) {
+			$properties->quote = '';
+			$properties->childNodes = $pNodeList;
+		}
 
 		/**
 		 * Filter the blockquote element properties
