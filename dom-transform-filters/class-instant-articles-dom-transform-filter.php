@@ -43,8 +43,15 @@ abstract class Instant_Articles_DOM_Transform_Filter {
 	protected function _transform_elements( DOMNodeList $DOMNodeList ) {
 
 		// A foreach won’t work as we are changing the elements
-		for ( $i = 0, $c = $DOMNodeList->length; $i < $c; ++$i ) {
+		for ( $i = 0; $i < $DOMNodeList->length; ++$i ) {
+			$origLength = $DOMNodeList->length;
+			
 			$this->_transform_element( $DOMNodeList->item( $i ) );
+			
+			if ( $origLength !== $DOMNodeList->length ) {
+				// The element is replaced by an element of another type and is no longer in the nodelist
+				--$i;
+			}
 		}
 
 		return $DOMNodeList;
