@@ -47,7 +47,7 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 
 			// See how far up the tree we can go
 			$removeDOMNode = $DOMNode;
-			while ( 'body' != $removeDOMNode->parentNode->nodeName && 1 == $removeDOMNode->parentNode->childNodes->length ) {
+			while ( 'body' != $removeDOMNode->parentNode->nodeName && 1 === $removeDOMNode->parentNode->childNodes->length ) {
 				$removeDOMNode = $removeDOMNode->parentNode;
 			}
 			
