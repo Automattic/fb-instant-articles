@@ -92,26 +92,61 @@ add_shortcode( 'caption', 'instant_articles_shortcode_handler_caption' );
 add_shortcode( 'wp_caption', 'instant_articles_shortcode_handler_caption' );
 
 /**
- * Caption/WP-Caption Shortcode
- * @param  array     $atts       Array of attributes passed to shortcode.
- * @param  string    $content    The content passed to the shortcode.
- * @return string                The generated content.
+ * Caption/WP-Caption Shortcode. Based on the built in caption shortcode
+ * @param  array     $attr      Array of attributes passed to shortcode.
+ * @param  string    $content   The content passed to the shortcode.
+ * @return string    $output    The generated content.
 */
-function instant_articles_shortcode_handler_caption( $atts, $content = "" ) {
+function instant_articles_shortcode_handler_caption( $attr, $content = null ) {
+	// New-style shortcode with the caption inside the shortcode with the link and image tags.
+	if ( ! isset( $attr['caption'] ) ) {
+		if ( preg_match( '#((?:<a [^>]+>\s*)?<img [^>]+>(?:\s*</a>)?)(.*)#is', $content, $matches ) ) {
+			$content = $matches[1];
+			$attr['caption'] = trim( $matches[2] );
+		}
+	}
 
-  	$doc = new DOMDocument();
-    $doc->loadHTML( '<html><body>' . $content . '</body></html>' );
-    $imageTags = $doc->getElementsByTagName('img');
-    $img_src =  $imageTags->item(0)->getAttribute('src');
+	$atts = shortcode_atts( array(
+		'figcaptionclass'  => '',
+		'caption'          => '',
+		'cite'             => '',
+		'subtitle'         => '',
+	), $attr, 'caption' );
 
-	ob_start(); ?>
-		<figure>
-  			<img src="<?php echo esc_url ( $img_src ); ?>" />
-  		<figcaption><?php echo $content ; ?></figcaption>
-		</figure>
-		
-	<?php return ob_get_clean();
+	if ( ! strlen( trim( $atts['caption'] ) ) ) {
+		return '';
+	}
+
+	$output = '';
+
+	$content = do_shortcode( $content );
+
+	$doc = new DOMDocument();
+	$doc->loadHTML( '<html><body>' . $content . '</body></html>' );
+	$imgs = $doc->getElementsByTagName( 'img' );
+
+	if ( $imgs->length > 0 ) {
+		$img_src =  $imgs->item(0)->getAttribute( 'src' );
+		if ( $img_src ) {
+
+			$alt = $imgs->item(0)->getAttribute( 'alt' );
+
+			$classes = array();
+			$classes = trim( $atts['figcaptionclass'] );
+			$class_attr = ( strlen( $classes ) ) ? ' class="' . esc_attr( $classes ) . '"' : '';
+
+			$caption = trim( strip_tags( $atts['caption'] ) );
+
+			$subtitle = ( strlen( $atts['subtitle'] ) ) ? '<h2>' . esc_html( $atts['subtitle'] ) . '</h2>' : '';			
+			$cite = ( strlen( $atts['cite'] ) ) ? '<cite>' . esc_html( $atts['cite'] ) . '</cite>' : '';
+
+			$output = '<figure><img src="' . esc_url( $img_src ) . '" alt="' . esc_attr( $alt ) . '"><figcaption' . $class_attr . '><h1>' . esc_html( $caption ) . '</h1>' . $subtitle . $cite . '</figcaption></figure>';
+		}
+	}
+
+	return $output;
 }
+
 
 add_shortcode( 'audio', 'instant_articles_shortcode_handler_audio' );
 
