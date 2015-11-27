@@ -29,7 +29,7 @@
 					<figure class="op-slideshow">
 						<?php foreach ( $cover_media->items as $item ) : ?>
 							<figure>
-								<img src="<?php echo esc_url( $item->$src ); ?>" />
+								<img src="<?php echo esc_url( $item->src ); ?>" />
 							</figure>
 						<?php endforeach; ?>
 					</figure>
