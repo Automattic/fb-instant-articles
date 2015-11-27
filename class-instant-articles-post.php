@@ -389,10 +389,10 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 *
-		 * @param array                  $authors         The current post author(s).
-		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 * @param array  $authors  The current post author(s).
+		 * @param int    $post_id  The instant article post
 		 */
-		$authors = apply_filters( 'instant_articles_authors', $authors, $this );
+		$authors = apply_filters( 'instant_articles_authors', $authors, $this->get_the_ID() );
 
 		return $authors;
 	}

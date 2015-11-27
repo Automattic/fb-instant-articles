@@ -20,11 +20,11 @@ class Instant_Articles_Co_Authors_Plus {
 	 * Filter the authors
 	 *
 	 * @param array  $authors  The current authors
-	 * @param Instant_Articles_Post  The instant articles post object we are working on
+	 * @param int    $post_id  The current post ID
 	 */
-	function authors( $authors, $iap ) {
+	function authors( $authors, $post_id ) {
 		if ( function_exists( 'get_coauthors' ) ) {
-			$coauthors = get_coauthors( $iap->get_the_ID() );
+			$coauthors = get_coauthors( $post_id );
 
 			$authors = array();
 			foreach( $coauthors as $coauthor ) {
