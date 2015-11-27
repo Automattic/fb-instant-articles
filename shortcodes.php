@@ -30,8 +30,10 @@ function instant_articles_shortcode_handler_gallery( $attr ) {
 	$id = intval( $atts['id'] );
 
 	if ( ! empty( $atts['include'] ) ) {
-		$attachments = get_posts( array(
-			'include' => $atts['include'],
+		$include = explode( ',', $atts['include'] );
+
+		$attachments = new WP_Query( array(
+			'post__in' => $include,
 			'post_status' => 'inherit',
 			'post_type' => 'attachment',
 			'post_mime_type' => 'image',
@@ -39,9 +41,11 @@ function instant_articles_shortcode_handler_gallery( $attr ) {
 			'orderby' => $atts['orderby']
 		) );
 	} elseif ( ! empty( $atts['exclude'] ) ) {
-		$attachments = get_children( array(
+		$exclude = explode( ',', $atts['exclude'] );
+
+		$attachments = new WP_Query( array(
 			'post_parent' => $id,
-			'exclude' => $atts['exclude'],
+			'post__not_in' => $exclude,
 			'post_status' => 'inherit',
 			'post_type' => 'attachment',
 			'post_mime_type' => 'image',
@@ -49,7 +53,7 @@ function instant_articles_shortcode_handler_gallery( $attr ) {
 			'orderby' => $atts['orderby']
 		) );
 	} else {
-		$attachments = get_children( array(
+		$attachments = new WP_Query( array(
 			'post_parent' => $id,
 			'post_status' => 'inherit',
 			'post_type' => 'attachment',
@@ -59,30 +63,32 @@ function instant_articles_shortcode_handler_gallery( $attr ) {
 		) );
 	}
 
-	if ( empty( $attachments ) ) {
-		return '';
-	}
+	$output = '';
 
-	$output = '<figure class="op-slideshow">';
+	if ( $attachments->have_posts() ) {
+		$output = '<figure class="op-slideshow">';
 
-	foreach ( $attachments as $attachment ) {
+		while ( $attachments->have_posts() ) {
+			$attachments->the_post();
 
-		$image_src = wp_get_attachment_image_src( $attachment->ID, 'large' );
+			$image_src = wp_get_attachment_image_src( get_the_ID(), 'large' );
 
-		if ( $image_src ) {
-			$output .= '<figure>';
-			$output .= '<img src="' . esc_url( $image_src[0] ) . '" alt="' . esc_attr( get_the_title( $attachment->ID ) ) . '">';
+			if ( $image_src ) {
+				$output .= '<figure>';
+				$output .= '<img src="' . esc_url( $image_src[0] ) . '" alt="' . esc_attr( get_the_title() ) . '">';
 
-			$caption = trim( strip_tags( $attachment->post_excerpt ) );
-			//wptexturize( $attachment->post_excerpt )
-			if ( trim( $attachment->post_excerpt ) ) {
-				$output .= '<figcaption>' . esc_html( $caption ) . '</figcaption>';
+				$caption = trim( strip_tags( get_the_excerpt() ) );
+				if ( $caption ) {
+					$output .= '<figcaption>' . esc_html( $caption ) . '</figcaption>';
+				}
+				$output .= '</figure>';
 			}
-			$output .= '</figure>';
 		}
+		
+		$output .= '</figure>';
 	}
-
-	$output .= '</figure>';
+	
+	wp_reset_postdata();
 
 	return $output;
 }
