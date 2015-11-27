@@ -47,12 +47,12 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 
 			// See how far up the tree we can go
 			$removeDOMNode = $DOMNode;
-			while ( 'body' != $removeDOMNode->parentNode->nodeName && 1 == $removeDOMNode->parentNode->childNodes->length ) {
+			while ( 'body' != $removeDOMNode->parentNode->nodeName && 1 === $removeDOMNode->parentNode->childNodes->length ) {
 				$removeDOMNode = $removeDOMNode->parentNode;
 			}
 			
 			// If the image is used already, remove it
-			if ( in_array( $src, $used_images ) ) {
+			if ( in_array( $src, $used_images, true ) ) {
 				// Please note that when we remove the node, $DOMNodeList->length is n-1. Our $NodeListIndex will thus point to the next item in the list.
 				$removeDOMNode->parentNode->removeChild( $removeDOMNode );
 			}
@@ -99,7 +99,11 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 	protected function get_properties( $DOMNode ) {
 
 		$src = $DOMNode->getAttribute( 'src' );
-		$attachment_id = attachment_url_to_postid( $src );
+		if ( function_exists( 'wpcom_vip_attachment_url_to_postid' ) ) {
+			$attachment_id = wpcom_vip_attachment_url_to_postid( $src );
+		} else {
+			$attachment_id = attachment_url_to_postid( $src );
+		}
 
 		$properties = new stdClass;
 		$properties->img = new stdClass;
@@ -114,7 +118,13 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 			$imagesize = getimagesize( $src );
 			$img_props = array( $src, $imagesize[0], $imagesize[1] );
 		}
-		list( $properties->img->url, $properties->img->width, $properties->img->height ) = $img_props;
+		if ( is_array( $img_props ) ) {
+			list( $properties->img->url, $properties->img->width, $properties->img->height ) = $img_props;
+		} else {
+			$properties->img->url = $src;
+			$properties->img->width = '';
+			$properties->img->height = '';
+		}
 
 		/**
 		 * Filter the image properties

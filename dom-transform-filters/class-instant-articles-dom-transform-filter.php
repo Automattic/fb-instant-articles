@@ -63,7 +63,7 @@ abstract class Instant_Articles_DOM_Transform_Filter {
 
 		// See how far up the tree we can go.
 		$replaceNode = $DOMNode;
-		while ( 'body' != $replaceNode->parentNode->nodeName && 1 == $replaceNode->parentNode->childNodes->length ) {
+		while ( 'body' != $replaceNode->parentNode->nodeName && 1 === $replaceNode->parentNode->childNodes->length ) {
 			$replaceNode = $replaceNode->parentNode;
 		}
 		// If we can’t go all the way to the top, we bail.

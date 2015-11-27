@@ -242,7 +242,7 @@ function instant_articles_shortcode_handler_playlist( $atts ) {
 
 	$ids = explode( ',', $atts['ids'] );
 
-	if ( $atts['type'] == 'video' ) :
+	if ( 'video' === $atts['type'] ) :
 		ob_start();  ?>
 		<figure><?php foreach ($ids as $id) { ?>
 			<video><source src="<?php echo wp_get_attachment_url( $id ); ?>" type="<?php $extension = wp_check_filetype( wp_get_attachment_url( $id ) ); echo 'video/'.$extension['ext']; ?>" /></video><?php } ?>

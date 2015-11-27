@@ -177,7 +177,7 @@ class Instant_Articles_Post {
 
 		// If we’re not it the loop or otherwise properly setup
 		$reset_postdata = false;
-		if ( $this->get_the_ID() != $post->ID ) {
+		if ( $this->get_the_ID() !== $post->ID ) {
 			$post = get_post( $this->get_the_ID() );
 			setup_postdata( $post );
 			$reset_postdata = true;
@@ -471,7 +471,7 @@ class Instant_Articles_Post {
 		if ( has_category() ) {			
 			$categories = get_the_category();
 
-			if ( __( 'Uncategorized' ) == $categories[0]->name ) {
+			if ( __( 'Uncategorized' ) === $categories[0]->name ) {
 				$category = '';
 			} else {
 				$category = $categories[0]->name;
