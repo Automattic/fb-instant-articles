@@ -27,6 +27,8 @@ Facebook will now import your 100 posts as Instant Articles.
 After the inital import, Facebook will only import new articles or import articles modified within the last 24 hours.
 You can set the constant `INSTANT_ARTICLES_LIMIT_POSTS` to `true` to limit the feed to only show posts that are modified within the last 24 hours.
 
+Facebook will fetch your feed every 3 minutes.
+
 == Installation ==
 
 1. Upload the folder to the `/wp-content/plugins/` directory
