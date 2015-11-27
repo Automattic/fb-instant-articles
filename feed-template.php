@@ -11,6 +11,12 @@ echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) )
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php
 			$instant_article_post = new Instant_Articles_Post( get_the_ID() );
+			
+			$content = $instant_article_post->get_the_content();
+			if ( ! strlen( trim( $content ) ) ) {
+				// We don’t want to include articles without content -- FB will complain
+				continue;
+			}
 			?>
 			<item>
 				<title><?php echo $instant_article_post->get_the_title_rss(); ?></title>
