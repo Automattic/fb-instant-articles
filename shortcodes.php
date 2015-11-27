@@ -77,7 +77,7 @@ function instant_articles_shortcode_handler_gallery( $attr ) {
 				$output .= '<figure>';
 				$output .= '<img src="' . esc_url( $image_src[0] ) . '" alt="' . esc_attr( get_the_title() ) . '">';
 
-				$caption = trim( strip_tags( get_the_excerpt() ) );
+				$caption = trim( strip_tags( $attachments->post->post_excerpt ) );
 				if ( $caption ) {
 					$output .= '<figcaption>' . esc_html( $caption ) . '</figcaption>';
 				}
