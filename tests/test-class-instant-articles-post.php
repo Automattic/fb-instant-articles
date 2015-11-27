@@ -39,8 +39,8 @@ class InstantArticlesPost extends WP_UnitTestCase {
        	$this->assertTrue(is_string( $this->instant_articles_post->get_the_excerpt_rss() ), 'Expected string assertion failed.');
     } 
 
-    public function testGetFeaturedImage_NoImage() {
-        $this->assertNull( $this->instant_articles_post->get_the_featured_image() ); 
+    public function testGetFeaturedImage_NoImage_HasArray() {
+        $this->assertTrue( is_array( $this->instant_articles_post->get_the_featured_image() ) ); 
     }
 
     public function testGetTheKicker_NoCategory() {
