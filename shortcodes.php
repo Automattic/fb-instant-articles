@@ -175,20 +175,11 @@ function instant_articles_shortcode_handler_audio( $atts ) {
 		$audio_src = null;
 	}
 
-	//TODO: $set_autoplay = $atts['autoplay'] == 'true' ? ' autoplay' : '';
-
 	if ( $audio_src ) :
 		$file_url = array_reverse( explode( '/', $audio_src ) ) ;
 
-		ob_start(); ?>
-
-		<figure>
-			<audio title="<?php echo esc_html( $file_url[0] ); ?>">
-				<source src="<?php echo esc_url( $audio_src ); ?>">
-			</audio>
-		</figure>
-			
-		<?php return ob_get_clean();
+		return	'<figure><audio title="' . esc_html( $file_url[0] ) . '"><source src="' . esc_url( $audio_src ) .'"></audio></figure>';
+					
 	endif;
 
 }
@@ -221,14 +212,8 @@ function instant_articles_shortcode_handler_video( $atts ) {
 
 	if ( $video_src ) :
 	
-		ob_start(); ?>
-		<figure>
-		  <video>
-		    <source src="<?php echo esc_url( $video_src); ?>" type="video/<?php echo esc_html( $type); ?>" />  
-		  </video>
-		</figure>
-			
-		<?php return ob_get_clean();
+		return '<figure><video><source src="' . esc_url( $video_src ) . '" type="video/' . esc_html( $type ) . '" /></video></figure>';	
+	
 	endif;
 }
 
@@ -242,20 +227,22 @@ function instant_articles_shortcode_handler_playlist( $atts ) {
 
 	$ids = explode( ',', $atts['ids'] );
 
+	$output = '<figure>';
+	
 	if ( 'video' === $atts['type'] ) :
-		ob_start();  ?>
-		<figure><?php foreach ($ids as $id) { ?>
-			<video><source src="<?php echo wp_get_attachment_url( $id ); ?>" type="<?php $extension = wp_check_filetype( wp_get_attachment_url( $id ) ); echo 'video/'.$extension['ext']; ?>" /></video><?php } ?>
-		</figure><?php
-		return ob_get_clean();
+		foreach ($ids as $id) {
+			$extension = wp_check_filetype( wp_get_attachment_url( $id ) ); 
+			$output .= '<video><source src="' . wp_get_attachment_url( $id ) . '" type="video/' . $extension['ext'] .'" /></video>';
+		}
 	else : 
-		ob_start();   ?>
-		<figure><?php foreach ($ids as $id) { ?>
-			<audio title="<?php echo basename( get_attached_file( $id ) );  ?>"><source src="<?php echo wp_get_attachment_url( $id ); ?>"></audio><?php } ?>
-		</figure><?php
-		return ob_get_clean();
+		foreach ($ids as $id) { 
+			$output .= '<audio title="' . basename( get_attached_file( $id ) ) . '"><source src="' . wp_get_attachment_url( $id ) . '"></audio>';
+		}
 	endif; 
-
+	
+	$output .= '</figure>';
+	
+	return $output;
 }
 
 
