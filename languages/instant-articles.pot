@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Instant Articles for WP\n"
-"POT-Creation-Date: 2015-11-12 20:57+0100\n"
+"POT-Creation-Date: 2015-11-27 11:17+0100\n"
 "PO-Revision-Date: 2015-11-12 20:54+0100\n"
 "Last-Translator: Bjørn Johansen <bjorn@dekode.no>\n"
 "Language-Team: Bjørn Johansen <bjorn@dekode.no>\n"
@@ -19,6 +19,10 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: feed-template.php:7
+msgid "Instant Articles"
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Instant Articles for WP"
