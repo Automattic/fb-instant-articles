@@ -87,6 +87,10 @@ function instant_articles_shortcode_handler_gallery( $attr ) {
 	return $output;
 }
 
+
+add_shortcode( 'caption', 'instant_articles_shortcode_handler_caption' );
+add_shortcode( 'wp_caption', 'instant_articles_shortcode_handler_caption' );
+
 /**
  * Caption/WP-Caption Shortcode
  * @param  array     $atts       Array of attributes passed to shortcode.
