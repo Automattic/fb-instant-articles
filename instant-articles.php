@@ -135,6 +135,26 @@ function instant_articles_query( $query ) {
 		$query->set( 'posts_per_rss', 100 );
 
 		/**
+		 * Exclude posts that have the meta field _instant_articles_exclude_from_feed set to 1
+		 */
+		$query->set( 'meta_query', array(
+			'relation' => 'OR',
+			array (
+				array(
+					'key'     => '_instant_articles_exclude_from_feed',
+					'compare' => 'NOT EXISTS',
+				),
+			),
+			array (
+				array(
+					'key'     => '_instant_articles_exclude_from_feed',
+					'value'   => '1',
+					'compare' => 'NOT LIKE',
+				),
+			),
+		) ) ;
+
+		/**
 		 * If the constant INSTANT_ARTICLES_LIMIT_POSTS is set to true, we will limit the feed
 		 * to only include posts which are modified within the last 24 hours.
 		 * Facebook will initially need 100 posts to pass the review, but will only update

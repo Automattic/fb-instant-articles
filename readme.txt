@@ -36,6 +36,11 @@ Facebook will fetch your feed every 3 minutes.
 
 == Frequently Asked Questions ==
 
+= How do I exclude a post from showing up in the feed? =
+Set the post meta field `_instant_articles_exclude_from_feed` to `1`.
+Please remember that this will only affect the feed, not Instant Articles within Facebook.
+If Facebook already have imported your post into Instant Articles this will just make sure Facebook never updates it from the feed again. If you want to delete the article from Instant Articles, you will have to do that from within Facebook Business Manager.
+
 = How do I customize the output for my site? =
 
 There are a number of filters available in the plugin for modifying the output. Note that these are not finalized and may change.
