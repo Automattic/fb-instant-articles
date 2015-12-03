@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Instant Articles DOM Tranformation Filter for Unordered List
+ * Instant Articles DOM Transformation Filter for Unordered List
  *
  * @since 0.1
  */

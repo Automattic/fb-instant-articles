@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Instant Articles DOM Tranformation Filter for headings
+ * Instant Articles DOM Transformation Filter for headings
  *
  * @since 0.1
  */

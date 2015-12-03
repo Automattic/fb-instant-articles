@@ -401,7 +401,7 @@ class Instant_Articles_Post {
 	 *
 	 * @since 0.1
 	 * @return array {
-	 *     Array containg image source and caption.
+	 *     Array containing image source and caption.
 	 *
 	 *     @type string $src Image URL
 	 *     @type string $caption Image caption

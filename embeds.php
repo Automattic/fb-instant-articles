@@ -15,7 +15,7 @@
 remove_all_filters( 'embed_oembed_html' );
 
 /**
- * Filter the oembed results to see if we should to some extra handling
+ * Filter the oembed results to see if we should do some extra handling
  *
  * @since 0.1
  * @param string  $html     The original HTML returned from the external oembed provider

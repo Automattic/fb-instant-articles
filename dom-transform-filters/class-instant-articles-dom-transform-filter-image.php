@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Instant Articles DOM Tranformation Filter for Images
+ * Instant Articles DOM Transformation Filter for Images
  *
  * @since 0.1
  */

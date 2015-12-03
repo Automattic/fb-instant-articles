@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Instant Articles DOM Tranformation Filter for Videos
+ * Instant Articles DOM Transformation Filter for Videos
  *
  * @since 0.1
  */

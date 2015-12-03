@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Instant Articles DOM Tranformation Filter
+ * Instant Articles DOM Transformation Filter
  *
  * @since 0.1
  */
@@ -32,7 +32,7 @@ abstract class Instant_Articles_DOM_Transform_Filter {
 	abstract public function run();
 
 	/**
-	 * Dispach each element in the nodelist to the transformer
+	 * Dispatch each element in the nodelist to the transformer
 	 *
 	 * Note that we work directly on the DOMNodeList itself. Objects are passed by ref.
 	 *

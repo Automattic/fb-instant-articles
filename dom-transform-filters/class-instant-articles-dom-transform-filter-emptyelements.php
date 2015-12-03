@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Instant Articles DOM Tranformation Filter for empty elements
+ * Instant Articles DOM Transformation Filter for empty elements
  *
  * @since 0.1
  */
