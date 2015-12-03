@@ -584,7 +584,7 @@ class Instant_Articles_Post {
 	     * @since 0.1
 	     * @param Instant_Article_Post  $instant_article_post  The instant article post
 	     */
-		do_action( 'pre_instant_article_render', $this );
+		do_action( 'instant_articles_before_render_post', $this );
 		
 		$default_template = dirname( __FILE__ ) . '/template.php';
 
@@ -610,7 +610,7 @@ class Instant_Articles_Post {
 	     * @since 0.1
 	     * @param Instant_Article_Post  $instant_article_post  The instant article post
 	     */
-		do_action( 'after_instant_article_render', $this );
+		do_action( 'instant_articles_after_render_post', $this );
 	}
 
 	/**
