@@ -577,8 +577,6 @@ class Instant_Articles_Post {
 	 * @since 0.1
 	 */
 	function render() {
-		
-		$post_id = $this->get_the_ID();
 
 		/**
 	     * Fires before the instant article is rendered
