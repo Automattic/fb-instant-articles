@@ -109,6 +109,9 @@ function instant_articles_register_transformation_filters() {
 	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-table.php' );
 	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Table' );
 
+	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-address.php' );
+	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Address' );
+
 	//Instant articles only support h1 and h2. Convert h3-h6 to h2.	
 	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-heading.php' );
 	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Heading' );
