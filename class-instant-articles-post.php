@@ -165,7 +165,7 @@ class Instant_Articles_Post {
 		if ( $cache_mod_time == get_post_modified_time( 'Y-m-d H:i:s', true, $this->get_the_ID() ) ) {
 			$content = get_transient( 'instantarticles_content_' . $this->get_the_ID() );
 			if ( $content !== false && strlen( $content ) ) {
-				//return $content;
+				return $content;
 			}
 		}
 
