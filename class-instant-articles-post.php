@@ -597,7 +597,8 @@ class Instant_Articles_Post {
 		$template = apply_filters( 'instant_articles_render_post_template', $default_template, $this );
 		
 		// Make sure the template exists. Devs do the darndest things.
-		if ( ! file_exists( $template ) ) {
+		// Note on validate_file(): Return value of 0 means nothing is wrong, greater than 0 means something was wrong.
+		if ( ! file_exists( $template ) || validate_file( $template ) ) {
 			$template = $default_template;
 		}
 		include $template;
