@@ -359,7 +359,6 @@ class Instant_Articles_Post {
 	 *
 	 * @since 0.1
 	 * @return array  $authors  The post author(s)
-	 * @todo Mapping guest users in Co-Authors Plus may cause duplicate entries. Remove those users before returning
 	 */
 	public function get_the_authors() {
 
