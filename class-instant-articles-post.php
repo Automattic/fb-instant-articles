@@ -45,7 +45,7 @@ class Instant_Articles_Post {
 		 * @since 0.1
 		 *
 		 * @param string                 $title                 The current post title.
-		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 * @param Instant_Article_Post   $instant_article_post  The instant article post
 		 */
 		$title = apply_filters( 'instant_articles_title', $title, $this );
 
@@ -123,7 +123,7 @@ class Instant_Articles_Post {
 		 * @since 0.1
 		 *
 		 * @param string                 $excerpt               The current post excerpt.
-		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 * @param Instant_Article_Post   $instant_article_post  The instant article post
 		 */
 		$excerpt = apply_filters( 'instant_articles_excerpt', $excerpt, $this );
 
@@ -275,7 +275,7 @@ class Instant_Articles_Post {
 		 * @since 0.1
 		 *
 		 * @param string                 $date               The current post date.
-		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 * @param Instant_Article_Post   $instant_article_post  The instant article post
 		 */
 		$date = apply_filters( 'instant_articles_date', $date, $this );
 
@@ -299,7 +299,7 @@ class Instant_Articles_Post {
 		 * @since 0.1
 		 *
 		 * @param string                 $modified_date         The current post modified date.
-		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 * @param Instant_Article_Post   $instant_article_post  The instant article post
 		 */
 		$modified_date = apply_filters( 'instant_articles_modified_date', $modified_date, $this );
 
@@ -323,7 +323,7 @@ class Instant_Articles_Post {
 		 * @since 0.1
 		 *
 		 * @param string                 $published_date        The current post published date.
-		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 * @param Instant_Article_Post   $instant_article_post  The instant article post
 		 */
 		$published_date = apply_filters( 'instant_articles_published_date_iso', $published_date, $this );
 
@@ -347,7 +347,7 @@ class Instant_Articles_Post {
 		 * @since 0.1
 		 *
 		 * @param string                 $modified_date        The current post modified date.
-		 * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+		 * @param Instant_Article_Post   $instant_article_post  The instant article post
 		 */
 		$modified_date = apply_filters( 'instant_articles_modified_date_iso', $modified_date, $this );
 
@@ -584,7 +584,7 @@ class Instant_Articles_Post {
 	     * Fires before the instant article is rendered
 	     *
 	     * @since 0.1
-	     * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+	     * @param Instant_Article_Post  $instant_article_post  The instant article post
 	     */
 		do_action( 'pre_instant_article_render', $this );
 		
@@ -595,7 +595,7 @@ class Instant_Articles_Post {
 	     *
 	     * @since 0.1
 	     * @param string                    $template               Path to the current (default) template.
-	     * @param Instant_Arcticle_Post     $instant_article_post   The instant article post
+	     * @param Instant_Article_Post      $instant_article_post   The instant article post
 	     */
 		$template = apply_filters( 'instant_articles_render_post_template', $default_template, $this );
 		
@@ -610,7 +610,7 @@ class Instant_Articles_Post {
 	     * Fires after the instant article is rendered
 	     *
 	     * @since 0.1
-	     * @param Instant_Arcticle_Post  $instant_article_post  The instant article post
+	     * @param Instant_Article_Post  $instant_article_post  The instant article post
 	     */
 		do_action( 'after_instant_article_render', $this );
 	}
@@ -628,7 +628,7 @@ class Instant_Articles_Post {
 	     *
 	     * @since 0.1
 	     * @param string                    $template               Path to the current (default) template.
-	     * @param Instant_Arcticle_Post     $instant_article_post   The instant article post
+	     * @param Instant_Article_Post      $instant_article_post   The instant article post
 	     */
 		$article_style = apply_filters( 'instant_articles_style', 'default', $this );
 
