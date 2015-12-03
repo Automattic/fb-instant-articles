@@ -418,8 +418,13 @@ class Instant_Articles_Post {
 			$image_array = wp_get_attachment_image_src( get_post_thumbnail_id( $this->get_the_ID() ), 'full' ); 
 			$attachment_id   = get_post_thumbnail_id( $this->get_the_ID() );
 			
-			$image_data['src'] = $image_array[0];
-			$image_data['caption'] = get_post( $attachment_id )->post_excerpt;
+			if ( is_array( $image_array ) ) {
+				$image_data['src'] = $image_array[0];
+				$attachment_post = get_post( $attachment_id );
+				if ( is_a( $attachment_post, 'WP_Post' ) ) {
+					$image_data['caption'] = $attachment_post->post_excerpt;
+				}
+			}
 		}
 
 		/**
@@ -479,16 +484,14 @@ class Instant_Articles_Post {
 	 */
 	public function get_the_kicker() {
 
+		$category = '';
+
 		if ( has_category() ) {			
 			$categories = get_the_category();
 
-			if ( __( 'Uncategorized' ) === $categories[0]->name ) {
-				$category = '';
-			} else {
+			if ( is_array( $categories ) && isset( $categories[0]->name ) && __( 'Uncategorized' ) !== $categories[0]->name ) {
 				$category = $categories[0]->name;
-			}		
-		} else {
-			$category = '';
+			}
 		}
 
 		/**

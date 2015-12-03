@@ -116,7 +116,9 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 			$img_props = wp_get_attachment_image_src( $attachment_id, array( 2048, 2048 ) ); // Returns an array (url, width, height), or false, if no image is available.
 		} else {
 			$imagesize = getimagesize( $src );
-			$img_props = array( $src, $imagesize[0], $imagesize[1] );
+			if ( is_array( $imagesize ) ) {
+				$img_props = array( $src, $imagesize[0], $imagesize[1] );
+			}
 		}
 		if ( is_array( $img_props ) ) {
 			list( $properties->img->url, $properties->img->width, $properties->img->height ) = $img_props;

@@ -225,14 +225,20 @@ add_shortcode( 'playlist', 'instant_articles_shortcode_handler_playlist' );
 */
 function instant_articles_shortcode_handler_playlist( $atts ) {	
 
+	if ( ! is_array( $atts ) || ! array_key_exists( 'ids', $atts ) ) {
+		return '';
+	}
+
 	$ids = explode( ',', $atts['ids'] );
 
 	$output = '<figure>';
 	
-	if ( 'video' === $atts['type'] ) :
+	if ( isset( $atts['type'] ) && 'video' === $atts['type'] ) :
 		foreach ($ids as $id) {
 			$extension = wp_check_filetype( wp_get_attachment_url( $id ) ); 
-			$output .= '<video><source src="' . wp_get_attachment_url( $id ) . '" type="video/' . $extension['ext'] .'" /></video>';
+			if ( is_array( $extension ) && array_key_exists( 'ext', $extension ) && false !== $extension['ext'] ) {
+				$output .= '<video><source src="' . wp_get_attachment_url( $id ) . '" type="video/' . $extension['ext'] .'" /></video>';
+			}
 		}
 	else : 
 		foreach ($ids as $id) { 
