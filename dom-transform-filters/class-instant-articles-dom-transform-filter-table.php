@@ -58,8 +58,8 @@ class Instant_Articles_DOM_Transform_Filter_Table extends Instant_Articles_DOM_T
 	 * Implements the abstract method from Instant_Articles_DOM_Transform_Filter
 	 *
 	 * @since 0.1
-	 * @param $DOMNode  $DOMNode        The original domnode
 	 * @todo Get the rest of the properties
+	 * @param $DOMNode  $DOMNode  The original domnode
 	 */
 	protected function get_properties( $DOMNode ) {
 

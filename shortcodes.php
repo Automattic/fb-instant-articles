@@ -161,7 +161,7 @@ add_shortcode( 'audio', 'instant_articles_shortcode_handler_audio' );
  * @param  array     $atts       Array of attributes passed to shortcode.
  * @return string                The generated content.
 */
-function instant_articles_shortcode_handler_audio( $atts ) {	
+function instant_articles_shortcode_handler_audio( $atts ) {
 
 	if ( $atts['mp3'] ) {
 		$audio_src =  $atts['mp3'];
@@ -191,7 +191,7 @@ add_shortcode( 'video', 'instant_articles_shortcode_handler_video' );
  * @param  array     $atts       Array of attributes passed to shortcode.
  * @return string                The generated content.
 */
-function instant_articles_shortcode_handler_video( $atts ) {	
+function instant_articles_shortcode_handler_video( $atts ) {
 
 	if ( $atts['mp4'] ) {
 		$video_src =  $atts['mp4'];

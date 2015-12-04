@@ -346,7 +346,7 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 *
-		 * @param string                 $modified_date        The current post modified date.
+		 * @param string                 $modified_date         The current post modified date.
 		 * @param Instant_Article_Post   $instant_article_post  The instant article post
 		 */
 		$modified_date = apply_filters( 'instant_articles_modified_date_iso', $modified_date, $this );
@@ -407,15 +407,15 @@ class Instant_Articles_Post {
 	 *     @type string $caption Image caption
 	 * }
 	 */
-	public function get_the_featured_image( ) {
+	public function get_the_featured_image() {
 
 		$image_data = array(
 			'src' => '',
 			'caption' => '',
 		);
-		if ( has_post_thumbnail( $this->get_the_ID() ) ) {			
+		if ( has_post_thumbnail( $this->get_the_ID() ) ) {
 
-			$image_array = wp_get_attachment_image_src( get_post_thumbnail_id( $this->get_the_ID() ), 'full' ); 
+			$image_array = wp_get_attachment_image_src( get_post_thumbnail_id( $this->get_the_ID() ), 'full' );
 			$attachment_id   = get_post_thumbnail_id( $this->get_the_ID() );
 			
 			if ( is_array( $image_array ) ) {
@@ -439,7 +439,7 @@ class Instant_Articles_Post {
 		 * }
 		 * @param int $post_id The post ID
 		 */
-		$image_data = apply_filters( 'instant_articles_featured_image', $image_data, $this->get_the_ID() ); 				
+		$image_data = apply_filters( 'instant_articles_featured_image', $image_data, $this->get_the_ID() );
 		return $image_data;
 	}
 
@@ -449,7 +449,7 @@ class Instant_Articles_Post {
 	 * @since 0.1
 	 * @return array  
 	 */
-	public function get_cover_media( ) {
+	public function get_cover_media() {
 
 		$cover_media = new stdClass;
 		$cover_media->type = 'none';
@@ -486,7 +486,7 @@ class Instant_Articles_Post {
 
 		$category = '';
 
-		if ( has_category() ) {			
+		if ( has_category() ) {
 			$categories = get_the_category();
 
 			if ( is_array( $categories ) && isset( $categories[0]->name ) && __( 'Uncategorized' ) !== $categories[0]->name ) {
@@ -499,8 +499,8 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 *
-		 * @param string                 $category        The first category returned from get_the_category().
-		 * @param int  									  The post ID
+		 * @param string  $category  The first category returned from get_the_category().
+		 * @param int     $post_id   The post ID
 		 */
 		$category_kicker = apply_filters('instant_articles_cover_kicker', $category,  $this->get_the_ID() );
 
@@ -522,8 +522,8 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 *
-		 * @param string	$type  Set to 'video' for video cover. Featured image (image) is default.
-		 * @param int		The post ID
+		 * @param string  $type     Set to 'video' for video cover. Featured image (image) is default.
+		 * @param int     $post_id  The post ID
 		 */
 		$type = apply_filters( 'instant_articles_cover_type', $type,  $this->get_the_ID() );
 
@@ -543,10 +543,10 @@ class Instant_Articles_Post {
 		*
 		* @since 0.1
 		*
-		* @param string                 	        	   No credits set by default.
-		* @param int  									   The post ID
+		* @param string  No credits set by default.
+		* @param int     The post ID
 		*/
-		$footer_credits = apply_filters( 'instant_articles_footer_credits', '', $this->get_the_ID() ); 				
+		$footer_credits = apply_filters( 'instant_articles_footer_credits', '', $this->get_the_ID() );
 		return $footer_credits; 
 	}
 
@@ -564,10 +564,10 @@ class Instant_Articles_Post {
 		*
 		* @since 0.1
 		*
-		* @param string                 	        	   No copyright set by default.
-		* @param int  									   The post ID
+		* @param string  No copyright set by default.
+		* @param int  	 The post ID
 		*/
-		$footer_copyright = apply_filters( 'instant_articles_footer_copyright', '', $this->get_the_ID() ); 				
+		$footer_copyright = apply_filters( 'instant_articles_footer_copyright', '', $this->get_the_ID() );
 		return $footer_copyright; 
 	}
 
