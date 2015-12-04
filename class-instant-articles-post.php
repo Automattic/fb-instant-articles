@@ -70,7 +70,7 @@ class Instant_Articles_Post {
 		 */
 		$title = apply_filters( 'the_title_rss', $title );
 
-		return get_the_title( $this->get_the_ID() );
+		return $title;
 	}
 
 	/**
