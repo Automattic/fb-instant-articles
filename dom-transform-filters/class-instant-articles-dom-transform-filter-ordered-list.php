@@ -52,7 +52,6 @@ class Instant_Articles_DOM_Transform_Filter_Ordered_List extends Instant_Article
 	 * Implements the abstract method from Instant_Articles_DOM_Transform_Filter
 	 *
 	 * @since 0.1
-	 * @todo Get the rest of the properties
 	 * @param $DOMNode  $DOMNode  The original domnode
 	 */
 	protected function get_properties( $DOMNode ) {
