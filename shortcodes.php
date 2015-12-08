@@ -77,7 +77,7 @@ function instant_articles_shortcode_handler_gallery( $attr ) {
 				$output .= '<figure>';
 				$output .= '<img src="' . esc_url( $image_src[0] ) . '" alt="' . esc_attr( get_the_title() ) . '">';
 
-				$caption = trim( strip_tags( $attachments->post->post_excerpt ) );
+				$caption = wp_strip_all_tags( $attachments->post->post_excerpt, true );
 				if ( $caption ) {
 					$output .= '<figcaption>' . esc_html( $caption ) . '</figcaption>';
 				}
@@ -141,7 +141,7 @@ function instant_articles_shortcode_handler_caption( $attr, $content = null ) {
 			$classes = trim( $atts['figcaptionclass'] );
 			$class_attr = ( strlen( $classes ) ) ? ' class="' . esc_attr( $classes ) . '"' : '';
 
-			$caption = trim( strip_tags( $atts['caption'] ) );
+			$caption = wp_strip_all_tags( $atts['caption'], true );
 
 			$subtitle = ( strlen( $atts['subtitle'] ) ) ? '<h2>' . esc_html( $atts['subtitle'] ) . '</h2>' : '';			
 			$cite = ( strlen( $atts['cite'] ) ) ? '<cite>' . esc_html( $atts['cite'] ) . '</cite>' : '';
