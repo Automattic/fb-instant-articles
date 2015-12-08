@@ -13,13 +13,13 @@ echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) )
 			$instant_article_post = new Instant_Articles_Post( get_the_ID() );
 			?>
 			<item>
-				<title><?php echo $instant_article_post->get_the_title_rss(); ?></title>
-				<link><?php echo $instant_article_post->get_canonical_url(); ?></link>
+				<title><?php echo esc_html( $instant_article_post->get_the_title_rss() ); ?></title>
+				<link><?php echo esc_url( $instant_article_post->get_canonical_url() ); ?></link>
 				<content:encoded><![CDATA[<?php $instant_article_post->render(); ?>]]></content:encoded>
-				<guid isPermaLink="false"><?php the_guid(); ?></guid>
-				<description><![CDATA[<?php echo $instant_article_post->get_the_excerpt_rss(); ?>]]></description>
-				<pubDate><?php echo $instant_article_post->get_the_pubdate_iso(); ?></pubDate>
-				<modDate><?php echo $instant_article_post->get_the_moddate_iso(); ?></modDate>
+				<guid isPermaLink="false"><?php esc_html( the_guid() ); ?></guid>
+				<description><![CDATA[<?php echo esc_html( $instant_article_post->get_the_excerpt_rss() ); ?>]]></description>
+				<pubDate><?php echo esc_html( $instant_article_post->get_the_pubdate_iso() ); ?></pubDate>
+				<modDate><?php echo esc_html( $instant_article_post->get_the_moddate_iso() ); ?></modDate>
 				<?php $authors = $instant_article_post->get_the_authors(); ?>
 				<?php if ( is_array( $authors ) && count( $authors ) ) : ?>
 					<?php foreach ( $authors as $author ) : ?>
