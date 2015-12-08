@@ -121,6 +121,9 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 
 	/**
 	 * Remove all empty elements
+	 *
+	 * @param DOMNodeList $DOMNodeList The list of all elements we are checking
+	 * @return DOMNodeList The modified list of all remaining elements
 	 */
 	protected function _filter_empty_elements( DOMNodeList $DOMNodeList ) {
 
@@ -177,6 +180,7 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 	 *
 	 * @since 0.1
 	 * @param $DOMNode  $DOMNode The original domnode
+	 * @return stdClass  The element properties used for building the new fragment
 	 */
 	protected function get_properties( $DOMNode ) {
 
