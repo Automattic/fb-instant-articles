@@ -13,7 +13,7 @@ class Instant_Articles_DOM_Transform_Filter_Video extends Instant_Articles_DOM_T
 	 * Implements the abstract method from Instant_Articles_DOM_Transform_Filter
 	 *
 	 * @since 0.1
-	 * @return DOMDocument
+	 * @return DOMDocument  The modified DOMDocument
 	 */
 	public function run() {
 
@@ -56,6 +56,7 @@ class Instant_Articles_DOM_Transform_Filter_Video extends Instant_Articles_DOM_T
 	 *
 	 * @since 0.1
 	 * @param $DOMNode  $DOMNode  The original domnode
+	 * @return stdClass  The element properties used for building the new fragment
 	 */
 	protected function get_properties( $DOMNode ) {
 

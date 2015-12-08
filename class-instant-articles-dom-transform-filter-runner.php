@@ -29,6 +29,7 @@ class Instant_Articles_DOM_Transform_Filter_Runner {
 	 * @since 0.1
 	 * @param DOMDocument  $DOMDocument  The DOMDocument we are working on
 	 * @param int          $post_id      The current post ID
+	 * @return DOMDocument  The modified DOMDocument
 	 */
 	static function run( $DOMDocument, $post_id ) {
 		foreach ( self::$_stack as $className ) {

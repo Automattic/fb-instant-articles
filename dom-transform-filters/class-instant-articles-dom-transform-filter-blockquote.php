@@ -70,6 +70,7 @@ class Instant_Articles_DOM_Transform_Filter_Blockquote extends Instant_Articles_
 	 *
 	 * @since 0.1
 	 * @param $DOMNode  $DOMNode  The original domnode
+	 * @return stdClass  The element properties used for building the new fragment
 	 */
 	protected function get_properties( $DOMNode ) {
 

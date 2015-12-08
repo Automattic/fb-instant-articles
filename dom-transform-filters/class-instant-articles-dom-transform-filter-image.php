@@ -31,6 +31,9 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 
 	/**
 	 * The Instant Articles spec says we can only use each image once.
+	 *
+	 * @param DOMNodeList $DOMNodeList the list of images in the document
+	 * @return DOMNodeList The modified list of images in the document
 	 */
 	protected function _filter_multiple_uses( DOMNodeList $DOMNodeList ) {
 
@@ -94,6 +97,7 @@ class Instant_Articles_DOM_Transform_Filter_Image extends Instant_Articles_DOM_T
 	 *
 	 * @since 0.1
 	 * @param $DOMNode  $DOMNode  The original domnode
+	 * @return stdClass  The element properties used for building the new fragment
 	 */
 	protected function get_properties( $DOMNode ) {
 
