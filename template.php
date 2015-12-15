@@ -5,6 +5,17 @@
 		<link rel="canonical" href="<?php echo esc_url( $this->get_canonical_url() ); ?>">
 		<meta property="op:markup_version" content="v1.0">
 		<meta property="fb:article_style" content="<?php echo esc_attr( $this->get_article_style() ); ?>">
+
+		<?php
+		/**
+         * Fires in the head element of each article
+         *
+         * @since 0.1
+         *
+         * @param Instant_Articles_Post  $ia_post  The current article object
+         */
+		do_action( 'instant_articles_article_head', $this );
+		?>
 	</head>
 
 	<body>
