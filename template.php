@@ -76,6 +76,18 @@
 					<!-- A kicker for your article -->
 					<h3 class="op-kicker"><?php echo esc_html( $kicker_text); ?></h3>
 				<?php endif; ?>
+
+				<?php
+				/**
+		         * Fires in the header element of each article
+		         *
+		         * @since 0.1
+		         *
+		         * @param Instant_Articles_Post  $ia_post  The current article object
+		         */
+				do_action( 'instant_articles_article_header', $this );
+				?>
+
 			</header>
 
 			<!-- Article body goes here -->
