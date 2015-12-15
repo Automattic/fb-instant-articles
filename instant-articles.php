@@ -170,6 +170,11 @@ add_action( 'pre_get_posts', 'instant_articles_query', 10, 1 );
  */
 function instant_articles_query_where( $where, $query ) {
 
+	// Don’t modify the SQL query with a potentially expensive WHERE clause if we’re OK with fewer posts than 100 and are OK with filtering in the loop
+	if ( defined( 'INSTANT_ARTICLES_LIMIT_POSTS' ) && INSTANT_ARTICLES_LIMIT_POSTS ) {
+		return $where;
+	}
+
 	if ( $query->is_main_query() && $query->is_feed( INSTANT_ARTICLES_SLUG ) ) {
 		global $wpdb;
 		$where .= " AND {$wpdb->posts}.post_content NOT LIKE ''";

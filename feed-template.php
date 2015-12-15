@@ -1,16 +1,27 @@
 <?php
 header( 'Content-Type: ' . feed_content_type( 'rss2' ) . '; charset=' . get_option( 'blog_charset' ), true );
 echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?' . '>';
+
+$last_modified = null;
 ?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 	<channel>
 		<title><?php bloginfo_rss( 'name' ); ?> - <?php esc_html_e( 'Instant Articles', 'instant-articles' ); ?></title>
 		<link><?php bloginfo_rss('url') ?></link>
 		<description><?php bloginfo_rss( 'description' ) ?></description>
-		<lastBuildDate><?php echo mysql2date( 'c', get_lastpostmodified( 'GMT' ), false ); ?></lastBuildDate>
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php
 			$instant_article_post = new Instant_Articles_Post( get_the_ID() );
+			
+			// If we’re OK with a limited post set: Do not include posts with empty content -- FB will complain.
+			if ( defined( 'INSTANT_ARTICLES_LIMIT_POSTS' ) && INSTANT_ARTICLES_LIMIT_POSTS && ! strlen( trim( $instant_article_post->get_the_content() ) ) ) {
+				continue;
+			}
+
+			// Posts are sorted by modification time, so our first accepted post should be the one last modified
+			if ( is_null( $last_modified ) ) {
+				$last_modified = $instant_article_post->get_the_moddate_iso();
+			}
 			?>
 			<item>
 				<title><?php echo esc_html( $instant_article_post->get_the_title_rss() ); ?></title>
@@ -28,5 +39,8 @@ echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) )
 				<?php endif; ?>
 			</item>
 		<?php endwhile; ?>
+		<?php if ( ! is_null( $last_modified ) ) : ?>
+			<lastBuildDate><?php echo esc_html( $last_modified ); ?></lastBuildDate>
+		<?php endif; ?>
 	</channel>
 </rss>
