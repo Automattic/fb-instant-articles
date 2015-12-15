@@ -10,6 +10,9 @@ class Instant_Articles_Post {
 	/** @var int ID of the post */
 	protected $_ID = 0;
 
+	/** @var string Cached version of the Instant Article body */
+	protected $_content = null;
+
 	/**
 	 * Setup data and build the content
 	 *
@@ -153,12 +156,28 @@ class Instant_Articles_Post {
 	}
 
 	/**
-	 * Get the content for this post
+	 * Get the article body for this post
 	 *
 	 * @since 0.1
 	 * @return string The content
 	 */
 	public function get_the_content() {
+
+		if ( is_null( $this->_content ) ) {
+			$this->_content = $this->_get_the_content();
+		}
+
+		return $this->_content;
+
+	}
+
+	/**
+	 * Put together the article body for this post
+	 *
+	 * @since 0.1
+	 * @return string The content
+	 */
+	protected function _get_the_content() {
 
 		// Try to get the content from a transient, but only if the cached version have the same modtime
 		$cache_mod_time = get_transient( 'instantarticles_mod_' . $this->get_the_ID() );
