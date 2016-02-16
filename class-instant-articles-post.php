@@ -261,7 +261,14 @@ class Instant_Articles_Post {
 
 				$filtered_content = '';
 				foreach ( $body->childNodes as $node ) {
-					$filtered_content .= $DOMDocument->saveXML( $node );
+					if ( method_exists( $DOMDocument, 'saveHTML' ) ) { // Requires PHP 5.3.6
+						$filtered_content .= $DOMDocument->saveHTML( $node );
+					} else {
+						$temp_content = $DOMDocument->saveXML( $node );
+						$iframe_pattern = "#<iframe([^>]+)/>#is"; // self-closing iframe element
+						$temp_content = preg_replace( $iframe_pattern, "<iframe$1></iframe>", $temp_content );
+						$filtered_content .= $temp_content;
+					}
 				}
 
 				$content = $filtered_content;
