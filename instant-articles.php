@@ -118,7 +118,7 @@ function instant_articles_register_transformation_filters() {
 
 	// Remove empty elements
 	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-emptyelements.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Emptyelements' );
+	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Emptyelements', 90 );
 }
 add_action( 'instant_articles_register_dom_transformation_filters', 'instant_articles_register_transformation_filters' );
 
