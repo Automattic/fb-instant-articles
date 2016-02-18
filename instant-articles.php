@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Instant Articles for WP
  * Description: Add support for Instant Articles for Facebook to your WordPress site.
- * Author: Dekode
- * Author URI: https://dekode.no
+ * Author: Automattic, Dekode
+ * Author URI: https://vip.wordpress.com/plugins/instant-articles/
  * Version: 0.1
  * Text Domain: instant-articles
  * License: GPLv2
@@ -78,7 +78,7 @@ function instant_articles_feed() {
 
 	// Load embedded content handlers
 	include( dirname( __FILE__ ) . '/embeds.php' );
-	
+
 	// Load the feed template
 	include( dirname( __FILE__ ) . '/feed-template.php' );
 
@@ -112,7 +112,7 @@ function instant_articles_register_transformation_filters() {
 	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-address.php' );
 	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Address' );
 
-	//Instant articles only support h1 and h2. Convert h3-h6 to h2.	
+	//Instant articles only support h1 and h2. Convert h3-h6 to h2.
 	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-heading.php' );
 	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Heading' );
 
@@ -135,7 +135,7 @@ add_action( 'instant_articles_register_dom_transformation_filters', 'instant_art
 function instant_articles_query( $query ) {
 
 	if ( $query->is_main_query() && $query->is_feed( INSTANT_ARTICLES_SLUG ) ) {
-		
+
 		$query->set( 'orderby', 'modified' );
 		$query->set( 'posts_per_page', 100 );
 		$query->set( 'posts_per_rss', 100 );
