@@ -1,5 +1,5 @@
 === Instant Articles for WP ===
-Contributors: trrine, olethomas, bjornjohansen, dekode
+Contributors: trrine, olethomas, bjornjohansen, dekode, automattic
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 4.4
@@ -19,13 +19,15 @@ Developers: please note that this plugin is still in early stages and the underl
 
 = Feed submission to Facebook =
 
-When you first submit your feed to Facebook for review, you must provide 100 real articles.
-Yes, they will review this manually, and yes: this means you must have at least 100 posts.
+Facebook imposes strict rules on the content and formatting of Instant Articles. You will not be able to publish Instant Articles in Facebook until your feed has been approved.
 
-Facebook will now import your 100 posts as Instant Articles.
+All feeds are checked by Facebook staff, who review a random selection of articles from each feed for compliance with their policies and guidelines. They look not only at the technical aspects, but the editorial elements too.
 
-After the inital import, Facebook will only import new articles or import articles modified within the last 24 hours.
-You can set the constant `INSTANT_ARTICLES_LIMIT_POSTS` to `true` to limit the feed to only show posts that are modified within the last 24 hours.
+Be warned: if you use meta fields to add extra text, images or videos to your Posts, Facebook will expect you to add these to your Instant Articles output too. This plugin includes hooks to help you do that.
+
+[See Facebook's documentation for full details of the submission process.](https://developers.facebook.com/docs/instant-articles/publishing)
+
+Facebook requires a minimum number of articles in your feed before they will review it. Once your feed has been approved, you can set the constant `INSTANT_ARTICLES_LIMIT_POSTS` to `true` to limit the feed to only show posts that have been modified within the last 24 hours. (Facebook will ignore any articles which were last modified more than 24 hours ago.)
 
 Facebook will fetch your feed every 3 minutes.
 
@@ -47,7 +49,7 @@ By default it is set to `instant-articles` which usually will give you a feed UR
 
 = How do I flush the rewrite rules after changing the feed slug? =
 
-Usually simply visiting the permalinks settings page in the WordPress dashboard will to the trick (/wp-admin/options-permalink.php)
+Usually simply visiting the permalinks settings page in the WordPress dashboard will do the trick (/wp-admin/options-permalink.php)
 
 == Changelog ==
 
