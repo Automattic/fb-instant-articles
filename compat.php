@@ -14,3 +14,10 @@ if ( defined( 'WPSEO_VERSION' ) ) {
 	$yseo->init();
 }
 
+// Load support for Google Analytics for WordPress (Google Analytics by Yoast)
+if ( defined( 'GAWP_VERSION' ) ) {
+	include( dirname( __FILE__ ) . '/compat/class-instant-articles-google-analytics-for-wordpress.php' );
+	$gawp = new Instant_Articles_Google_Analytics_For_WordPress;
+	$gawp->init();
+}
+
