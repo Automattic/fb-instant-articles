@@ -11,7 +11,7 @@ Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/inst
 
 == Description ==
 
-This plugin adds support for Instant Articles for Facebook, which is a new way for publishers to distribute stories on Facebook. Instant Articles are preloaded in the Facebook mobile app so they load instantly.
+This plugin adds support for Instant Articles for Facebook, which is a new way for publishers to distribute fast, interactive stories on Facebook. Instant Articles are preloaded in the Facebook mobile app so they load instantly.
 
 With the plugin active, a special RSS feed will be available at the URL `/feed/instant-articles`.
 
@@ -19,13 +19,11 @@ Developers: please note that this plugin is still in early stages and the underl
 
 = Feed submission to Facebook =
 
-Facebook imposes strict rules on the content and formatting of Instant Articles. You will not be able to publish Instant Articles in Facebook until your feed has been approved.
+Facebook has a review process where they verify that all Instant Articles are properly formatted, have content consistency with their mobile web counterparts, and adhere to their community standards and content policies. You will not be able to publish Instant Articles in Facebook until your feed has been approved.
 
-All feeds are checked by Facebook staff, who review a random selection of articles from each feed for compliance with their policies and guidelines. They look not only at the technical aspects, but the editorial elements too.
+It's important to note that if you use meta fields to add extra text, images or videos to your Posts, Facebook will expect you to add these to your Instant Articles output too. This plugin includes hooks to help you do that.
 
-Be warned: if you use meta fields to add extra text, images or videos to your Posts, Facebook will expect you to add these to your Instant Articles output too. This plugin includes hooks to help you do that.
-
-[See Facebook's documentation for full details of the submission process.](https://developers.facebook.com/docs/instant-articles/publishing)
+[See Facebook's documentation for full details of the submission process.](https://developers.facebook.com/docs/instant-articles)
 
 Facebook requires a minimum number of articles in your feed before they will review it. Once your feed has been approved, you can set the constant `INSTANT_ARTICLES_LIMIT_POSTS` to `true` to limit the feed to only show posts that have been modified within the last 24 hours. (Facebook will ignore any articles which were last modified more than 24 hours ago.)
 
