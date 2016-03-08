@@ -48,6 +48,10 @@
 
 				<h1><?php echo esc_html( $this->get_the_title() ); ?></h1>
 
+				<?php if ( $this->has_subtitle() ) : ?>
+					<h2><?php echo esc_html( $this->get_the_subtitle() ); ?></h2>
+				<?php endif; ?>
+
 				<!-- The date and time when your article was originally published -->
 				<time class="op-published" datetime="<?php echo esc_attr( $this->get_the_pubdate_iso() ); ?>"><?php echo esc_html( $this->get_the_pubdate() ); ?></time>
 
