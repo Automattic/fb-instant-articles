@@ -20,7 +20,7 @@ class Instant_Articles_DOM_Transform_Filter_Runner {
 	 *                            with the same priority are executed in the order in which they were added.
 	 */
 	static function register( $className, $priority = 10 ) {
-		if ( ! is_array( self::$_stack[ $priority ] ) ) {
+		if ( ! isset( self::$_stack[ $priority ] ) || ! is_array( self::$_stack[ $priority ] ) ) {
 			self::$_stack[ $priority ] = array();
 		}
 		if ( ! in_array( $className, self::$_stack[ $priority ], true ) && is_subclass_of( $className, 'Instant_Articles_DOM_Transform_Filter' ) ) {
