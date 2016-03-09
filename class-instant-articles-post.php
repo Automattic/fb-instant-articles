@@ -659,6 +659,68 @@ class Instant_Articles_Post {
 		return $article_style;
 	}
 
+	/**
+	 * Get whether we shall output a list of related articles in the footer
+	 *
+	 * @since 0.2
+	 * @return bool Whether we shall output a list of related articles in the footer.
+	 */
+	function use_related_articles_in_footer() {
+
+		$use_related_articles_in_footer = false;
+
+		/**
+	     * Filter whether we shall output a list of related articles in the footer
+	     *
+	     * @since 0.2
+	     * @param bool                    $use_related_articles_in_footer   Whether we shall output a list of related articles in the footer
+	     * @param Instant_Article_Post    $instant_article_post             The instant article post
+	     */
+		$use_related_articles_in_footer = apply_filters( 'instant_articles_use_related_articles_in_footer', $use_related_articles_in_footer, $this );
+
+		return (bool) $use_related_articles_in_footer;
+	}
+
+	/**
+	 * Get the related articles
+	 *
+	 * @since 0.2
+	 * @return array {
+	 *     Array of objects containing the related articles
+	 *
+	 *     @type stdClass {
+	 *         The object with the data for the related article
+	 *         
+	 *         @type string  $url           The URL to the related article
+	 *         @type bool    $is_sponsored  Whether this is a sponsored link or not
+	 *     }
+	 * }
+	 */
+	function get_related_articles() {
+
+		$related_articles = array();
+
+		/**
+	     * Filter whether we shall output a list of related articles in the footer
+	     *
+	     * @since 0.2
+	     * @param array                   $related_articles       Whether we shall output a list of related articles in the footer
+	     * @param Instant_Article_Post    $instant_article_post   The instant article post
+	     */
+		$related_articles = apply_filters( 'instant_articles_related_articles', $related_articles, $this );
+
+		if ( ! is_array( $related_articles ) ) {
+			$related_articles = array();
+		}
+
+		// Max 3 elements according to the spec: https://developers.facebook.com/docs/instant-articles/reference/related-articles
+		if ( 3 < count( $related_articles ) ) {
+			$related_articles = array_slice( $related_articles, 0, 3 );
+		}
+
+		return $related_articles;
+	}
+
 }
 
 

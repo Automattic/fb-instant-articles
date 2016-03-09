@@ -21,3 +21,10 @@ if ( defined( 'GAWP_VERSION' ) && ! defined( 'GAWP_IA_COMPAT' ) ) {
 	$gawp->init();
 }
 
+// Load support for Yet Another Related Posts Plugin (YARPP)
+if ( defined( 'YARPP_VERSION' ) && ! defined( 'YARPP_IA_COMPAT' ) ) {
+	include( dirname( __FILE__ ) . '/compat/class-instant-articles-yarpp.php' );
+	$ia_yarpp = new Instant_Articles_YARPP;
+	$ia_yarpp->init();
+}
+
