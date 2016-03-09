@@ -34,7 +34,7 @@ class InstantArticlesPost extends WP_UnitTestCase {
 	public function testGetPostFields()
 	{
 		$this->assertEquals('Article title', $this->instant_articles_post->get_the_title() );
-		$this->assertEquals('Article title',  $this->instant_articles_post->get_the_title_rss() );
+		$this->assertEquals('Article title', $this->instant_articles_post->get_the_title_rss() );
 		$this->assertEquals('http://viptests.dev/?p='.$this->post_id, $this->instant_articles_post->get_canonical_url() );
 		$this->assertTrue(is_string( $this->instant_articles_post->get_the_excerpt() ), 'Expected string assertion failed.');
 		$this->assertTrue(is_string( $this->instant_articles_post->get_the_excerpt_rss() ), 'Expected string assertion failed.');
