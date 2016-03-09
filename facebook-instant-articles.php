@@ -49,7 +49,11 @@ register_deactivation_hook( __FILE__, 'instant_articles_deactivate' );
  * @since 0.1
  */
 function instant_articles_load_textdomain() {
-	load_plugin_textdomain( 'instant-articles', false, plugin_dir_path( __FILE__ ) . '/languages' );
+	$locale = get_locale();
+
+	if (isset($locale)) {
+		load_textdomain('instant-articles', plugin_dir_path( __FILE__ ) . 'languages/instant-articles-' . $locale . '.mo');
+	}
 }
 add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
 
@@ -183,5 +187,3 @@ function instant_articles_query_where( $where, $query ) {
 
 }
 add_filter( 'posts_where' , 'instant_articles_query_where', 10, 2 );
-
-
