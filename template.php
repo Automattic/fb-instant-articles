@@ -114,6 +114,16 @@
 					<!-- Copyright details for your article -->
 					<small><?php echo esc_html ( $footer_copyright ); ?></small>
 				<?php endif; ?>
+
+				<?php if ( $this->use_related_articles_in_footer() && is_array( $related_articles = $this->get_related_articles() ) && count( $related_articles ) ) : ?>
+					<ul class="op-related-articles">
+						<?php foreach ( $related_articles as $related_article ) : ?>
+						    <li<?php if ( $related_article->is_sponsored ) : ?> data-sponsored="true"<?php endif; ?>>
+						    	<a href="<?php echo esc_url( $related_article->url ); ?>"></a>
+						    </li>
+						<?php endforeach; ?>
+					  </ul>
+				<?php endif; ?>
 			</footer>
 		</article>
 	</body>
