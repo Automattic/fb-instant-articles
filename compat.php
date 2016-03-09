@@ -21,3 +21,10 @@ if ( defined( 'GAWP_VERSION' ) && ! defined( 'GAWP_IA_COMPAT' ) ) {
 	$gawp->init();
 }
 
+// Load support for Jetpack
+if ( defined( 'JETPACK__VERSION' ) ) {
+	include( dirname( __FILE__ ) . '/compat/class-instant-articles-jetpack.php' );
+	$jp = new Instant_Articles_Jetpack;
+	$jp->init();
+}
+
