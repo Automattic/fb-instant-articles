@@ -13,6 +13,9 @@ class Instant_Articles_Post {
 	/** @var string Cached version of the Instant Article body */
 	protected $_content = null;
 
+	/** @var string The post’s optional subtitle */
+	protected $_subtitle = null;
+
 	/**
 	 * Setup data and build the content
 	 *
@@ -74,6 +77,55 @@ class Instant_Articles_Post {
 		$title = apply_filters( 'the_title_rss', $title );
 
 		return $title;
+	}
+
+	/**
+	 * Check if this post has a subtitle
+	 *
+	 * @since 0.2
+	 * @return bool Whether the post has a subtitle or not
+	 */
+	public function has_subtitle() {
+		
+		$has_subtitle = false;
+
+		$subtitle = $this->get_the_subtitle();
+
+		if ( strlen( $subtitle ) ) {
+			$has_subtitle = true;
+		}
+
+		return $subtitle;
+	}
+
+	/**
+	 * Get the subtitle for this post
+	 *
+	 * @since 0.2
+	 * @return string The subtitle
+	 */
+	public function get_the_subtitle() {
+
+		// If we have already been through this function, we’ll have the result stored here
+		if ( ! is_null( $this->_subtitle ) ) {
+			return $this->_subtitle;
+		}
+
+		$subtitle = '';
+
+		/**
+		 * Filter the subtitle for use in instant articles
+		 *
+		 * @since 0.2
+		 *
+		 * @param string                 $subtitle              The current subtitle for the post.
+		 * @param Instant_Article_Post   $instant_article_post  The instant article post
+		 */
+		$subtitle = apply_filters( 'instant_articles_subtitle', $subtitle, $this );
+
+		$this->_subtitle = $subtitle;
+
+		return $subtitle;
 	}
 
 	/**
