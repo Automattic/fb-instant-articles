@@ -11,7 +11,8 @@ class InstantArticlesPost extends WP_UnitTestCase {
 
 	protected $post_id;
 
-	public function setup() {
+	public function setup()
+	{
 		$user_id = $this->factory->user->create();
 		$this->post_id = $this->factory->post->create( array( 
 			'post_author' => $user_id , 
@@ -22,29 +23,30 @@ class InstantArticlesPost extends WP_UnitTestCase {
 				'post_modified' => ''
 			) 
 		);
-		$this->instant_articles_post =  new Instant_Articles_Post( $this->post_id );
+		$this->instant_articles_post = new Instant_Articles_Post( $this->post_id );
 	}
 
 	public function testCreateInstance()
 	{
-			$this->assertInstanceOf('Instant_Articles_Post', $this->instant_articles_post);
+		$this->assertInstanceOf('Instant_Articles_Post', $this->instant_articles_post);
 	} 
 
 	public function testGetPostFields()
 	{
 		$this->assertEquals('Article title', $this->instant_articles_post->get_the_title() );
 		$this->assertEquals('Article title',  $this->instant_articles_post->get_the_title_rss() );
-		$this->assertEquals('http://viptests.dev/?p='.$this->post_id,  $this->instant_articles_post->get_canonical_url() );
+		$this->assertEquals('http://viptests.dev/?p='.$this->post_id, $this->instant_articles_post->get_canonical_url() );
 		$this->assertTrue(is_string( $this->instant_articles_post->get_the_excerpt() ), 'Expected string assertion failed.');
 		$this->assertTrue(is_string( $this->instant_articles_post->get_the_excerpt_rss() ), 'Expected string assertion failed.');
 	} 
 
-	public function testGetFeaturedImage_NoImage_HasArray() {
+	public function testGetFeaturedImage_NoImage_HasArray()
+	{
 		$this->assertTrue( is_array( $this->instant_articles_post->get_the_featured_image() ) ); 
 	}
 
-	public function testGetTheKicker_NoCategory() {
+	public function testGetTheKicker_NoCategory()
+	{
 		$this->assertEmpty( $this->instant_articles_post->get_the_kicker() ); 
 	}
-
 }
