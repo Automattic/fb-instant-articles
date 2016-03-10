@@ -122,8 +122,13 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 		$html = '<iframe>' . $html . '</iframe>';
 	}
 
+	$social_providers = array( 'instagram', 'vine', 'twitter', 'youtube', 'facebook' );
+	// According to https://developers.facebook.com/docs/instant-articles/reference/social those 5 should be op-social
+	// The rest of embeds should be op-interactive https://developers.facebook.com/docs/instant-articles/reference/interactive
+	$class = in_array( $provider_name, $social_providers ) ? 'social' : 'interactive';
+
 	// Wrap the embed in figure
-	$html = sprintf( '<figure class="op-social">%s</figure>', $html );
+	$html = sprintf( '<figure class="op-%s">%s</figure>', esc_attr( $class ) , $html );
 
 	/**
 	 * Filter the Instant Article Social Embed markup
