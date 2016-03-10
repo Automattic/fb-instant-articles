@@ -140,6 +140,15 @@ function instant_articles_query( $query ) {
 		$query->set( 'posts_per_page', 100 );
 		$query->set( 'posts_per_rss', 100 );
 
+		// Let users define their own feed post_type
+		if( defined( 'INSTANT_ARTICLES_POST_TYPE' ) && INSTANT_ARTICLES_POST_TYPE){
+			$instant_articles_post_type = @unserialize(INSTANT_ARTICLES_POST_TYPE);
+			if(!$instant_articles_post_type)
+				$instant_articles_post_type = INSTANT_ARTICLES_POST_TYPE;
+
+			$query->set( 'post_type', $instant_articles_post_type );
+		}
+
 		/**
 		 * If the constant INSTANT_ARTICLES_LIMIT_POSTS is set to true, we will limit the feed
 		 * to only include posts which are modified within the last 24 hours.
@@ -183,5 +192,3 @@ function instant_articles_query_where( $where, $query ) {
 
 }
 add_filter( 'posts_where' , 'instant_articles_query_where', 10, 2 );
-
-
