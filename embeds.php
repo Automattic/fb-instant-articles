@@ -41,6 +41,8 @@ function instant_articles_embed_oembed_html( $html, $url, $attr, $post_ID ) {
 		$provider_name = 'twitter';
 	} elseif( false !== strpos( $providerURL, 'youtube.com' ) ) {
 		$provider_name = 'youtube';
+    } elseif( false !== strpos( $providerURL, 'vimeo.com' ) ) {
+        $provider_name = 'vimeo';
 	} elseif( false !== strpos( $providerURL, 'vine.co' ) ) {
 		$provider_name = 'vine';
 	}
@@ -114,7 +116,7 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 	$html = sprintf( '<figure class="op-social"><iframe>%s</iframe></figure>', $html );
 
 	/**
-	 * Filter the Instant Article Social Embed markup 
+	 * Filter the Instant Article Social Embed markup
 	 *
 	 * @since 0.1
 	 * @param string  $html     The Social Embed markup
@@ -126,6 +128,3 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 
 	return $html;
 }
-
-
-
