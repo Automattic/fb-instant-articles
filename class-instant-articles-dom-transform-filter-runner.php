@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for handling registrating and execution of the DOM transformation filters
+ * Class for handling registration and execution of the DOM transformation filters
  *
  * @since 0.1
  */
