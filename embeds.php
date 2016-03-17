@@ -45,6 +45,8 @@ function instant_articles_embed_oembed_html( $html, $url, $attr, $post_ID ) {
         $provider_name = 'vimeo';
 	} elseif( false !== strpos( $providerURL, 'vine.co' ) ) {
 		$provider_name = 'vine';
+    } elseif( false !== strpos( $providerURL, 'facebook.com' ) ) {
+		$provider_name = 'facebook';
 	}
 
 	$provider_name = apply_filters( 'instant_articles_social_embed_type', $provider_name, $url );
