@@ -11,6 +11,10 @@ $last_modified = null;
 		<description><?php bloginfo_rss( 'description' ) ?></description>
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php
+			// Allow to skip posts before loading anything		
+			if( apply_filters( 'instant_articles_skip_post', FALSE ) ) {
+				continue;
+			}
 			$instant_article_post = new Instant_Articles_Post( get_the_ID() );
 			
 			// If we’re OK with a limited post set: Do not include posts with empty content -- FB will complain.
