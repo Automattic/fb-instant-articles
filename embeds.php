@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Oembed/embed handling
  *
@@ -35,21 +34,28 @@ function instant_articles_embed_oembed_html( $html, $url, $attr, $post_ID ) {
 	$providerURL = $WP_oEmbed->get_provider( $url );
 
 	$provider_name = false;
-	if ( false !== strpos( $providerURL, 'instagram.com' ) ) {
-		$provider_name = 'instagram';
-	} elseif( false !== strpos( $providerURL, 'twitter.com' ) ) {
-		$provider_name = 'twitter';
-	} elseif( false !== strpos( $providerURL, 'youtube.com' ) ) {
-		$provider_name = 'youtube';
-	} elseif( false !== strpos( $providerURL, 'vine.co' ) ) {
-		$provider_name = 'vine';
+
+	/**
+	 * Trying to extract provider name, to be used in
+	 * instant_articles_social_embed_{$provider_name} filter
+	 *
+	 */
+	preg_match( '#[https]?:?//([^/]+)/#i', $providerURL, $matches );
+
+	// We have a match - provider domain name
+	if ( $matches[1] ) {
+		// Split the domain in parts,
+		// drop TLD and assign provider name
+		// e.g. instagram.com -> instagram
+		// www.youtube.com -> youtube
+		$prov = explode( '.', $matches[1] );
+		array_pop( $prov );
+		$provider_name = end( $prov );
 	}
 
 	$provider_name = apply_filters( 'instant_articles_social_embed_type', $provider_name, $url );
 
-	if ( $provider_name ) {
-		$html = instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $post_ID );
-	}
+	$html = instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $post_ID );
 
 	return $html;
 
@@ -69,7 +75,6 @@ add_filter( 'embed_oembed_html', 'instant_articles_embed_oembed_html', 10, 4 );
  * @return string  The filtered HTML
  */
 function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $post_ID ) {
-
 	/*
 	Example output from instagram:
 	<blockquote class="instagram-media" data-instgrm-version="6" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;">
@@ -109,12 +114,24 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 	 * @param mixed   $attr     An array with extra attributes
 	 * @param int     $post_ID  The post ID
 	 */
-	$html = apply_filters( "instant_articles_social_embed_{$provider_name}", $html, $url, $attr, $post_ID);
+	$html = apply_filters( "instant_articles_social_embed_{$provider_name}", $html, $url, $attr, $post_ID );
 
-	$html = sprintf( '<figure class="op-social"><iframe>%s</iframe></figure>', $html );
+	// Some embeds come as iframes but some don't
+	// We check for that and wrap output in iframe if needed
+	if ( stripos( $html, '<iframe' ) === false ) {
+		$html = '<iframe>' . $html . '</iframe>';
+	}
+
+	$social_providers = array( 'instagram', 'vine', 'twitter', 'youtube', 'facebook' );
+	// According to https://developers.facebook.com/docs/instant-articles/reference/social those 5 should be op-social
+	// The rest of embeds should be op-interactive https://developers.facebook.com/docs/instant-articles/reference/interactive
+	$class = in_array( $provider_name, $social_providers ) ? 'social' : 'interactive';
+
+	// Wrap the embed in figure
+	$html = sprintf( '<figure class="op-%s">%s</figure>', esc_attr( $class ) , $html );
 
 	/**
-	 * Filter the Instant Article Social Embed markup 
+	 * Filter the Instant Article Social Embed markup
 	 *
 	 * @since 0.1
 	 * @param string  $html     The Social Embed markup
@@ -126,6 +143,3 @@ function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $p
 
 	return $html;
 }
-
-
-
