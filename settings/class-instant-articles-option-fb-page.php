@@ -14,14 +14,14 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
  */
 class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 
-	const OPTION_KEY = IA_PLUGIN_TEXT_DOMAIN . '-option-fb-page';
+	const OPTION_KEY = 'instant-articles-option-fb-page';
 
-	const SECTIONS = array(
+	public static $sections = array(
 		'title' => '',
 		'description' => '',
 	);
 
-	const FIELDS = array(
+	public static $fields = array(
 
 	'page_id' => array(
 		'visible' => false,
@@ -57,8 +57,8 @@ class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 	public function __construct() {
 		$this->options_manager = new parent(
 			self::OPTION_KEY,
-			self::SECTIONS,
-			self::FIELDS,
+			self::$sections,
+			self::$fields,
 			/**
 			 * Register this Option on a specific page group (used as the first
 			 * argument of `register_setting()` and called by `settings_fields()`).

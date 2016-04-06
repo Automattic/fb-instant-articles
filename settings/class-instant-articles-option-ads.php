@@ -14,14 +14,14 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
  */
 class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
-	const OPTION_KEY = IA_PLUGIN_TEXT_DOMAIN . '-option-ads';
+	const OPTION_KEY = 'instant-articles-option-ads';
 
-	const SECTIONS = array(
+	public static $sections = array(
 		'title' => 'Ads',
 		'description' => 'This is where you manage your ads.',
 	);
 
-	const FIELDS = array(
+	public static $fields = array(
 
 		'ad_source' => array(
 			'label' => 'Ad Type',
@@ -75,8 +75,8 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 	public function __construct() {
 		parent::__construct(
 			self::OPTION_KEY,
-			self::SECTIONS,
-			self::FIELDS
+			self::$sections,
+			self::$fields
 		);
 		wp_localize_script( 'instant-articles-option-ads', 'INSTANT_ARTICLES_OPTION_ADS', array(
 			'option_field_id_source'     => self::OPTION_KEY . '-ad_source',
@@ -154,7 +154,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 	 */
 	public function sanitize_option_fields( $field_values ) {
 		foreach ( $field_values as $field_id => $field_value ) {
-			$field = self::FIELDS[ $field_id ];
+			$field = self::$fields[ $field_id ];
 
 			switch ( $field_id ) {
 				case 'ad_source':

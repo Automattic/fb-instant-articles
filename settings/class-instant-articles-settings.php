@@ -24,7 +24,7 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-settings-fb-page.ph
  */
 class Instant_Articles_Settings {
 
-	const IA_PLUGIN_SETTINGS_SLUG = IA_PLUGIN_TEXT_DOMAIN . '-settings';
+	const IA_PLUGIN_SETTINGS_SLUG = 'instant-articles-settings';
 
 	/**
 	 * Initiator.
