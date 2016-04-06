@@ -1,0 +1,54 @@
+ol.instant-articles-wizard-steps {
+	margin: 0;
+	padding-bottom: 20px;
+	list-style: none;
+	counter-reset: ia-plugin-wizard-counter;
+}
+ol.instant-articles-wizard-steps > li {
+	position: relative;
+	margin: 0;
+	margin-left: 20px;
+	padding-left: 40px;
+}
+ol.instant-articles-wizard-steps > li.current:before {
+	color: #46b450;
+	border-color: #46b450;
+}
+ol.instant-articles-wizard-steps > li.complete:before {
+	content: '✓';
+	color: white;
+	background-color: #46b450;
+	border-color: #46b450;
+}
+ol.instant-articles-wizard-steps > li:before {
+	position: absolute;
+	top: 0px;
+	left: -0.6em;
+	width: 1.2em;
+	height: 1.2em;
+	line-height: 1.2em;
+	border: 3px solid #ccc;
+	border-radius: 50%;
+	background-color: white;
+	color: #ccc;
+	font-size: 22pt;
+	font-weight: bold;
+	text-align: center;
+	content: counter(ia-plugin-wizard-counter);
+	counter-increment: ia-plugin-wizard-counter;
+}
+ol.instant-articles-wizard-steps h3 {
+	cursor: pointer;
+	padding-top: 0.6em;
+}
+ol.instant-articles-wizard-steps .step-details {
+	display: none;
+	margin-bottom: 20px;
+}
+ol.instant-articles-wizard-steps > li.current .step-details {
+	display: block;
+}
+
+#instant-articles-restart-wizard button:before {
+	content: "\f516";
+}

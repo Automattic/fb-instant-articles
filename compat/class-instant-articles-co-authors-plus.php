@@ -1,33 +1,38 @@
 <?php
+/**
+ * Facebook Instant Articles for WP.
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @package default
+ */
 
 /**
  * Compatibility layer for Co-Authors Plus
  *
  * @since 0.1
- *
  */
 class Instant_Articles_Co_Authors_Plus {
 
 	/**
-	 * Init the compat layer
-	 *
+	 * Init the compat layer.
 	 */
 	function init() {
 		add_filter( 'instant_articles_authors', array( $this, 'authors' ), 10, 2 );
 	}
 
 	/**
-	 * Filter the authors
+	 * Filter the authors.
 	 *
-	 * @param array  $authors  The current authors
-	 * @param int    $post_id  The current post ID
+	 * @param array $authors The current authors.
+	 * @param int   $post_id The current post ID.
 	 */
 	function authors( $authors, $post_id ) {
 		if ( function_exists( 'get_coauthors' ) ) {
 			$coauthors = get_coauthors( $post_id );
 
 			$authors = array();
-			foreach( $coauthors as $coauthor ) {
+			foreach ( $coauthors as $coauthor ) {
 
 				$author = new stdClass;
 				$author->ID            = $coauthor->ID;
@@ -46,5 +51,4 @@ class Instant_Articles_Co_Authors_Plus {
 
 		return $authors;
 	}
-
 }

@@ -2,49 +2,93 @@
 /**
  * Plugin Name: Instant Articles for WP
  * Description: Add support for Instant Articles for Facebook to your WordPress site.
- * Author: Automattic, Dekode
+ * Author: Automattic, Dekode, Facebook
  * Author URI: https://vip.wordpress.com/plugins/instant-articles/
- * Version: 0.1
+ * Version: 2.0
  * Text Domain: instant-articles
  * License: GPLv2
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * @package default
  */
 
-defined( 'ABSPATH' ) || die('Shame on you');
+$autoloader = require __DIR__ . '/vendor/autoload.php';
+$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-php/src' );
+
+// Configures log to go through console.
+\Logger::configure(
+	array(
+		'rootLogger' => array(
+			'appenders' => array( 'facebook-instantarticles-transformer' ),
+		),
+		'appenders' => array(
+			'facebook-instantarticles-transformer' => array(
+				'class' => 'LoggerAppenderConsole',
+				'threshold' => 'INFO',
+				'layout' => array(
+					'class' => 'LoggerLayoutSimple',
+				),
+			),
+			'facebook-instantarticles-client' => array(
+				'class' => 'LoggerAppenderConsole',
+				'threshold' => 'INFO',
+				'layout' => array(
+					'class' => 'LoggerLayoutSimple',
+				),
+			),
+			'instantarticles-wp-plugin' => array(
+				'class' => 'LoggerAppenderConsole',
+				'threshold' => 'INFO',
+				'layout' => array(
+					'class' => 'LoggerLayoutSimple',
+				),
+			),
+		),
+	)
+);
 
 
-// Let users define their own feed slug
+defined( 'ABSPATH' ) || die( 'Shame on you' );
+
+define( 'IA_PLUGIN_PATH_FULL', __FILE__ );
+define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
+define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
+define( 'IA_PLUGIN_TEXT_DOMAIN', 'instant-articles' );
+
+// Let users define their own feed slug.
 if ( ! defined( 'INSTANT_ARTICLES_SLUG' ) ) {
 	define( 'INSTANT_ARTICLES_SLUG', 'instant-articles' );
 }
 
-require_once( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-dom-transform-filter-runner.php' );
+require_once( dirname( __FILE__ ) . '/embeds.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-post.php' );
+require_once( dirname( __FILE__ ) . '/settings/class-instant-articles-settings.php' );
+require_once( dirname( __FILE__ ) . '/meta-box/class-instant-articles-meta-box.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-publisher.php' );
 
 /**
- * Plugin activation hook to add our rewrite rules
+ * Plugin activation hook to add our rewrite rules.
  *
  * @since 0.1
  */
-function instant_articles_activate(){
+function instant_articles_activate() {
 	instant_articles_init();
 	flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, 'instant_articles_activate' );
 
 /**
- * Plugin activation hook to remove our rewrite rules
+ * Plugin activation hook to remove our rewrite rules.
  *
  * @since 0.1
  */
-function instant_articles_deactivate(){
+function instant_articles_deactivate() {
 	flush_rewrite_rules();
 }
 register_deactivation_hook( __FILE__, 'instant_articles_deactivate' );
 
 /**
- * Load plugin textdomain
+ * Load plugin textdomain.
  *
  * @since 0.1
  */
@@ -54,7 +98,17 @@ function instant_articles_load_textdomain() {
 add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
 
 /**
- * Register our special feed
+ * Plugin hook to load compat layers.
+ *
+ * @since 2.0
+ */
+function instant_articles_load_compat() {
+	require_once( dirname( __FILE__ ) . '/compat.php' );
+}
+add_action( 'plugins_loaded', 'instant_articles_load_compat' );
+
+/**
+ * Register our special feed.
  *
  * @since 0.1
  */
@@ -63,64 +117,18 @@ function instant_articles_init() {
 }
 add_action( 'init', 'instant_articles_init' );
 
+
 /**
- * Feed display callback
+ * Feed display callback.
  *
  * @since 0.1
  */
 function instant_articles_feed() {
 
-	// Load compat layers
-	include( dirname( __FILE__ ) . '/compat.php' );
-
-	// Load shortcode handlers
-	include( dirname( __FILE__ ) . '/shortcodes.php' );
-
-	// Load embedded content handlers
-	include( dirname( __FILE__ ) . '/embeds.php' );
-
-	// Load the feed template
+	// Load the feed template.
 	include( dirname( __FILE__ ) . '/feed-template.php' );
 
 }
-
-/**
- * Register included DOM transformation filters
- *
- * @since 0.1
- */
-function instant_articles_register_transformation_filters() {
-
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-video.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Video' );
-
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-image.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Image' );
-
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-blockquote.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Blockquote' );
-
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-unordered-list.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Unordered_List' );
-
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-ordered-list.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Ordered_List' );
-
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-table.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Table' );
-
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-address.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Address' );
-
-	//Instant articles only support h1 and h2. Convert h3-h6 to h2.
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-heading.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Heading' );
-
-	// Remove empty elements
-	include( dirname( __FILE__ ) . '/dom-transform-filters/class-instant-articles-dom-transform-filter-emptyelements.php' );
-	Instant_Articles_DOM_Transform_Filter_Runner::register( 'Instant_Articles_DOM_Transform_Filter_Emptyelements', 90 );
-}
-add_action( 'instant_articles_register_dom_transformation_filters', 'instant_articles_register_transformation_filters' );
 
 
 /**
@@ -130,7 +138,7 @@ add_action( 'instant_articles_register_dom_transformation_filters', 'instant_art
  * Facebook will only import 100 posts at the time.
  * Facebook will only update posts modified within the last 24 hours
  *
- * @param WP_Query  $query  The WP_Query object. Passed by reference.
+ * @param WP_Query $query  The WP_Query object. Passed by reference.
  */
 function instant_articles_query( $query ) {
 
@@ -161,16 +169,16 @@ add_action( 'pre_get_posts', 'instant_articles_query', 10, 1 );
 
 
 /**
- * Filter the SQL query to not include posts with empty content -- FB will complain
+ * Filter the SQL query to not include posts with empty content -- FB will complain.
  *
  * @since 0.1
- * @param string   $where  The original where part of the SQL statement
- * @param WP_Query $query  The WP_Query instance
- * @return string  The modified where part of the SQL statement
+ * @param string   $where  The original where part of the SQL statement.
+ * @param WP_Query $query  The WP_Query instance.
+ * @return string  The modified where part of the SQL statement.
  */
 function instant_articles_query_where( $where, $query ) {
 
-	// Don’t modify the SQL query with a potentially expensive WHERE clause if we’re OK with fewer posts than 100 and are OK with filtering in the loop
+	// Don’t modify the SQL query with a potentially expensive WHERE clause if we’re OK with fewer posts than 100 and are OK with filtering in the loop.
 	if ( defined( 'INSTANT_ARTICLES_LIMIT_POSTS' ) && INSTANT_ARTICLES_LIMIT_POSTS ) {
 		return $where;
 	}
@@ -184,4 +192,96 @@ function instant_articles_query_where( $where, $query ) {
 }
 add_filter( 'posts_where' , 'instant_articles_query_where', 10, 2 );
 
+/**
+ * Register all scripts and styles for the admin UI.
+ *
+ * @since 0.4
+ */
+function instant_articles_register_scripts() {
+	wp_register_style(
+		'instant-articles-meta-box',
+		plugins_url( '/css/instant-articles-meta-box.css', __FILE__ )
+	);
+	wp_register_style(
+		'instant-articles-settings-wizard',
+		plugins_url( '/css/instant-articles-settings-wizard.css', __FILE__ )
+	);
 
+	wp_register_script(
+		'instant-articles-meta-box',
+		plugins_url( '/js/instant-articles-meta-box.js', __FILE__ )
+	);
+	wp_register_script(
+		'instant-articles-option-ads',
+		plugins_url( '/js/instant-articles-option-ads.js', __FILE__ ),
+		null,
+		null,
+		true
+	);
+	wp_register_script(
+		'instant-articles-option-analytics',
+		plugins_url( '/js/instant-articles-option-analytics.js', __FILE__ ),
+		null,
+		null,
+		true
+	);
+	wp_register_script(
+		'instant-articles-option-publishing',
+		plugins_url( '/js/instant-articles-option-publishing.js', __FILE__ ),
+		null,
+		null,
+		true
+	);
+	wp_register_script(
+		'instant-articles-settings',
+		plugins_url( '/js/instant-articles-settings.js', __FILE__ ),
+		null,
+		null,
+		true
+	);
+}
+add_action( 'init', 'instant_articles_register_scripts' );
+
+/**
+ * Enqueue all scripts and styles for the admin UI.
+ *
+ * @since 0.4
+ */
+function instant_articles_enqueue_scripts() {
+	wp_enqueue_style( 'instant-articles-meta-box' );
+	wp_enqueue_style( 'instant-articles-settings-wizard' );
+
+	wp_enqueue_script( 'instant-articles-meta-box' );
+	wp_enqueue_script( 'instant-articles-option-ads' );
+	wp_enqueue_script( 'instant-articles-option-analytics' );
+	wp_enqueue_script( 'instant-articles-option-publishing' );
+	wp_enqueue_script( 'instant-articles-settings' );
+}
+add_action( 'admin_enqueue_scripts', 'instant_articles_enqueue_scripts' );
+
+/**
+ * Automatically add meta tag for Instant Articles URL claiming
+ * when page is set.
+ *
+ * @since 0.4
+ */
+function inject_url_claiming_meta_tag() {
+	$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+	$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+
+	if ( isset( $fb_page_settings['page_id'] ) ) {
+		?>
+		<meta property="fb:pages" content="<?php echo absint( $fb_page_settings['page_id'] ); ?>" />
+		<?php
+	}
+}
+add_action( 'wp_head', 'inject_url_claiming_meta_tag' );
+
+// Initialize the Instant Articles settings page.
+Instant_Articles_Settings::init();
+
+// Initialize the Instant Articles meta box.
+Instant_Articles_Meta_Box::init();
+
+// Initialize the Instant Articles publisher.
+Instant_Articles_Publisher::init();

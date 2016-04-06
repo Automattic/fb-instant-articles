@@ -8,12 +8,12 @@
 
 		<?php
 		/**
-         * Fires in the head element of each article
-         *
-         * @since 0.1
-         *
-         * @param Instant_Articles_Post  $ia_post  The current article object
-         */
+		 * Fires in the head element of each article
+		 *
+		 * @since 0.1
+		 *
+		 * @param Instant_Articles_Post  $ia_post  The current article object
+		 */
 		do_action( 'instant_articles_article_head', $this );
 		?>
 	</head>
@@ -89,7 +89,7 @@
 
 				<?php if ( $kicker_text = $this->get_the_kicker() ) : ?>
 					<!-- A kicker for your article -->
-					<h3 class="op-kicker"><?php echo esc_html( $kicker_text); ?></h3>
+					<h3 class="op-kicker"><?php echo esc_html( $kicker_text ); ?></h3>
 				<?php endif; ?>
 
 				<?php
@@ -116,7 +116,7 @@
 
 				<?php if ( $footer_copyright = $this->get_the_footer_copyright( ) ) : ?>
 					<!-- Copyright details for your article -->
-					<small><?php echo esc_html ( $footer_copyright ); ?></small>
+					<small><?php echo esc_html( $footer_copyright ); ?></small>
 				<?php endif; ?>
 			</footer>
 		</article>

@@ -1,0 +1,250 @@
+{
+    "rules":
+    [{
+        "class": "TextNodeRule"
+    }, {
+        "class": "PassThroughRule",
+        "selector": "html"
+    }, {
+        "class": "PassThroughRule",
+        "selector": "head"
+    }, {
+        "class": "PassThroughRule",
+        "selector": "body"
+    }, {
+        "class": "PassThroughRule",
+        "selector" : "code"
+    },{
+        "class": "PassThroughRule",
+        "selector" : "del"
+    }, {
+        "class": "PassThroughRule",
+        "selector" : "span"
+    }, {
+        "class": "ParagraphRule",
+        "selector": "p"
+    }, {
+        "class": "LineBreakRule",
+        "selector": "br"
+    }, {
+        "class": "AnchorRule",
+        "selector": "a",
+        "properties": {
+            "anchor.href": {
+                "type": "string",
+                "selector": "a",
+                "attribute": "href"
+            },
+            "anchor.rel": {
+                "type": "string",
+                "selector": "a",
+                "attribute": "rel"
+            }
+        }
+    }, {
+        "class": "BoldRule",
+        "selector": "b"
+    }, {
+        "class": "BoldRule",
+        "selector": "strong"
+    }, {
+        "class": "ItalicRule",
+        "selector": "i"
+    }, {
+        "class": "ItalicRule",
+        "selector": "em"
+    }, {
+        "class": "BlockquoteRule",
+        "selector": "blockquote"
+    }, {
+        "class": "ImageRule",
+        "selector": "//p[img]",
+        "properties": {
+            "image.url": {
+                "type": "string",
+                "selector": "img",
+                "attribute": "src"
+            },
+            "image.caption": {
+                "type": "element",
+                "selector": "img"
+            }
+        }
+    },{
+        "class": "ImageRule",
+        "selector": "img",
+        "properties": {
+            "image.url": {
+                "type": "string",
+                "selector": "img",
+                "attribute": "src"
+            },
+            "image.caption": {
+                "type": "element",
+                "selector": "img[@alt]"
+            }
+        }
+    }, {
+        "class": "CaptionRule",
+        "selector": "img",
+        "properties": {
+            "caption.default": {
+                "type": "string",
+                "selector": "img",
+                "attribute": "alt"
+            }
+        }
+    }, {
+        "class": "ListItemRule",
+        "selector" : "li"
+    }, {
+        "class": "ListElementRule",
+        "selector" : "ul"
+    }, {
+        "class": "ListElementRule",
+        "selector" : "ol"
+    }, {
+        "class": "BlockquoteRule",
+        "selector" : "blockquote"
+    }, {
+        "class": "H1Rule",
+        "selector" : "h1",
+        "properties" : {
+            "h1.class" : {
+                "type" : "string",
+                "selector" : "link",
+                "attribute": "class"
+            }
+        }
+    }, {
+        "class": "H1Rule",
+        "selector" : "title"
+    }, {
+        "class": "H2Rule",
+        "selector" : "h2",
+        "properties" : {
+            "h2.class" : {
+                "type" : "string",
+                "selector" : "link",
+                "attribute": "class"
+            }
+        }
+    },
+    {
+        "class": "SocialEmbedRule",
+        "selector" : "iframe",
+        "properties" : {
+            "socialembed.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "socialembed.iframe" : {
+                "type" : "children",
+                "selector" : "iframe"
+            },
+            "socialembed.caption" : {
+                "type" : "element",
+                "selector" : "figcaption"
+            }
+        }
+    }, {
+        "class": "SocialEmbedRule",
+        "selector" : "//p[iframe]",
+        "properties" : {
+            "socialembed.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "socialembed.iframe" : {
+                "type" : "children",
+                "selector" : "iframe"
+            },
+            "socialembed.caption" : {
+                "type" : "element",
+                "selector" : "figcaption"
+            }
+        }
+    },{
+        "class": "SocialEmbedRule",
+        "selector" : "div.embed",
+        "properties" : {
+            "socialembed.iframe" : {
+                "type" : "children",
+                "selector" : "div.embed"
+            }
+        }
+    }, {
+        "class": "SocialEmbedRule",
+        "selector" : "//div[@class='embed' and iframe]",
+        "properties" : {
+            "socialembed.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            }
+        }
+    }, {
+        "class": "ImageRule",
+        "selector": "//p[a[img]]|//a[img]",
+        "properties": {
+            "image.url": {
+                "type": "string",
+                "selector": "img",
+                "attribute": "src"
+            },
+            "image.caption": {
+                "type": "element",
+                "selector": "img[@alt]"
+            }
+        }
+    }, {
+        "class": "SlideshowImageRule",
+        "selector" : "figure",
+        "properties" : {
+            "image.url" : {
+                "type" : "string",
+                "selector" : "img",
+                "attribute": "src"
+            },
+            "caption.title" : {
+                "type" : "string",
+                "selector" : "figcaption"
+            }
+        }
+    }, {
+        "class": "SlideshowRule",
+        "selector" : "div.gallery"
+    }, {
+        "class": "CaptionRule",
+        "selector" : "figcaption"
+    },
+    {
+        "class": "ImageRule",
+        "selector" : "figure",
+        "properties" : {
+            "image.url" : {
+                "type" : "string",
+                "selector" : "img",
+                "attribute": "src"
+            }
+        }
+    }, {
+        "class": "VideoRule",
+        "selector" : "div.wp-video",
+        "containsChild": "video",
+        "properties" : {
+            "video.url" : {
+                "type" : "string",
+                "selector" : "source",
+                "attribute": "src"
+            },
+            "video.type" : {
+                "type" : "string",
+                "selector" : "source",
+                "attribute": "type"
+            }
+        }
+    }]
+}
