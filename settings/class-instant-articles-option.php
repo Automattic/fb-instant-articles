@@ -21,7 +21,7 @@ class Instant_Articles_Option {
 	 *
 	 * @var array $settings The settings for each option.
 	 */
-	public static $settings = [];
+	public static $settings = array();
 
 	/**
 	 * The key for field.
@@ -138,7 +138,7 @@ class Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	public static function get_registered_compat( $action_tag ) {
-		$registered_compat_integrations = [];
+		$registered_compat_integrations = array();
 
 		do_action_ref_array(
 			$action_tag,

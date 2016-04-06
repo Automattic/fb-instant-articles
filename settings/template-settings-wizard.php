@@ -226,11 +226,11 @@
 
 										// Map GraphNode objects to simple value objects that are smaller when serialized.
 										$pages_and_tokens = array_map(function( $page_node ) {
-											return (object) [
+											return (object) array(
 												'page_id' => $page_node->getField( 'id' ),
 												'page_name' => $page_node->getField( 'name' ),
 												'page_access_token' => $page_node->getField( 'access_token' ),
-											];
+											);
 										}, $helper->getPagesAndTokens( $access_token )->all());
 
 										?>

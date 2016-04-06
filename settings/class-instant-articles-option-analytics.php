@@ -26,7 +26,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 		'integrations' => array(
 			'label' => '3rd party integrations',
 			'render' => array( 'Instant_Articles_Option_Analytics', 'custom_render_integrations' ),
-			'default' => [],
+			'default' => array(),
 		),
 
 		'embed_code_enabled' => array(
