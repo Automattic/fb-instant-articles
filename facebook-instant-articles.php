@@ -12,7 +12,7 @@
  * @package default
  */
 
-if ( version_compare( PHP_VERSION, '5.5', '<' ) ) {
+if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action(
 		'admin_notices',
 		create_function(

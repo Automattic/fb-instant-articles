@@ -62,7 +62,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 
 
 	<!-- Display the submission messages if any -->
-	<?php if ( ! empty( $submission_status->getMessages() ) ) : ?>
+	<?php if ( count( $submission_status->getMessages() ) > 0 ) : ?>
 
 		<p>The server responded with the following messages:</p>
 
@@ -127,7 +127,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 
 
 <!-- Transformer messages -->
-<?php if ( ! empty( $adapter->transformer->getWarnings() ) ) : ?>
+<?php if ( count( $adapter->transformer->getWarnings() ) > 0 ) : ?>
 	<p>
 		<span class="dashicons dashicons-warning"></span>
 		This post was transformed into an Instant Article with some warnings
