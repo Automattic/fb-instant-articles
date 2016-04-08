@@ -5,6 +5,6 @@
         "symfony/css-selector": "*",
         "facebook/php-sdk-v4": "~5.0",
         "apache/log4php": "2.3.0",
-        "facebook/facebook-instant-articles-sdk-php": "0.6.5"
+        "facebook/facebook-instant-articles-sdk-php": "0.6.6"
     }
 }
