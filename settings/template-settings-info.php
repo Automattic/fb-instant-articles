@@ -22,7 +22,15 @@
 	<li>Create a style template for your articles, using the Style Editor. Be sure to provide the name of the template you want to use in the Plugin Configuration settings below.
 	<li>[Optional] Enable Audience Network, if you choose. Learn more about <a href="https://fbinstantarticles.files.wordpress.com/2016/03/audience-network_wp_instant-articles-2-2-web_self-serve.pdf" target="_blank">Audience Network</a> for Instant Articles and <a href="" target="_blank">sign up here</a>.
 	<li>[Optional] Set up your ads and analytics, including Audience Network, in the Configuration area, below.
-	<li><a href="" target="_blank">Submit your articles for review</a>.
+	<?php if ( isset( $fb_page_settings['page_id'] ) && ! empty ( $fb_page_settings['page_id'] ) ) : ?>
+		<li>
+			<a
+			href="https://www.facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>/settings/?tab=instant_articles" target="_blank">Submit your articles for review</a>.
+		</li>
+	<?php else : ?>
+		<li>Submit your articles for review.</li>
+	<?php endif; ?>
+
 </ol>
 
 <p>Other Resources:</p>
