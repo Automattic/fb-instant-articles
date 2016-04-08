@@ -9,7 +9,7 @@
 
   if ( Instant_Articles_Settings_Wizard::get_current_step_id() === 'next-steps' ) : ?>
 
-	<h2>Initial Setup Complete</h2>
+	<h3>Initial Setup Complete</h3>
 
 	<h4 class="dashicons-before dashicons-facebook">
 		Your Instant Articles will be published to:

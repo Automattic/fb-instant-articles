@@ -626,6 +626,14 @@ class Instant_Articles_Post {
 				->withCanonicalUrl( $this->get_canonical_url() )
 				->withHeader( $header );
 
+		$settings_style = Instant_Articles_Option_Style::get_option_decoded();
+		if ( isset( $settings_style['article_style'] ) && ! empty ( $settings_style['article_style'] ) ) {
+			$this->instant_article->withStyle( $settings_style['article_style'] );
+		}
+		else {
+			$this->instant_article->withStyle( 'default' );
+		}
+
 		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
 		if ( function_exists( 'wpcom_vip_file_get_contents' ) ) {
 			$configuration = wpcom_vip_file_get_contents( $file_path );

@@ -223,6 +223,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			'instant-articles-settings-wizard',
 			plugins_url( '/css/instant-articles-settings-wizard.css', __FILE__ )
 		);
+		wp_register_style(
+			'instant-articles-settings',
+			plugins_url( '/css/instant-articles-settings.css', __FILE__ )
+		);
 
 		wp_register_script(
 			'instant-articles-meta-box',
@@ -267,6 +271,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function instant_articles_enqueue_scripts() {
 		wp_enqueue_style( 'instant-articles-meta-box' );
 		wp_enqueue_style( 'instant-articles-settings-wizard' );
+		wp_enqueue_style( 'instant-articles-settings' );
 
 		wp_enqueue_script( 'instant-articles-meta-box' );
 		wp_enqueue_script( 'instant-articles-option-ads' );

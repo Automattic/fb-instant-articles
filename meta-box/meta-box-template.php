@@ -125,6 +125,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 
 <?php endif; ?>
 
+<hr>
 
 <!-- Transformer messages -->
 <?php if ( count( $adapter->transformer->getWarnings() ) > 0 ) : ?>

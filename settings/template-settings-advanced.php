@@ -10,6 +10,8 @@
  ?>
 <form method="post" action="options.php">
 <?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP ); ?>
+<?php do_settings_sections( Instant_Articles_Option_Styles::OPTION_KEY ); ?>
+<hr />
 <?php do_settings_sections( Instant_Articles_Option_Analytics::OPTION_KEY ); ?>
 <hr />
 <?php do_settings_sections( Instant_Articles_Option_Ads::OPTION_KEY ); ?>

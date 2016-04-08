@@ -1,0 +1,16 @@
+.instant-articles-settings-box {
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.04);
+	margin: 0.85em 0 1.7em 0;
+}
+.instant-articles-settings-box > h2 {
+	color: #444;
+	margin: 0em;
+	padding: 8px 12px;
+	border-bottom: 1px solid #ddd;
+	cursor: pointer;
+}
+.instant-articles-settings-box .inside {
+	padding: 8px 12px;
+}
