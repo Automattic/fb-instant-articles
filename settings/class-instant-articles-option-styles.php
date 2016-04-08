@@ -18,7 +18,7 @@ class Instant_Articles_Option_Styles extends Instant_Articles_Option {
 
 	public static $sections = array(
 		'title' => 'Styles',
-		'description' => 'This is where you manage your styles',
+		'description' => '<p>Assign your Instant Articles a custom style. To begin, customize a template using the Style Editor. Next, input the name of the style below.</p><p><strong>Note:</strong> If this field is left blank, the plugin will enable the “Default” style. Learn more about Instant Articles style options in the <a href="https://developers.facebook.com/docs/instant-articles/guides/design" target="_blank">Design Guide</a>.</p>',
 	);
 
 	public static $fields = array(

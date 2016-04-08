@@ -16,6 +16,14 @@
 			<?php include( dirname( __FILE__ ) . '/template-settings-wizard.php' ); ?>
 		</div>
 	</div>
+
+	<div id="instant-articles-settings-info" class="instant-articles-settings-box">
+		<h2 class="dashicons-before dashicons-arrow-down"> Instant Articles Configuration</h2>
+		<div class="inside">
+			<?php include( dirname( __FILE__ ) . '/template-settings-info.php' ); ?>
+		</div>
+	</div>
+
 	<div id="instant-articles-settings-advanced" class="instant-articles-settings-box">
 		<h2 class="dashicons-before dashicons-arrow-down"> Plugin Configuration</h2>
 		<div class="inside">

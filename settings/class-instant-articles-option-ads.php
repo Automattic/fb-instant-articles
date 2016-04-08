@@ -18,17 +18,17 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 	public static $sections = array(
 		'title' => 'Ads',
-		'description' => 'This is where you manage your ads.',
+		'description' => '<p>Choose your preferred method for displaying ads in your Instant Articles and input the code in the boxes below. Learn more about your options for <a href="https://developers.facebook.com/docs/instant-articles/ads-analytics" target="_blank">advertising in Instant Articles</a>.</p>',
 	);
 
 	public static $fields = array(
 
 		'ad_source' => array(
 			'label' => 'Ad Type',
-			'description' => 'Instant Articles supports both Audience Network and Direct Sold banner ads',
+			'description' => 'This plugin will automatically place the ads within your articles.',
 			'render' => array( 'Instant_Articles_Option_Ads', 'custom_render_ad_source' ),
 			'select_options' => array(
-				'none' => 'No Ads',
+				'none' => 'None',
 				'fan' => 'Facebook Audience Network',
 				'iframe' => 'Custom iframe URL',
 				'embed' => 'Custom Embed Code',
@@ -38,19 +38,21 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 		'fan_placement_id' => array(
 			'label' => 'Audience Network Placement ID',
-			'description' => 'Find your Placement ID for Facebook Audience Network on your app\'s Audience Network Portal',
+			'description' => 'Find your <a href="https://developers.facebook.com/docs/audience-network" target="_blank">Placement ID</a> for Facebook Audience Network on your app\'s Audience Network Portal',
 			'default' => null,
 		),
 
 		'iframe_url' => array(
-			'label' => 'URL for iframe',
+			'label' => 'Source URL',
 			'placeholder' => '//ad-server.com/my-ad',
+			'description' => 'Note: Instant Articles only supports Direct Sold ads. No programmatic ad networks, other than Facebook\'s Audience Network, are permitted.',
 			'default' => '',
 		),
 
 		'embed_code' => array(
 			'label' => 'Embed Code',
 			'render' => 'textarea',
+			'description' => 'Add code to be used for displayed ads in your Instant Articles.',
 			'default' => '',
 			'placeholder' => '<script>...</script>',
 		),

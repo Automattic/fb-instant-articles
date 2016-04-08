@@ -171,14 +171,25 @@ class Instant_Articles_Option {
 			: '';
 
 		$description = isset( $this->sections['description'] )
-			? $this->sections['description']
+			? wp_kses(
+				$this->sections['description'],
+				array(
+					'a' => array(
+						'href' => array(),
+						'target' => array()
+					),
+					'em' => array(),
+					'p' => array(),
+					'strong' => array()
+				)
+			)
 			: '';
 
 		add_settings_section(
 			$this->key,
 			esc_html( $title ),
 			function () use ( $description ) {
-				esc_html( $description );
+				echo $description;
 			},
 			$this->key
 		);
@@ -275,7 +286,17 @@ class Instant_Articles_Option {
 			: '';
 
 		$field_description = isset( $args['description'] )
-			? esc_html( $args['description'] )
+			? wp_kses(
+				$args['description'],
+				array(
+					'a' => array(
+						'href' => array(),
+						'target' => array()
+					),
+					'em' => array(),
+					'strong' => array()
+				)
+			)
 			: '';
 
 		$field_checkbox_label = isset( $args['checkbox_label'] )

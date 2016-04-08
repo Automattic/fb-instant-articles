@@ -24,7 +24,7 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 
 		'dev_mode' => array(
 			'label' => 'Development Mode',
-			'description' => 'Submit articles to the development environment instead of production',
+			'description' => 'When publishing in development, none of your articles will be made live, and they will be saved as drafts you can edit in the Instant Articles library on your Facebook Page. Whether in development mode or not, articles will not be published live until you have submitted a sample batch to Facebook and passed a one-time review.',
 			'render' => 'checkbox',
 			'default' => false,
 			'checkbox_label' => 'Enable development mode',
@@ -35,13 +35,15 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'render' => 'checkbox',
 			'default' => '',
 			'checkbox_label' => 'Enable custom transformer rules',
+			'description' => 'You can provide a JSON with a list of additional <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/docs/QuickStart.md#transformer" target="_blanl">Transformer Rules</a> to customize the output of your Instant Articles.',
+			'default' => '',
 		),
 
 		'custom_rules' => array(
-			'label' => 'Custom rules JSON',
+			'label' => '',
 			'render' => 'textarea',
 			'placeholder' => '{ "rules": [{ "class": "BoldRule", "selector": "span.bold" }, ... ] }',
-			'default' => '',
+			'description' => 'Refer to the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/tests/Facebook/InstantArticles/Transformer/instant-article-example-rules.json" target="_blank">example JSON</a> on the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php" target="_blank">Facebook Instant Articles PHP SDK</a> for sample configurations for all built-in rules.'
 		),
 
 	);
