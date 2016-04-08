@@ -27,6 +27,26 @@ class Instant_Articles_DOM_Transform_Filter_Unordered_List extends Instant_Artic
 	}
 
 	/**
+	 * Transform an element
+	 *
+	 * Overlay the parent {@see Instant_Articles_DOM_Transform_Filter::_transform_element}
+	 * method by checking for the Instant Article class and preserving it.
+	 *
+	 * @param DOMNode  $DOMNode  The original DOM node
+	 * @return DOMNode  The tranformed DOMNode. If you want to chain.
+	 */
+	protected function _transform_element( DOMNode $DOMNode ) {
+		if ( false === strpos( $DOMNode->getAttribute( 'class' ), 'op-' ) ) {
+			// Ensure that the Instant Article Element retain their class.
+			$original_node = $DOMNode;
+			$DOMNode = parent::_transform_element( $DOMNode );
+			$DOMNode->setAttribute( 'class', $original_node->getAttribute( 'class' ) );
+		} else {
+			return $DOMNode;
+		}
+	}
+
+	/**
 	 * Build a DOMDocumentFragment for the element
 	 *
 	 * @since 0.1
@@ -40,7 +60,7 @@ class Instant_Articles_DOM_Transform_Filter_Unordered_List extends Instant_Artic
 		for ( $i = 0; $i < $properties->childNodes->length; ++$i ) {
 			$ul->appendChild( $properties->childNodes->item( $i ) );
 		}
-		
+
 		$DOMDocumentFragment->appendChild( $ul );
 
 		return $DOMDocumentFragment;

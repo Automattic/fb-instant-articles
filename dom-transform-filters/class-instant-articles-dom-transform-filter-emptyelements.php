@@ -106,7 +106,7 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 	 */
 	public function run() {
 
-		
+
 		$xpathQuery = '//' . implode( ' | //', $this->_checkTagNames );;
 
 		$xpath = new DOMXpath( $this->_DOMDocument );
@@ -141,7 +141,7 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 			// Climb up to make sure we’re not in an Instant Article element (which should have proper handling elsewhere)
 			$parentNode = $DOMNode;
 			while ( isset( $parentNode->nodeName ) && $parentNode->nodeName != 'body' ) {
-				if ( 'figure' == $parentNode->nodeName && false !== strpos( $parentNode->getAttribute( 'class' ), 'op-' ) ) {
+				if ( ( 'figure' == $parentNode->nodeName || 'ul' == $parentNode->nodeName ) && false !== strpos( $parentNode->getAttribute( 'class' ), 'op-' ) ) {
 					// We found an element that’s likely to be an Instant Article element
 					continue 2;
 				}
@@ -154,7 +154,7 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 				$this->_filter_empty_elements( $DOMNode->childNodes );
 			}
 
-			
+
 			if ( isset( $DOMNode->nodeValue ) && '' == trim( $DOMNode->nodeValue ) ) {
 
 				if ( ! isset( $DOMNode->childNodes ) || is_null( $DOMNode->childNodes ) || ( is_a( $DOMNode->childNodes, 'DOMNodeList' ) && ! $DOMNode->childNodes->length ) ) {
@@ -203,5 +203,3 @@ class Instant_Articles_DOM_Transform_Filter_Emptyelements extends Instant_Articl
 
 
 }
-
-
