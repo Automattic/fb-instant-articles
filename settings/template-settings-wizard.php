@@ -7,290 +7,200 @@
  * @package default
  */
 
-  if ( Instant_Articles_Settings_Wizard::get_current_step_id() === 'next-steps' ) : ?>
+  if ( Instant_Articles_Settings_Wizard::get_current_step_id() === 'done' ) : ?>
 
-	<h3>Initial Setup Complete</h3>
+	<p><strong>Success! Your Instant Articles plugin has been activated.</strong></p>
 
-	<h4 class="dashicons-before dashicons-facebook">
-		Your Instant Articles will be published to:
-		<a href="http://facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>" target="_blank">
-			<?php echo esc_html( $fb_page_settings['page_name'] ); ?>
-		</a>.
-	</h4>
+	<form class="instant-articles-inline-form" method="post" action="options.php">
+		<p>
+			Your App is
+			<a
+				href="http://developers.facebook.com/apps/<?php echo absint( $fb_app_settings['app_id'] ); ?>"
+				target="_blank"><?php
+				echo absint( $fb_app_settings['app_id'] );
+			?></a>.
+
+				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
+				<?php submit_button( __( 'Update' ), 'default', 'submit', false ); ?>
+		</p>
+	</form>
+
+	<form class="instant-articles-inline-form" method="post" action="options.php">
+		<p>
+			Your page is
+			<a
+				href="http://facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>"
+				target="_blank"><?php
+				echo esc_html( $fb_page_settings['page_name'] );
+			?></a>.
+				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
+				<?php submit_button( __( 'Update' ), 'default', 'submit', false ); ?>
+				<div style="display: none">
+					<?php do_settings_sections( Instant_Articles_Option_FB_App::OPTION_KEY ); ?>
+				</div>
+		</p>
+	</form>
+
+<?php elseif ( Instant_Articles_Settings_Wizard::get_current_step_id() === 'app-setup' ) : ?>
 
 	<form method="post" action="options.php">
 		<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
-		<?php submit_button( __( 'Reconfigure' ) ); ?>
+
+		<p>
+			You need a Facebook App to publish Instant Articles using this plugin. If you already have one, input the App ID and App Secret below, which you can find by clicking on your app <a href="https://developers.facebook.com/apps" target="_blank">here</a>. If you don't, create one <a href="https://developers.facebook.com/apps" target="_blank">here</a> before continuing.
+		</p>
+
+		<?php do_settings_sections( Instant_Articles_Option_FB_App::OPTION_KEY ); ?>
+
+		<?php submit_button( __( 'Next' ) ); ?>
+	</form>
+
+<?php elseif ( Instant_Articles_Settings_Wizard::get_current_step_id() === 'page-selection' ) : ?>
+
+	<form class="instant-articles-inline-form" method="post" action="options.php">
+		<p>
+			Your App is
+			<a
+				href="http://developers.facebook.com/apps/<?php echo absint( $fb_app_settings['app_id'] ); ?>"
+				target="_blank"><?php
+				echo absint( $fb_app_settings['app_id'] );
+			?></a>.
+
+				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
+				<?php submit_button( __( 'Update' ), 'default', 'submit', false ); ?>
+		</p>
 	</form>
 
 	<hr>
 
-	<p>
-		You're all set up!
-	<p>
-		To begin publishing into Instant Articles, proceed to any post
-		and you'll see more information regarding it's published status.
-	</p>
+	<form method="post" action="options.php">
+		<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
+		<?php do_settings_sections( Instant_Articles_Option_FB_Page::OPTION_KEY ); ?>
+		<div style="display: none">
+			<?php do_settings_sections( Instant_Articles_Option_FB_App::OPTION_KEY ); ?>
+		</div>
 
-	<p>
-		Existing posts will only be published if you re-save it.
-	</p>
+		<?php
+		$fb_helper = new Instant_Articles_Settings_FB_Page();
+		$access_token = $fb_helper->get_fb_access_token();
+		$permissions = $fb_helper->get_fb_permissions( $access_token );
+		?>
 
-	<h4>Next steps:</h4>
+		<?php if ( ! $access_token ) : ?>
 
-	<ol>
-		<li>Configure styles (<a href="https://developers.facebook.com/docs/instant-articles/guides/design">more info</a>)</li>
-		<li>Signup for notifications</li>
-		<li>Submit articles for review</li>
-	</ol>
+			<script>
+				function instant_articles_login_callback(response) {
+					if (response.status === 'connected') {
+						location.reload();
+						//probably good to do an ajax call to a login_callback page
+					} else if (response.status === 'not_authorized') {
+						// The person is logged into Facebook, but not your app.
+					} else {
+						// The person is not logged into Facebook, so we're not sure if
+						// they are logged into this app or not.
+					}
+				}
+			</script>
 
-<?php else : ?>
+			<p>Login to Facebook and select the Facebook Page where you will publish Instant Articles.</p>
 
-	<div class="instant-articles-wizard-container">
-
-		<ol class="instant-articles-wizard-steps">
-
-			<!-- Wizard Step: ia-signup -->
-			<li
-				data-step-id="ia-signup"
-				class="<?php echo esc_attr( Instant_Articles_Settings_Wizard::get_state_for_step( 'ia-signup' ) ) ?>">
-
-				<h3>Sign up for Instant Articles</h3>
-
-				<div class="step-details">
-					<p>
-						This step needs to be done within Facebook. Here's a
-						<a href="https://facebook.com/instant_articles/signup" target="_blank">link</a>.
-					</p>
-
-					<form method="post" action="options.php">
-						<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
-						<input type="hidden" name="instant-articles-option-wizard[sign_up]" value="true">
-						<?php submit_button( __( 'Next' ) ); ?>
-					</form>
-				</div>
-
-			</li>
-
-
-			<!-- Wizard Step: app-setup -->
-			<li
-				data-step-id="app-setup"
-				class="<?php echo esc_attr( Instant_Articles_Settings_Wizard::get_state_for_step( 'app-setup' ) ) ?>">
-
-				<h3>Set up your Facebook App</h3>
-				<div class="step-details">
-
-					<form method="post" action="options.php">
-						<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
-
-						<p>
-							Your Instant Articles need to be published to a specific Facebook Page through
-							<a href="https://developers.facebook.com/apps/">an existing</a>
-							Facebook App:
-						</p>
-
-						<?php do_settings_sections( Instant_Articles_Option_Wizard::OPTION_KEY ); ?>
-						<?php do_settings_sections( Instant_Articles_Option_FB_App::OPTION_KEY ); ?>
-
-						<?php submit_button( __( 'Next' ) ); ?>
-					</form>
-
-				</div>
-			</li>
-
-
-
-
-			<!-- Wizard Step: page-selection -->
-			<li
-				data-step-id="page-selection"
-				class="<?php
-					echo esc_attr ( Instant_Articles_Settings_Wizard::get_state_for_step( 'page-selection' ) );
+			<div
+				class="fb-login-button"
+				data-size="large"
+				data-scope="<?php
+					echo esc_html(
+						implode( Instant_Articles_Settings_FB_Page::$fb_app_permissions, ',' )
+					);
 				?>"
-			>
-				<h3>Facebook Page</h3>
-				<div class="step-details">
+				onlogin="instant_articles_login_callback">
+				Login with Facebook
+			</div>
 
-					<form method="post" action="options.php">
-						<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
-						<?php do_settings_sections( Instant_Articles_Option_Wizard::OPTION_KEY ); ?>
-						<?php do_settings_sections( Instant_Articles_Option_FB_Page::OPTION_KEY ); ?>
-						<div style="display: none">
-							<?php do_settings_sections( Instant_Articles_Option_FB_App::OPTION_KEY ); ?>
-						</div>
+		<?php
+		elseif (
+			( ! isset( $permissions['pages_manage_instant_articles'] )  ) ||
+			( ! isset( $permissions['pages_show_list'] ) )
+		) :
+		?>
 
-						<?php
-						$fb_helper = new Instant_Articles_Settings_FB_Page();
-						$access_token = $fb_helper->get_fb_access_token();
-						$permissions = $fb_helper->get_fb_permissions( $access_token );
-						?>
+			<script>
+				//*
+				function instant_articles_login_callback(response) {
+					if (response.status === 'connected') {
+						location.reload();
+						//probably good to do an ajax call to a login_callback page
+					} else if (response.status === 'not_authorized') {
+						// The person is logged into Facebook, but not your app.
+					} else {
+						// The person is not logged into Facebook, so we're not sure if
+						// they are logged into this app or not.
+					}
+				}
+				//*/
+			</script>
 
-						<?php if ( ! $access_token ) : ?>
+			<p>In order to finish the activation, you need to grant all the requested permissions:</p>
+			<ul>
+				<?php if ( ! isset( $permissions['pages_show_list'] ) ) : ?>
+					<li>
+						<b>Show a list of the Pages you manage</b>: allows the plugin to show the list of your
+						pages for you to select one.
+					</li>
+				<?php endif; ?>
+				<?php if ( ! isset( $permissions['pages_manage_instant_articles'] ) ) : ?>
+					<li>
+						<b>Manage Instant Articles for your Pages</b>: allows us to publish
+						Instant Articles to your selected page.
+					</li>
+				<?php endif; ?>
+			</p>
 
-							<script>
-								//*
-								function loginCallback2(response) {
-									if (response.status === 'connected') {
-										location.reload();
-										//probably good to do an ajax call to a login_callback page
-									} else if (response.status === 'not_authorized') {
-										// The person is logged into Facebook, but not your app.
-									} else {
-										// The person is not logged into Facebook, so we're not sure if
-										// they are logged into this app or not.
-									}
-								}
-								//*/
-							</script>
+			<p>Please grant the needed permissions to continue:</p>
 
-							<div
-								class="fb-login-button"
-								data-size="medium"
-								data-scope="<?php
-									echo esc_html(
-										implode( Instant_Articles_Settings_FB_Page::$fb_app_permissions, ',' )
-									);
-								?>"
-								onlogin="loginCallback2">
-								List Pages
-							</div>
+			<div
+				class="fb-login-button"
+				data-size="large"
+				data-scope="<?php
+					echo esc_attr(
+						implode( Instant_Articles_Settings_FB_Page::$fb_app_permissions, ',' )
+					);
+				?>"
+				onlogin="instant_articles_login_callback">
+				Login with Facebook
+			</div>
 
-						<?php
-						elseif (
-							( ! isset( $permissions['pages_manage_instant_articles'] )  ) ||
-							( ! isset( $permissions['pages_show_list'] ) )
-						) :
-						?>
+		<?php else : ?>
 
-							<script>
-								//*
-								function loginCallback2(response) {
-									if (response.status === 'connected') {
-										location.reload();
-										//probably good to do an ajax call to a login_callback page
-									} else if (response.status === 'not_authorized') {
-										// The person is logged into Facebook, but not your app.
-									} else {
-										// The person is not logged into Facebook, so we're not sure if
-										// they are logged into this app or not.
-									}
-								}
-								//*/
-							</script>
+			<?php
+			$helper = new Facebook\InstantArticles\Client\Helper(
+				$fb_helper->fb_sdk
+			);
 
-							<p>In order to finish the setup, you need to grant these permissions:</p>
-							<ul>
-								<?php if ( ! isset( $permissions['pages_show_list'] ) ) : ?>
-									<li>
-										<b>pages_show_list</b>: allows us to show the list of your
-										pages for you to pick one.
-									</li>
-								<?php endif; ?>
-								<?php if ( ! isset( $permissions['pages_manage_instant_articles'] ) ) : ?>
-									<li>
-										<b>pages_manage_instant_articles</b>: allows us to publish
-										Instant Articles to your page.
-									</li>
-								<?php endif; ?>
-							</p>
+			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 
-							<p>Please grant the needed permissions to continue:</p>
+			// Map GraphNode objects to simple value objects that are smaller when serialized.
+			$pages_and_tokens = array_map(function( $page_node ) {
+				return (object) array(
+					'page_id' => $page_node->getField( 'id' ),
+					'page_name' => $page_node->getField( 'name' ),
+					'page_access_token' => $page_node->getField( 'access_token' ),
+				);
+			}, $helper->getPagesAndTokens( $access_token )->all());
+			?>
 
-							<div
-								class="fb-login-button"
-								data-size="medium"
-								data-scope="<?php
-									echo esc_attr(
-										implode( Instant_Articles_Settings_FB_Page::$fb_app_permissions, ',' )
-									);
-								?>"
-								onlogin="loginCallback2">
-								Grant needed permissions
-							</div>
+			<p>Select the Facebook Pages where you will publish Instant Articles:</p>
 
-						<?php else : ?>
+			<select id="<?php echo esc_attr( 'instant-articles-fb-page-selector' ) ?>">
+				<option value="" disabled selected>Select Page</option>
+				<?php foreach ( $pages_and_tokens as $page ) : ?>
+					<option value="<?php echo esc_attr( json_encode( $page ) ) ?>">
+						<?php echo esc_html( $page->page_name ) ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
 
-							<table class="form-table">
-								<tr>
-									<th scope="row">
-										Facebook Page
-									</th>
-									<td>
-										<?php
-										$helper = new Facebook\InstantArticles\Client\Helper(
-											$fb_helper->fb_sdk
-										);
-
-										$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
-
-										// Map GraphNode objects to simple value objects that are smaller when serialized.
-										$pages_and_tokens = array_map(function( $page_node ) {
-											return (object) array(
-												'page_id' => $page_node->getField( 'id' ),
-												'page_name' => $page_node->getField( 'name' ),
-												'page_access_token' => $page_node->getField( 'access_token' ),
-											);
-										}, $helper->getPagesAndTokens( $access_token )->all());
-
-										?>
-										<select id="<?php echo esc_attr( 'instant-articles-fb-page-selector' ) ?>">
-											<option value="" disabled selected>Select your Page</option>
-											<?php foreach ( $pages_and_tokens as $page ) : ?>
-												<option value="<?php echo esc_attr( json_encode( $page ) ) ?>">
-													<?php echo esc_html( $page->page_name ) ?>
-												</option>
-											<?php endforeach; ?>
-										</select>
-									</td>
-								</tr>
-							</table>
-							<?php submit_button( __( 'Next' ) ); ?>
-						<?php endif; ?>
-					</form>
-				</div>
-			</li>
-
-
-			<!-- Wizard Step: claim-url -->
-			<li
-				data-step-id="claim-url"
-				class="<?php echo esc_attr( Instant_Articles_Settings_Wizard::get_state_for_step( 'claim-url' ) ) ?>"
-			>
-
-				<h3>Claim URLs</h3>
-				<div class="step-details">
-					<p>
-						Claim your URLs <a target="_blank" href="<?php echo esc_attr( $claim_url_href ) ?>">here</a>.
-						We think the one for this Wordpress site is:
-						<strong><code><?php echo esc_html( site_url() ); ?></code></strong>.
-					</p>
-
-					<form method="post" action="options.php">
-						<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
-						<div style="display: none">
-							<?php do_settings_sections( Instant_Articles_Option_Wizard::OPTION_KEY ); ?>
-							<?php do_settings_sections( Instant_Articles_Option_FB_Page::OPTION_KEY ); ?>
-							<?php do_settings_sections( Instant_Articles_Option_FB_App::OPTION_KEY ); ?>
-						</div>
-
-						<input type="hidden" name="instant-articles-option-wizard[claimed_url]" value="true">
-						<?php submit_button( __( 'Done' ) ); ?>
-					</form>
-				</div>
-
-			</li>
-		</ol>
-
-		<hr>
-
-		<?php if ( Instant_Articles_Settings_Wizard::get_current_step_id() !== 'ia-signup' ) : ?>
-			<form method="post" action="options.php" id="instant-articles-restart-wizard">
-				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
-				<?php submit_button( __( 'Restart Wizard' ), 'secondary' ); ?>
-			</form>
+			<?php submit_button( 'Next', 'primary', 'instant-articles-select-page', true ); ?>
 		<?php endif; ?>
-
-	</div>
+	</form>
 
 <?php endif;

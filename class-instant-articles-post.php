@@ -626,7 +626,7 @@ class Instant_Articles_Post {
 				->withCanonicalUrl( $this->get_canonical_url() )
 				->withHeader( $header );
 
-		$settings_style = Instant_Articles_Option_Style::get_option_decoded();
+		$settings_style = Instant_Articles_Option_Styles::get_option_decoded();
 		if ( isset( $settings_style['article_style'] ) && ! empty ( $settings_style['article_style'] ) ) {
 			$this->instant_article->withStyle( $settings_style['article_style'] );
 		}

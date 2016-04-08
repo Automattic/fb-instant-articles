@@ -9,7 +9,6 @@
 
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-wizard.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-ads.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.php' );
@@ -40,7 +39,6 @@ class Instant_Articles_Settings {
 		add_action( 'admin_init', function () {
 			new Instant_Articles_Option_FB_App();
 			new Instant_Articles_Option_FB_Page();
-			new Instant_Articles_Option_Wizard();
 			new Instant_Articles_Option_Styles();
 			new Instant_Articles_Option_Ads();
 			new Instant_Articles_Option_Analytics();
@@ -133,6 +131,7 @@ class Instant_Articles_Settings {
 		settings_errors();
 
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 
 		if ( isset( $fb_page_settings['page_id'] ) && ! empty( $fb_page_settings['page_id'] ) ) {
 
