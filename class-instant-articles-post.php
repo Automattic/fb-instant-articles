@@ -626,10 +626,11 @@ class Instant_Articles_Post {
 				->withCanonicalUrl( $this->get_canonical_url() )
 				->withHeader( $header );
 
+		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
 		if ( function_exists( 'wpcom_vip_file_get_contents' ) ) {
-			$configuration = wpcom_vip_file_get_contents( plugins_url( 'rules-configuration.json', __FILE__ ) );
+			$configuration = wpcom_vip_file_get_contents( $file_path );
 		} else {
-			$configuration = file_get_contents( plugins_url( 'rules-configuration.json', __FILE__ ) );
+			$configuration = file_get_contents( $file_path );
 		}
 
 		$transformer = new Transformer();
