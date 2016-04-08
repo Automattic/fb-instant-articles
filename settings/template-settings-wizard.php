@@ -184,22 +184,32 @@
 					'page_id' => $page_node->getField( 'id' ),
 					'page_name' => $page_node->getField( 'name' ),
 					'page_access_token' => $page_node->getField( 'access_token' ),
+					'supports_instant_articles' => $page_node->getField( 'supports_instant_articles' )
 				);
-			}, $helper->getPagesAndTokens( $access_token )->all());
+			}, $helper->getPagesAndTokens( $access_token )->all() );
+
+			$pages_and_tokens = array_filter( $pages_and_tokens, function ( $page ) {
+				return $page->supports_instant_articles;
+			} );
 			?>
 
-			<p>Select the Facebook Pages where you will publish Instant Articles:</p>
+			<?php if ( ! empty ( $pages_and_tokens ) ) : ?>
+				<p>Select the Facebook Pages where you will publish Instant Articles:</p>
 
-			<select id="<?php echo esc_attr( 'instant-articles-fb-page-selector' ) ?>">
-				<option value="" disabled selected>Select Page</option>
-				<?php foreach ( $pages_and_tokens as $page ) : ?>
-					<option value="<?php echo esc_attr( json_encode( $page ) ) ?>">
-						<?php echo esc_html( $page->page_name ) ?>
-					</option>
-				<?php endforeach; ?>
-			</select>
+				<select id="<?php echo esc_attr( 'instant-articles-fb-page-selector' ) ?>">
+					<option value="" disabled selected>Select Page</option>
+					<?php foreach ( $pages_and_tokens as $page ) : ?>
+						<option value="<?php echo esc_attr( json_encode( $page ) ) ?>">
+							<?php echo esc_html( $page->page_name ) ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+				<?php submit_button( 'Next', 'primary', 'instant-articles-select-page', true ); ?>
+			<?php else : ?>
+				<p>Sorry, you have no Pages signed up for Instant Articles.</p>
+				<p><a href="https://www.facebook.com/instant_articles/signup" target="_blank">Sign up</a> for Instant Articles and refresh this page to continue.</p>
+			<?php endif; ?>
 
-			<?php submit_button( 'Next', 'primary', 'instant-articles-select-page', true ); ?>
 		<?php endif; ?>
 	</form>
 
