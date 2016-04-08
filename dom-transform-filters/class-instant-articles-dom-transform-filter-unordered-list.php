@@ -37,7 +37,9 @@ class Instant_Articles_DOM_Transform_Filter_Unordered_List extends Instant_Artic
 	 */
 	protected function _transform_element( DOMNode $DOMNode ) {
 		if ( false === strpos( $DOMNode->getAttribute( 'class' ), 'op-' ) ) {
-			parent::_transform_element( $DOMNode );
+			return parent::_transform_element( $DOMNode );
+		} else {
+			return $DOMNode;
 		}
 	}
 
