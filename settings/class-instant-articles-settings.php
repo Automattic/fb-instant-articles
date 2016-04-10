@@ -78,11 +78,11 @@ class Instant_Articles_Settings {
 	public static function menu_items() {
 		add_menu_page(
 			'Instant Articles Settings',
-			'Facebook<br />Instant Articles',
+			'Instant Articles',
 			'manage_options',
 			self::IA_PLUGIN_SETTINGS_SLUG,
 			array( 'Instant_Articles_Settings', 'render_settings_page' )
-			,'dashicons-thumbs-up'
+			,'dashicons-facebook'
 		);
 	}
 
