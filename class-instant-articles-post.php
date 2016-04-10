@@ -634,6 +634,7 @@ class Instant_Articles_Post {
 			$this->instant_article->withStyle( 'default' );
 		}
 
+		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
 		$configuration = file_get_contents( $file_path );
 
 		$transformer = new Transformer();
