@@ -634,12 +634,7 @@ class Instant_Articles_Post {
 			$this->instant_article->withStyle( 'default' );
 		}
 
-		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
-		if ( function_exists( 'wpcom_vip_file_get_contents' ) ) {
-			$configuration = wpcom_vip_file_get_contents( $file_path );
-		} else {
-			$configuration = file_get_contents( $file_path );
-		}
+		$configuration = file_get_contents( $file_path );
 
 		$transformer = new Transformer();
 		$this->transformer = $transformer;
