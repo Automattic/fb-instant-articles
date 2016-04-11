@@ -38,7 +38,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 		'fan_placement_id' => array(
 			'label' => 'Audience Network Placement ID',
-			'description' => 'Find your <a href="https://developers.facebook.com/docs/audience-network" target="_blank">Placement ID</a> for Facebook Audience Network on your app\'s Audience Network Portal',
+			'description' => 'Find your <a href="https://developers.facebook.com/docs/audience-network/instantarticles/banner" target="_blank">Placement ID</a> for Facebook Audience Network on your app\'s Audience Network Portal',
 			'default' => null,
 		),
 

@@ -35,7 +35,19 @@
 
 <p>Other Resources:</p>
 <ol>
-	<li>Read our documentation (https://developers.intern.facebook.com/docs/instant-articles) [new tab] to answer additional questions you might have about Instant Articles.
-	<li>Check out the Instant Articles blog (https://developers.facebook.com/ia/blog/) [new tab] and sign up  *[link to uncollapsed Notifications tab in Settings. New tab]* to receive notifications of important updates.
-	<li>To give other members of your team access to your Instant Articles tools [link to Settings. New Tab] on your Facebook Page, assign them Page roles here [Link to Page Roles. New Tab]
+	<li>See the Instant Articles <a href="https://developers.facebook.com/docs/instant-articles" target="_blank">documentation</a> to answer any questions you might have about Instant Articles.
+	<li>Check out the Instant Articles <a href="https://developers.facebook.com/ia/blog/" target="_blank">blog</a> and sign up to receive notifications of important updates.
+	<?php if ( isset( $fb_page_settings['page_id'] ) && ! empty ( $fb_page_settings['page_id'] ) ) : ?>
+		<li>
+			To give other members of your team access to your Instant Articles
+			<a
+				href="https://www.facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>/settings/?tab=instant_articles" target="_blank">tools</a>
+			on your Facebook Page, assign them Page roles
+			<a
+				href="https://www.facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>/settings/?tab=admin_roles" target="_blank">here</a>.
+		</li>
+	<?php else : ?>
+		<li>To give other members of your team access to your Instant Articles tools on your Facebook Page, assign them Page roles.
+	<?php endif; ?>
+
 </ol>
