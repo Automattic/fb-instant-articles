@@ -72,7 +72,7 @@ class Instant_Articles_Post {
 	 * @return int The post ID.
 	 */
 	public function get_the_id() {
-		return $this->_ID;
+		return $this->_post->ID;
 	}
 
 	/**
