@@ -1,5 +1,5 @@
 === Instant Articles for WP ===
-Contributors: trrine, olethomas, bjornjohansen, dekode, automattic
+Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 4.5
@@ -27,17 +27,17 @@ Facebook requires a minimum number of articles in your feed before they will rev
 
 == Installation ==
 
-=== From your WordPress dashboard ===
+= From your WordPress dashboard =
 * Visit 'Plugins > Add New'
 * Search for 'Facebook Instant Articles for WP'
 * Activate the plugin on your Plugins page
 
-=== From WordPress.org ===
+= From WordPress.org =
 * Download Facebook Instant Articles for WP
 * Upload the uncompressed directory to '/wp-content/plugins/'
 * Activate the plugin on your Plugins page
 
-=== Once Activated ===
+= Once Activated =
 * Click on the 'Instant Articles' menu and follow the instructions to activate the plugin
 
 == Frequently Asked Questions ==
