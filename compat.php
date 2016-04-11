@@ -34,8 +34,3 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	$jp = new Instant_Articles_Jetpack;
 	$jp->init();
 }
-
-// Load compat layer for facebook embeds.
-include( dirname( __FILE__ ) . '/compat/class-instant-articles-facebook-embed.php' );
-$facebok_embed = new Instant_Articles_Facebook_Embed;
-$facebok_embed->init();
