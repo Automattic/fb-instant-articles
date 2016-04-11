@@ -678,12 +678,14 @@ class Instant_Articles_Post {
 		$this->add_ads_from_settings();
 		$this->add_analytics_from_settings();
 
+		$this->instant_article = apply_filters( 'instant_articles_transformed_element', $this->instant_article );
+
 		/**
-	     * Fires after the instant article is rendered.
-	     *
-	     * @since 0.1
-	     * @param Instant_Article_Post  $instant_article_post  The instant article post.
-	     */
+		 * Fires after the instant article is rendered.
+		 *
+		 * @since 0.1
+		 * @param Instant_Article_Post  $instant_article_post  The instant article post.
+		 */
 		do_action( 'instant_articles_after_transform_post', $this );
 
 		return $this->instant_article;
@@ -852,12 +854,12 @@ class Instant_Articles_Post {
 	public function get_article_style() {
 
 		/**
-	     * Filter the article style to use.
-	     *
-	     * @since 0.1
-	     * @param string                    $template               Path to the current (default) template.
-	     * @param Instant_Article_Post      $instant_article_post   The instant article post.
-	     */
+		 * Filter the article style to use.
+		 *
+		 * @since 0.1
+		 * @param string                    $template               Path to the current (default) template.
+		 * @param Instant_Article_Post      $instant_article_post   The instant article post.
+		 */
 		$article_style = apply_filters( 'instant_articles_style', 'default', $this );
 
 		return $article_style;
