@@ -13,9 +13,7 @@ Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/inst
 
 This plugin adds support for Instant Articles for Facebook, which is a new way for publishers to distribute fast, interactive stories on Facebook. Instant Articles are preloaded in the Facebook mobile app so they load instantly.
 
-With the plugin active, a special RSS feed will be available at the URL `/feed/instant-articles`.
-
-Developers: please note that this plugin is still in early stages and the underlying APIs (like filters, classes, etc.) may change.
+With the plugin active, a new menu will be available for you to connect to your Facebook Page and start publishing your Instant Articles. You'll also see the status of each Instant Articles submission on the edit page of your posts.
 
 = Feed submission to Facebook =
 
@@ -25,22 +23,21 @@ It's important to note that if you use meta fields to add extra text, images or 
 
 [See Facebook's documentation for full details of the submission process.](https://developers.facebook.com/docs/instant-articles)
 
-Facebook requires a minimum number of articles in your feed before they will review it. Once your feed has been approved, you can set the constant `INSTANT_ARTICLES_LIMIT_POSTS` to `true` to limit the feed to only show posts that have been modified within the last 24 hours. (Facebook will ignore any articles which were last modified more than 24 hours ago.)
-
-Facebook will fetch your feed every 3 minutes.
+Facebook requires a minimum number of articles in your feed before they will review it. Once your feed has been approved, new posts will automatically be taken live on Instant Articles, and existing posts will be taken live once you update them.
 
 == Installation ==
 
-1. Upload the folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Run `composer install` on the root of the plugin folder. Make sure you have [Composer](https://github.com/composer/composer) installed.
+2. Upload the folder to the `/wp-content/plugins/` directory
+3. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
 
 = How do I customize the output for my site? =
 
-There are a number of filters available in the plugin for modifying the output. Note that these are not finalized and may change.
+There are a number of filters available in the plugin for modifying the output.
 
-= How do I change the feed slug/URL? =
+= How do I change the feed slug/URL if I'm using the RSS integration? =
 
 To change the feed slug, set the constant INSTANT_ARTICLES_SLUG to whatever you like. If you do, remember to flush the rewrite rules afterwards.
 By default it is set to `instant-articles` which usually will give you a feed URL set to `/feed/instant-articles`
@@ -53,3 +50,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 
 = 0.1 =
 * Initial version
+
+= 2.0 =
+* Using Facebook Instant Articles SDK for PHP
+* Added API integration
