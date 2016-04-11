@@ -246,5 +246,14 @@
                 "attribute": "type"
             }
         }
-    }]
+    }, {
+		"class": "InteractiveRule",
+		"selector" : "table",
+		"properties" : {
+			"interactive.iframe" : {
+				"type" : "element",
+				"selector" : "table"
+			}
+		}
+	}]
 }
