@@ -16,7 +16,7 @@
 		<?php if ( isset( $fb_page_settings['page_id'] ) && ! empty ( $fb_page_settings['page_id'] ) ) : ?>
 			Claim your URL
 			<a
-				href="https://www.facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>/settings/?tab=instant_articles" target="_blank">here</a>.
+				href="https://www.facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>/settings/?tab=instant_articles#URL" target="_blank">here</a>.
 		<?php endif; ?>
 	<li>Install the Pages Manager app to preview your articles and styles on <a href="http://itunes.apple.com/app/facebook-pages-manager/id514643583?ls=1&mt=8&ign-mscache=1" target="_blank">iOS</a> or <a href="https://play.google.com/store/apps/details?id=com.facebook.pages.app" target="_blank">Android</a>.
 	<li>Create a style template for your articles, using the Style Editor. Be sure to provide the name of the template you want to use in the Plugin Configuration settings below.
@@ -25,7 +25,7 @@
 	<?php if ( isset( $fb_page_settings['page_id'] ) && ! empty ( $fb_page_settings['page_id'] ) ) : ?>
 		<li>
 			<a
-			href="https://www.facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>/settings/?tab=instant_articles" target="_blank">Submit your articles for review</a>.
+			href="https://www.facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>/settings/?tab=instant_articles#Setup-Step2" target="_blank">Submit your articles for review</a>.
 		</li>
 	<?php else : ?>
 		<li>Submit your articles for review.</li>
