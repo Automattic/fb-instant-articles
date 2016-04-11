@@ -19,7 +19,7 @@ class Instant_Articles_Settings_FB_Page {
 	 *
 	 * @var array $fb_app_permissions The permissions asked for FB user to list pages he manages.
 	 */
-	public static $fb_app_permissions = [ 'pages_manage_instant_articles', 'pages_show_list' ];
+	public static $fb_app_permissions = array( 'pages_manage_instant_articles', 'pages_show_list' );
 
 	/**
 	 * SDK instance.
@@ -49,11 +49,11 @@ class Instant_Articles_Settings_FB_Page {
 		}
 
 		if ( ! empty( $app_id ) && ! empty( $app_secret ) ) {
-			$this->fb_sdk = new Facebook\Facebook([
+			$this->fb_sdk = new Facebook\Facebook(array(
 				'app_id' => $app_id,
 				'app_secret' => $app_secret,
 				'default_graph_version' => 'v2.2',
-			]);
+			));
 
 			$this->render_settings_page_scripts();
 		}

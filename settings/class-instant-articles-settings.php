@@ -9,8 +9,8 @@
 
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-wizard.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-ads.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.php' );
 
@@ -24,7 +24,7 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-settings-fb-page.ph
  */
 class Instant_Articles_Settings {
 
-	const IA_PLUGIN_SETTINGS_SLUG = IA_PLUGIN_TEXT_DOMAIN . '-settings';
+	const IA_PLUGIN_SETTINGS_SLUG = 'instant-articles-settings';
 
 	/**
 	 * Initiator.
@@ -39,7 +39,7 @@ class Instant_Articles_Settings {
 		add_action( 'admin_init', function () {
 			new Instant_Articles_Option_FB_App();
 			new Instant_Articles_Option_FB_Page();
-			new Instant_Articles_Option_Wizard();
+			new Instant_Articles_Option_Styles();
 			new Instant_Articles_Option_Ads();
 			new Instant_Articles_Option_Analytics();
 			new Instant_Articles_Option_Publishing();
@@ -78,11 +78,11 @@ class Instant_Articles_Settings {
 	public static function menu_items() {
 		add_menu_page(
 			'Instant Articles Settings',
-			'Facebook<br />Instant Articles',
+			'Instant Articles',
 			'manage_options',
 			self::IA_PLUGIN_SETTINGS_SLUG,
 			array( 'Instant_Articles_Settings', 'render_settings_page' )
-			,'dashicons-thumbs-up'
+			,'dashicons-facebook'
 		);
 	}
 
@@ -131,6 +131,7 @@ class Instant_Articles_Settings {
 		settings_errors();
 
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 
 		if ( isset( $fb_page_settings['page_id'] ) && ! empty( $fb_page_settings['page_id'] ) ) {
 

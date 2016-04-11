@@ -14,17 +14,17 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
  */
 class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 
-	const OPTION_KEY = IA_PLUGIN_TEXT_DOMAIN . '-option-publishing';
+	const OPTION_KEY = 'instant-articles-option-publishing';
 
-	const SECTIONS = array(
+	public static $sections = array(
 		'title' => 'Publishing Settings',
 	);
 
-	const FIELDS = array(
+	public static $fields = array(
 
 		'dev_mode' => array(
 			'label' => 'Development Mode',
-			'description' => 'Submit articles to the development environment instead of production',
+			'description' => 'When publishing in development, none of your articles will be made live, and they will be saved as drafts you can edit in the Instant Articles library on your Facebook Page. Whether in development mode or not, articles will not be published live until you have submitted a sample batch to Facebook and passed a one-time review.',
 			'render' => 'checkbox',
 			'default' => false,
 			'checkbox_label' => 'Enable development mode',
@@ -35,13 +35,15 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'render' => 'checkbox',
 			'default' => '',
 			'checkbox_label' => 'Enable custom transformer rules',
+			'description' => 'You can provide a JSON with a list of additional <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/docs/QuickStart.md#transformer" target="_blanl">Transformer Rules</a> to customize the output of your Instant Articles.',
+			'default' => '',
 		),
 
 		'custom_rules' => array(
-			'label' => 'Custom rules JSON',
+			'label' => '',
 			'render' => 'textarea',
 			'placeholder' => '{ "rules": [{ "class": "BoldRule", "selector": "span.bold" }, ... ] }',
-			'default' => '',
+			'description' => 'Refer to the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/tests/Facebook/InstantArticles/Transformer/instant-article-example-rules.json" target="_blank">example JSON</a> on the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php" target="_blank">Facebook Instant Articles PHP SDK</a> for sample configurations for all built-in rules.'
 		),
 
 	);
@@ -54,8 +56,8 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 	public function __construct() {
 		parent::__construct(
 			self::OPTION_KEY,
-			self::SECTIONS,
-			self::FIELDS
+			self::$sections,
+			self::$fields
 		);
 		wp_localize_script( 'instant-articles-option-publishing', 'INSTANT_ARTICLES_OPTION_PUBLISHING', array(
 			'option_field_id_custom_rules_enabled' => self::OPTION_KEY . '-custom_rules_enabled',
@@ -77,7 +79,7 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 	 */
 	public function sanitize_option_fields( $field_values ) {
 		foreach ( $field_values as $field_id => $field_value ) {
-			$field = self::FIELDS[ $field_id ];
+			$field = self::$fields[ $field_id ];
 
 			switch ( $field_id ) {
 				case 'dev_mode':

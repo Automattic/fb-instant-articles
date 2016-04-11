@@ -12,16 +12,16 @@
  */
 class Instant_Articles_Option {
 
-	const PAGE_OPTION_GROUP = Instant_Articles_Settings::IA_PLUGIN_SETTINGS_SLUG;
-	const PAGE_OPTION_GROUP_WIZARD = self::PAGE_OPTION_GROUP . '-wizard';
-	const FIELDS = array();
+	const PAGE_OPTION_GROUP = 'instant-articles-settings';
+	const PAGE_OPTION_GROUP_WIZARD = 'instant-articles-settings-wizard';
+	public static $fields = array();
 
 	/**
 	 * Settings for options.
 	 *
 	 * @var array $settings The settings for each option.
 	 */
-	public static $settings = [];
+	public static $settings = array();
 
 	/**
 	 * The key for field.
@@ -62,7 +62,7 @@ class Instant_Articles_Option {
 	 * @var array $fields The fields for option and its properties.
 	 * @since 0.4
 	 */
-	private $fields;
+	private $field_definitions;
 
 	/**
 	 * If $option_group is not specified, the Option will be registered with a
@@ -78,7 +78,7 @@ class Instant_Articles_Option {
 	public function __construct( $option_key, $sections, $option_fields, $option_group = null ) {
 		$this->key = $option_key;
 		$this->sections = $sections;
-		$this->fields = $option_fields;
+		$this->field_definitions = $option_fields;
 		$this->page_option_group = null === $option_group
 			? self::PAGE_OPTION_GROUP
 			: $option_group;
@@ -94,7 +94,7 @@ class Instant_Articles_Option {
 	private function init() {
 		$saved_options = self::get_option_decoded( $this->key );
 
-		foreach ( $this->fields as $field_key => $field ) {
+		foreach ( $this->field_definitions as $field_key => $field ) {
 			self::$settings[ $field_key ] = isset( $saved_options[ $field_key ] )
 				? $saved_options[ $field_key ]
 				: $field['default'];
@@ -138,7 +138,7 @@ class Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	public static function get_registered_compat( $action_tag ) {
-		$registered_compat_integrations = [];
+		$registered_compat_integrations = array();
 
 		do_action_ref_array(
 			$action_tag,
@@ -171,14 +171,25 @@ class Instant_Articles_Option {
 			: '';
 
 		$description = isset( $this->sections['description'] )
-			? $this->sections['description']
+			? wp_kses(
+				$this->sections['description'],
+				array(
+					'a' => array(
+						'href' => array(),
+						'target' => array()
+					),
+					'em' => array(),
+					'p' => array(),
+					'strong' => array()
+				)
+			)
 			: '';
 
 		add_settings_section(
 			$this->key,
 			esc_html( $title ),
 			function () use ( $description ) {
-				esc_html( $description );
+				echo $description;
 			},
 			$this->key
 		);
@@ -190,7 +201,7 @@ class Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	private function wp_bootstrap_add_fields_to_section() {
-		foreach ( $this->fields as $field_key => $field ) {
+		foreach ( $this->field_definitions as $field_key => $field ) {
 			$standalone_id = $this->key . '-' . $field_key;
 
 			// Default values of arguments for renderer.
@@ -275,7 +286,17 @@ class Instant_Articles_Option {
 			: '';
 
 		$field_description = isset( $args['description'] )
-			? esc_html( $args['description'] )
+			? wp_kses(
+				$args['description'],
+				array(
+					'a' => array(
+						'href' => array(),
+						'target' => array()
+					),
+					'em' => array(),
+					'strong' => array()
+				)
+			)
 			: '';
 
 		$field_checkbox_label = isset( $args['checkbox_label'] )
@@ -413,7 +434,7 @@ class Instant_Articles_Option {
 		}
 
 		// Remove any fields which could have been injected into the payload client-side.
-		$allowed_payload = array_intersect_key( $payload, static::FIELDS );
+		$allowed_payload = array_intersect_key( $payload, static::$fields );
 		$allowed_payload = $payload;
 
 		// Pass the value along to the Child class's method to perform sanitation on its fields.

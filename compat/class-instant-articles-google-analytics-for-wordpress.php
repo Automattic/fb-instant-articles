@@ -29,15 +29,10 @@ class Instant_Articles_Google_Analytics_For_WordPress {
 	 * @param array $registry Reference param. The registry where it will be stored.
 	 */
 	function add_to_registry( &$registry ) {
-		$path_to_plugin = WP_PLUGIN_DIR . '/' . self::$plugin_file;
-		$plugin_data = get_plugin_data( $path_to_plugin );
 
-		$display_name = $plugin_data['Name'];
+		$display_name = 'Google Analytics by Yoast';
 
-		// TextDomain isn't required so we create our own in case it's missing.
-		$identifier = isset( $plugin_data['TextDomain'] )
-			? $plugin_data['TextDomain']
-			: sanitize_title( $display_name );
+		$identifier = 'google-analytics-for-wordpress';
 
 		$embed_code = $this->get_raw_embed_code();
 

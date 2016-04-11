@@ -14,32 +14,34 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
  */
 class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 
-	const OPTION_KEY = IA_PLUGIN_TEXT_DOMAIN . '-option-analytics';
+	const OPTION_KEY = 'instant-articles-option-analytics';
 
-	const SECTIONS = array(
+	public static $sections = array(
 		'title' => 'Analytics',
-		'description' => 'This is where you configure your analytics settings. If you already use a Wordpress Plugin to manage your analytics, look for it in <strong>3rd Party Integrations</strong>.',
+		'description' => '<p>Enable 3rd-party analytics to be used with Instant Articles.</p><p>If you already use a Wordpress plugin to manage analytics, you can enable it below. You can also embed code to insert your own trackers and analytics. <a href="https://developers.facebook.com/docs/instant-articles/ads-analytics#analytics" target="_blank">Learn more about Analytics in Instant Articles</a>.</p>',
 	);
 
-	const FIELDS = array(
+	public static $fields = array(
 
 		'integrations' => array(
 			'label' => '3rd party integrations',
 			'render' => array( 'Instant_Articles_Option_Analytics', 'custom_render_integrations' ),
-			'default' => [],
+			'default' => array(),
 		),
 
 		'embed_code_enabled' => array(
-			'label' => 'Custom tracker',
+			'label' => 'Embed code',
 			'render' => 'checkbox',
 			'default' => false,
-			'checkbox_label' => 'Enable custom tracker code',
+			'description' => 'Add code for any other analytics services you wish to use.',
+			'checkbox_label' => 'Enable custom embed code',
 		),
 
 		'embed_code' => array(
-			'label' => 'Custom tracker code',
+			'label' => '',
 			'render' => 'textarea',
 			'placeholder' => '<script>...</script>',
+			'description' => 'Note: You do not need to include any &lt;op-tracker&gt; tags. The plugin will automatically include them in the article markup.',
 			'default' => '',
 		),
 	);
@@ -52,8 +54,8 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 	public function __construct() {
 		parent::__construct(
 			self::OPTION_KEY,
-			self::SECTIONS,
-			self::FIELDS
+			self::$sections,
+			self::$fields
 		);
 		wp_localize_script( 'instant-articles-option-analytics', 'INSTANT_ARTICLES_OPTION_ANALYTICS', array(
 			'option_field_id_embed_code_enabled' => self::OPTION_KEY . '-embed_code_enabled',
@@ -97,6 +99,9 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 			<br />
 			<?php
 		}
+		?>
+		<p class="description">Select which analytics services you'd like to use with Instant Articles.</p>
+		<?php
 	}
 
 	/**
@@ -113,7 +118,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 	 */
 	public function sanitize_option_fields( $field_values ) {
 		foreach ( $field_values as $field_id => $field_value ) {
-			$field = self::FIELDS[ $field_id ];
+			$field = self::$fields[ $field_id ];
 
 			switch ( $field_id ) {
 				case 'embed_code':

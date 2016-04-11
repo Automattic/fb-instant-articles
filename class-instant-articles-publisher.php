@@ -47,9 +47,9 @@ class Instant_Articles_Publisher {
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 
-			$dev_mode = boolval(
-				isset( $publishing_settings['dev_mode'] ) ? $publishing_settings['dev_mode'] : false
-			);
+			$dev_mode = isset( $publishing_settings['dev_mode'] )
+				? ( $publishing_settings['dev_mode'] ? true : false )
+				: false;
 
 			if ( isset( $fb_app_settings['app_id'] )
 				&& isset( $fb_app_settings['app_secret'] )

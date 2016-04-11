@@ -626,11 +626,16 @@ class Instant_Articles_Post {
 				->withCanonicalUrl( $this->get_canonical_url() )
 				->withHeader( $header );
 
-		if ( function_exists( 'wpcom_vip_file_get_contents' ) ) {
-			$configuration = wpcom_vip_file_get_contents( plugins_url( 'rules-configuration.json', __FILE__ ) );
-		} else {
-			$configuration = file_get_contents( plugins_url( 'rules-configuration.json', __FILE__ ) );
+		$settings_style = Instant_Articles_Option_Styles::get_option_decoded();
+		if ( isset( $settings_style['article_style'] ) && ! empty ( $settings_style['article_style'] ) ) {
+			$this->instant_article->withStyle( $settings_style['article_style'] );
 		}
+		else {
+			$this->instant_article->withStyle( 'default' );
+		}
+
+		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
+		$configuration = file_get_contents( $file_path );
 
 		$transformer = new Transformer();
 		$this->transformer = $transformer;
@@ -697,7 +702,7 @@ class Instant_Articles_Post {
 		$width = 300;
 		$height = 250;
 
-		$dimensions_match = [];
+		$dimensions_match = array();
 		$dimensions_raw = isset( $settings_ads['dimensions'] ) ? $settings_ads['dimensions'] : null;
 		if ( preg_match( '/^(?:\s)*(\d+)x(\d+)(?:\s)*$/', $dimensions_raw, $dimensions_match ) ) {
 			$width = intval( $dimensions_match[1] );
