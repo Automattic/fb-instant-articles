@@ -21,5 +21,7 @@
 <hr />
 <?php do_settings_sections( Instant_Articles_Option_Publishing::OPTION_KEY ); ?>
 <hr />
+<?php do_settings_sections( Instant_Articles_Option_Categories::OPTION_KEY ); ?>
+<hr />
 <?php submit_button( __( 'Save changes' ) ); ?>
 </form>

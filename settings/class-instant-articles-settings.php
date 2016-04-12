@@ -13,6 +13,7 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option-ads.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-categories.php' );
 
 require_once( dirname( __FILE__ ) . '/class-instant-articles-settings-wizard.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-settings-fb-page.php' );
@@ -43,6 +44,7 @@ class Instant_Articles_Settings {
 			new Instant_Articles_Option_Ads();
 			new Instant_Articles_Option_Analytics();
 			new Instant_Articles_Option_Publishing();
+			new Instant_Articles_Option_Categories();
 		});
 
 	}
