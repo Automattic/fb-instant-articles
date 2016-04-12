@@ -12,7 +12,7 @@
 </p>
 <ol>
 	<li><a href="https://www.facebook.com/instant_articles/signup" target="_blank">Sign up</a> for Instant Articles, if you haven't already, and come back to activate the plugin using the page you enabled.
-	<li>Claim the URL you will use to publish articles. Right now, we think the URL you will use to publish to this Page is: <code><?php echo esc_url(site_url()); ?></code>.
+	<li>Claim the URL you will use to publish articles. Right now, we think the URL you will use to publish to this Page is: <code><?php echo esc_url(home_url()); ?></code>.
 		<?php if ( isset( $fb_page_settings['page_id'] ) && ! empty ( $fb_page_settings['page_id'] ) ) : ?>
 			Claim your URL
 			<a
