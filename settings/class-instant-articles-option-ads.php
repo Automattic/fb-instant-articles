@@ -185,18 +185,13 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 				case 'fan_placement_id':
 					if ( isset( $field_values['ad_source'] ) && 'fan' === $field_values['ad_source'] ) {
-						if (
-							! is_numeric( $field_values[ $field_id ] ) ||
-							strval( absint( $field_values[ $field_id ] ) ) !== $field_values[ $field_id ]
-						) {
+						if ( preg_match( '/^[0-9_]+$/', $field_values[ $field_id ] ) !== 1 ) {
 							add_settings_error(
 								$field_id,
 								'invalid_placement_id',
 								'Invalid Audience Network Placement ID provided'
 							);
 							$field_values[ $field_id ] = $field['default'];
-						} else {
-							$field_values[ $field_id ] = absint( $field_values[ $field_id ] );
 						}
 					}
 				break;
