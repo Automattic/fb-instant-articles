@@ -162,8 +162,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		if ( $query->is_main_query() && $query->is_feed( INSTANT_ARTICLES_SLUG ) ) {
 
 			$query->set( 'orderby', 'modified' );
-			$query->set( 'posts_per_page', 100 );
-			$query->set( 'posts_per_rss', 100 );
+			$query->set( 'posts_per_page', 10 );
+			$query->set( 'posts_per_rss', 10 );
 
 			/**
 			 * If the constant INSTANT_ARTICLES_LIMIT_POSTS is set to true, we will limit the feed
