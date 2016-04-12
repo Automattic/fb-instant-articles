@@ -19,7 +19,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			'',
 			"echo '<div class=\"error\"><p>".
 				__(
-					'Instant Articles for WP requires PHP 5.5 to function properly. '.
+					'Instant Articles for WP requires PHP 5.4 to function properly. '.
 						'Please upgrade PHP or deactivate Instant Articles for WP.',
 					'instant-articles'
 				).
