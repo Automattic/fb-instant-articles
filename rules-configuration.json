@@ -166,7 +166,7 @@
                 "selector" : "figcaption"
             }
         }
-    },{
+    }, {
         "class": "SocialEmbedRule",
         "selector" : "div.embed",
         "properties" : {
@@ -176,10 +176,29 @@
             }
         }
     }, {
+        "class": "InteractiveRule",
+        "selector" : "div.interactive",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "div.interactive"
+            }
+        }
+    }, {
         "class": "SocialEmbedRule",
         "selector" : "//div[@class='embed' and iframe]",
         "properties" : {
             "socialembed.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "//div[@class='interactive' and iframe]",
+        "properties" : {
+            "interactive.url" : {
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
