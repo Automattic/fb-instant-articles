@@ -52,7 +52,7 @@ class Instant_Articles_Settings_FB_Page {
 			$this->fb_sdk = new Facebook\Facebook(array(
 				'app_id' => $app_id,
 				'app_secret' => $app_secret,
-				'default_graph_version' => 'v2.2',
+				'default_graph_version' => 'v2.5',
 			));
 
 			$this->render_settings_page_scripts();
