@@ -22,6 +22,13 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 
 	public static $fields = array(
 
+		'categories' => array(
+			'label' => 'Categories',
+			'description' => 'Limit your feed to the selected categories. Hold down CTRL/Command to select multiple categories. If you do not select any categories, they will all be included in the feed.',
+			'render' => array( 'Instant_Articles_Option_Publishing', 'custom_render_categories' ),
+			'default' => '',
+		),
+
 		'dev_mode' => array(
 			'label' => 'Development Mode',
 			'description' => 'When publishing in development, none of your articles will be made live, and they will be saved as drafts you can edit in the Instant Articles library on your Facebook Page. Whether in development mode or not, articles will not be published live until you have submitted a sample batch to Facebook and passed a one-time review.',
@@ -61,8 +68,45 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 		);
 		wp_localize_script( 'instant-articles-option-publishing', 'INSTANT_ARTICLES_OPTION_PUBLISHING', array(
 			'option_field_id_custom_rules_enabled' => self::OPTION_KEY . '-custom_rules_enabled',
-			'option_field_id_custom_rules'         => self::OPTION_KEY . '-custom_rules'
+			'option_field_id_custom_rules'         => self::OPTION_KEY . '-custom_rules',
+			'option_field_id_categories' 		   => self::OPTION_KEY . '-custom_rules_categories'
 		) );
+	}
+
+	/**
+	 * Renders the category list.
+	 *
+	 * @param array $args configuration fields.
+	 * @since 0.4
+	 */
+	public static function custom_render_categories( $args ) {
+		$id = $args['label_for'];
+		$name = $args['serialized_with_group'] . '[categories][]';
+
+		$args['select_options'] = get_terms('category', array('fields' => 'id=>name'));
+
+		$description = isset( $args['description'] )
+			? '<p class="description">' . esc_html( $args['description'] ) . '</p>'
+			: '';
+
+		?>
+		<select
+			id="<?php echo esc_attr( $id ); ?>"
+			name="<?php echo esc_attr( $name ); ?>"
+			multiple
+		>
+		<?php foreach ( $args['select_options'] as $category_id => $category_name ) : ?>
+			<option
+				value="<?php echo esc_attr( $category_id ); ?>"
+				<?php echo in_array($category_id, explode(',', self::$settings['categories'])) ? 'selected' : ''; ?>
+			>
+			<?php echo esc_html( $category_name ); ?>
+			</option>
+		<?php endforeach; ?>
+
+		</select>
+		<?php echo $description; ?>
+		<?php
 	}
 
 	/**
@@ -82,6 +126,24 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			$field = self::$fields[ $field_id ];
 
 			switch ( $field_id ) {
+
+				case 'categories':
+					$field_values[ $field_id ] = implode( ',', $field_values[ $field_id ] );
+
+					foreach( $field_values[ $field_id ] as $category_id ) {
+						$term = term_exists($category_id, 'category');
+						if ( $term === 0 || $term === null ) {
+							add_settings_error(
+								$field_id,
+								'invalid_category',
+								'Invalid category provided'
+							);
+
+							$field_values[ $field_id ] = $field['default'];
+						}
+					}
+				break;
+
 				case 'dev_mode':
 					$field_values[ $field_id ] = (bool) $field_value
 						? (string) true

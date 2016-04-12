@@ -37,6 +37,21 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
+
+		if( $settings_publishing['categories'] !== '' ) {
+
+			$post_categories = wp_get_post_categories( $post_id );
+			$allowed_categories = explode(',', $settings_publishing['categories']);
+
+			//Don't process if the post's categories are not in the list of allowed categories
+			if(count( array_intersect( $post_categories, $allowed_categories ) ) == 0 ) {
+				return;
+			}
+		}
+
+
+
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
