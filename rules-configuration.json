@@ -57,6 +57,9 @@
         "class": "BlockquoteRule",
         "selector": "blockquote"
     }, {
+        "class": "PassThroughRule",
+        "selector": "blockquote p"
+    }, {
         "class": "ImageRule",
         "selector": "//p[img]",
         "properties": {
