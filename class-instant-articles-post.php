@@ -398,7 +398,7 @@ class Instant_Articles_Post {
 
 		$authors = array();
 
-		$wp_user = get_userdata( $this->_post->author );
+		$wp_user = get_userdata( $this->_post->post_author );
 
 		if ( is_a( $wp_user, 'WP_User' ) ) {
 			$author = new stdClass;
@@ -604,7 +604,7 @@ class Instant_Articles_Post {
 			if ( $author->user_url ) {
 				$author_obj->withURL( $author->user_url );
 			}
-			$header->addAuthor( $author );
+			$header->addAuthor( $author_obj );
 		}
 		$kicker = $this->get_the_kicker();
 		if ( $kicker ) {
