@@ -294,7 +294,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 		if ( isset( $fb_page_settings['page_id'] ) ) {
 			?>
-			<meta property="fb:pages" content="<?php echo absint( $fb_page_settings['page_id'] ); ?>" />
+			<meta property="fb:pages" content="<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>" />
 			<?php
 		}
 	}

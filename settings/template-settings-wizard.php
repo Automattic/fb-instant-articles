@@ -15,9 +15,9 @@
 		<p>
 			Your App is
 			<a
-				href="http://developers.facebook.com/apps/<?php echo absint( $fb_app_settings['app_id'] ); ?>"
+				href="http://developers.facebook.com/apps/<?php echo esc_attr( $fb_app_settings['app_id'] ); ?>"
 				target="_blank"><?php
-				echo absint( $fb_app_settings['app_id'] );
+				echo esc_html( $fb_app_settings['app_id'] );
 			?></a>.
 
 				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
@@ -29,7 +29,7 @@
 		<p>
 			Your page is
 			<a
-				href="http://facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>"
+				href="http://facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>"
 				target="_blank"><?php
 				echo esc_html( $fb_page_settings['page_name'] );
 			?></a>.
@@ -61,9 +61,9 @@
 		<p>
 			Your App is
 			<a
-				href="http://developers.facebook.com/apps/<?php echo absint( $fb_app_settings['app_id'] ); ?>"
+				href="http://developers.facebook.com/apps/<?php echo esc_attr( $fb_app_settings['app_id'] ); ?>"
 				target="_blank"><?php
-				echo absint( $fb_app_settings['app_id'] );
+				echo esc_html( $fb_app_settings['app_id'] );
 			?></a>.
 
 				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
