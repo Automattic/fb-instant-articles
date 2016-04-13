@@ -129,8 +129,10 @@
                 "attribute": "class"
             }
         }
-    },
-    {
+    }, {
+        "class": "H2Rule",
+        "selector" : "h3,h4,h5,h6"
+    }, {
         "class": "SocialEmbedRule",
         "selector" : "iframe",
         "properties" : {
