@@ -67,6 +67,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 	defined( 'ABSPATH' ) || die( 'Shame on you' );
 
+	define( 'IA_PLUGIN_VERSION', '2.5' );
 	define( 'IA_PLUGIN_PATH_FULL', __FILE__ );
 	define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
 	define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
