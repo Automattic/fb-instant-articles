@@ -11,8 +11,15 @@ use Facebook\InstantArticles\Client\InstantArticleStatus;
 use Facebook\InstantArticles\Client\ServerMessage;
 ?>
 
-<!-- Submission status -->
-<?php if ( $submission_status ) : ?>
+<?php if ( ! $published ) : ?>
+<p>
+	<b>
+		<span class="dashicons dashicons-media-document"></span>
+		Your article will be submitted to Instant Articles once you publish it.
+	</b>
+</p>
+
+<?php elseif ( $submission_status ) : ?>
 
 	<!-- Display the last submission status -->
 	<?php switch ( $submission_status->getStatus() ) :

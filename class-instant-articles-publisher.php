@@ -37,6 +37,11 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		// Don't process if this post is not published
+		if ('publish' !== $post->post_status) {
+			return;
+		}
+
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
@@ -68,7 +73,7 @@ class Instant_Articles_Publisher {
 					$take_live = false;
 				} else {
 					// Any publish status other than 'publish' means draft for the Instant Article.
-					$take_live = 'publish' === $post->post_status;
+					$take_live = true;
 				}
 
 				try {

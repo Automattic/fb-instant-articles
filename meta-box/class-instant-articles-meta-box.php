@@ -62,6 +62,7 @@ class Instant_Articles_Meta_Box {
 		$article = $adapter->to_instant_article();
 		$canonical_url = $adapter->get_canonical_url();
 		$submission_status = null;
+		$published = 'publish' === $post->post_status;
 
 		Instant_Articles_Settings::menu_items();
 		$settings_page_href = Instant_Articles_Settings::get_href_to_settings_page();
