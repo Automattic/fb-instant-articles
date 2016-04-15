@@ -4,7 +4,7 @@
  * Description: Add support for Instant Articles for Facebook to your WordPress site.
  * Author: Automattic, Dekode, Facebook
  * Author URI: https://vip.wordpress.com/plugins/instant-articles/
- * Version: 2.3
+ * Version: 2.8
  * Text Domain: instant-articles
  * License: GPLv2
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			'',
 			"echo '<div class=\"error\"><p>".
 				__(
-					'Instant Articles for WP requires PHP 5.5 to function properly. '.
+					'Instant Articles for WP requires PHP 5.4 to function properly. '.
 						'Please upgrade PHP or deactivate Instant Articles for WP.',
 					'instant-articles'
 				).
@@ -67,6 +67,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 	defined( 'ABSPATH' ) || die( 'Shame on you' );
 
+	define( 'IA_PLUGIN_VERSION', '2.8' );
 	define( 'IA_PLUGIN_PATH_FULL', __FILE__ );
 	define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
 	define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
@@ -162,8 +163,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		if ( $query->is_main_query() && $query->is_feed( INSTANT_ARTICLES_SLUG ) ) {
 
 			$query->set( 'orderby', 'modified' );
-			$query->set( 'posts_per_page', 100 );
-			$query->set( 'posts_per_rss', 100 );
+			$query->set( 'posts_per_page', 10 );
+			$query->set( 'posts_per_rss', 10 );
 
 			$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
 
@@ -299,7 +300,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 		if ( isset( $fb_page_settings['page_id'] ) ) {
 			?>
-			<meta property="fb:pages" content="<?php echo absint( $fb_page_settings['page_id'] ); ?>" />
+			<meta property="fb:pages" content="<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>" />
 			<?php
 		}
 	}

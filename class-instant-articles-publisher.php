@@ -37,6 +37,12 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+
+		// Don't process if this post is not published
+		if ('publish' !== $post->post_status) {
+			return;
+		}
+
 		$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
 
 		if( $settings_publishing['categories'] !== '' ) {
@@ -49,8 +55,6 @@ class Instant_Articles_Publisher {
 				return;
 			}
 		}
-
-
 
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
@@ -83,7 +87,7 @@ class Instant_Articles_Publisher {
 					$take_live = false;
 				} else {
 					// Any publish status other than 'publish' means draft for the Instant Article.
-					$take_live = 'publish' === $post->post_status;
+					$take_live = true;
 				}
 
 				try {

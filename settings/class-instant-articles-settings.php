@@ -133,18 +133,6 @@ class Instant_Articles_Settings {
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 
-		if ( isset( $fb_page_settings['page_id'] ) && ! empty( $fb_page_settings['page_id'] ) ) {
-
-			$claim_url_href = add_query_arg(
-				array(
-					'section' => 'claim-url',
-					'url-placeholder' => wp_parse_url( site_url(), PHP_URL_HOST ),
-				),
-				'https://www.facebook.com/' . $fb_page_settings['page_id'] . '/settings/?tab=instant_articles'
-			);
-
-		}
-
 		if ( filter_input( INPUT_GET, 'current_tab' ) ) {
 			$tab = filter_input( INPUT_GET, 'current_tab' );
 		} else {

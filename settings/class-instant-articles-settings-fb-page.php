@@ -7,12 +7,36 @@
  * @package default
  */
 
+use Facebook\PersistentData\PersistentDataInterface;
+
 /**
  * Class responsible for functionality and rendering of the settings
  *
  * @since 0.4
  */
-class Instant_Articles_Settings_FB_Page {
+class Instant_Articles_Settings_FB_Page implements PersistentDataInterface {
+
+	/**
+	* @var string Prefix to use for session options.
+	*/
+	protected $session_prefix = 'instant_articles_fbrlh_';
+
+	/**
+	* @inheritdoc
+	*/
+	public function get( $key )
+	{
+		return get_option( $this->session_prefix . $key );
+	}
+
+	/**
+	* @inheritdoc
+	*/
+	public function set( $key, $value )
+	{
+		update_option( $this->session_prefix . $key, $value );
+	}
+
 
 	/**
 	 * Facebook Permissions.
@@ -52,19 +76,18 @@ class Instant_Articles_Settings_FB_Page {
 			$this->fb_sdk = new Facebook\Facebook(array(
 				'app_id' => $app_id,
 				'app_secret' => $app_secret,
-				'default_graph_version' => 'v2.2',
+				'default_graph_version' => 'v2.5',
+				'persistent_data_handler' => $this
 			));
-
-			$this->render_settings_page_scripts();
 		}
 	}
 
 	/**
-	 * Gets the login url scaped.
+	 * Gets the login url.
 	 *
 	 * @since 0.4
 	 */
-	public function get_escaped_login_url() {
+	public function get_login_url() {
 		if ( isset( $this->fb_sdk ) ) {
 			$helper = $this->fb_sdk->getRedirectLoginHelper();
 
@@ -73,7 +96,7 @@ class Instant_Articles_Settings_FB_Page {
 				self::$fb_app_permissions
 			);
 
-			return htmlspecialchars( $login_url );
+			return $login_url;
 		}
 	}
 
@@ -131,11 +154,9 @@ class Instant_Articles_Settings_FB_Page {
 		$access_token = null;
 
 		if ( isset( $this->fb_sdk ) ) {
-			$js_helper = $this->fb_sdk->getJavaScriptHelper();
-
 			try {
-				$access_token = $js_helper->getAccessToken();
-
+				$helper = $this->fb_sdk->getRedirectLoginHelper();
+				$access_token = $helper->getAccessToken();
 			} catch (Facebook\Exceptions\FacebookResponseException $e) {
 				// When Graph returns an error.
 				Logger::getLogger( 'instantarticles-wp-plugin' )->error(
@@ -156,39 +177,5 @@ class Instant_Articles_Settings_FB_Page {
 			// Logged in.
 			return $access_token;
 		}
-	}
-
-	/**
-	 * Render the page scripts.
-	 *
-	 * @since 0.4
-	 */
-	public function render_settings_page_scripts() {
-		$app_id = $this->fb_app_settings['app_id'];
-
-	?>
-		<script>
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId      : <?php echo esc_html( $app_id ); ?>,
-					xfbml      : true,
-					version    : "v2.5",
-					cookie     : true
-				});
-			};
-
-			(function(d, s, id){
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) {return;}
-				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.net/en_US/sdk.js";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, "script", "facebook-jssdk"));
-
-			function loginCallback(response) {
-				location.reload();
-			}
-		</script>
-		<?php
 	}
 }

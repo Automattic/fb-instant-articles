@@ -50,7 +50,8 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'label' => '',
 			'render' => 'textarea',
 			'placeholder' => '{ "rules": [{ "class": "BoldRule", "selector": "span.bold" }, ... ] }',
-			'description' => 'Refer to the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/tests/Facebook/InstantArticles/Transformer/instant-article-example-rules.json" target="_blank">example JSON</a> on the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php" target="_blank">Facebook Instant Articles PHP SDK</a> for sample configurations for all built-in rules.'
+			'description' => 'Refer to the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/tests/Facebook/InstantArticles/Transformer/instant-article-example-rules.json" target="_blank">example JSON</a> on the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php" target="_blank">Facebook Instant Articles PHP SDK</a> for sample configurations for all built-in rules.',
+			'default' => ''
 		),
 
 	);

@@ -15,9 +15,9 @@
 		<p>
 			Your App is
 			<a
-				href="http://developers.facebook.com/apps/<?php echo absint( $fb_app_settings['app_id'] ); ?>"
+				href="http://developers.facebook.com/apps/<?php echo esc_attr( $fb_app_settings['app_id'] ); ?>"
 				target="_blank"><?php
-				echo absint( $fb_app_settings['app_id'] );
+				echo esc_html( $fb_app_settings['app_id'] );
 			?></a>.
 
 				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
@@ -29,7 +29,7 @@
 		<p>
 			Your page is
 			<a
-				href="http://facebook.com/<?php echo absint( $fb_page_settings['page_id'] ); ?>"
+				href="http://facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>"
 				target="_blank"><?php
 				echo esc_html( $fb_page_settings['page_name'] );
 			?></a>.
@@ -61,9 +61,9 @@
 		<p>
 			Your App is
 			<a
-				href="http://developers.facebook.com/apps/<?php echo absint( $fb_app_settings['app_id'] ); ?>"
+				href="http://developers.facebook.com/apps/<?php echo esc_attr( $fb_app_settings['app_id'] ); ?>"
 				target="_blank"><?php
-				echo absint( $fb_app_settings['app_id'] );
+				echo esc_html( $fb_app_settings['app_id'] );
 			?></a>.
 
 				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
@@ -88,32 +88,12 @@
 
 		<?php if ( ! $access_token ) : ?>
 
-			<script>
-				function instant_articles_login_callback(response) {
-					if (response.status === 'connected') {
-						location.reload();
-						//probably good to do an ajax call to a login_callback page
-					} else if (response.status === 'not_authorized') {
-						// The person is logged into Facebook, but not your app.
-					} else {
-						// The person is not logged into Facebook, so we're not sure if
-						// they are logged into this app or not.
-					}
-				}
-			</script>
-
 			<p>Login to Facebook and select the Facebook Page where you will publish Instant Articles.</p>
 
-			<div
-				class="fb-login-button"
-				data-size="large"
-				data-scope="<?php
-					echo esc_html(
-						implode( Instant_Articles_Settings_FB_Page::$fb_app_permissions, ',' )
-					);
-				?>"
-				onlogin="instant_articles_login_callback">
-				Login with Facebook
+			<div>
+				<a href="<?php echo esc_attr( $fb_helper->get_login_url() ) ?>">
+					<img  src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xtf1/t39.2178-6/11405239_920140564714397_256329502_n.png">
+				</a>
 			</div>
 
 		<?php
@@ -122,22 +102,6 @@
 			( ! isset( $permissions['pages_show_list'] ) )
 		) :
 		?>
-
-			<script>
-				//*
-				function instant_articles_login_callback(response) {
-					if (response.status === 'connected') {
-						location.reload();
-						//probably good to do an ajax call to a login_callback page
-					} else if (response.status === 'not_authorized') {
-						// The person is logged into Facebook, but not your app.
-					} else {
-						// The person is not logged into Facebook, so we're not sure if
-						// they are logged into this app or not.
-					}
-				}
-				//*/
-			</script>
 
 			<p>In order to finish the activation, you need to grant all the requested permissions:</p>
 			<ul>
@@ -157,16 +121,10 @@
 
 			<p>Please grant the needed permissions to continue:</p>
 
-			<div
-				class="fb-login-button"
-				data-size="large"
-				data-scope="<?php
-					echo esc_attr(
-						implode( Instant_Articles_Settings_FB_Page::$fb_app_permissions, ',' )
-					);
-				?>"
-				onlogin="instant_articles_login_callback">
-				Login with Facebook
+			<div>
+				<a href="<?php echo esc_attr( $fb_helper->get_login_url() ) ?>">
+					<img  src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xtf1/t39.2178-6/11405239_920140564714397_256329502_n.png">
+				</a>
 			</div>
 
 		<?php else : ?>
