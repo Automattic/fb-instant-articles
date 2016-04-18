@@ -88,16 +88,6 @@
             }
         }
     }, {
-        "class": "CaptionRule",
-        "selector": "img",
-        "properties": {
-            "caption.default": {
-                "type": "string",
-                "selector": "img",
-                "attribute": "alt"
-            }
-        }
-    }, {
         "class": "ListItemRule",
         "selector" : "li"
     }, {
