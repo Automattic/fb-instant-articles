@@ -38,13 +38,19 @@ class Instant_Articles_Publisher {
 		}
 
 		// Don't process if this post is not published
-		if ('publish' !== $post->post_status) {
+		if ( 'publish' !== $post->post_status ) {
 			return;
 		}
 
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
+
 		$article = $adapter->to_instant_article();
+
+		// Skip empty articles or articles missing title
+		if ( count($article->getChildren()) === 0 || ! $article->getHeader() || ! $article->getHeader()->getTitle() ) {
+			return;
+		}
 
 		// Instantiate an API client.
 		try {
