@@ -663,6 +663,8 @@ class Instant_Articles_Post {
 		// DOMDocument isn’t handling encodings too well, so let’s help it a little.
 		if ( function_exists( 'mb_convert_encoding' ) ) {
 			$content = mb_convert_encoding( $content, 'HTML-ENTITIES', get_option( 'blog_charset' ) );
+		} else {
+			$content = htmlspecialchars_decode( utf8_decode( htmlentities( $content, ENT_COMPAT, 'utf-8', false ) ) );
 		}
 
 		$result = $document->loadHTML( '<!doctype html><html><body>' . $content . '</body></html>' );
