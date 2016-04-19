@@ -67,10 +67,6 @@
                 "type": "string",
                 "selector": "img",
                 "attribute": "src"
-            },
-            "image.caption": {
-                "type": "element",
-                "selector": "img"
             }
         }
     },{
@@ -81,10 +77,6 @@
                 "type": "string",
                 "selector": "img",
                 "attribute": "src"
-            },
-            "image.caption": {
-                "type": "element",
-                "selector": "img[@alt]"
             }
         }
     }, {
@@ -217,10 +209,6 @@
                 "type": "string",
                 "selector": "img",
                 "attribute": "src"
-            },
-            "image.caption": {
-                "type": "element",
-                "selector": "img[@alt]"
             }
         }
     }, {
