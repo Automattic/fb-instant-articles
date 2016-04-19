@@ -47,7 +47,10 @@ class Instant_Articles_Publisher {
 
 		$article = $adapter->to_instant_article();
 
-		// Skip empty articles or articles missing title
+		// Skip empty articles or articles missing title.
+		// This is important because the save_post action is also triggered by bulk updates, but in this case
+		// WordPress does not load the content field from DB for performance reasons. In this case, articles
+		// will be empty here, despite of them actually having content.
 		if ( count($article->getChildren()) === 0 || ! $article->getHeader() || ! $article->getHeader()->getTitle() ) {
 			return;
 		}
