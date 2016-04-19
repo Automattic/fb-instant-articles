@@ -582,6 +582,29 @@ class Instant_Articles_Post {
 		// Get time zone configured in WordPress. Default to UTC if no time zone configured.
 		$date_time_zone = get_option( 'timezone_string' ) ? new DateTimeZone( get_option( 'timezone_string' ) ) : new DateTimeZone( 'UTC' );
 
+		// Initialize transformer
+		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
+		$configuration = file_get_contents( $file_path );
+
+		$transformer = new Transformer();
+		$this->transformer = $transformer;
+		$transformer->loadRules( $configuration );
+
+		$transformer = apply_filters( 'instant_articles_transformer_rules_loaded', $transformer );
+
+		$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
+
+		if (
+			isset ( $settings_publishing['custom_rules_enabled'] ) &&
+			! empty( $settings_publishing['custom_rules_enabled'] ) &&
+			isset ( $settings_publishing['custom_rules'] ) &&
+			! empty( $settings_publishing['custom_rules'] )
+		) {
+			$transformer->loadRules( $settings_publishing['custom_rules'] );
+		}
+
+		$transformer = apply_filters( 'instant_articles_transformer_custom_rules_loaded', $transformer );
+
 		$header =
 			Header::create()
 				->withPublishTime(
@@ -614,9 +637,9 @@ class Instant_Articles_Post {
 		if ( $cover['src'] ) {
 			$image = Image::create()->withURL( $cover['src'] );
 			if ( isset( $cover['caption'] ) && strlen( $cover['caption'] ) > 0 ) {
-				$image->withCaption(
-				    Caption::create()->withTitle( $cover['caption'] )
-				);
+				$document = new DOMDocument( '1.0', get_option( 'blog_charset' ) );
+				$document->loadHTML( '<h1>' . $cover['caption']  . '</h1>' );
+				$image->withCaption( $transformer->transform( Caption::create(), $document ) );
 			}
 
 			$header->withCover( $image );
@@ -633,28 +656,6 @@ class Instant_Articles_Post {
 		else {
 			$this->instant_article->withStyle( 'default' );
 		}
-
-		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
-		$configuration = file_get_contents( $file_path );
-
-		$transformer = new Transformer();
-		$this->transformer = $transformer;
-		$transformer->loadRules( $configuration );
-
-		$transformer = apply_filters( 'instant_articles_transformer_rules_loaded', $transformer );
-
-		$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
-
-		if (
-			isset ( $settings_publishing['custom_rules_enabled'] ) &&
-			! empty( $settings_publishing['custom_rules_enabled'] ) &&
-			isset ( $settings_publishing['custom_rules'] ) &&
-			! empty( $settings_publishing['custom_rules'] )
-		) {
-			$transformer->loadRules( $settings_publishing['custom_rules'] );
-		}
-
-		$transformer = apply_filters( 'instant_articles_transformer_custom_rules_loaded', $transformer );
 
 		$libxml_previous_state = libxml_use_internal_errors( true );
 		$document = new DOMDocument( '1.0', get_option( 'blog_charset' ) );
