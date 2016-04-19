@@ -637,8 +637,7 @@ class Instant_Articles_Post {
 		if ( $cover['src'] ) {
 			$image = Image::create()->withURL( $cover['src'] );
 			if ( isset( $cover['caption'] ) && strlen( $cover['caption'] ) > 0 ) {
-				$document = new DOMDocument( '1.0', get_option( 'blog_charset' ) );
-				$document->loadHTML( '<h1>' . $cover['caption']  . '</h1>' );
+				$document = DOMDocument::loadHTML( '<h1>' . $cover['caption']  . '</h1>' );
 				$image->withCaption( $transformer->transform( Caption::create(), $document ) );
 			}
 
