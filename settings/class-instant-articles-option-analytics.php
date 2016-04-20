@@ -18,7 +18,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 
 	public static $sections = array(
 		'title' => 'Analytics',
-		'description' => '<p>Enable 3rd-party analytics to be used with Instant Articles.</p><p>If you already use a Wordpress plugin to manage analytics, you can enable it below. You can also embed code to insert your own trackers and analytics. <a href="https://developers.facebook.com/docs/instant-articles/ads-analytics#analytics" target="_blank">Learn more about Analytics in Instant Articles</a>.</p>',
+		'description' => '<p>Enable 3rd-party analytics to be used with Instant Articles.</p><p>If you already use a WordPress plugin to manage analytics, you can enable it below. You can also embed code to insert your own trackers and analytics. <a href="https://developers.facebook.com/docs/instant-articles/ads-analytics#analytics" target="_blank">Learn more about Analytics in Instant Articles</a>.</p>',
 	);
 
 	public static $fields = array(

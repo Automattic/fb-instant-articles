@@ -8,7 +8,7 @@
  */
  ?>
  <p>
-	Once you've activated this Wordpress plugin, set up your Instant Articles and submit them to Facebook for a one-time review. The review is required before you can begin publishing. Follow these steps to get started:
+	Once you've activated this WordPress plugin, set up your Instant Articles and submit them to Facebook for a one-time review. The review is required before you can begin publishing. Follow these steps to get started:
 </p>
 <ol>
 	<li><a href="https://www.facebook.com/instant_articles/signup" target="_blank">Sign up</a> for Instant Articles, if you haven't already, and come back to activate the plugin using the page you enabled.
