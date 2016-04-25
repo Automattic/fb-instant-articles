@@ -108,14 +108,14 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 			id="<?php echo esc_attr( $id ); ?>"
 			name="<?php echo esc_attr( $name ); ?>"
 		>
-		<?php foreach ( $args['select_options'] as $ad_source_key => $ad_source_name ) : ?>
+		<?php if ( is_array( $args['select_options'] ) ) : foreach ( $args['select_options'] as $ad_source_key => $ad_source_name ) : ?>
 			<option
 				value="<?php echo esc_attr( $ad_source_key ); ?>"
 				<?php echo selected( self::$settings['ad_source'], $ad_source_key ) ?>
 			>
 			<?php echo esc_html( $ad_source_name ); ?>
 			</option>
-		<?php endforeach; ?>
+		<?php endforeach; endif; ?>
 
 		<?php
 		$compat_plugins = parent::get_registered_compat( 'instant_articles_compat_registry_ads' );
