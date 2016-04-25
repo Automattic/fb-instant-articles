@@ -74,7 +74,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 
 		$compat_plugins = parent::get_registered_compat( 'instant_articles_compat_registry_analytics' );
 
-		if ( empty( $compat_plugins ) ) {
+		if ( empty( $compat_plugins ) && ! is_array( $compat_plugins ) ) {
 			?>
 			<em>
 				<?php echo esc_html( 'No supported analytics plugins are installed nor activated' ); ?>
