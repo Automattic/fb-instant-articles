@@ -593,18 +593,20 @@ class Instant_Articles_Post {
 				->withTitle( $this->get_the_title() );
 
 		$authors = $this->get_the_authors();
-		foreach ( $authors as $author ) {
-			$author_obj = Author::create();
-			if ( $author->display_name ) {
-				$author_obj->withName( $author->display_name );
+		if ( is_array( $authors ) ) {
+			foreach ( $authors as $author ) {
+				$author_obj = Author::create();
+				if ( $author->display_name ) {
+					$author_obj->withName( $author->display_name );
+				}
+				if ( $author->bio ) {
+					$author_obj->withDescription( $author->bio );
+				}
+				if ( $author->user_url ) {
+					$author_obj->withURL( $author->user_url );
+				}
+				$header->addAuthor( $author_obj );
 			}
-			if ( $author->bio ) {
-				$author_obj->withDescription( $author->bio );
-			}
-			if ( $author->user_url ) {
-				$author_obj->withURL( $author->user_url );
-			}
-			$header->addAuthor( $author_obj );
 		}
 		$kicker = $this->get_the_kicker();
 		if ( $kicker ) {
