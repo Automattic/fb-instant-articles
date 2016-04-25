@@ -336,7 +336,17 @@ class Instant_Articles_Option {
 				</label>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses(
+							$field_description,
+							array(
+								'a' => array(
+									'href' => array(),
+									'target' => array()
+								),
+								'em' => array(),
+								'strong' => array()
+							)
+						); ?>
 					</p>
 				<?php endif; ?>
 				<?php
@@ -366,7 +376,17 @@ class Instant_Articles_Option {
 				</select>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses(
+							$field_description,
+							array(
+								'a' => array(
+									'href' => array(),
+									'target' => array()
+								),
+								'em' => array(),
+								'strong' => array()
+							)
+						); ?>
 					</p>
 				<?php endif; ?>
 				<?php
@@ -386,7 +406,17 @@ class Instant_Articles_Option {
 				><?php echo esc_html( $option_value ); ?></textarea>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses(
+							$field_description,
+							array(
+								'a' => array(
+									'href' => array(),
+									'target' => array()
+								),
+								'em' => array(),
+								'strong' => array()
+							)
+						); ?>
 					</p>
 				<?php endif; ?>
 				<?php
@@ -409,7 +439,17 @@ class Instant_Articles_Option {
 				/>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses(
+							$field_description,
+							array(
+								'a' => array(
+									'href' => array(),
+									'target' => array()
+								),
+								'em' => array(),
+								'strong' => array()
+							)
+						); ?>
 					</p>
 				<?php endif; ?>
 				<?php
