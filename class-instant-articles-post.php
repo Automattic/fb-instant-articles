@@ -778,7 +778,7 @@ class Instant_Articles_Post {
 
 							$document = new DOMDocument();
 							$fragment = $document->createDocumentFragment();
-							$valid_html = @$fragment->appendXML( $compat_info['payload'] );
+							$valid_html = $fragment->appendXML( $compat_info['payload'] );
 
 							if ( $valid_html ) {
 								$ad = Ad::create()
