@@ -65,7 +65,7 @@ class Instant_Articles_Settings {
 	public static function add_settings_link_to_plugin_actions( $links ) {
 		$link_text = __( 'Settings' );
 		$settings_href = self::get_href_to_settings_page();
-		$settings_link = '<a href="' . esc_url( $settings_href ) . '">' . $link_text . '</a>';
+		$settings_link = '<a href="' . esc_url( $settings_href ) . '">' . esc_html( $link_text ) . '</a>';
 		array_push( $links, $settings_link );
 		return $links;
 	}
