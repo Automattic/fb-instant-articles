@@ -12,6 +12,8 @@
  * @package default
  */
 
+defined( 'ABSPATH' ) || die( 'Shame on you' );
+
 if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action(
 		'admin_notices',
@@ -64,8 +66,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		)
 	);
 
-
-	defined( 'ABSPATH' ) || die( 'Shame on you' );
 
 	define( 'IA_PLUGIN_VERSION', '2.9' );
 	define( 'IA_PLUGIN_PATH_FULL', __FILE__ );
