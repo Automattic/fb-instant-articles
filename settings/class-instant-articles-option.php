@@ -286,17 +286,7 @@ class Instant_Articles_Option {
 			: '';
 
 		$field_description = isset( $args['description'] )
-			? wp_kses(
-				$args['description'],
-				array(
-					'a' => array(
-						'href' => array(),
-						'target' => array()
-					),
-					'em' => array(),
-					'strong' => array()
-				)
-			)
+			? $args['description']
 			: '';
 
 		$field_checkbox_label = isset( $args['checkbox_label'] )
@@ -314,7 +304,17 @@ class Instant_Articles_Option {
 				/>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses(
+							$field_description,
+							array(
+								'a' => array(
+									'href' => array(),
+									'target' => array()
+								),
+								'em' => array(),
+								'strong' => array()
+							)
+						); ?>
 					</p>
 				<?php endif; ?>
 				<?php
