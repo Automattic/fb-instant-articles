@@ -117,7 +117,7 @@
 						Instant Articles to your selected page.
 					</li>
 				<?php endif; ?>
-			</p>
+			</ul>
 
 			<p>Please grant the needed permissions to continue:</p>
 
