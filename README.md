@@ -52,7 +52,7 @@ You can propose popular transformer rules to be included in the plugin by [sugge
 
 **How do I post articles to Instant Articles after plugin is installed?**
 
-You can re-publish existing articles (simply edit + save) or post new articles in order to submit them to Instant Articles. After you have 50 articles added, you will be able to submit them for review.
+You can re-publish existing articles (simply edit + save) or post new articles in order to submit them to Instant Articles. After you have 10 articles added, you will be able to submit them for review.
 
 **How do I change the feed slug/URL if I'm using the RSS integration?**
 

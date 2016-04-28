@@ -66,6 +66,10 @@ Your custom rules can be defined in the Settings of this plugin, under: **Plugin
 
 You can propose popular transformer rules to be included in the plugin by [suggesting it on GitHub](https://github.com/Automattic/facebook-instant-articles-wp/issues/new).
 
+= How do I post articles to Instant Articles after plugin is installed? =
+
+You can re-publish existing articles (simply edit + save) or post new articles in order to submit them to Instant Articles. After you have 10 articles added, you will be able to submit them for review.
+
 = How do I change the feed slug/URL if I'm using the RSS integration? =
 
 To change the feed slug, set the constant INSTANT_ARTICLES_SLUG to whatever you like. If you do, remember to flush the rewrite rules afterwards.
