@@ -35,7 +35,7 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'render' => 'checkbox',
 			'default' => '',
 			'checkbox_label' => 'Enable custom transformer rules',
-			'description' => 'You can provide a JSON with a list of additional <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/docs/QuickStart.md#transformer" target="_blanl">Transformer Rules</a> to customize the output of your Instant Articles.',
+			'description' => 'Define your own rules to customize the transformation of your content into Instant Articles',
 			'default' => '',
 		),
 
@@ -43,7 +43,7 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'label' => '',
 			'render' => 'textarea',
 			'placeholder' => '{ "rules": [{ "class": "BoldRule", "selector": "span.bold" }, ... ] }',
-			'description' => 'Refer to the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/tests/Facebook/InstantArticles/Transformer/instant-article-example-rules.json" target="_blank">example JSON</a> on the <a href="https://github.com/facebook/facebook-instant-articles-sdk-php" target="_blank">Facebook Instant Articles PHP SDK</a> for sample configurations for all built-in rules.',
+			'description' => 'Read more about <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/docs/QuickStart.md#custom-transformer-rules" target="_blank">defining your own custom rules</a> to extend/override the <a href="https://github.com/Automattic/facebook-instant-articles-wp/blob/master/rules-configuration.json" target="_blank">built-in ruleset</a>. If you\'ve defined a common rule which you think this plugin should include by default, <a href="https://github.com/Automattic/facebook-instant-articles-wp/issues/new" target="_blank">tell us about it</a>!',
 			'default' => ''
 		),
 
