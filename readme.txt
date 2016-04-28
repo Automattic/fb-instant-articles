@@ -79,6 +79,10 @@ By default it is set to `instant-articles` which usually will give you a feed UR
 
 Usually simply visiting the permalinks settings page in the WordPress dashboard will do the trick (/wp-admin/options-permalink.php)
 
+== Screenshots ==
+
+1. Customized transformer rules enabled on the main Settings page. The particular configuration shown here would cause `<u>` and `<bold>` tags in the source markup to be rendered in *italics* and **bold**, respectively, in the generated Instant Article.
+
 == Changelog ==
 
 = 2.1 =
