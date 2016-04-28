@@ -24,7 +24,7 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 
 		'dev_mode' => array(
 			'label' => 'Development Mode',
-			'description' => 'When publishing in development, none of your articles will be made live, and they will be saved as drafts you can edit in the Instant Articles library on your Facebook Page. Whether in development mode or not, articles will not be published live until you have submitted a sample batch to Facebook and passed a one-time review.',
+			'description' => 'Articles published while in Development Mode are saved as "drafts" within Facebook and will not be made live. Note: Since articles in "draft" are not reviewed, Development Mode should be disabled when publishing articles to Facebook which you intend to use in your <a href="https://developers.facebook.com/docs/instant-articles/publishing#review" target="_blank">one-time review</a>.',
 			'render' => 'checkbox',
 			'default' => false,
 			'checkbox_label' => 'Enable development mode',
