@@ -81,13 +81,13 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 
 == Changelog ==
 
-= 0.1 =
-* Initial version
+= 2.1 =
+* Fixes compatibility with PHP 5.4+
+* Bug fixes
 
 = 2.0 =
 * Using Facebook Instant Articles SDK for PHP
 * Added API integration
 
-= 2.1 =
-* Fixes compatibility with PHP 5.4+
-* Bug fixes
+= 0.1 =
+* Initial version
