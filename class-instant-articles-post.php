@@ -612,8 +612,13 @@ class Instant_Articles_Post {
 				)
 				->withModifyTime(
 					Time::create( Time::MODIFIED )->withDatetime( new DateTime( $this->_post->post_modified, $date_time_zone ) )
-				)
-				->withTitle( $this->get_the_title() );
+				);
+
+		$title = $this->get_the_title();
+		if ( $title ) {
+			$document = DOMDocument::loadHTML( '<h1>' . $title . '</h1>' );
+			$transformer->transform( $header, $document );
+		}
 
 		$authors = $this->get_the_authors();
 		foreach ( $authors as $author ) {
