@@ -17,6 +17,9 @@
     },{
         "class": "PassThroughRule",
         "selector" : "del"
+    },{
+        "class": "PassThroughRule",
+        "selector" : "mark"
     }, {
         "class": "PassThroughRule",
         "selector" : "span"
