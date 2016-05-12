@@ -290,10 +290,6 @@ class Instant_Articles_Post {
 
 		global $post, $more;
 
-		if ( ! $post ) {
-			return '';
-		}
-
 		// Force $more.
 		$orig_more = $more;
 		$more = 1;
