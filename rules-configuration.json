@@ -126,6 +126,16 @@
                 "selector" : "iframe",
                 "attribute": "src"
             },
+            "socialembed.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "socialembed.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
             "socialembed.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
@@ -143,6 +153,16 @@
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
+            },
+            "socialembed.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "socialembed.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
             },
             "socialembed.iframe" : {
                 "type" : "children",
@@ -179,6 +199,16 @@
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
+            },
+            "socialembed.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "socialembed.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
             }
         }
     }, {
