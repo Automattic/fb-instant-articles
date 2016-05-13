@@ -624,7 +624,9 @@ class Instant_Articles_Post {
 		$this->instant_article =
 			InstantArticle::create()
 				->withCanonicalUrl( $this->get_canonical_url() )
-				->withHeader( $header );
+				->withHeader( $header )
+				->addMetaProperty( 'op:generator:application', 'facebook-instant-articles-wp' )
+				->addMetaProperty( 'op:generator:application:version', IA_PLUGIN_VERSION );
 
 		$settings_style = Instant_Articles_Option_Styles::get_option_decoded();
 		if ( isset( $settings_style['article_style'] ) && ! empty ( $settings_style['article_style'] ) ) {
