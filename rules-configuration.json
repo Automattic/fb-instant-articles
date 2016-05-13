@@ -169,6 +169,15 @@
             "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "div.interactive"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe"
             }
         }
     }, {
