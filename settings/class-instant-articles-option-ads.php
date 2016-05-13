@@ -219,7 +219,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 					if ( isset( $field_values['ad_source'] ) && 'embed' === $field_values['ad_source'] ) {
 						$document = new DOMDocument();
 						$fragment = $document->createDocumentFragment();
-						$field_values[ $field_id ] = str_replace( '&', '&amp;', $field_values[ $field_id ] );
+						$field_values[ $field_id ] = preg_replace( '/&(?!amp;)/', '&amp;', $field_values[ $field_id ] );
 						if ( ! @$fragment->appendXML( $field_values[ $field_id ] ) ) {
 							add_settings_error(
 								'embed_code',
