@@ -37,6 +37,11 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		// Don't process custom post types or pages.
+		if ( 'post' !== $post->post_type ) {
+			return;
+		}
+
 		// Don't process if this post is not published
 		if ( 'publish' !== $post->post_status ) {
 			return;
