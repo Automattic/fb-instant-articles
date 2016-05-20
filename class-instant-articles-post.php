@@ -322,6 +322,12 @@ class Instant_Articles_Post {
 		// Some people choose to disable wpautop. Due to the Instant Articles spec, we really want it in!
 		$content = wpautop( $content );
 
+		// Remove hyperlinks beginning with a # as they cause errors on Facebook (from http://wordpress.stackexchange.com/a/227332/19528)
+	        preg_match_all( '!<a[^>]*? href=[\'"]#[^<]+</a>!i', $content, $matches );
+	        foreach ( $matches[0] as $link ) {
+	                $content = str_replace( $link, strip_tags($link), $content );
+	        }
+		
 		/**
 		 * Filter the post content for Instant Articles.
 		 *
