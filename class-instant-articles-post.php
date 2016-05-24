@@ -676,13 +676,17 @@ class Instant_Articles_Post {
 
 		// We need to make sure that scripts use absolute URLs and not relative URLs.
 		$scripts = $document->getElementsByTagName('script');
-		foreach ( $scripts as $script ){
-			if ( ! parse_url( $script, PHP_URL_SCHEME ) ) {
-				$src = $script->getAttribute('src');
-				$script->setAttribute( 'src' , 'https:' . $src );
+		if ( ! empty( $scripts ) ) {
+			foreach ( $scripts as $script ){
+				$src = $script->getAttribute( 'src' );
+				$explode_src = parse_url( $src );
+				if ( is_array( $explode_src ) && empty( $explode_src['scheme'] ) ) {
+					$src = 'https://' . $explode_src['host'] . $explode_src['path'];
+				}
+				$script->setAttribute( 'src' , $src );
 			}
 		}
-		
+
 		libxml_clear_errors();
 		libxml_use_internal_errors( $libxml_previous_state );
 
