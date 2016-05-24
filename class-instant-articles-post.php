@@ -674,10 +674,10 @@ class Instant_Articles_Post {
 
 		$result = $document->loadHTML( '<!doctype html><html><body>' . $content . '</body></html>' );
 
-		// We need to make sure that scripts use absolute URLs and not just //
+		// We need to make sure that scripts use absolute URLs and not relative URLs.
 		$scripts = $document->getElementsByTagName('script');
 		foreach ( $scripts as $script ){
-			if ( ! parse_url($script, PHP_URL_SCHEME)) {
+			if ( ! parse_url( $script, PHP_URL_SCHEME ) ) {
 				$src = $script->getAttribute('src');
 				$script->setAttribute( 'src' , 'https:' . $src );
 			}
