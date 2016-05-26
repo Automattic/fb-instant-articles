@@ -763,6 +763,10 @@ class Instant_Articles_Post {
 					$tokenizeAds = explode("::", $sectionAds);
 					
 					foreach ($tokenizeAds as $advert) {
+						$ad = Ad::create()
+						->enableDefaultForReuse()
+						->withWidth( $width )
+						->withHeight( $height );
 						$document = new DOMDocument();
 						$fragment = $document->createDocumentFragment();
 						$valid_html = $fragment->appendXML( $advert );
