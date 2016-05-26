@@ -761,7 +761,6 @@ class Instant_Articles_Post {
 				if ( ! empty( $settings_ads['embed_code'] ) ) {
 					$sectionAds = $settings_ads['embed_code'];
 					$tokenizeAds = explode("::", $sectionAds);
-					//print_r($tokenizeAds);
 					
 					foreach ($tokenizeAds as $advert) {
 						$document = new DOMDocument();
