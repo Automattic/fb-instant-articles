@@ -90,3 +90,8 @@
 	animation: instant_articles_spinner .6s linear infinite;
 	-webkit-animation: instant_articles_spinner .6s linear infinite;
 }
+
+.instant-articles-spin-animation {
+	animation: instant_articles_spinner .6s linear infinite;
+	-webkit-animation: instant_articles_spinner .6s linear infinite;
+}
