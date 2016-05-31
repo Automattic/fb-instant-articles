@@ -167,6 +167,18 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			$query->set( 'posts_per_rss', 10 );
 
 			/**
+			 * Filter the post types to include in the query.
+			 *
+			 * Default to `post` only, but allow other post types to be included by the theme/plugins.
+			 *
+			 * @since 2.12
+			 *
+			 * @param array $post_types Array of post types
+			 */
+			$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+			$query->set( 'post_type', $post_types );
+
+			/**
 			 * If the constant INSTANT_ARTICLES_LIMIT_POSTS is set to true, we will limit the feed
 			 * to only include posts which are modified within the last 24 hours.
 			 * Facebook will initially need 100 posts to pass the review, but will only update
