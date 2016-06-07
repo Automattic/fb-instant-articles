@@ -614,7 +614,8 @@ class Instant_Articles_Post {
 
 		$title = $this->get_the_title();
 		if ( $title ) {
-			$document = DOMDocument::loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $title . '</h1>' );
+			$document = new DOMDocument();
+			$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $title . '</h1>' );
 			$transformer->transform( $header, $document );
 		}
 
