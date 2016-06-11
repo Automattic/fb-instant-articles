@@ -64,6 +64,7 @@ class Instant_Articles_Meta_Box {
 		$canonical_url = $adapter->get_canonical_url();
 		$submission_status = null;
 		$published = 'publish' === $post->post_status;
+		$dev_mode = false;
 
 		Instant_Articles_Wizard::menu_items();
 		$settings_page_href = Instant_Articles_Wizard::get_url();
@@ -72,6 +73,11 @@ class Instant_Articles_Meta_Box {
 			try {
 				$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 				$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+				$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+
+				$dev_mode = isset( $publishing_settings['dev_mode'] )
+					? ( $publishing_settings['dev_mode'] ? true : false )
+					: false;
 
 				if ( isset( $fb_app_settings['app_id'] )
 					&& isset( $fb_app_settings['app_secret'] )
@@ -82,7 +88,8 @@ class Instant_Articles_Meta_Box {
 						$fb_app_settings['app_id'],
 						$fb_app_settings['app_secret'],
 						$fb_page_settings['page_access_token'],
-						$fb_page_settings['page_id']
+						$fb_page_settings['page_id'],
+						$dev_mode
 					);
 
 					$submission_status_id = get_post_meta( $post_id, Instant_Articles_Publisher::SUBMISSION_ID_KEY, true );

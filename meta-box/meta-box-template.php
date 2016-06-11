@@ -11,6 +11,13 @@ use Facebook\InstantArticles\Client\InstantArticleStatus;
 use Facebook\InstantArticles\Client\ServerMessage;
 ?>
 
+<?php if ( $dev_mode ) : ?>
+<a href="<?php echo esc_url( $settings_page_href ); ?>" class="instant-articles-dev-mode-indicator">
+	<span class="dashicons dashicons-admin-tools"></span>
+	Development Mode
+</a>
+<?php endif; ?>
+
 <?php if ( ! $published ) : ?>
 <p>
 	<b>

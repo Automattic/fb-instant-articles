@@ -1,3 +1,9 @@
+.instant-articles-dev-mode-indicator {
+	float: right;
+	text-decoration: none;
+	font-size: smaller;
+}
+
 .instant-articles-messages {
 	margin-left: 15px;
 	margin-top: 0px;
