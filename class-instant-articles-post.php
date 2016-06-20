@@ -591,9 +591,9 @@ class Instant_Articles_Post {
 		$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
 
 		if (
-			isset ( $settings_publishing['custom_rules_enabled'] ) &&
+			isset( $settings_publishing['custom_rules_enabled'] ) &&
 			! empty( $settings_publishing['custom_rules_enabled'] ) &&
-			isset ( $settings_publishing['custom_rules'] ) &&
+			isset( $settings_publishing['custom_rules'] ) &&
 			! empty( $settings_publishing['custom_rules'] )
 		) {
 			$transformer->loadRules( $settings_publishing['custom_rules'] );
@@ -655,10 +655,9 @@ class Instant_Articles_Post {
 				->addMetaProperty( 'op:generator:application:version', IA_PLUGIN_VERSION );
 
 		$settings_style = Instant_Articles_Option_Styles::get_option_decoded();
-		if ( isset( $settings_style['article_style'] ) && ! empty ( $settings_style['article_style'] ) ) {
+		if ( isset( $settings_style['article_style'] ) && ! empty( $settings_style['article_style'] ) ) {
 			$this->instant_article->withStyle( $settings_style['article_style'] );
-		}
-		else {
+		} else {
 			$this->instant_article->withStyle( 'default' );
 		}
 

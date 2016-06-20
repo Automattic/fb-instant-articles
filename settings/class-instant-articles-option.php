@@ -176,11 +176,11 @@ class Instant_Articles_Option {
 				array(
 					'a' => array(
 						'href' => array(),
-						'target' => array()
+						'target' => array(),
 					),
 					'em' => array(),
 					'p' => array(),
-					'strong' => array()
+					'strong' => array(),
 				)
 			)
 			: '';
@@ -291,10 +291,10 @@ class Instant_Articles_Option {
 				array(
 					'a' => array(
 						'href' => array(),
-						'target' => array()
+						'target' => array(),
 					),
 					'em' => array(),
-					'strong' => array()
+					'strong' => array(),
 				)
 			)
 			: '';

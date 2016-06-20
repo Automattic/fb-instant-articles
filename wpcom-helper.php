@@ -24,10 +24,10 @@ add_action( 'template_redirect', 'wpcom_fbia_stats_pixel' );
 function _wpcom_fbia_stats_pixel( $content ) {
 	global $post, $current_blog;
 
-	if( ! is_feed() )
-		return $content;
+	if ( ! is_feed() ) {
+		return $content; }
 
-	$url = 'https://pixel.wp.com/b.gif?host=' . $_SERVER[ 'HTTP_HOST' ] . '&blog=' . $current_blog->blog_id . '&post=' . $post->ID . '&subd=' . str_replace( '.wordpress.com', '', $current_blog->domain ) . '&ref=&feed=1';
+	$url = 'https://pixel.wp.com/b.gif?host=' . $_SERVER['HTTP_HOST'] . '&blog=' . $current_blog->blog_id . '&post=' . $post->ID . '&subd=' . str_replace( '.wordpress.com', '', $current_blog->domain ) . '&ref=&feed=1';
 
 	$fbia_pixel = '
 <figure class="op-tracker">
