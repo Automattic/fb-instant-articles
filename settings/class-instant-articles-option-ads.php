@@ -104,10 +104,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 			: '';
 
 		?>
-		<select
-			id="<?php echo esc_attr( $id ); ?>"
-			name="<?php echo esc_attr( $name ); ?>"
-		>
+		<select id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" >
 		<?php foreach ( $args['select_options'] as $ad_source_key => $ad_source_name ) : ?>
 			<option
 				value="<?php echo esc_attr( $ad_source_key ); ?>"
@@ -122,9 +119,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 		asort( $compat_plugins );
 		if ( count( $compat_plugins ) > 0 ) :
 		?>
-			<optgroup
-				label="From Supported Plugins"
-			>
+			<optgroup label="From Supported Plugins">
 			<?php foreach ( $compat_plugins as $ad_source_key => $ad_source_info ) : ?>
 				<option
 					value="<?php echo esc_attr( $ad_source_key ); ?>"
