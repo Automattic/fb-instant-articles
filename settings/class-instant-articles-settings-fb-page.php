@@ -76,7 +76,7 @@ class Instant_Articles_Settings_FB_Page implements PersistentDataInterface {
 			$this->fb_sdk = new Facebook\Facebook(array(
 				'app_id' => $app_id,
 				'app_secret' => $app_secret,
-				'default_graph_version' => 'v2.5',
+				'default_graph_version' => 'v2.6',
 				'persistent_data_handler' => $this
 			));
 		}
