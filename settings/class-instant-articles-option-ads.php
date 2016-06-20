@@ -138,7 +138,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 		?>
 		</select>
-		<?php echo $description; ?>
+		<?php echo esc_html( $description ); ?>
 		<?php
 	}
 
