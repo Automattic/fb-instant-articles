@@ -118,46 +118,46 @@
         "class": "H2Rule",
         "selector" : "h3,h4,h5,h6"
     }, {
-        "class": "SocialEmbedRule",
+        "class": "InteractiveRule",
         "selector" : "iframe",
         "properties" : {
-            "socialembed.url" : {
+            "interactive.url" : {
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
             },
-            "socialembed.iframe" : {
+            "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
             },
-            "socialembed.caption" : {
+            "interactive.caption" : {
                 "type" : "element",
                 "selector" : "figcaption"
             }
         }
     }, {
-        "class": "SocialEmbedRule",
+        "class": "InteractiveRule",
         "selector" : "//p[iframe]",
         "properties" : {
-            "socialembed.url" : {
+            "interactive.url" : {
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
             },
-            "socialembed.iframe" : {
+            "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
             },
-            "socialembed.caption" : {
+            "interactive.caption" : {
                 "type" : "element",
                 "selector" : "figcaption"
             }
         }
     }, {
-        "class": "SocialEmbedRule",
+        "class": "InteractiveRule",
         "selector" : "div.embed",
         "properties" : {
-            "socialembed.iframe" : {
+            "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "div.embed"
             }
@@ -181,10 +181,10 @@
             }
         }
     }, {
-        "class": "SocialEmbedRule",
+        "class": "InteractiveRule",
         "selector" : "//div[@class='embed' and iframe]",
         "properties" : {
-            "socialembed.url" : {
+            "interactive.url" : {
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
