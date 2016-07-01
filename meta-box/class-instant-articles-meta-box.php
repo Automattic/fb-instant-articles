@@ -67,28 +67,30 @@ class Instant_Articles_Meta_Box {
 		Instant_Articles_Settings::menu_items();
 		$settings_page_href = Instant_Articles_Settings::get_href_to_settings_page();
 
-		try {
-			$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
-			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+		if ( $published ) {
+			try {
+				$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+				$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 
-			if ( isset( $fb_app_settings['app_id'] )
-				&& isset( $fb_app_settings['app_secret'] )
-				&& isset( $fb_page_settings['page_access_token'] )
-				&& isset( $fb_page_settings['page_id'] ) ) {
-				// Instantiate a new Client to get the status of this article.
-				$client = Client::create(
-					$fb_app_settings['app_id'],
-					$fb_app_settings['app_secret'],
-					$fb_page_settings['page_access_token'],
-					$fb_page_settings['page_id']
-				);
+				if ( isset( $fb_app_settings['app_id'] )
+					&& isset( $fb_app_settings['app_secret'] )
+					&& isset( $fb_page_settings['page_access_token'] )
+					&& isset( $fb_page_settings['page_id'] ) ) {
+					// Instantiate a new Client to get the status of this article.
+					$client = Client::create(
+						$fb_app_settings['app_id'],
+						$fb_app_settings['app_secret'],
+						$fb_page_settings['page_access_token'],
+						$fb_page_settings['page_id']
+					);
 
-				// Grab the latest status of this article and display.
-				$article_id = $client->getArticleIDFromCanonicalURL( $canonical_url );
-				$submission_status = $client->getLastSubmissionStatus( $article_id );
+					// Grab the latest status of this article and display.
+					$article_id = $client->getArticleIDFromCanonicalURL( $canonical_url );
+					$submission_status = $client->getLastSubmissionStatus( $article_id );
+				}
+			} catch ( FacebookResponseException $e ) {
+				$submission_status = null;
 			}
-		} catch ( FacebookResponseException $e ) {
-			$submission_status = null;
 		}
 
 		include( dirname( __FILE__ ) . '/meta-box-template.php' );
