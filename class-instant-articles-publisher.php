@@ -42,6 +42,11 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		// Only process posts
+		if ( $post->post_type !== 'post' ) {
+			return;
+		}
+
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 
