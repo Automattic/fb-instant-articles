@@ -92,7 +92,7 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 				case 'custom_rules':
 					if ( isset( $field_values['custom_rules_enabled'] ) && $field_values['custom_rules_enabled'] ) {
 						$custom_rules_json = json_decode( $field_values['custom_rules'] );
-						if ( $custom_rules_json === null ) {
+						if ( null === $custom_rules_json ) {
 							$field_values['custom_rules'] = $field['default'];
 							add_settings_error(
 								'custom_embed',

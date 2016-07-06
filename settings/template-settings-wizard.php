@@ -157,7 +157,7 @@ if ( Instant_Articles_Settings_Wizard::get_current_step_id() === 'done' ) : ?>
 				<select id="<?php echo esc_attr( 'instant-articles-fb-page-selector' ) ?>">
 					<option value="" disabled selected>Select Page</option>
 					<?php foreach ( $pages_and_tokens as $page ) : ?>
-						<option value="<?php echo esc_attr( json_encode( $page ) ) ?>">
+						<option value="<?php echo esc_attr( wp_json_encode( $page ) ) ?>">
 							<?php echo esc_html( $page->page_name ) ?>
 						</option>
 					<?php endforeach; ?>

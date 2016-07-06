@@ -15,16 +15,10 @@
 if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action(
 		'admin_notices',
-		create_function(
-			'',
-			"echo '<div class=\"error\"><p>".
-				__(
-					'Instant Articles for WP requires PHP 5.4 to function properly. '.
-						'Please upgrade PHP or deactivate Instant Articles for WP.',
-					'instant-articles'
-				).
-				"</p></div>';"
-		)
+		function () {
+			echo '<div class="error"><p>' .
+				esc_html__( 'Instant Articles for WP requires PHP 5.4 to function properly. Please upgrade PHP or deactivate Instant Articles for WP.', 'instant-articles' ) . '</p></div>';
+		}
 	);
 	return;
 } else {

@@ -138,7 +138,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 		?>
 		</select>
-		<?php echo $description; ?>
+		<?php echo esc_html( $description ); ?>
 		<?php
 	}
 
@@ -173,7 +173,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 						$all_options[] = $compat_id;
 					}
 
-					if ( ! in_array( $field_value, $all_options ) ) {
+					if ( ! in_array( $field_value, $all_options, true ) ) {
 						$field_values[ $field_id ] = $field['default'];
 						add_settings_error(
 							$field_id,
