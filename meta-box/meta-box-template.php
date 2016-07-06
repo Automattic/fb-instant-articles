@@ -151,11 +151,11 @@ use Facebook\InstantArticles\Client\ServerMessage;
 					<?php echo esc_html( $warning ); ?>
 					<span>
 						<?php
-							if ( $warning->getNode() ) {
-								echo esc_html(
-									$warning->getNode()->ownerDocument->saveHTML( $warning->getNode() )
-								);
-							}
+						if ( $warning->getNode() ) {
+							echo esc_html(
+								$warning->getNode()->ownerDocument->saveHTML( $warning->getNode() )
+							);
+						}
 						?>
 					</span>
 				</div>

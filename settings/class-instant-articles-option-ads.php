@@ -198,7 +198,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 				case 'iframe_url':
 					if ( isset( $field_values['ad_source'] ) && 'iframe' === $field_values['ad_source'] ) {
-						$url = $field_values[$field_id];
+						$url = $field_values[ $field_id ];
 						if ( substr( $url, 0, 2 ) === '//' ) {
 							// Allow URLs without protocol prefix
 							$url = 'http:' . $url;
