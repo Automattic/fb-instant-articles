@@ -7,7 +7,7 @@
  * @package default
  */
 
- ?>
+	?>
 <form method="post" action="options.php">
 <?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP ); ?>
 

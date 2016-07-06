@@ -51,7 +51,7 @@ class Instant_Articles_Google_Analytics_For_WordPress {
 
 		$options = Yoast_GA_Options::instance()->options;
 
-		if ( isset( $options['enable_universal'] ) && 1 == $options['enable_universal'] ) {
+		if ( isset( $options['enable_universal'] ) && 1 === intval( $options['enable_universal'] ) ) {
 			$tracker = new Yoast_GA_Universal;
 		} else {
 			$tracker = new Yoast_GA_JS;

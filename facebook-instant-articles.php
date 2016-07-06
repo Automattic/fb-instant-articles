@@ -4,7 +4,7 @@
  * Description: Add support for Instant Articles for Facebook to your WordPress site.
  * Author: Automattic, Dekode, Facebook
  * Author URI: https://vip.wordpress.com/plugins/instant-articles/
- * Version: 2.10
+ * Version: 2.11
  * Text Domain: instant-articles
  * License: GPLv2
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,16 +15,10 @@
 if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action(
 		'admin_notices',
-		create_function(
-			'',
-			"echo '<div class=\"error\"><p>".
-				__(
-					'Instant Articles for WP requires PHP 5.4 to function properly. '.
-						'Please upgrade PHP or deactivate Instant Articles for WP.',
-					'instant-articles'
-				).
-				"</p></div>';"
-		)
+		function () {
+			echo '<div class="error"><p>' .
+				esc_html__( 'Instant Articles for WP requires PHP 5.4 to function properly. Please upgrade PHP or deactivate Instant Articles for WP.', 'instant-articles' ) . '</p></div>';
+		}
 	);
 	return;
 } else {
@@ -67,7 +61,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 	defined( 'ABSPATH' ) || die( 'Shame on you' );
 
-	define( 'IA_PLUGIN_VERSION', '2.10' );
+	define( 'IA_PLUGIN_VERSION', '2.11' );
 	define( 'IA_PLUGIN_PATH_FULL', __FILE__ );
 	define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
 	define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
@@ -165,6 +159,18 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			$query->set( 'orderby', 'modified' );
 			$query->set( 'posts_per_page', 10 );
 			$query->set( 'posts_per_rss', 10 );
+
+			/**
+			 * Filter the post types to include in the query.
+			 *
+			 * Default to `post` only, but allow other post types to be included by the theme/plugins.
+			 *
+			 * @since 2.12
+			 *
+			 * @param array $post_types Array of post types
+			 */
+			$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+			$query->set( 'post_type', $post_types );
 
 			/**
 			 * If the constant INSTANT_ARTICLES_LIMIT_POSTS is set to true, we will limit the feed
