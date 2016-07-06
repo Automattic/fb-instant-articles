@@ -80,6 +80,16 @@
             }
         }
     }, {
+        "class": "ImageInsideParagraphRule",
+        "selector": "//a[img]",
+        "properties": {
+            "image.url": {
+                "type": "string",
+                "selector": "img",
+                "attribute": "src"
+            }
+        }
+    }, {
         "class": "ListItemRule",
         "selector" : "li"
     }, {
