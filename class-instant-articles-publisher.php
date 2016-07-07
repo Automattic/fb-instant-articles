@@ -42,6 +42,12 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		// Only process posts
+		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+		if ( ! in_array( $post->post_type, $post_types ) ) {
+			return;
+		}
+
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 
