@@ -16,7 +16,7 @@ use Facebook\InstantArticles\Client\Client;
  */
 class Instant_Articles_Settings_Review {
 
-	const MIN_ARTICLES = 120;
+	const MIN_ARTICLES = 134;
 
 	public static function getUnsubmittedArticles( $submitted_articles_urls ) {
 		$recent_posts = wp_get_recent_posts(
@@ -27,6 +27,14 @@ class Instant_Articles_Settings_Review {
 			$instant_articles_post = new Instant_Articles_Post( $post );
 			return ! in_array( $instant_articles_post->get_canonical_url(), $submitted_articles_urls );
 		} );
+	}
+
+	public static function getPageID() {
+		if ( ! static::isPageSet() ) {
+			return null;
+		}
+		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+		return $fb_page_settings['page_id'];
 	}
 
 	public static function isPageSet() {

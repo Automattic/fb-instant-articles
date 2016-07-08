@@ -17,12 +17,14 @@
 		</div>
 	</div>
 
-	<div id="instant-articles-settings-review" class="instant-articles-settings-box">
-		<h2 class="dashicons-before dashicons-arrow-down"> Review</h2>
-		<div class="inside">
-			<?php include( dirname( __FILE__ ) . '/template-settings-review.php' ); ?>
+	<?php if ( Instant_Articles_Settings_Review::isPageSet() ) : ?>
+		<div id="instant-articles-settings-review" class="instant-articles-settings-box">
+			<h2 class="dashicons-before dashicons-arrow-down"> Review</h2>
+			<div class="inside">
+				<?php include( dirname( __FILE__ ) . '/template-settings-review.php' ); ?>
+			</div>
 		</div>
-	</div>
+	<?php endif; ?>
 
 	<div id="instant-articles-settings-info" class="instant-articles-settings-box">
 		<h2 class="dashicons-before dashicons-arrow-down"> Instant Articles Configuration</h2>

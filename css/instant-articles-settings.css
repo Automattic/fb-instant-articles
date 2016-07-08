@@ -14,3 +14,24 @@
 .instant-articles-settings-box .inside {
 	padding: 8px 12px;
 }
+
+.instant-articles-settings-box .progressbar {
+	width: 500px;
+	background-color: #ccc;
+  border-radius: 2px; /* (height of inner div) / 2 + padding */
+  padding: 2px;
+	position: relative;
+}
+
+.instant-articles-settings-box .progressbar > div {
+   background-color: #afa;
+   width: 40%; /* Adjust with JavaScript */
+   height: 20px;
+   border-radius: 2px;
+	 text-align: center;
+}
+
+.instant-articles-settings-box .progressbar > div > div {
+	position: absolute;
+	width: 500px;
+}
