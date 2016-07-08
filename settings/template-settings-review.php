@@ -8,6 +8,10 @@
  */
 ?>
 <?php $status = Instant_Articles_Settings_Review::getReviewSubmissionStatus(); ?>
+<?php $articleURLs = Instant_Articles_Settings_Review::getArticlesURLs(); ?>
+<?php $unsubmitted_articles = Instant_Articles_Settings_Review::getUnsubmittedArticles( $articleURLs ); ?>
+<?php $pending_submission = Instant_Articles_Settings_Review::MIN_ARTICLES - count($articleURLs); ?>
+<?php $pending_writing = $pending_submission - count( $unsubmitted_articles ); ?>
 
 <?php switch ( $status ) :
 	case 'REJECTED': ?>
@@ -29,24 +33,33 @@ Your site is currently under review.
 </pre>
 <?php break; ?>
 <?php case 'NOT_SUBMITTED': ?>
-<pre>
-Progress: 5 [#############################################] 10
 
+<?php if ( count($articleURLs) >= Instant_Articles_Settings_Review::MIN_ARTICLES ) : ?>
+<pre>
+Progress: [<?php for ($i = 0; $i < Instant_Articles_Settings_Review::MIN_ARTICLES; $i++) : ?>#<?php endfor; ?>]
 [ Submit for review ]
 </pre>
+<?php else : ?>
 <pre>
-Progress: 5 [#####################------------------------] 10
+Progress: [<?php
+	for ($i = 0; $i < count( $articleURLs ); $i++) : ?>#<?php endfor;
+	for ($i = 0; $i < $pending_submission; $i++) : ?>-<?php endfor;
+?>]
 
-Articles not on Instant Articles:
-_______________________________________________________
-Title                      | Submit to Instant Articles
-_______________________________________________________
-Title                      | Submit to Instant Articles
-_______________________________________________________
-Title                      | Submit to Instant Articles
-_______________________________________________________
-Title                      | Submit to Instant Articles
+<?php if ( count( $unsubmitted_articles ) >  0 ) : ?>
+You need to submit <?php echo $pending_submission; ?> more articles before review:
 
-You need to submit 5 more articles before review.
+<?php foreach ( $unsubmitted_articles as $post ) : ?>
+[ Submit to Instant Articles ] <?php echo $post->post_title ?>
+
+<?php endforeach; ?>
+<?php if ( $pending_writing > 0 ) ?>
+
+You still need to create at least more <?php echo $pending_writing; ?> articles.
+<?php else : ?>
+
+You still need to create at least more <?php echo $pending_submission; ?> articles.
+<?php endif; ?>
 </pre>
-<?php endswitch ?>
+<?php endif; ?>
+<?php endswitch; ?>

@@ -10,14 +10,26 @@
 use Facebook\InstantArticles\Client\Client;
 
 /**
- * Class responsible for functionality and rendering of the settings
+ * Class responsible for functionality and rendering of the review settings
  *
- * @since 0.4
+ * @since 3.0
  */
 class Instant_Articles_Settings_Review {
 
-	public static function getReviewSubmissionStatus() {
+	const MIN_ARTICLES = 120;
 
+	public static function getUnsubmittedArticles( $submitted_articles_urls ) {
+		$recent_posts = wp_get_recent_posts(
+		 	array( 'numberposts' => '20' ),
+			'OBJECT'
+		);
+		return array_filter( $recent_posts, function ( $post ) use ($submitted_articles_urls) {
+			$instant_articles_post = new Instant_Articles_Post( $post );
+			return ! in_array( $instant_articles_post->get_canonical_url(), $submitted_articles_urls );
+		} );
+	}
+
+	public static function isPageSet() {
 		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 
@@ -25,18 +37,42 @@ class Instant_Articles_Settings_Review {
 			&& isset( $fb_app_settings['app_secret'] )
 			&& isset( $fb_page_settings['page_access_token'] )
 			&& isset( $fb_page_settings['page_id'] ) ) {
-
-			$client = Client::create(
-				$fb_app_settings['app_id'],
-				$fb_app_settings['app_secret'],
-				$fb_page_settings['page_access_token'],
-				$fb_page_settings['page_id'],
-				false
-			);
-
-			return $client->getReviewSubmissionStatus();
+			return true;
 		}
-		return null;
+
+		return false;
 	}
 
+	public static function getClient() {
+		if ( ! static::isPageSet() ) {
+			return null;
+		}
+
+		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+
+		$client = Client::create(
+			$fb_app_settings['app_id'],
+			$fb_app_settings['app_secret'],
+			$fb_page_settings['page_access_token'],
+			$fb_page_settings['page_id'],
+			false
+		);
+
+		return $client;
+	}
+
+	public static function getReviewSubmissionStatus() {
+		if ( ! static::isPageSet() ) {
+			return null;
+		}
+		return static::getClient()->getReviewSubmissionStatus();
+	}
+
+	public static function getArticlesURLs() {
+		if ( ! static::isPageSet() ) {
+			return null;
+		}
+		return static::getClient()->getArticlesURLs(static::MIN_ARTICLES);
+	}
 }
