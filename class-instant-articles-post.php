@@ -296,7 +296,7 @@ class Instant_Articles_Post {
 
 		// If we’re not it the loop or otherwise properly setup.
 		$reset_postdata = false;
-		if ( $this->_post->ID !== $post->ID ) {
+		if ( empty( $post ) || $this->_post->ID !== $post->ID ) {
 			$post = get_post( $this->_post->ID );
 			setup_postdata( $post );
 			$reset_postdata = true;
