@@ -16,6 +16,7 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.p
 
 require_once( dirname( __FILE__ ) . '/class-instant-articles-settings-wizard.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-settings-fb-page.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-settings-review.php' );
 
 /**
  * Class responsible for functionality and rendering of the settings.
