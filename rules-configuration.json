@@ -126,6 +126,16 @@
                 "selector" : "iframe",
                 "attribute": "src"
             },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
             "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
@@ -143,6 +153,16 @@
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
             },
             "interactive.iframe" : {
                 "type" : "children",
@@ -188,6 +208,16 @@
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
             }
         }
     }, {
