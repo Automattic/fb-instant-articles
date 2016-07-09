@@ -42,6 +42,12 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		// Only process posts
+		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+		if ( ! in_array( $post->post_type, $post_types ) ) {
+			return;
+		}
+
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 
@@ -51,7 +57,7 @@ class Instant_Articles_Publisher {
 		// This is important because the save_post action is also triggered by bulk updates, but in this case
 		// WordPress does not load the content field from DB for performance reasons. In this case, articles
 		// will be empty here, despite of them actually having content.
-		if ( count($article->getChildren()) === 0 || ! $article->getHeader() || ! $article->getHeader()->getTitle() ) {
+		if ( count( $article->getChildren() ) === 0 || ! $article->getHeader() || ! $article->getHeader()->getTitle() ) {
 			return;
 		}
 

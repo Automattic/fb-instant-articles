@@ -26,7 +26,7 @@ class Instant_Articles_Settings_Wizard {
 	private static $steps = array(
 		1 => self::STEP_ID_APP_SETUP,
 		2 => self::STEP_ID_PAGE_SELECTION,
-		2 => self::STEP_ID_DONE
+		2 => self::STEP_ID_DONE,
 	);
 
 	/**

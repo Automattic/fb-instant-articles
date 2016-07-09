@@ -7,7 +7,7 @@
  * @package default
  */
 
-  if ( Instant_Articles_Settings_Wizard::get_current_step_id() === 'done' ) : ?>
+if ( Instant_Articles_Settings_Wizard::get_current_step_id() === 'done' ) : ?>
 
 	<p><strong>Success! Your Instant Articles plugin has been activated.</strong></p>
 
@@ -20,8 +20,8 @@
 				echo esc_html( $fb_app_settings['app_id'] );
 			?></a>.
 
-				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
-				<?php submit_button( __( 'Update' ), 'default', 'submit', false ); ?>
+			<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
+			<?php submit_button( __( 'Update' ), 'default', 'submit', false ); ?>
 		</p>
 	</form>
 
@@ -29,15 +29,15 @@
 		<p>
 			Your page is
 			<a
-				href="http://facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>"
-				target="_blank"><?php
+		  href="http://facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>"
+		  target="_blank"><?php
 				echo esc_html( $fb_page_settings['page_name'] );
 			?></a>.
-				<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
-				<?php submit_button( __( 'Update' ), 'default', 'submit', false ); ?>
-				<div style="display: none">
-					<?php do_settings_sections( Instant_Articles_Option_FB_App::OPTION_KEY ); ?>
-				</div>
+			<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD ); ?>
+			<?php submit_button( __( 'Update' ), 'default', 'submit', false ); ?>
+		  <div style="display: none">
+				<?php do_settings_sections( Instant_Articles_Option_FB_App::OPTION_KEY ); ?>
+		  </div>
 		</p>
 	</form>
 
@@ -142,7 +142,7 @@
 					'page_id' => $page_node->getField( 'id' ),
 					'page_name' => $page_node->getField( 'name' ),
 					'page_access_token' => $page_node->getField( 'access_token' ),
-					'supports_instant_articles' => $page_node->getField( 'supports_instant_articles' )
+					'supports_instant_articles' => $page_node->getField( 'supports_instant_articles' ),
 				);
 			}, $helper->getPagesAndTokens( $access_token )->all() );
 
@@ -151,13 +151,13 @@
 			} );
 			?>
 
-			<?php if ( ! empty ( $pages_and_tokens ) ) : ?>
+			<?php if ( ! empty( $pages_and_tokens ) ) : ?>
 				<p>Select the Facebook Pages where you will publish Instant Articles:</p>
 
 				<select id="<?php echo esc_attr( 'instant-articles-fb-page-selector' ) ?>">
 					<option value="" disabled selected>Select Page</option>
 					<?php foreach ( $pages_and_tokens as $page ) : ?>
-						<option value="<?php echo esc_attr( json_encode( $page ) ) ?>">
+						<option value="<?php echo esc_attr( wp_json_encode( $page ) ) ?>">
 							<?php echo esc_html( $page->page_name ) ?>
 						</option>
 					<?php endforeach; ?>

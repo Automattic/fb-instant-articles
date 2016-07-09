@@ -15,7 +15,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-media-document"></span>
-		Your post will be submitted to Instant Articles once you publish it.
+		Your post will be submitted to Instant Articles once it is published.
 	</b>
 </p>
 
@@ -151,9 +151,11 @@ use Facebook\InstantArticles\Client\ServerMessage;
 					<?php echo esc_html( $warning ); ?>
 					<span>
 						<?php
+						if ( $warning->getNode() ) {
 							echo esc_html(
 								$warning->getNode()->ownerDocument->saveHTML( $warning->getNode() )
 							);
+						}
 						?>
 					</span>
 				</div>

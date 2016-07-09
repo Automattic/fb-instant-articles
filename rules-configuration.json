@@ -17,6 +17,9 @@
     },{
         "class": "PassThroughRule",
         "selector" : "del"
+    },{
+        "class": "PassThroughRule",
+        "selector" : "mark"
     }, {
         "class": "PassThroughRule",
         "selector" : "span"
@@ -118,46 +121,66 @@
         "class": "H2Rule",
         "selector" : "h3,h4,h5,h6"
     }, {
-        "class": "SocialEmbedRule",
+        "class": "InteractiveRule",
         "selector" : "iframe",
         "properties" : {
-            "socialembed.url" : {
+            "interactive.url" : {
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
             },
-            "socialembed.iframe" : {
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
             },
-            "socialembed.caption" : {
+            "interactive.caption" : {
                 "type" : "element",
                 "selector" : "figcaption"
             }
         }
     }, {
-        "class": "SocialEmbedRule",
+        "class": "InteractiveRule",
         "selector" : "//p[iframe]",
         "properties" : {
-            "socialembed.url" : {
+            "interactive.url" : {
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
             },
-            "socialembed.iframe" : {
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
             },
-            "socialembed.caption" : {
+            "interactive.caption" : {
                 "type" : "element",
                 "selector" : "figcaption"
             }
         }
     }, {
-        "class": "SocialEmbedRule",
+        "class": "InteractiveRule",
         "selector" : "div.embed",
         "properties" : {
-            "socialembed.iframe" : {
+            "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "div.embed"
             }
@@ -169,16 +192,35 @@
             "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "div.interactive"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe"
             }
         }
     }, {
-        "class": "SocialEmbedRule",
+        "class": "InteractiveRule",
         "selector" : "//div[@class='embed' and iframe]",
         "properties" : {
-            "socialembed.url" : {
+            "interactive.url" : {
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
             }
         }
     }, {

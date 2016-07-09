@@ -290,17 +290,13 @@ class Instant_Articles_Post {
 
 		global $post, $more;
 
-		if ( ! $post ) {
-			return '';
-		}
-
 		// Force $more.
 		$orig_more = $more;
 		$more = 1;
 
 		// If we’re not it the loop or otherwise properly setup.
 		$reset_postdata = false;
-		if ( $this->_post->ID !== $post->ID ) {
+		if ( empty( $post ) || $this->_post->ID !== $post->ID ) {
 			$post = get_post( $this->_post->ID );
 			setup_postdata( $post );
 			$reset_postdata = true;
@@ -326,6 +322,12 @@ class Instant_Articles_Post {
 		// Some people choose to disable wpautop. Due to the Instant Articles spec, we really want it in!
 		$content = wpautop( $content );
 
+		// Remove hyperlinks beginning with a # as they cause errors on Facebook (from http://wordpress.stackexchange.com/a/227332/19528)
+	        preg_match_all( '!<a[^>]*? href=[\'"]#[^<]+</a>!i', $content, $matches );
+	        foreach ( $matches[0] as $link ) {
+	                $content = str_replace( $link, strip_tags($link), $content );
+	        }
+		
 		/**
 		 * Filter the post content for Instant Articles.
 		 *
@@ -582,6 +584,31 @@ class Instant_Articles_Post {
 		// Get time zone configured in WordPress. Default to UTC if no time zone configured.
 		$date_time_zone = get_option( 'timezone_string' ) ? new DateTimeZone( get_option( 'timezone_string' ) ) : new DateTimeZone( 'UTC' );
 
+		// Initialize transformer
+		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
+		$configuration = file_get_contents( $file_path );
+
+		$transformer = new Transformer();
+		$this->transformer = $transformer;
+		$transformer->loadRules( $configuration );
+
+		$transformer = apply_filters( 'instant_articles_transformer_rules_loaded', $transformer );
+
+		$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
+
+		if (
+			isset( $settings_publishing['custom_rules_enabled'] ) &&
+			! empty( $settings_publishing['custom_rules_enabled'] ) &&
+			isset( $settings_publishing['custom_rules'] ) &&
+			! empty( $settings_publishing['custom_rules'] )
+		) {
+			$transformer->loadRules( $settings_publishing['custom_rules'] );
+		}
+
+		$transformer = apply_filters( 'instant_articles_transformer_custom_rules_loaded', $transformer );
+
+		$blog_charset = get_option( 'blog_charset' );
+
 		$header =
 			Header::create()
 				->withPublishTime(
@@ -589,8 +616,14 @@ class Instant_Articles_Post {
 				)
 				->withModifyTime(
 					Time::create( Time::MODIFIED )->withDatetime( new DateTime( $this->_post->post_modified, $date_time_zone ) )
-				)
-				->withTitle( $this->get_the_title() );
+				);
+
+		$title = $this->get_the_title();
+		if ( $title ) {
+			$document = new DOMDocument();
+			$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $title . '</h1>' );
+			$transformer->transform( $header, $document );
+		}
 
 		$authors = $this->get_the_authors();
 		foreach ( $authors as $author ) {
@@ -614,9 +647,9 @@ class Instant_Articles_Post {
 		if ( $cover['src'] ) {
 			$image = Image::create()->withURL( $cover['src'] );
 			if ( isset( $cover['caption'] ) && strlen( $cover['caption'] ) > 0 ) {
-				$image->withCaption(
-				    Caption::create()->withTitle( $cover['caption'] )
-				);
+				$document = new DOMDocument();
+				$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $cover['caption']  . '</h1>' );
+				$image->withCaption( $transformer->transform( Caption::create(), $document ) );
 			}
 
 			$header->withCover( $image );
@@ -624,37 +657,16 @@ class Instant_Articles_Post {
 		$this->instant_article =
 			InstantArticle::create()
 				->withCanonicalUrl( $this->get_canonical_url() )
-				->withHeader( $header );
+				->withHeader( $header )
+				->addMetaProperty( 'op:generator:application', 'facebook-instant-articles-wp' )
+				->addMetaProperty( 'op:generator:application:version', IA_PLUGIN_VERSION );
 
 		$settings_style = Instant_Articles_Option_Styles::get_option_decoded();
-		if ( isset( $settings_style['article_style'] ) && ! empty ( $settings_style['article_style'] ) ) {
+		if ( isset( $settings_style['article_style'] ) && ! empty( $settings_style['article_style'] ) ) {
 			$this->instant_article->withStyle( $settings_style['article_style'] );
-		}
-		else {
+		} else {
 			$this->instant_article->withStyle( 'default' );
 		}
-
-		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
-		$configuration = file_get_contents( $file_path );
-
-		$transformer = new Transformer();
-		$this->transformer = $transformer;
-		$transformer->loadRules( $configuration );
-
-		$transformer = apply_filters( 'instant_articles_transformer_rules_loaded', $transformer );
-
-		$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
-
-		if (
-			isset ( $settings_publishing['custom_rules_enabled'] ) &&
-			! empty( $settings_publishing['custom_rules_enabled'] ) &&
-			isset ( $settings_publishing['custom_rules'] ) &&
-			! empty( $settings_publishing['custom_rules'] )
-		) {
-			$transformer->loadRules( $settings_publishing['custom_rules'] );
-		}
-
-		$transformer = apply_filters( 'instant_articles_transformer_custom_rules_loaded', $transformer );
 
 		$libxml_previous_state = libxml_use_internal_errors( true );
 		$document = new DOMDocument( '1.0', get_option( 'blog_charset' ) );
@@ -668,6 +680,20 @@ class Instant_Articles_Post {
 		}
 
 		$result = $document->loadHTML( '<!doctype html><html><body>' . $content . '</body></html>' );
+
+		// We need to make sure that scripts use absolute URLs and not relative URLs.
+		$scripts = $document->getElementsByTagName('script');
+		if ( ! empty( $scripts ) ) {
+			foreach ( $scripts as $script ){
+				$src = $script->getAttribute( 'src' );
+				$explode_src = parse_url( $src );
+				if ( is_array( $explode_src ) && empty( $explode_src['scheme'] ) ) {
+					$src = 'https://' . $explode_src['host'] . $explode_src['path'];
+				}
+				$script->setAttribute( 'src' , $src );
+			}
+		}
+
 		libxml_clear_errors();
 		libxml_use_internal_errors( $libxml_previous_state );
 
