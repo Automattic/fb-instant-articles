@@ -43,6 +43,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 			'placeholder' => '<script>...</script>',
 			'description' => 'Note: You do not need to include any &lt;op-tracker&gt; tags. The plugin will automatically include them in the article markup.',
 			'default' => '',
+			'double_encode' => true,
 		),
 	);
 
@@ -125,7 +126,6 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 					if ( isset( $field_values['embed_code_enabled'] ) && $field_values['embed_code_enabled'] ) {
 						$document = new DOMDocument();
 						$fragment = $document->createDocumentFragment();
-						$field_values[ $field_id ] = preg_replace( '/&(?!amp;)/', '&amp;', $field_values[ $field_id ] );
 						if ( ! @$fragment->appendXML( $field_values[ $field_id ] ) ) {
 							add_settings_error(
 								'embed_code',

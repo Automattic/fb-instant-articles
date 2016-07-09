@@ -55,6 +55,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 			'description' => 'Add code to be used for displayed ads in your Instant Articles.',
 			'default' => '',
 			'placeholder' => '<script>...</script>',
+			'double_encode' => true,
 		),
 
 		'dimensions' => array(
@@ -214,7 +215,6 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 					if ( isset( $field_values['ad_source'] ) && 'embed' === $field_values['ad_source'] ) {
 						$document = new DOMDocument();
 						$fragment = $document->createDocumentFragment();
-						$field_values[ $field_id ] = preg_replace( '/&(?!amp;)/', '&amp;', $field_values[ $field_id ] );
 						if ( ! @$fragment->appendXML( $field_values[ $field_id ] ) ) {
 							add_settings_error(
 								'embed_code',
