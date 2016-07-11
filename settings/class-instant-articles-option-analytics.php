@@ -43,6 +43,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 			'placeholder' => '<script>...</script>',
 			'description' => 'Note: You do not need to include any &lt;op-tracker&gt; tags. The plugin will automatically include them in the article markup.',
 			'default' => '',
+			'double_encode' => true,
 		),
 	);
 

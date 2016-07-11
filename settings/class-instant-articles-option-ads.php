@@ -55,6 +55,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 			'description' => 'Add code to be used for displayed ads in your Instant Articles.',
 			'default' => '',
 			'placeholder' => '<script>...</script>',
+			'double_encode' => true,
 		),
 
 		'dimensions' => array(
