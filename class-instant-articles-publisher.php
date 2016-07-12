@@ -18,6 +18,11 @@ use Facebook\Facebook;
 class Instant_Articles_Publisher {
 
 	/**
+	 * Key to store the submission status ID on meta data
+	 */
+	 const SUBMISSION_ID_KEY = 'instant_articles_submission_id';
+
+	/**
 	 * Inits publisher.
 	 */
 	public static function init() {
@@ -93,10 +98,12 @@ class Instant_Articles_Publisher {
 
 				try {
 					// Import the article.
-					$client->importArticle( $article, $take_live );
+					$submission_id = $client->importArticle( $article, $take_live );
+					update_post_meta( $post_id, self::SUBMISSION_ID_KEY, $submission_id );
 				} catch ( Exception $e ) {
 					// Try without taking live for pages not yet reviewed.
-					$client->importArticle( $article, false );
+					$submission_id = $client->importArticle( $article, false );
+					update_post_meta( $post_id, self::SUBMISSION_ID_KEY, $submission_id );
 				}
 			}
 		} catch ( Exception $e ) {

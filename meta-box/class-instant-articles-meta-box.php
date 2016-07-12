@@ -57,7 +57,8 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function render_meta_box() {
-		$post = get_post( intval( filter_input( INPUT_POST, 'post_ID' ) ) );
+		$post_id = intval( filter_input( INPUT_POST, 'post_ID' ) );
+		$post = get_post( $post_id );
 		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
 		$canonical_url = $adapter->get_canonical_url();
@@ -84,9 +85,14 @@ class Instant_Articles_Meta_Box {
 						$fb_page_settings['page_id']
 					);
 
-					// Grab the latest status of this article and display.
-					$article_id = $client->getArticleIDFromCanonicalURL( $canonical_url );
-					$submission_status = $client->getLastSubmissionStatus( $article_id );
+					$submission_status_id = get_post_meta( $post_id, Instant_Articles_Publisher::SUBMISSION_ID_KEY, true );
+					if ( ! empty( $submission_status_id ) ) {
+						$submission_status = $client->getSubmissionStatus( $submission_status_id );
+					} else {
+						// Grab the latest status of this article and display.
+						$article_id = $client->getArticleIDFromCanonicalURL( $canonical_url );
+						$submission_status = $client->getLastSubmissionStatus( $article_id );
+					}
 				}
 			} catch ( FacebookResponseException $e ) {
 				$submission_status = null;
