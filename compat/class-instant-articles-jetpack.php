@@ -78,6 +78,6 @@ class Instant_Articles_Jetpack {
 			$locale = 'en_US';
 		}
 
-		return '<figure class="op-social"><iframe><script src="//connect.facebook.net/' . $locale . '/sdk.js#xfbml=1&amp;version=v2.2" async></script><div class="fb-post" data-href="' . esc_url( $url ) . '"></div></iframe></figure>';
+		return '<figure class="op-social"><iframe><script src="https://connect.facebook.net/' . $locale . '/sdk.js#xfbml=1&amp;version=v2.6" async></script><div class="fb-post" data-href="' . esc_url( $url ) . '"></div></iframe></figure>';
 	}
 }
