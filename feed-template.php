@@ -35,7 +35,7 @@ $last_modified = null;
 				<title><?php echo esc_html( $instant_article_post->get_the_title() ); ?></title>
 				<link><?php echo esc_url( $instant_article_post->get_canonical_url() ); ?></link>
 				<content:encoded>
-					<![CDATA[<?php echo wp_kses_post( $instant_article_post->to_instant_article()->render() ); ?>]]>
+					<![CDATA[<?php echo $instant_article_post->to_instant_article()->render(); ?>]]>
 				</content:encoded>
 				<guid isPermaLink="false"><?php esc_html( the_guid() ); ?></guid>
 				<description><![CDATA[<?php echo esc_html( $instant_article_post->get_the_excerpt() ); ?>]]></description>
