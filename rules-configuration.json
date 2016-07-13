@@ -183,6 +183,16 @@
             "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "div.embed"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
             }
         }
     }, {
@@ -198,9 +208,10 @@
                 "selector" : "iframe",
                 "attribute": "height"
             },
-            "interactive.iframe" : {
-                "type" : "children",
-                "selector" : "iframe"
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
             }
         }
     }, {
@@ -231,6 +242,16 @@
                 "type" : "string",
                 "selector" : "iframe",
                 "attribute": "src"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
             }
         }
     }, {
@@ -295,8 +316,18 @@
         "selector" : "table",
         "properties" : {
             "interactive.iframe" : {
-            "type" : "element",
-            "selector" : "table"
+                "type" : "element",
+                "selector" : "table"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "table",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
             }
         }
     }]
