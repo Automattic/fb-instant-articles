@@ -63,8 +63,8 @@
         "class": "PassThroughRule",
         "selector": "blockquote p"
     }, {
-        "class": "ImageRule",
-        "selector": "//p[img]",
+        "class": "ImageInsideParagraphRule",
+        "selector": "img",
         "properties": {
             "image.url": {
                 "type": "string",
@@ -291,13 +291,13 @@
             }
         }
     }, {
-		"class": "InteractiveRule",
-		"selector" : "table",
-		"properties" : {
-			"interactive.iframe" : {
-				"type" : "element",
-				"selector" : "table"
-			}
-		}
-	}]
+        "class": "InteractiveRule",
+        "selector" : "table",
+        "properties" : {
+            "interactive.iframe" : {
+            "type" : "element",
+            "selector" : "table"
+            }
+        }
+    }]
 }
