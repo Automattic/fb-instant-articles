@@ -142,10 +142,6 @@
             "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
-            },
-            "interactive.caption" : {
-                "type" : "element",
-                "selector" : "figcaption"
             }
         }
     }, {
@@ -170,10 +166,6 @@
             "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
-            },
-            "interactive.caption" : {
-                "type" : "element",
-                "selector" : "figcaption"
             }
         }
     }, {
