@@ -3,7 +3,7 @@ Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 4.5.3
-Stable tag: 3.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,10 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 1. Customized transformer rules enabled on the main Settings page. The particular configuration shown here would cause `<u>` and `<bold>` tags in the source markup to be rendered in *italics* and **bold**, respectively, in the generated Instant Article.
 
 == Changelog ==
+
+= 3.0.1 =
+
+* Fix overzealous escaping
 
 = 3.0 =
 
