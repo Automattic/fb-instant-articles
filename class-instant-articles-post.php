@@ -687,7 +687,7 @@ class Instant_Articles_Post {
 			foreach ( $scripts as $script ){
 				$src = $script->getAttribute( 'src' );
 				$explode_src = parse_url( $src );
-				if ( is_array( $explode_src ) && empty( $explode_src['scheme'] ) ) {
+				if ( is_array( $explode_src ) && empty( $explode_src['scheme'] ) && ! empty( $explode_src['host'] ) && ! empty( $explode_src['path'] ) ) {
 					$src = 'https://' . $explode_src['host'] . $explode_src['path'];
 				}
 				$script->setAttribute( 'src' , $src );
