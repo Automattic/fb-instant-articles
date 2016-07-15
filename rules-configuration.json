@@ -142,38 +142,6 @@
             "interactive.iframe" : {
                 "type" : "children",
                 "selector" : "iframe"
-            },
-            "interactive.caption" : {
-                "type" : "element",
-                "selector" : "figcaption"
-            }
-        }
-    }, {
-        "class": "InteractiveRule",
-        "selector" : "//p[iframe]",
-        "properties" : {
-            "interactive.url" : {
-                "type" : "string",
-                "selector" : "iframe",
-                "attribute": "src"
-            },
-            "interactive.width" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "width"
-            },
-            "interactive.height" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "height"
-            },
-            "interactive.iframe" : {
-                "type" : "children",
-                "selector" : "iframe"
-            },
-            "interactive.caption" : {
-                "type" : "element",
-                "selector" : "figcaption"
             }
         }
     }, {
@@ -223,6 +191,11 @@
                 "selector" : "iframe",
                 "attribute": "src"
             },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
             "interactive.width" : {
                 "type" : "int",
                 "selector" : "iframe",
@@ -243,6 +216,10 @@
                 "selector" : "iframe",
                 "attribute": "src"
             },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe"
+            },
             "interactive.height" : {
                 "type" : "int",
                 "selector" : "iframe",
@@ -255,13 +232,149 @@
             }
         }
     }, {
-        "class": "ImageRule",
-        "selector": "//p[a[img]]|//a[img]",
-        "properties": {
-            "image.url": {
-                "type": "string",
-                "selector": "img",
+        "class": "InteractiveRule",
+        "selector" : "table",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "element",
+                "selector" : "table"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "table",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "iframe",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
                 "attribute": "src"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    },{
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "div.embed",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "div.embed"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "div.interactive",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "div.interactive"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "//div[@class='embed' and iframe]",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "//div[@class='interactive' and iframe]",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "table",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "element",
+                "selector" : "table"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "table",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "table",
+                "attribute": "width"
             }
         }
     }, {
@@ -309,25 +422,6 @@
                 "type" : "string",
                 "selector" : "source",
                 "attribute": "type"
-            }
-        }
-    }, {
-        "class": "InteractiveRule",
-        "selector" : "table",
-        "properties" : {
-            "interactive.iframe" : {
-                "type" : "element",
-                "selector" : "table"
-            },
-            "interactive.height" : {
-                "type" : "int",
-                "selector" : "table",
-                "attribute": "height"
-            },
-            "interactive.width" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "width"
             }
         }
     }]
