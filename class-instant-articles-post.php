@@ -625,6 +625,10 @@ class Instant_Articles_Post {
 			$transformer->transform( $header, $document );
 		}
 
+		if ( $this->has_subtitle() ) {
+			$header->withSubTitle ( $this->get_the_subtitle() ) ;
+		}
+
 		$authors = $this->get_the_authors();
 		foreach ( $authors as $author ) {
 			$author_obj = Author::create();
