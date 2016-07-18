@@ -90,15 +90,15 @@ class Instant_Articles_Publisher {
 				);
 
 				if ( $dev_mode ) {
-					$take_live = false;
+					$published = false;
 				} else {
 					// Any publish status other than 'publish' means draft for the Instant Article.
-					$take_live = true;
+					$published = true;
 				}
 
 				try {
 					// Import the article.
-					$submission_id = $client->importArticle( $article, $take_live );
+					$submission_id = $client->importArticle( $article, $published );
 					update_post_meta( $post_id, self::SUBMISSION_ID_KEY, $submission_id );
 				} catch ( Exception $e ) {
 					// Try without taking live for pages not yet reviewed.
