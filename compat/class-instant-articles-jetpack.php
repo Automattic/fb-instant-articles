@@ -15,6 +15,7 @@ class Instant_Articles_Jetpack {
 	function init() {
 		$this->_fix_youtube_embed();
 		$this->_fix_facebook_embed();
+		add_filter( 'instant_articles_transformer_rules_loaded', 'Instant_Articles_Jetpack::transformer_loaded' );
 	}
 
 	/**
@@ -79,5 +80,14 @@ class Instant_Articles_Jetpack {
 		}
 
 		return '<figure class="op-social"><iframe><script src="https://connect.facebook.net/' . $locale . '/sdk.js#xfbml=1&amp;version=v2.6" async></script><div class="fb-post" data-href="' . esc_url( $url ) . '"></div></iframe></figure>';
+	}
+
+	public static function transformer_loaded( $transformer ) {
+		// Appends more rules to transformer
+		$file_path = plugin_dir_path( __FILE__ ) . 'jetpack-rules-configuration.json';
+		$configuration = file_get_contents( $file_path );
+		$transformer->loadRules( $configuration );
+
+		return $transformer;
 	}
 }

@@ -1,0 +1,62 @@
+{
+  "rules":[
+    {
+      "class": "CaptionRule",
+      "selector" : "div.wp-caption-text"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.gallery-row"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.tiled-gallery p"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.gallery-row p"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.gallery-group p"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.gallery-group"
+    },
+    {
+      "class": "ImageRule",
+      "selector" : "div.wp-caption",
+      "properties" : {
+          "image.url" : {
+              "type" : "string",
+              "selector" : "img",
+              "attribute": "src"
+          }
+      }
+    },
+    {
+      "class": "SlideshowImageRule",
+      "selector" : "div.tiled-gallery-item",
+      "properties" : {
+        "image.url" : {
+          "type" : "string",
+          "selector" : "img",
+          "attribute": "data-orig-file"
+        },
+        "caption.title" : {
+          "type" : "string",
+          "selector" : "div.tiled-gallery-caption"
+        }
+      }
+    },
+    {
+      "class": "SlideshowRule",
+      "selector" : "div.tiled-gallery"
+    },
+    {
+      "class": "CaptionRule",
+      "selector" : "div.tiled-gallery-caption"
+    }
+  ]
+}
