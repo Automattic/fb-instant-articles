@@ -1,5 +1,8 @@
 {
-  "rules":[
+  "rules": [{
+      "class" : "IgnoreRule",
+      "selector" : "p.jetpack-slideshow-noscript"
+    },
     {
       "class": "CaptionRule",
       "selector" : "div.wp-caption-text"
@@ -53,6 +56,17 @@
     {
       "class": "SlideshowRule",
       "selector" : "div.tiled-gallery"
+    },
+    {
+      "class": "Compat\\JetpackSlideshowRule",
+      "selector" : "div.jetpack-slideshow",
+      "properties": {
+        "jetpack.data-gallery": {
+          "type": "json",
+          "selector": "div.jetpack-slideshow",
+          "attribute": "data-gallery"
+        }
+      }
     },
     {
       "class": "CaptionRule",
