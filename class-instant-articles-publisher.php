@@ -89,6 +89,17 @@ class Instant_Articles_Publisher {
 					$dev_mode
 				);
 
+				// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
+				if ( count( $adapter->transformer->getWarnings() ) > 0
+				  && isset( $publishing_settings['block_publish_with_warnings'] )
+					&& $publishing_settings['block_publish_with_warnings'] ) {
+
+					// Unpublishes if already published
+					$client->removeArticle( $article->get_canonical_url() );
+					delete_post_meta( $post_id, self::SUBMISSION_ID_KEY );
+					return;
+				}
+
 				if ( $dev_mode ) {
 					$take_live = false;
 				} else {
