@@ -95,7 +95,7 @@ class Instant_Articles_Publisher {
 					&& $publishing_settings['block_publish_with_warnings'] ) {
 
 					// Unpublishes if already published
-					$client->removeArticle( $article->get_canonical_url() );
+					$client->removeArticle( $article->getCanonicalURL() );
 					delete_post_meta( $post_id, self::SUBMISSION_ID_KEY );
 					return;
 				}
