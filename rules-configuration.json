@@ -125,11 +125,22 @@
         "selector" : "blockquote.instagram-media",
         "properties" : {
             "interactive.iframe" : {
-                "type" : "element",
-                "selector" : "blockquote"
+                "type" : "multiple",
+                "children": [
+                    {
+                        "type": "element",
+                        "selector": "blockquote"
+                    }, {
+                        "type": "sibling-element",
+                        "selector": "blockquote"
+                    }
+                ]
             }
         }
-    },{
+    }, {
+        "class": "IgnoreRule",
+        "selector" : "script"
+    }, {
         "class": "InteractiveRule",
         "selector" : "iframe",
         "properties" : {
