@@ -16,7 +16,7 @@ use Facebook\InstantArticles\Client\Client;
  */
 class Instant_Articles_Settings_Review {
 
-	const MIN_ARTICLES = 134;
+	const MIN_ARTICLES = 5;
 
 	public static function getUnsubmittedArticles( $submitted_articles_urls ) {
 		$recent_posts = wp_get_recent_posts(
