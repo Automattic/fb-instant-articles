@@ -1,1 +1,82 @@
 /* Put CSS for Wizard here */
+.instant-articles-card {
+  background: white;
+  border: solid 1px #dddfe2;
+  border-radius: 5px;
+  margin-right: 20px;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+
+.instant-articles-card-title {
+  background: #f6f7f9;
+  border-radius: 5px 5px 0 0;
+  border-bottom: solid 1px #dddfe2;
+  height: 55px;
+  line-height: 55px;
+  position: relative;
+}
+.instant-articles-card-title h3 {
+  margin: 0 20px 0 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.instant-articles-card-title span {
+  margin: 0 20px 0 20px;
+  display: inline-block;
+  vertical-align: middle;
+  position: absolute;
+  right: 0px;
+  font-size: 1.3em;
+  color: #acafb6;
+}
+.instant-articles-card-content {
+  margin: 20px;
+}
+.instant-articles-card-content-box label {
+  font-weight: bold;
+  color: #4b4f56;
+  font-size: 1em;
+}
+.instant-articles-card-content-box p {
+  color: #9ca0a7;
+  font-size: 0.9em;
+}
+.instant-articles-card-content-right {
+  width: 50%;
+  height: 100%;
+  float: left;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.instant-articles-card-content-left {
+  width: 50%;
+  height: 100%;
+  float: left;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+.instant-articles-label {
+  display: block;
+}
+.instant-articles-input-text {
+  display: block;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.instant-articles-button {
+  display: block;
+  border-radius: 4px;
+  color: white;
+  background-color: #4267b2;
+  padding: 5px 20px 5px 20px;
+  margin-top: 20px;
+  border: none;
+}
+.instant-articles-button-highlight {
+  background-color: #42b72a;
+}
+.instant-articles-button-disabled {
+  opacity: 0.4;
+}
