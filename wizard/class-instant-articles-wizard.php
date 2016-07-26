@@ -17,19 +17,10 @@
 
 	public static function init() {
 		add_action( 'admin_menu', array( 'Instant_Articles_Wizard', 'menu_items' ) );
-		add_filter( 'plugin_action_links_' . IA_PLUGIN_PATH, array( 'Instant_Articles_Wizard', 'add_wizard_link_to_plugin_actions' ) );
 		add_action(
 			'wp_ajax_instant_articles_wizard_transition',
 			array( 'Instant_Articles_Wizard', 'transition' )
 		);
-	}
-
-	public static function add_wizard_link_to_plugin_actions( $links ) {
-		$link_text = __( 'Setup Wizard' );
-		$settings_href = self::get_href_to_settings_page();
-		$settings_link = '<a href="' . esc_url( $settings_href ) . '">' . $link_text . '</a>';
-		array_push( $links, $settings_link );
-		return $links;
 	}
 
 	public static function menu_items() {
@@ -52,7 +43,7 @@
 		else {
 			Instant_Articles_Wizard_State::do_transition( $new_state );
 		}
-		
+
 		self::render();
 		die();
 	}
