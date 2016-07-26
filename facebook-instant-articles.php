@@ -75,6 +75,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	require_once( dirname( __FILE__ ) . '/embeds.php' );
 	require_once( dirname( __FILE__ ) . '/class-instant-articles-post.php' );
 	require_once( dirname( __FILE__ ) . '/settings/class-instant-articles-settings.php' );
+	require_once( dirname( __FILE__ ) . '/wizard/class-instant-articles-wizard.php' );
 	require_once( dirname( __FILE__ ) . '/meta-box/class-instant-articles-meta-box.php' );
 	require_once( dirname( __FILE__ ) . '/class-instant-articles-publisher.php' );
 
@@ -234,6 +235,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			'instant-articles-settings',
 			plugins_url( '/css/instant-articles-settings.css', __FILE__ )
 		);
+		wp_register_style(
+			'instant-articles-wizard',
+			plugins_url( '/css/instant-articles-wizard.css', __FILE__ )
+		);
 
 		wp_register_script(
 			'instant-articles-meta-box',
@@ -267,6 +272,13 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			null,
 			true
 		);
+		wp_register_script(
+			'instant-articles-wizard',
+			plugins_url( '/js/instant-articles-wizard.js', __FILE__ ),
+			null,
+			null,
+			true
+		);
 	}
 	add_action( 'init', 'instant_articles_register_scripts' );
 
@@ -279,12 +291,14 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		wp_enqueue_style( 'instant-articles-meta-box' );
 		wp_enqueue_style( 'instant-articles-settings-wizard' );
 		wp_enqueue_style( 'instant-articles-settings' );
+		wp_enqueue_style( 'instant-articles-wizard' );
 
 		wp_enqueue_script( 'instant-articles-meta-box' );
 		wp_enqueue_script( 'instant-articles-option-ads' );
 		wp_enqueue_script( 'instant-articles-option-analytics' );
 		wp_enqueue_script( 'instant-articles-option-publishing' );
 		wp_enqueue_script( 'instant-articles-settings' );
+		wp_enqueue_script( 'instant-articles-wizard' );
 	}
 	add_action( 'admin_enqueue_scripts', 'instant_articles_enqueue_scripts' );
 
@@ -314,4 +328,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 	// Initialize the Instant Articles publisher.
 	Instant_Articles_Publisher::init();
+
+	// Initialize the Instant Articles Wizard page.
+	Instant_Articles_Wizard::init();
 }
