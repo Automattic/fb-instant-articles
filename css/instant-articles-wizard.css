@@ -1,13 +1,23 @@
 /* Put CSS for Wizard here */
+label {
+  cursor: default;
+}
 .instant-articles-card {
   background: white;
   border: solid 1px #dddfe2;
   border-radius: 5px;
-  margin-right: 20px;
+  margin: 20px 20px 0 0;
   overflow: hidden;
   padding-bottom: 20px;
 }
 
+.instant-articles-card-collapsed {
+  border: solid 1px #42b72a;
+  padding-bottom: 0;
+}
+.instant-articles-card-collapsed .instant-articles-card-content {
+  display: none;
+}
 .instant-articles-card-title {
   background: #f6f7f9;
   border-radius: 5px 5px 0 0;
@@ -16,12 +26,16 @@
   line-height: 55px;
   position: relative;
 }
+.instant-articles-card-collapsed .instant-articles-card-title {
+  border-bottom: none;
+  background: #f6faf1;
+}
 .instant-articles-card-title h3 {
   margin: 0 20px 0 20px;
   display: inline-block;
   vertical-align: middle;
 }
-.instant-articles-card-title span {
+.instant-articles-card-title-right {
   margin: 0 20px 0 20px;
   display: inline-block;
   vertical-align: middle;
@@ -29,6 +43,36 @@
   right: 0px;
   font-size: 1.3em;
   color: #acafb6;
+}
+.instant-articles-card-collapsed .instant-articles-card-title-right > * {
+  display: inline-block;
+}
+.instant-articles-card-title-right > * {
+  display: none;
+}
+.instant-articles-card-title-step {
+  display: inline-block;
+}
+.instant-articles-card-title-checkmark {
+  color: #42b72a;
+  font-size: 0.9em;
+}
+.instant-articles-card-collapsed .instant-articles-card-title-step {
+  display: none;
+}
+.instant-articles-card-title-label {
+  font-weight: bold;
+  font-size: .8em;
+  color: #4b4f56;
+}
+.instant-articles-card-title-value {
+  font-size: .8em;
+  color: #373b42;
+}
+.instant-articles-card-title-edit {
+  background: url('/wp-content/plugins/facebook-instant-articles-wp/assets/pencil-edit.png') no-repeat;
+  width: 15px;
+  height: 15px;
 }
 .instant-articles-card-content {
   margin: 20px;
