@@ -33,6 +33,12 @@
 .instant-articles-card-content {
   margin: 20px;
 }
+.instant-articles-card-content-box {
+  width: 50%;
+  height: 100%;
+  float: left;
+  box-sizing: border-box;
+}
 .instant-articles-card-content-box label {
   font-weight: bold;
   color: #4b4f56;
@@ -43,18 +49,10 @@
   font-size: 0.9em;
 }
 .instant-articles-card-content-right {
-  width: 50%;
-  height: 100%;
-  float: left;
   padding-left: 10px;
-  box-sizing: border-box;
 }
 .instant-articles-card-content-left {
-  width: 50%;
-  height: 100%;
-  float: left;
   padding-right: 10px;
-  box-sizing: border-box;
 }
 .instant-articles-label {
   display: block;
@@ -79,4 +77,15 @@
 }
 .instant-articles-button-disabled {
   opacity: 0.4;
+}
+
+@media screen and (max-width: 782px) {
+  .instant-articles-card-content-box {
+    clear: both;
+    width: 100%;
+    padding: 0;
+  }
+  .instant-articles-card-content-right {
+    margin-top: 40px;
+  }
 }
