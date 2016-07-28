@@ -1,7 +1,4 @@
 /* Put CSS for Wizard here */
-label {
-  cursor: default;
-}
 .instant-articles-card {
   background: white;
   border: solid 1px #dddfe2;
@@ -46,9 +43,14 @@ label {
 }
 .instant-articles-card-collapsed .instant-articles-card-title-right > * {
   display: inline-block;
+  vertical-align: middle;
 }
 .instant-articles-card-title-right > * {
   display: none;
+}
+.instant-articles-card-title-right img {
+  width: 40px;
+  height: 40px;
 }
 .instant-articles-card-title-step {
   display: inline-block;
@@ -72,7 +74,7 @@ label {
 .instant-articles-card-title-edit {
   background: url('/wp-content/plugins/facebook-instant-articles-wp/assets/pencil-edit.png') no-repeat;
   width: 15px;
-  height: 15px;
+  height: 14px;
 }
 .instant-articles-card-content {
   margin: 20px;
@@ -91,12 +93,48 @@ label {
 .instant-articles-card-content-box p {
   color: #9ca0a7;
   font-size: 0.9em;
+  margin: 0.7em 0;
+}
+.instant-articles-page-img {
+  width: 40px;
+  height: 40px;
+  background-color: black;
+  border: 1px solid #dddfe2;
+  margin-left: 5px;
+}
+.instant-articles-card-content-box li {
+  margin: 15px -20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.instant-articles-radio-selected {
+  background-color: #f6f7f9;
+}
+.instant-articles-card-content-box li > label {
+  font-weight: normal;
+  color: #9ca0a7;
+  margin-left: 10px;
+}
+.instant-articles-card-content-box li > * {
+  display:inline-block;
+  vertical-align:middle;
+  cursor: pointer;
 }
 .instant-articles-card-content-right {
   padding-left: 10px;
 }
 .instant-articles-card-content-left {
   padding-right: 10px;
+}
+.instant-articles-card-content-full {
+  float: none;
+  width: 100%;
+}
+.instant-articles-card-content-full .instant-articles-card-title-edit {
+  display: inline-block;
+}
+.instant-articles-card-content-full hr {
+  margin: 20px -20px 20px -20px;
 }
 .instant-articles-label {
   display: block;
@@ -108,21 +146,45 @@ label {
   margin-bottom: 10px;
 }
 .instant-articles-button {
-  display: block;
+  display: inline-block;
   border-radius: 4px;
-  color: white;
   background-color: #4267b2;
-  padding: 5px 20px 5px 20px;
-  margin-top: 20px;
+  padding: 8px 20px 8px 20px;
+  margin-top: 10px;
   border: none;
+  line-height: 25px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.instant-articles-button label {
+  color: white;
+  font-weight: normal;
+  font-size: 1em;
+  margin-top: -2px;
+  display: inline-block;
+  height: 20px;
+  float: left;
 }
 .instant-articles-button-highlight {
   background-color: #42b72a;
 }
 .instant-articles-button-disabled {
   opacity: 0.4;
+  cursor: default;
 }
-
+.instant-articles-button-icon-facebook {
+  background: url('/wp-content/plugins/facebook-instant-articles-wp/assets/icon-fb-login.png') 0px 3px no-repeat;
+  display: inline-block;
+  width: 17px;
+  height: 20px;
+  margin: 0 10px 0 -12px;
+  float: left;
+}
+.instant-articles-card-title-link {
+  text-decoration: none;
+  font-size: .7em;
+  font-weight: bold;
+}
 @media screen and (max-width: 782px) {
   .instant-articles-card-content-box {
     clear: both;

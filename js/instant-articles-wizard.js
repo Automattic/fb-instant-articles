@@ -15,6 +15,11 @@ function instant_articles_wizard_bind_events () {
 		$( '.instant-articles-wizard-transition' ).on( 'click', function () {
 			instant_articles_wizard_transition( $( this ).attr( 'data-new-state' ) );
 		});
+		$( '.instant-articles-card-content-box li' ).on( 'click', function () {
+			$( '.instant-articles-card-content-box li.instant-articles-radio-selected' ).removeClass( 'instant-articles-radio-selected' );
+			$( this ).find( 'input' ).attr( 'checked', 'checked' );
+			$( this ).toggleClass( 'instant-articles-radio-selected' );
+		});
 	});
 }
 
