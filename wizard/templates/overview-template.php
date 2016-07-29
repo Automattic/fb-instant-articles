@@ -5,19 +5,19 @@
       <h3>Setting up Instant Articles</h3>
       <div class="instant-articles-card-steps">
         <div class="instant-articles-card-step">
-          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/credentials-icon.png">
+          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/key@2x.png">
           <p>Enter Facebook App ID and connect to Facebook to Enable Plugin</p>
         </div>
         <div class="instant-articles-card-step">
-          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/signup-icon.png">
+          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/connect@2x.png">
           <p>Sign up for Instant Articles and select your Facebook Page</p>
         </div>
         <div class="instant-articles-card-step">
-          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/customization-icon.png">
+          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/customize@2x.png">
           <p>Choose how you want your Instant Articles to look using the Style Editor</p>
         </div>
         <div class="instant-articles-card-step">
-          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/submission-icon.png">
+          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/check@2x.png">
           <p>Submit your Instant Articles for review and start publishing</p>
         </div>
       </div>
@@ -25,6 +25,29 @@
         <label>Next</label>
       </button>
     </div>
+  </div>
+</div>
+
+
+<div class="instant-articles-card-bullet-bar">
+  <div class="instant-articles-card-bullet-step instant-articles-card-bullet-step-completed">
+    <div class="instant-articles-card-bullet">✔</div>
+    <div class="instant-articles-card-bullet-path"></div>
+    <p>Enter Facebook App ID and connect to Facebook to Enable Plugin</p>
+  </div>
+  <div class="instant-articles-card-bullet-step instant-articles-card-bullet-step-completed">
+    <div class="instant-articles-card-bullet">✔</div>
+    <div class="instant-articles-card-bullet-path"></div>
+    <p>Sign up for Instant Articles and select your Facebook Page</p>
+  </div>
+  <div class="instant-articles-card-bullet-step instant-articles-card-bullet-step-current">
+    <div class="instant-articles-card-bullet"></div>
+    <div class="instant-articles-card-bullet-path"></div>
+    <p>Choose how you want your Instant Articles to look using the Style Editor</p>
+  </div>
+  <div class="instant-articles-card-bullet-step">
+    <div class="instant-articles-card-bullet"></div>
+    <p>Submit your Instant Articles for review and start publishing</p>
   </div>
 </div>
 
@@ -253,3 +276,5 @@
     </div>
   </div>
 </div>
+
+<a class="instant-articles-advanced-settings" href="#">► Advanced Settings</a>
