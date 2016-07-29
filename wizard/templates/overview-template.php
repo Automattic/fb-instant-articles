@@ -1,5 +1,34 @@
 <h2>Overview</h2>
 <div class="instant-articles-card">
+  <div class="instant-articles-card-content">
+    <div class="instant-articles-card-content-box instant-articles-card-content-full">
+      <h3>Setting up Instant Articles</h3>
+      <div class="instant-articles-card-steps">
+        <div class="instant-articles-card-step">
+          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/credentials-icon.png">
+          <p>Enter Facebook App ID and connect to Facebook to Enable Plugin</p>
+        </div>
+        <div class="instant-articles-card-step">
+          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/signup-icon.png">
+          <p>Sign up for Instant Articles and select your Facebook Page</p>
+        </div>
+        <div class="instant-articles-card-step">
+          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/customization-icon.png">
+          <p>Choose how you want your Instant Articles to look using the Style Editor</p>
+        </div>
+        <div class="instant-articles-card-step">
+          <img src="/wp-content/plugins/facebook-instant-articles-wp/assets/submission-icon.png">
+          <p>Submit your Instant Articles for review and start publishing</p>
+        </div>
+      </div>
+      <button class="instant-articles-button instant-articles-button-highlight instant-articles-button-centered">
+        <label>Next</label>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="instant-articles-card">
   <div class="instant-articles-card-title">
     <h3>Authenticate Plugin</h3>
     <div class="instant-articles-card-title-right">
@@ -22,7 +51,7 @@
       <label class="instant-articles-label">App ID</label>
       <input class="instant-articles-input-text"type="text"/>
       <label class="instant-articles-label">App Secret</label>
-      <input class="instant-articles-input-text" type="text"/>
+      <input class="instant-articles-input-text" type="password"/>
       <button class="instant-articles-button instant-articles-button-highlight instant-articles-button-disabled">
         <label>Submit</label>
       </button>

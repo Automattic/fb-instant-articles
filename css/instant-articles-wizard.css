@@ -7,13 +7,36 @@
   overflow: hidden;
   padding-bottom: 20px;
 }
-
 .instant-articles-card-collapsed {
   border: solid 1px #42b72a;
   padding-bottom: 0;
 }
 .instant-articles-card-collapsed .instant-articles-card-content {
   display: none;
+}
+.instant-articles-card-content-box h3 {
+  text-align: center;
+  margin-top: 40px;
+}
+.instant-articles-card-steps {
+  margin: 20px auto;
+  overflow: hidden;
+  width: 660px;
+}
+.instant-articles-card-step {
+  position: relative;
+  float: left;
+  display: inline-block;
+  width: 140px;
+  margin: 0 10px;
+}
+.instant-articles-card-step img {
+  display: block;
+  width: 60px;
+  margin: 0 auto;
+}
+.instant-articles-card-step p {
+  text-align: center;
 }
 .instant-articles-card-title {
   background: #f6f7f9;
@@ -171,6 +194,10 @@
 .instant-articles-button-disabled {
   opacity: 0.4;
   cursor: default;
+}
+.instant-articles-button-centered {
+  margin: 0 auto;
+  display: block;
 }
 .instant-articles-button-icon-facebook {
   background: url('/wp-content/plugins/facebook-instant-articles-wp/assets/icon-fb-login.png') 0px 3px no-repeat;
