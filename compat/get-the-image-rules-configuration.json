@@ -1,0 +1,13 @@
+{
+  "rules": [{
+      "class": "ImageInsideParagraphRule",
+      "selector": "figure.wp-caption",
+      "properties": {
+        "image.url": {
+          "type": "string",
+          "selector": "img",
+          "attribute": "src"
+        }
+      }
+    }]
+}
