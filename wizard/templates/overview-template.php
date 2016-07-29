@@ -220,11 +220,35 @@
   <div class="instant-articles-card-title">
     <h3>Style &amp; Preview Articles</h3>
   </div>
-  <div class="instant-articles-card-content instant-articles-card-content-full">
-    <div class="instant-articles-card-content-box">
+  <div class="instant-articles-card-content">
+    <div class="instant-articles-card-content-box instant-articles-card-content-full">
       <p>Lorem ipsum dolor sit amet, consectetuer adipscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis notoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
       <button class="instant-articles-button">
         <label>Choose style</label>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="instant-articles-card instant-articles-card-collapsed">
+  <div class="instant-articles-card-title">
+    <h3>Style Selected</h3>
+    <div class="instant-articles-card-title-right">
+      <a href="" class="instant-articles-card-title-link">Sweet Shop Style 01</a>
+      <a class="instant-articles-card-title-edit" href="#"></a>
+    </div>
+  </div>
+</div>
+
+<div class="instant-articles-card">
+  <div class="instant-articles-card-title">
+    <h3>Submit for Review</h3>
+  </div>
+  <div class="instant-articles-card-content">
+    <div class="instant-articles-card-content-box instant-articles-card-content-full">
+      <p>Lorem ipsum dolor sit amet, consectetuer adipscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis notoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+      <button class="instant-articles-button instant-articles-button-highlight">
+        <label>Submit for Review</label>
       </button>
     </div>
   </div>
