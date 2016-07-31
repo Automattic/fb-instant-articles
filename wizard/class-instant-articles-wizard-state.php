@@ -8,6 +8,7 @@
  */
 
 require_once( dirname( __FILE__ ) . '/class-instant-articles-invalid-wizard-transition-exception.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-review-submission.php' );
 
 /**
  * Set-up wizard state machine.
@@ -85,8 +86,29 @@ class Instant_Articles_Wizard_State {
 	 * @return string The state constant for the current state
 	 */
 	public static function get_current_state() {
-		// TODO: implement (this is a stub)
-		return get_option( 'instant-articles-stub-current-state', self::STATE_OVERVIEW );
+
+		$option = get_option( 'instant-articles-current-state', null );
+		if ($option !== null) {
+			return $option;
+		}
+
+		// Legacy compatibility - calculate state from existing setup step
+		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+
+		if ( empty( $fb_app_settings['app_id'] ) || empty( $fb_app_settings['app_secret'] )  ) {
+			return self::STATE_OVERVIEW;
+		} elseif ( empty( $fb_page_settings['page_id'] ) || empty( $fb_page_settings['page_name'] )  ) {
+			return self::STATE_PAGE_SELECTION;
+		} elseif (
+			Instant_Articles_Wizard_Review_Submission::getReviewSubmissionStatus() !==
+			Instant_Articles_Wizard_Review_Submission::STATUS_NOT_SUBMITTED
+			) {
+			return self::STATE_REVIEW_SUBMISSION;
+		} else {
+			return self::STATE_STYLE_SELECTION;
+		}
+
 	}
 
 	/**
@@ -147,37 +169,37 @@ class Instant_Articles_Wizard_State {
 
 	private static function transition_start_wizard() {
 		// TODO: implement (this is a stub)
-		return update_option( 'instant-articles-stub-current-state', self::STATE_APP_SETUP );
+		return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );
 	}
 
 	private static function transition_set_up_app( $app_id, $app_secret ) {
 		// TODO: implement (this is a stub)
-		return update_option( 'instant-articles-stub-current-state', self::STATE_PAGE_SELECTION );
+		return update_option( 'instant-articles-current-state', self::STATE_PAGE_SELECTION );
 	}
 
 	private static function transition_select_page( $page_id ) {
 		// TODO: implement (this is a stub)
-		return update_option( 'instant-articles-stub-current-state', self::STATE_STYLE_SELECTION );
+		return update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
 	}
 
 	private static function transition_select_style( $article_style ) {
 		// TODO: implement (this is a stub)
-		return update_option( 'instant-articles-stub-current-state', self::STATE_REVIEW_SUBMISSION );
+		return update_option( 'instant-articles-current-state', self::STATE_REVIEW_SUBMISSION );
 	}
 
 	private static function transition_edit_app() {
 		// TODO: implement (this is a stub)
-		return update_option( 'instant-articles-stub-current-state', self::STATE_APP_SETUP );
+		return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );
 	}
 
 	private static function transition_edit_page() {
 		// TODO: implement (this is a stub)
-		return update_option( 'instant-articles-stub-current-state', self::STATE_PAGE_SELECTION );
+		return update_option( 'instant-articles-current-state', self::STATE_PAGE_SELECTION );
 	}
 
 	private static function transition_edit_style() {
 		// TODO: implement (this is a stub)
-		return update_option( 'instant-articles-stub-current-state', self::STATE_STYLE_SELECTION );
+		return update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
 	}
 
 }
