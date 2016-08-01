@@ -49,7 +49,7 @@ class Instant_Articles_Wizard {
 	}
 
 	public static function get_url() {
-		$url = menu_page_url( 'instant-articles-wizard' );
+		$url = menu_page_url( 'instant-articles-wizard', false );
 
 		// Needed when calling from ajax
 		if ( ! $url ) {
@@ -72,7 +72,7 @@ class Instant_Articles_Wizard {
 			Instant_Articles_Wizard_State::do_transition( $new_state, $params );
 		}
 
-		self::render();
+		self::render( true );
 		die();
 	}
 
@@ -96,7 +96,7 @@ class Instant_Articles_Wizard {
 			'app_secret' => $app_secret
 		) );
 
-		self::render();
+		self::render( true );
 		die();
 	}
 
@@ -111,11 +111,11 @@ class Instant_Articles_Wizard {
 
 		Instant_Articles_Option_FB_App::delete_option();
 
-		self::render();
+		self::render( true );
 		die();
 	}
 
-	public static function render() {
+	public static function render( $ajax = false ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
 		}

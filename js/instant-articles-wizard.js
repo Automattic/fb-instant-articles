@@ -4,9 +4,11 @@ function instant_articles_wizard_transition ( new_state, params ) {
 		'new_state': new_state,
 		'params': JSON.stringify(params)
 	};
+	jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
 	jQuery.post( ajaxurl, data, function(response) {
 		jQuery( '#instant_articles_wizard' ).html( response );
 		instant_articles_wizard_bind_events();
+		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
 	}, 'html' );
 }
 
@@ -16,9 +18,11 @@ function instant_articles_wizard_save_app ( app_id, app_secret ) {
 		'app_id': app_id,
 		'app_secret': app_secret
 	};
+	jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
 	jQuery.post( ajaxurl, data, function(response) {
 		jQuery( '#instant_articles_wizard' ).html( response );
 		instant_articles_wizard_bind_events();
+		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
 	}, 'html' );
 }
 
@@ -26,13 +30,20 @@ function instant_articles_wizard_edit_app ( app_id, app_secret ) {
 	var data = {
 		'action': 'instant_articles_wizard_edit_app',
 	};
+	jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
 	jQuery.post( ajaxurl, data, function(response) {
 		jQuery( '#instant_articles_wizard' ).html( response );
 		instant_articles_wizard_bind_events();
+		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
 	}, 'html' );
 }
 
 function instant_articles_wizard_bind_events () {
+
+	jQuery( '#instant_articles_wizard a' ).on( 'click', function () {
+		jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
+	});
+
 	jQuery( '.instant-articles-wizard-transition' ).on( 'click', function () {
 		instant_articles_wizard_transition( jQuery( this ).attr( 'data-new-state' ) );
 	});
@@ -84,4 +95,16 @@ function instant_articles_wizard_bind_events () {
 
 jQuery( document ).ready( function () {
 	instant_articles_wizard_bind_events();
+
+	jQuery( '.instant-articles-wizard-toggle' ).on( 'click', function () {
+		var text = jQuery( this ).text();
+		if ( text.indexOf( '►' ) !==  -1 ) {
+			text = text.replace( '►', '▼' );
+		}
+		else {
+			text = text.replace( '▼', '►' );
+		}
+		jQuery( this ).text( text ).next().slideToggle();
+		return false;
+	});
 });

@@ -1,5 +1,8 @@
+<?php if ( ! $ajax ) : ?>
+<h1>Facebook Instant Articles Settings</h1>
+<div id="instant_articles_wizard_messages"><?php settings_errors(); ?></div>
 <div id="instant_articles_wizard">
-	<h1>Facebook Instant Articles Settings</h2>
+<?php endif; ?>
 
 	<?php if ( $current_state !== Instant_Articles_Wizard_State::STATE_OVERVIEW ): ?>
 		<?php
@@ -64,18 +67,17 @@
 		}
 	?>
 
-	<a class="instant-articles-advanced-settings" href="#">► Advanced Settings</a>
-
-	<!-- Stub transition buttons -->
-	<hr />
-	<p>Stub transition buttons:</p>
-	<?php foreach ( Instant_Articles_Wizard_State::$transition_vectors[ $current_state ] as $new_state => $transition ) : ?>
-		<button class="instant-articles-wizard-transition" data-new-state="<?php echo $new_state; ?>">
-			<?php echo $transition; ?>
-		</button>
-	<?php endforeach; ?>
-	<button class="instant-articles-wizard-transition" data-new-state="RESET">
-		RESET
-	</button>
-
+<?php if ( ! $ajax ) : ?>
 </div>
+	<?php if ( ! empty( get_settings_errors() ) ) : ?>
+		<a class="instant-articles-advanced-settings instant-articles-wizard-toggle" href="#">▼ Advanced Settings</a>
+		<div class="instant-articles-wizard-advanced-settings-box" style="display: block;">
+			<?php include( dirname( __FILE__ ) . '/advanced-template.php' ); ?>
+		</div>
+	<?php else: ?>
+		<a class="instant-articles-advanced-settings instant-articles-wizard-toggle" href="#">► Advanced Settings</a>
+		<div class="instant-articles-wizard-advanced-settings-box" style="display: none;">
+			<?php include( dirname( __FILE__ ) . '/advanced-template.php' ); ?>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>
