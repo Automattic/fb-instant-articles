@@ -34,6 +34,13 @@ class Instant_Articles_Option_FB_App extends Instant_Articles_Option {
 			'default' => '',
 		),
 
+		'user_access_token' => array(
+			'visible' => false,
+			'label' => 'User Access Token',
+			'render' => 'password',
+			'default' => '',
+		),
+
 	);
 
 	/**

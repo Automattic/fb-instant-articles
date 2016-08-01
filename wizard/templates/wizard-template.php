@@ -2,19 +2,46 @@
 	<h1>Facebook Instant Articles Settings</h2>
 
 	<?php if ( $current_state !== Instant_Articles_Wizard_State::STATE_OVERVIEW ): ?>
-		<p>Breadcrumbs</p>
+		<?php
+		// Calculate classes for the timeline
+		$state_css_classes = array();
+		foreach ( Instant_Articles_Wizard_State::$timeline as $state => $order ) {
+			switch ( Instant_Articles_Wizard_State::get_timeline_position( $state ) ) {
+				case Instant_Articles_Wizard_State::TIMELINE_PAST:
+					$state_css_classes[ $state ] = 'instant-articles-card-bullet-step-completed';
+					break;
+				case Instant_Articles_Wizard_State::TIMELINE_CURRENT:
+					$state_css_classes[ $state ] = 'instant-articles-card-bullet-step-current';
+					break;
+				case Instant_Articles_Wizard_State::TIMELINE_FUTURE:
+					$state_css_classes[ $state ] = '';
+					break;
+			}
+		}
+		?>
 
-		<ul>
-			<?php foreach ( Instant_Articles_Wizard_State::$breadcrumbs_order as $state => $order ) : ?>
-				<?php if ( Instant_Articles_Wizard_State::$breadcrumbs_order[ $current_state ] > $order ) : ?>
-					<li><code>[✔] <?php echo $state; ?></code></li>
-				<?php elseif ( Instant_Articles_Wizard_State::$breadcrumbs_order[ $current_state ] == $order ) : ?>
-					<li><code>[-] <?php echo $state; ?></code></li>
-				<?php else : ?>
-					<li><code>[ ] <?php echo $state; ?></code></li>
-				<?php endif; ?>
-			<?php endforeach; ?>
-		</ul>
+		<div class="instant-articles-card-bullet-bar">
+			<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_APP_SETUP ] ); ?>">
+				<div class="instant-articles-card-bullet"></div>
+				<div class="instant-articles-card-bullet-path"></div>
+				<p>Enter Facebook App ID and connect to Facebook to Enable Plugin</p>
+			</div>
+			<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ] ); ?>">
+				<div class="instant-articles-card-bullet"></div>
+				<div class="instant-articles-card-bullet-path"></div>
+				<p>Sign up for Instant Articles and select your Facebook Page</p>
+			</div>
+			<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_STYLE_SELECTION ] ); ?>">
+				<div class="instant-articles-card-bullet"></div>
+				<div class="instant-articles-card-bullet-path"></div>
+				<p>Choose how you want your Instant Articles to look using the Style Editor</p>
+			</div>
+			<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ] ); ?>">
+				<div class="instant-articles-card-bullet"></div>
+				<p>Submit your Instant Articles for review and start publishing</p>
+			</div>
+		</div>
+
 	<?php endif; ?>
 
 	<?php
@@ -36,6 +63,8 @@
 				break;
 		}
 	?>
+
+	<a class="instant-articles-advanced-settings" href="#">► Advanced Settings</a>
 
 	<!-- Stub transition buttons -->
 	<hr />

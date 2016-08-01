@@ -8,6 +8,7 @@
  */
 
 require_once( dirname( __FILE__ ) . '/class-instant-articles-invalid-wizard-transition-exception.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-fb-helper.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-review-submission.php' );
 
 /**
@@ -33,6 +34,12 @@ class Instant_Articles_Wizard_State {
 	const TRANSITION_EDIT_STYLE = 'TRANSITION_EDIT_STYLE';
 	const TRANSITION_EDIT_PAGE = 'TRANSITION_EDIT_PAGE';
 	const TRANSITION_EDIT_APP = 'TRANSITION_EDIT_APP';
+
+	// WIZARD TIMELINE
+	const TIMELINE_PAST = 'TIMELINE_PAST';
+	const TIMELINE_CURRENT = 'TIMELINE_CURRENT';
+	const TIMELINE_FUTURE = 'TIMELINE_FUTURE';
+
 
 	/**
 	 * Transition vectors, format:
@@ -70,15 +77,33 @@ class Instant_Articles_Wizard_State {
 	);
 
 	/**
-	 * Order of states for breadcrumbs creation
+	 * Order of states on the wizard
 	 */
-	public static $breadcrumbs_order = array(
+	public static $timeline = array(
+		self::STATE_OVERVIEW => 0,
 		self::STATE_APP_SETUP => 1,
 		self::STATE_PAGE_SELECTION => 2,
 		self::STATE_STYLE_SELECTION => 3,
 		self::STATE_REVIEW_SUBMISSION => 4
 	);
 
+	/**
+	 * Gets the timeline position for a given state.
+	 *
+	 * @param string $state The state constant
+	 * @return string The timeline constant (PAST, CURRENT or FUTURE)
+	 */
+	public static function get_timeline_position( $state ) {
+		$current_state = self::get_current_state();
+
+		if ( self::$timeline[ $current_state ] > self::$timeline[ $state ] ) {
+			return self::TIMELINE_PAST;
+		} elseif ( $state === $current_state ) {
+			return self::TIMELINE_CURRENT;
+		} else {
+			return self::TIMELINE_FUTURE;
+		}
+	}
 
 	/**
 	 * Retrieves the current state of the wizard
@@ -143,17 +168,17 @@ class Instant_Articles_Wizard_State {
 
 		switch ( $transition ) {
 			case self::TRANSITION_START_WIZARD:
-				// TODO: validate params
 				return self::transition_start_wizard();
+
 			case self::TRANSITION_SET_UP_APP:
-				// TODO: validate params
-				return self::transition_set_up_app( $params[ 'app_id' ], $params[ 'app_secret '] );
+				return self::transition_set_up_app( $params[ 'app_id' ], $params[ 'app_secret'], $params[ 'user_access_token' ] );
+
 			case self::TRANSITION_SELECT_PAGE:
 				// TODO: validate params
 				return self::transition_select_page( $params[ 'page_id'] );
 			case self::TRANSITION_SELECT_STYLE:
 				// TODO: validate params
-				return self::transition_select_style( $params[ 'article_style'] );
+				return self::transition_select_style();
 			case self::TRANSITION_EDIT_APP:
 				return self::transition_edit_app();
 			case self::TRANSITION_EDIT_PAGE:
@@ -168,37 +193,63 @@ class Instant_Articles_Wizard_State {
 	//---------------------------
 
 	private static function transition_start_wizard() {
-		// TODO: implement (this is a stub)
 		return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );
 	}
 
-	private static function transition_set_up_app( $app_id, $app_secret ) {
-		// TODO: implement (this is a stub)
+	private static function transition_set_up_app( $app_id, $app_secret, $user_access_token ) {
+		if ( ! $app_id ) {
+			throw new InvalidArgumentException( 'Missing App ID when authenticating the plugin' );
+		}
+		if ( ! $app_secret ) {
+			throw new InvalidArgumentException( 'Missing App Secret when authenticating the plugin' );
+		}
+		if ( ! $user_access_token ) {
+			throw new InvalidArgumentException( 'Missing Access Token when authenticating the plugin' );
+		}
+
+		Instant_Articles_Option_FB_App::update_option( array(
+			'app_id' => $app_id,
+			'app_secret' => $app_secret,
+			'user_access_token' => $user_access_token
+		) );
 		return update_option( 'instant-articles-current-state', self::STATE_PAGE_SELECTION );
 	}
 
 	private static function transition_select_page( $page_id ) {
-		// TODO: implement (this is a stub)
+		if ( ! $page_id ) {
+			throw new InvalidArgumentException( 'Missing Page ID when selcting the page' );
+		}
+
+		$fb_helper = new Instant_Articles_Wizard_FB_Helper();
+		$pages = $fb_helper->get_pages();
+
+		if ( ! $pages[ $page_id ] ) {
+			throw new InvalidArgumentException( 'Invalid Page ID when selcting the page' );
+		}
+		if ( ! $pages[ $page_id ][ 'supports_instant_articles'] ) {
+			throw new InvalidArgumentException( 'Selected page is not signed up to Instant Articles' );
+		}
+
+		Instant_Articles_Option_FB_Page::update_option( $pages[ $page_id ] );
+
 		return update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
 	}
 
-	private static function transition_select_style( $article_style ) {
-		// TODO: implement (this is a stub)
+	private static function transition_select_style() {
 		return update_option( 'instant-articles-current-state', self::STATE_REVIEW_SUBMISSION );
 	}
 
 	private static function transition_edit_app() {
-		// TODO: implement (this is a stub)
+		Instant_Articles_Option_FB_App::delete_option();
 		return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );
 	}
 
 	private static function transition_edit_page() {
-		// TODO: implement (this is a stub)
+		Instant_Articles_Option_FB_Page::delete_option();
 		return update_option( 'instant-articles-current-state', self::STATE_PAGE_SELECTION );
 	}
 
 	private static function transition_edit_style() {
-		// TODO: implement (this is a stub)
 		return update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
 	}
 

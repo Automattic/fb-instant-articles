@@ -35,6 +35,12 @@ class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 		'default' => '',
 	),
 
+	'page_picture' => array(
+		'visible' => false,
+		'label' => 'Page Picture',
+		'default' => '',
+	),
+
 	'page_access_token' => array(
 		'visible' => false,
 		'label' => 'Page Access Token',

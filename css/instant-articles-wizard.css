@@ -158,7 +158,6 @@
 }
 .instant-articles-card-content-box {
   width: 50%;
-  height: 100%;
   float: left;
   box-sizing: border-box;
 }
@@ -274,6 +273,20 @@
   margin-top: 20px;
   display: block;
 }
+
+.instant-articles-card.instant-articles-wizard-app-setup-step-1 {
+	display:none;
+}
+.instant-articles-card.instant-articles-wizard-app-setup-step-2 {
+	display:none;
+}
+.instant-articles-wizard-app-setup-step-1 > .instant-articles-card.instant-articles-wizard-app-setup-step-1 {
+	display:block;
+}
+.instant-articles-wizard-app-setup-step-2 > .instant-articles-card.instant-articles-wizard-app-setup-step-2 {
+	display:block;
+}
+
 @media screen and (max-width: 782px) {
   .instant-articles-card-content-box {
     clear: both;
