@@ -58,6 +58,21 @@
       "selector" : "div.tiled-gallery"
     },
     {
+      "class": "SlideshowImageRule",
+      "selector" : "dl.gallery-item",
+      "properties" : {
+        "image.url" : {
+          "type" : "string",
+          "selector" : "a",
+          "attribute": "href"
+        },
+        "caption.title" : {
+          "type" : "string",
+          "selector" : "dd.wp-caption-text"
+        }
+      }
+    },
+    {
       "class": "Compat\\JetpackSlideshowRule",
       "selector" : "div.jetpack-slideshow",
       "properties": {
