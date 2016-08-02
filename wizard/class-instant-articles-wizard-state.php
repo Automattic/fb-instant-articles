@@ -121,14 +121,18 @@ class Instant_Articles_Wizard_State {
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 
-		if ( empty( $fb_app_settings['app_id'] ) || empty( $fb_app_settings['app_secret'] )  ) {
+		$app_set_up = ! empty( $fb_app_settings['app_id'] ) && ! empty( $fb_app_settings['app_secret'] );
+		$user_logged_in = ! empty( $fb_app_settings['user_access_token'] );
+		$page_selected = ! empty( $fb_page_settings['page_id'] ) && ! empty( $fb_page_settings['page_name'] );
+		$review_submitted = Instant_Articles_Wizard_Review_Submission::getReviewSubmissionStatus() === Instant_Articles_Wizard_Review_Submission::STATUS_NOT_SUBMITTED;
+
+		if ( ! $app_set_up ) {
 			return self::STATE_OVERVIEW;
-		} elseif ( empty( $fb_page_settings['page_id'] ) || empty( $fb_page_settings['page_name'] )  ) {
+		} elseif ( ! $user_logged_in && ! $page_selected ) {
+			return self::STATE_APP_SETUP;
+		} elseif ( ! $page_selected ) {
 			return self::STATE_PAGE_SELECTION;
-		} elseif (
-			Instant_Articles_Wizard_Review_Submission::getReviewSubmissionStatus() !==
-			Instant_Articles_Wizard_Review_Submission::STATUS_NOT_SUBMITTED
-			) {
+		} elseif ( ! $review_submitted ) {
 			return self::STATE_REVIEW_SUBMISSION;
 		} else {
 			return self::STATE_STYLE_SELECTION;
@@ -241,11 +245,21 @@ class Instant_Articles_Wizard_State {
 
 	private static function transition_edit_app() {
 		Instant_Articles_Option_FB_App::delete_option();
+		Instant_Articles_Option_FB_Page::delete_option();
 		return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );
 	}
 
 	private static function transition_edit_page() {
+		// For backwards compatibility, we transition one step back
+		// for users of the old versions that selected a page but the
+		// plugin didn't save the user access token. In this case
+		// we need the user to log in again.
 		Instant_Articles_Option_FB_Page::delete_option();
+		$user_logged_in = ! empty( $fb_app_settings['user_access_token'] );
+		if ( ! $user_logged_in ) {
+				return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );
+		}
+
 		return update_option( 'instant-articles-current-state', self::STATE_PAGE_SELECTION );
 	}
 
