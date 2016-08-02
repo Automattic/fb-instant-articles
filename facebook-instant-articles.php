@@ -95,10 +95,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 * The redirect when plugin got active.
 	 */
 	function instant_articles_redirect_settings() {
-	    if ( get_option( 'instant_articles_redirect_settings_flag', false ) ) {
-	        delete_option( 'instant_articles_redirect_settings_flag' );
-	         exit( wp_redirect( Instant_Articles_Settings::get_href_to_settings_page() ) );
-	    }
+		if ( get_option( 'instant_articles_redirect_settings_flag', false ) ) {
+			delete_option( 'instant_articles_redirect_settings_flag' );
+			exit( wp_redirect( Instant_Articles_Settings::get_href_to_settings_page() ) );
+		}
 	}
 
 	/**
