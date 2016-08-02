@@ -86,8 +86,20 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function instant_articles_activate() {
 		instant_articles_init();
 		flush_rewrite_rules();
+		add_option( 'instant_articles_redirect_settings_flag', true );
 	}
 	register_activation_hook( __FILE__, 'instant_articles_activate' );
+	add_action( 'admin_init', 'instant_articles_redirect_settings' );
+
+	/**
+	 * The redirect when plugin got active.
+	 */
+	function instant_articles_redirect_settings() {
+	    if ( get_option( 'instant_articles_redirect_settings_flag', false ) ) {
+	        delete_option( 'instant_articles_redirect_settings_flag' );
+	         exit( wp_redirect( Instant_Articles_Settings::get_href_to_settings_page() ) );
+	    }
+	}
 
 	/**
 	 * Plugin activation hook to remove our rewrite rules.
