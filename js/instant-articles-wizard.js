@@ -1,50 +1,46 @@
+function instant_articles_wizard_load ( data ) {
+	jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
+	jQuery.post( ajaxurl, data, function( response ) {
+		jQuery( '#instant_articles_wizard' ).html( response );
+		instant_articles_wizard_bind_events();
+		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
+	}, 'html' );
+}
+
 function instant_articles_wizard_transition ( new_state, params ) {
-	var data = {
+	instant_articles_wizard_load ( {
 		'action': 'instant_articles_wizard_transition',
 		'new_state': new_state,
 		'params': JSON.stringify(params)
-	};
-	jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
-	jQuery.post( ajaxurl, data, function(response) {
-		jQuery( '#instant_articles_wizard' ).html( response );
-		instant_articles_wizard_bind_events();
-		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
-	}, 'html' );
+	} );
 }
 
 function instant_articles_wizard_save_app ( app_id, app_secret ) {
-	var data = {
+	instant_articles_wizard_load ( {
 		'action': 'instant_articles_wizard_save_app',
 		'app_id': app_id,
 		'app_secret': app_secret
-	};
-	jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
-	jQuery.post( ajaxurl, data, function(response) {
-		jQuery( '#instant_articles_wizard' ).html( response );
-		instant_articles_wizard_bind_events();
-		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
-	}, 'html' );
+	} );
 }
 
 function instant_articles_wizard_edit_app ( app_id, app_secret ) {
-	var data = {
+	instant_articles_wizard_load ( {
 		'action': 'instant_articles_wizard_edit_app',
-	};
-	jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
-	jQuery.post( ajaxurl, data, function(response) {
-		jQuery( '#instant_articles_wizard' ).html( response );
-		instant_articles_wizard_bind_events();
-		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
-	}, 'html' );
+	} );
 }
 
 function instant_articles_wizard_bind_events () {
 
 	jQuery( '#instant_articles_wizard a' ).on( 'click', function () {
-		jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
+		if ( ! jQuery( this ).attr( 'target' ) ) {
+			jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
+		}
 	});
 
 	jQuery( '.instant-articles-wizard-transition' ).on( 'click', function () {
+		if ( jQuery( this ).hasClass( 'instant-articles-button-disabled' ) ) {
+			return false;
+		}
 		instant_articles_wizard_transition( jQuery( this ).attr( 'data-new-state' ) );
 	});
 
@@ -60,8 +56,30 @@ function instant_articles_wizard_bind_events () {
 	});
 
 	jQuery('input[name=page_id]').on( 'change',  function () {
+		var input = jQuery( this );
 		var page_id = jQuery('input[name=page_id]:checked').val();
-		if (page_id) {
+		var signed_up = ( jQuery('input[name=page_id]:checked').attr( 'data-signed-up' ) === 'yes' );
+		if ( page_id && ! signed_up ) {
+			jQuery( '#instant-articles-wizard-signup' ).show();
+			window.pollPageSignUpStatus = setInterval(function () {
+				var data = {
+					'action': 'instant_articles_wizard_is_page_signed_up',
+					'page_id': page_id
+				};
+				jQuery.post( ajaxurl, data, function( response ) {
+					if ( response === 'yes' ) {
+						clearInterval( window.pollPageSignUpStatus );
+						input.attr( 'data-signed-up', 'yes' );
+						input.trigger( 'change' );
+					}
+				}, 'text' );
+			}, 3000);
+		}
+		else {
+			clearInterval( window.pollPageSignUpStatus );
+			jQuery( '#instant-articles-wizard-signup' ).hide();
+		}
+		if ( page_id && signed_up ) {
 			jQuery( '#instant-articles-wizard-select-page' ).removeClass( 'instant-articles-button-disabled' );
 		}
 		else {
@@ -70,16 +88,25 @@ function instant_articles_wizard_bind_events () {
 	});
 
 	jQuery( '#instant-articles-wizard-save-app' ).on( 'click', function () {
+		if ( jQuery( this ).hasClass( 'instant-articles-button-disabled' ) ) {
+			return false;
+		}
 		var app_id = jQuery('input[name=app_id]').val();
 		var app_secret = jQuery('input[name=app_secret]').val();
 		instant_articles_wizard_save_app( app_id, app_secret );
 	});
 
 	jQuery( '#instant-articles-wizard-edit-app' ).on( 'click', function () {
+		if ( jQuery( this ).hasClass( 'instant-articles-button-disabled' ) ) {
+			return false;
+		}
 		instant_articles_wizard_edit_app();
 	});
 
 	jQuery( '#instant-articles-wizard-select-page' ).on( 'click', function () {
+		if ( jQuery( this ).hasClass( 'instant-articles-button-disabled' ) ) {
+			return false;
+		}
 		var page_id = jQuery('input[name=page_id]:checked').val();
 		instant_articles_wizard_transition( 'STATE_STYLE_SELECTION', { page_id: page_id } );
 	});

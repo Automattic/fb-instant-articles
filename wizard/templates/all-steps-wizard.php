@@ -1,3 +1,12 @@
+<?php
+/**
+ * Facebook Instant Articles for WP.
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @package default
+ */
+?>
 <div class="instant-articles-card">
   <div class="instant-articles-card-content">
     <div class="instant-articles-card-content-box instant-articles-card-content-full">

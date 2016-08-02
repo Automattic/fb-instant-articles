@@ -1,6 +1,15 @@
+<?php
+/**
+ * Facebook Instant Articles for WP.
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @package default
+ */
+?>
 <div class="instant-articles-card instant-articles-card-collapsed">
 	<div class="instant-articles-card-title">
-		<h3>Authenticate Plugin</h3>
+		<h3>Logged In</h3>
 		<div class="instant-articles-card-title-right">
 			<span class="instant-articles-card-title-checkmark">✔</span>
 			<label class="instant-articles-card-title-label">App connected:</label>
@@ -12,12 +21,17 @@
 
 <div class="instant-articles-card">
 	<div class="instant-articles-card-title">
-		<h3>Select Facebook Page</h3>
+		<h3>Which Page Would You Like to Use for Instant Articles?</h3>
 	</div>
 	<div class="instant-articles-card-content">
 		<div class="instant-articles-card-content-box instant-articles-card-content-full">
-			<p>Select the Facebook Page that you want to enable Instant Articles tools. Anyone with an admin role on that Page will also be able to access your Instant Articles tools.</p>
-			<ul>
+			<p>
+				Select the Page you'd like to use to access the Instant Articles tools.
+				Anyone with an admin role will also be able to use the tools.
+				Don't have a Page yet?
+				<strong><a href="https://www.facebook.com/pages/create" target="_blank">Create one</a>.</strong>
+			</p>
+			<ul class="instant-articles-wizard-page-selection">
 				<?php foreach ( $fb_helper->get_pages() as $page ) { ?>
 					<li>
 						<input
@@ -31,6 +45,10 @@
 					</li>
 				<?php } ?>
 			</ul>
+			<p id="instant-articles-wizard-signup">
+				The selected page is not yet enabled for Instant Articles.
+				<a href="https://web.facebook.com/instant_articles/signup" target="_blank">Sign up now</a>.
+			</p>
 			<button id="instant-articles-wizard-select-page" class="instant-articles-button instant-articles-button-highlight instant-articles-button-disabled">
 				<label>Select</label>
 			</button>

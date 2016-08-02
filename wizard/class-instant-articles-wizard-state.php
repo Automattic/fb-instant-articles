@@ -113,7 +113,7 @@ class Instant_Articles_Wizard_State {
 	public static function get_current_state() {
 
 		$option = get_option( 'instant-articles-current-state', null );
-		if ($option !== null) {
+		if ( in_array( $option, array_keys( self::$transition_vectors ) ) ) {
 			return $option;
 		}
 

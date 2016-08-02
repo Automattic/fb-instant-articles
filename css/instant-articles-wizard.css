@@ -5,7 +5,6 @@
   border-radius: 5px;
   margin: 20px 20px 0 0;
   overflow: hidden;
-  padding-bottom: 20px;
 }
 .instant-articles-card-collapsed {
   border: solid 1px #42b72a;
@@ -17,6 +16,13 @@
 .instant-articles-card-content-box h3 {
   text-align: center;
   margin-top: 40px;
+  margin-bottom: 40px;
+}
+.instant-articles-card-content-box h4 {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: -5px;
+  color: #9ca0a7;
 }
 .instant-articles-card-steps {
   margin: 20px auto;
@@ -28,7 +34,7 @@
   float: left;
   display: inline-block;
   width: 140px;
-  margin: 0 10px;
+  margin: 0px 10px;
 }
 .instant-articles-card-step img {
   display: block;
@@ -55,6 +61,14 @@
   color: #9ca0a7;
   font-size: 0.95em;
   margin: 0.7em 0;
+  display: none;
+}
+.instant-articles-card-bullet-step h4 {
+  text-align: center;
+  color: #9ca0a7;
+  font-size: 0.95em;
+  margin-top: 0.7em;
+  margin-bottom: -0.5em;
 }
 .instant-articles-card-bullet {
   display: block;
@@ -78,16 +92,19 @@
   height: 2px;
   background-color: #d8d8d8;
 }
-.instant-articles-card-bullet-step-completed p {
+.instant-articles-card-bullet-step-completed p,
+.instant-articles-card-bullet-step-completed h4 {
   color: #69c456;
 }
 .instant-articles-card-bullet-step-completed .instant-articles-card-bullet {
   background-color: #69c456;
 }
 .instant-articles-card-bullet-step-completed .instant-articles-card-bullet::before {
-	content: '✔';
+  content: '✔';
 }
-.instant-articles-card-bullet-step-current p {
+.instant-articles-card-bullet-step-current p,
+.instant-articles-card-bullet-step-current h4 {
+  display: block;
   color: #4080ff;
 }
 .instant-articles-card-bullet-step-current .instant-articles-card-bullet {
@@ -174,6 +191,16 @@
   font-size: 0.9em;
   margin: 0.7em 0;
 }
+.instant-articles-card-content-box ol {
+  margin-left: 0px;
+	padding-left: 0px;
+	list-style: decimal inside none;
+}
+.instant-articles-card-content-box li {
+  color: #9ca0a7;
+  font-size: 0.9em;
+  margin: 0.7em 0;
+}
 .instant-articles-page-img {
   width: 40px;
   height: 40px;
@@ -181,20 +208,20 @@
   border: 1px solid #dddfe2;
   margin-left: 5px;
 }
-.instant-articles-card-content-box li {
-  margin: 15px -20px;
+.instant-articles-wizard-page-selection li {
+  margin: 0px -20px;
   padding: 10px 20px;
   cursor: pointer;
 }
 .instant-articles-radio-selected {
   background-color: #f6f7f9;
 }
-.instant-articles-card-content-box li > label {
+.instant-articles-wizard-page-selection li > label {
   font-weight: normal;
   color: #9ca0a7;
   margin-left: 10px;
 }
-.instant-articles-card-content-box li > * {
+.instant-articles-wizard-page-selection li > * {
   display:inline-block;
   vertical-align:middle;
   cursor: pointer;
@@ -228,12 +255,22 @@
   display: inline-block;
   border-radius: 4px;
   background-color: #4267b2;
-  padding: 8px 20px 8px 20px;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 20px;
   margin-top: 10px;
   border: none;
   line-height: 25px;
   vertical-align: middle;
   cursor: pointer;
+}
+a.instant-articles-button {
+  padding: 5px 20px;
+}
+.instant-articles-button:hover,
+.instant-articles-button:active,
+.instant-articles-button:focus {
+  color: #fff;
 }
 .instant-articles-button label {
   color: white;
@@ -249,11 +286,19 @@
 }
 .instant-articles-button-disabled {
   opacity: 0.4;
-  cursor: default;
+  cursor: default !important;
+}
+.instant-articles-button-disabled * {
+  cursor: default !important;
 }
 .instant-articles-button-centered {
   margin: 0 auto;
   display: block;
+}
+.instant-articles-button-disabled:focus,
+.instant-articles-button-disabled:active {
+  box-shadow: none;
+  outline: none;
 }
 .instant-articles-button-icon-facebook {
   background: url('/wp-content/plugins/facebook-instant-articles-wp/assets/icon-fb-login.png');
@@ -278,23 +323,23 @@
 }
 .instant-articles-advanced-settings:active,
 .instant-articles-advanced-settings:focus {
-	outline: none;
-	box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .instant-articles-wizard-advanced-settings-box {
-	display: none;
+  display: none;
 }
 
 #instant_articles_wizard_messages div.error,
 #instant_articles_wizard_messages div.update,
 #instant_articles_wizard_messages .notice {
-	margin-left: 0;
+  margin-left: 0;
 }
 
 #instant_articles_wizard.loading {
-	opacity: 0.5;
-	position: relative;
+  opacity: 0.5;
+  position: relative;
 }
 
 #instant_articles_wizard.loading::after {
@@ -312,7 +357,9 @@
   left: 50%;
   top: 50%;
 }
-
+#instant-articles-wizard-signup {
+  display: none;
+}
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

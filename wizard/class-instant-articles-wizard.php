@@ -33,6 +33,11 @@ class Instant_Articles_Wizard {
 			'wp_ajax_instant_articles_wizard_edit_app',
 			array( 'Instant_Articles_Wizard', 'edit_app' )
 		);
+
+		add_action(
+			'wp_ajax_instant_articles_wizard_is_page_signed_up',
+			array( 'Instant_Articles_Wizard', 'is_page_signed_up' )
+		);
 	}
 
 	public static function menu_items() {
@@ -113,6 +118,20 @@ class Instant_Articles_Wizard {
 
 		self::render( true );
 		die();
+	}
+
+	public static function is_page_signed_up() {
+		$page_id = filter_input( INPUT_POST, 'page_id' );
+
+		$fb_helper = new Instant_Articles_Wizard_FB_Helper();
+		$pages = $fb_helper->get_pages();
+
+		if ( isset( $pages[ $page_id ] ) && $pages[ $page_id ][ 'supports_instant_articles' ] ) {
+			die( 'yes' );
+		}
+		else {
+			die( 'no' );
+		}
 	}
 
 	public static function render( $ajax = false ) {
