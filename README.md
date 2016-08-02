@@ -2,7 +2,7 @@
 
 Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/instant-articles) on your WordPress site.
 
-## How active is this plugin
+## Plugin activity
 [![Throughput Graph](https://graphs.waffle.io/Automattic/facebook-instant-articles-wp/throughput.svg)](https://waffle.io/Automattic/facebook-instant-articles-wp/metrics/throughput)
 
 ## Description
