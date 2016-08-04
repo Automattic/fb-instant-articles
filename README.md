@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Automattic/facebook-instant-articles-wp.svg?branch=master)](https://travis-ci.org/Automattic/facebook-instant-articles-wp)
+
 # Instant Articles for WP
 
 Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/instant-articles) on your WordPress site.
