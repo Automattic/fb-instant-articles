@@ -85,6 +85,14 @@ class Instant_Articles_Post {
 		$title = $this->_post->post_title;
 
 		/**
+		 * Apply the default filter 'the_title' for the post tite.
+		 *
+		 * @since 3.1
+		 * @param string  $title  The current post title.
+		 */
+		$title = apply_filters( 'the_title', $title);
+
+		/**
 		 * Filter the post title for use in instant articles.
 		 *
 		 * @since 0.1
@@ -327,7 +335,7 @@ class Instant_Articles_Post {
 	        foreach ( $matches[0] as $link ) {
 	                $content = str_replace( $link, strip_tags($link), $content );
 	        }
-		
+
 		/**
 		 * Filter the post content for Instant Articles.
 		 *
