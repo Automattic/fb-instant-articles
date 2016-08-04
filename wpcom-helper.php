@@ -44,3 +44,7 @@ function _wpcom_fbia_stats_pixel( $content ) {
 	return $content . $fbia_pixel;
 
 }
+
+// make sure these function run in wp.com environment where `plugins_loaded` is already fired when loading the plugin
+add_action( 'after_setup_theme', 'instant_articles_load_textdomain' );
+add_action( 'after_setup_theme', 'instant_articles_load_compat' );
