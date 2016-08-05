@@ -89,16 +89,27 @@ class Instant_Articles_Publisher {
 					$dev_mode
 				);
 
+				// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
+				if ( count( $adapter->transformer->getWarnings() ) > 0
+				  && isset( $publishing_settings['block_publish_with_warnings'] )
+					&& $publishing_settings['block_publish_with_warnings'] ) {
+
+					// Unpublishes if already published
+					$client->removeArticle( $article->getCanonicalURL() );
+					delete_post_meta( $post_id, self::SUBMISSION_ID_KEY );
+					return;
+				}
+
 				if ( $dev_mode ) {
-					$take_live = false;
+					$published = false;
 				} else {
 					// Any publish status other than 'publish' means draft for the Instant Article.
-					$take_live = true;
+					$published = true;
 				}
 
 				try {
 					// Import the article.
-					$submission_id = $client->importArticle( $article, $take_live );
+					$submission_id = $client->importArticle( $article, $published );
 					update_post_meta( $post_id, self::SUBMISSION_ID_KEY, $submission_id );
 				} catch ( Exception $e ) {
 					// Try without taking live for pages not yet reviewed.

@@ -319,6 +319,11 @@ class Instant_Articles_Post {
 		 * @since 0.1
 		 * @param string  $content  The current post content.
 		 */
+
+		// Some people choose to disable wpautop. Due to the Instant Articles spec, we really want it in!
+		if ( ! has_filter( 'the_content', 'wpautop' ) )
+			add_filter( 'the_content', 'wpautop' );
+
 		$content = apply_filters( 'the_content', $content );
 
 		// Maybe cleanup some globals after us?
@@ -326,9 +331,6 @@ class Instant_Articles_Post {
 		if ( $reset_postdata ) {
 			wp_reset_postdata();
 		}
-
-		// Some people choose to disable wpautop. Due to the Instant Articles spec, we really want it in!
-		$content = wpautop( $content );
 
 		// Remove hyperlinks beginning with a # as they cause errors on Facebook (from http://wordpress.stackexchange.com/a/227332/19528)
 	        preg_match_all( '!<a[^>]*? href=[\'"]#[^<]+</a>!i', $content, $matches );
@@ -629,7 +631,9 @@ class Instant_Articles_Post {
 		$title = $this->get_the_title();
 		if ( $title ) {
 			$document = new DOMDocument();
+			libxml_use_internal_errors(true);
 			$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $title . '</h1>' );
+			libxml_use_internal_errors(false);
 			$transformer->transform( $header, $document );
 		}
 
@@ -660,7 +664,9 @@ class Instant_Articles_Post {
 			$image = Image::create()->withURL( $cover['src'] );
 			if ( isset( $cover['caption'] ) && strlen( $cover['caption'] ) > 0 ) {
 				$document = new DOMDocument();
+				libxml_use_internal_errors(true);
 				$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $cover['caption']  . '</h1>' );
+				libxml_use_internal_errors(false);
 				$image->withCaption( $transformer->transform( Caption::create(), $document ) );
 			}
 

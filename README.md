@@ -1,6 +1,11 @@
+[![Build Status](https://travis-ci.org/Automattic/facebook-instant-articles-wp.svg?branch=master)](https://travis-ci.org/Automattic/facebook-instant-articles-wp)
+
 # Instant Articles for WP
 
 Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/instant-articles) on your WordPress site.
+
+## Plugin activity
+[![Throughput Graph](https://graphs.waffle.io/Automattic/facebook-instant-articles-wp/throughput.svg)](https://waffle.io/Automattic/facebook-instant-articles-wp/metrics/throughput)
 
 ## Description
 
@@ -62,3 +67,44 @@ By default it is set to `instant-articles` which usually will give you a feed UR
 **How do I flush the rewrite rules after changing the feed slug?**
 
 Usually simply visiting the permalinks settings page in the WordPress dashboard will do the trick (/wp-admin/options-permalink.php)
+
+## Development Environment
+You are more than welcome to help us to make this plugin even better!
+
+### Setup SDK and WP to use the Github code
+Most of development and debugging we use the master or any feature branch for the development of WP plugin. 
+Sometimes it needs specific or newest version of the SDK to match all the new features that are release candidates to every new release of SDK and WP plugin.
+
+The SDK is also under development @ GitHub: <https://github.com/facebook/facebook-instant-articles-sdk-php>
+
+#### Pre-requisites
+- Have PHP installed (you can install with homebrew)
+- Have WebServer installed (you can use MAMP)
+- Have WP installed (downloading from wordpress.org)
+
+#### Setup
+Clone both repositories into your developer folder (ex: ~/instant-articles).
+```
+git clone git@github.com:Automattic/facebook-instant-articles-wp.git
+git clone git@github.com:facebook/facebook-instant-articles-sdk-php.git
+```
+
+Build both source folders:
+```
+cd facebook-instant-articles-sdk-php
+composer install
+
+cd ../facebook-instant-articles-wp
+composer install
+```
+
+Now remove the build from your WordPress, so it will include the code you've just built.
+```
+rm -rf vendor/facebook/facebook-instant-articles-sdk-php
+ln -s ~/facebook-instant-articles-sdk-php vendor/facebook/facebook-instant-articles-sdk-php
+```
+
+and now you can create a link inside your /wp-content/plugins to your folder 
+```
+ln -s ~/facebook-instant-articles-wp wp-content/plugins/facebook-instant-articles-wp
+```
