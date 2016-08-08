@@ -6,6 +6,8 @@
  *
  * @package default
  */
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
 
 use Facebook\InstantArticles\Client\Client;
 

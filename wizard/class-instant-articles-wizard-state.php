@@ -6,7 +6,12 @@
  *
  * @package default
  */
-
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-ads.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-invalid-wizard-transition-exception.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-fb-helper.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-review-submission.php' );
@@ -250,11 +255,13 @@ class Instant_Articles_Wizard_State {
 	}
 
 	private static function transition_edit_page() {
+		Instant_Articles_Option_FB_Page::delete_option();
+
 		// For backwards compatibility, we transition one step back
 		// for users of the old versions that selected a page but the
 		// plugin didn't save the user access token. In this case
 		// we need the user to log in again.
-		Instant_Articles_Option_FB_Page::delete_option();
+		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 		$user_logged_in = ! empty( $fb_app_settings['user_access_token'] );
 		if ( ! $user_logged_in ) {
 				return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );

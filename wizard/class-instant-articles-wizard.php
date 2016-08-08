@@ -6,6 +6,12 @@
  *
  * @package default
  */
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-ads.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-state.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-fb-helper.php' );
 
@@ -18,6 +24,17 @@ class Instant_Articles_Wizard {
 
 	public static function init() {
 		add_action( 'admin_menu', array( 'Instant_Articles_Wizard', 'menu_items' ) );
+
+		add_filter( 'plugin_action_links_' . IA_PLUGIN_PATH, array( 'Instant_Articles_Wizard', 'add_settings_link_to_plugin_actions' ) );
+
+		add_action( 'admin_init', function () {
+			new Instant_Articles_Option_FB_App();
+			new Instant_Articles_Option_FB_Page();
+			new Instant_Articles_Option_Styles();
+			new Instant_Articles_Option_Ads();
+			new Instant_Articles_Option_Analytics();
+			new Instant_Articles_Option_Publishing();
+		});
 
 		add_action(
 			'wp_ajax_instant_articles_wizard_transition',
@@ -40,6 +57,14 @@ class Instant_Articles_Wizard {
 		);
 	}
 
+	public static function add_settings_link_to_plugin_actions( $links ) {
+		$link_text = __( 'Settings' );
+		$settings_href = self::get_url();
+		$settings_link = '<a href="' . esc_url( $settings_href ) . '">' . $link_text . '</a>';
+		array_push( $links, $settings_link );
+		return $links;
+	}
+
 	public static function menu_items() {
 		add_menu_page(
 			'Instant Articles Setup Wizard',
@@ -47,7 +72,7 @@ class Instant_Articles_Wizard {
 			'manage_options',
 			'instant-articles-wizard',
 			array( 'Instant_Articles_Wizard', 'render' )
-			,'dashicons-facebook-alt'
+			,'dashicons-facebook'
 		);
 		// Hack to let the URL visible to ajax handlers
 		update_option( 'instant-articles-wizard-url', menu_page_url( 'instant-articles-wizard', false) );
@@ -65,17 +90,16 @@ class Instant_Articles_Wizard {
 	}
 
 	public static function transition() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
+		}
+
 		$new_state = filter_input( INPUT_POST, 'new_state' );
 		$params = filter_input( INPUT_POST, 'params' );
 
 		$params = json_decode( $params, true );
 
-		if ( $new_state === 'RESET' ) {
-			delete_option( 'instant-articles-current-state' );
-		}
-		else {
-			Instant_Articles_Wizard_State::do_transition( $new_state, $params );
-		}
+		Instant_Articles_Wizard_State::do_transition( $new_state, $params );
 
 		self::render( true );
 		die();
@@ -88,6 +112,10 @@ class Instant_Articles_Wizard {
 	 * only happen when the user logs in and we grab the access token.
 	 */
 	public static function save_app() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
+		}
+
 		$current_state = Instant_Articles_Wizard_State::get_current_state();
 		if ( $current_state !== Instant_Articles_Wizard_State::STATE_APP_SETUP ) {
 			die();
@@ -109,6 +137,10 @@ class Instant_Articles_Wizard {
 	 * Edits the App ID and App Secret within the APP_SETUP state.
 	 */
 	public static function edit_app() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
+		}
+
 		$current_state = Instant_Articles_Wizard_State::get_current_state();
 		if ( $current_state !== Instant_Articles_Wizard_State::STATE_APP_SETUP ) {
 			die();
