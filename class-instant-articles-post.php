@@ -17,6 +17,8 @@ use Facebook\InstantArticles\Elements\Image;
 use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\Footer;
 use Facebook\InstantArticles\Transformer\Transformer;
+use voku\helper\UTF8;
+
 /**
  * Class responsible for constructing our content and preparing it for rendering
  *
@@ -694,7 +696,7 @@ class Instant_Articles_Post {
 		if ( function_exists( 'mb_convert_encoding' ) ) {
 			$content = mb_convert_encoding( $content, 'HTML-ENTITIES', get_option( 'blog_charset' ) );
 		} else {
-			$content = htmlspecialchars_decode( utf8_decode( htmlentities( $content, ENT_COMPAT, 'utf-8', false ) ) );
+			$content = htmlspecialchars_decode( UTF8::htmlentities( $content ) );
 		}
 
 		$result = $document->loadHTML( '<!doctype html><html><body>' . $content . '</body></html>' );
