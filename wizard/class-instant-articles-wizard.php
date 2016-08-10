@@ -99,7 +99,12 @@ class Instant_Articles_Wizard {
 
 		$params = json_decode( $params, true );
 
-		Instant_Articles_Wizard_State::do_transition( $new_state, $params );
+		try {
+			Instant_Articles_Wizard_State::do_transition( $new_state, $params );
+		} catch ( Exception $e ) {
+			// If something went wrong, simply render the error + the same state.
+			echo '<div class="error settings-error notice is-dismissible"><p><strong>' . esc_html( $e->getMessage() ) . '</strong></p></div>';
+		}
 
 		self::render( true );
 		die();

@@ -4,6 +4,7 @@ function instant_articles_wizard_load ( data ) {
 		jQuery( '#instant_articles_wizard' ).html( response );
 		instant_articles_wizard_bind_events();
 		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
+		window.scrollTo(0, 0);
 	}, 'html' );
 }
 

@@ -274,8 +274,8 @@
 	display: inline-block;
 	border-radius: 4px;
 	background-color: #4267b2;
-	color: #fff;
-	text-decoration: none;
+	color: #fff !important;
+	text-decoration: none !important;
 	padding: 8px 20px;
 	margin-top: 10px;
 	border: none;
@@ -352,7 +352,10 @@ a.instant-articles-button {
 
 #instant_articles_wizard_messages div.error,
 #instant_articles_wizard_messages div.update,
-#instant_articles_wizard_messages .notice {
+#instant_articles_wizard_messages .notice,
+#instant_articles_wizard div.error,
+#instant_articles_wizard div.update,
+#instant_articles_wizard .notice {
 	margin-left: 0;
 }
 

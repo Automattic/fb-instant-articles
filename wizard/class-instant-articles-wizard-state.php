@@ -16,6 +16,9 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-invalid-wizard-tran
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-fb-helper.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-review-submission.php' );
 
+use Facebook\InstantArticles\Client\Client;
+use Facebook\InstantArticles\Client\ClientException;
+
 /**
  * Set-up wizard state machine.
  *
@@ -197,14 +200,53 @@ class Instant_Articles_Wizard_State {
 		}
 	}
 
+	/**
+	 * Claims the URL for this site.
+	 */
+	public static function claim_url() {
+		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+
+		if ( ! $fb_app_settings[ 'app_id' ] ) {
+			throw new InvalidArgumentException( 'Missing app_id for claiming the URL.' );
+		}
+		if ( ! $fb_app_settings[ 'app_secret' ] ) {
+			throw new InvalidArgumentException( 'Missing app_secret for claiming the URL.' );
+		}
+		if ( ! $fb_page_settings[ 'page_access_token' ] ) {
+			throw new InvalidArgumentException( 'Missing page_access_token for claiming the URL.' );
+		}
+		if ( ! $fb_page_settings[ 'page_id' ] ) {
+			throw new InvalidArgumentException( 'Missing page_id for claiming the URL.' );
+		}
+
+		$client = Client::create(
+			$fb_app_settings[ 'app_id' ],
+			$fb_app_settings[ 'app_secret' ],
+			$fb_page_settings[ 'page_access_token' ],
+			$fb_page_settings[ 'page_id' ]
+		);
+
+		// We need the home URL without the protocol for claiming
+		$url = preg_replace( '/^https?:\/\//i', '', esc_url_raw( home_url( '/' ) ) );
+
+		$client->claimURL( $url );
+	}
+
 	//---------------------------
 	// Transition implementations
 	//---------------------------
 
+	/**
+	 * Transition for when starting the wizard from overview.
+	 */
 	private static function transition_start_wizard() {
 		return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );
 	}
 
+	/**
+	 * Transition for when the user inputs the app info and logs in with it's personal account.
+	 */
 	private static function transition_set_up_app( $app_id, $app_secret, $user_access_token ) {
 		if ( ! $app_id ) {
 			throw new InvalidArgumentException( 'Missing App ID when authenticating the plugin' );
@@ -224,6 +266,11 @@ class Instant_Articles_Wizard_State {
 		return update_option( 'instant-articles-current-state', self::STATE_PAGE_SELECTION );
 	}
 
+	/**
+	 * Transition for when the user selects the page to connect to.
+	 *
+	 * This transition stores page info including the long-lived access token information.
+	 */
 	private static function transition_select_page( $page_id ) {
 		if ( ! $page_id ) {
 			throw new InvalidArgumentException( 'Missing Page ID when selcting the page' );
@@ -241,19 +288,31 @@ class Instant_Articles_Wizard_State {
 
 		Instant_Articles_Option_FB_Page::update_option( $pages[ $page_id ] );
 
+		// You should always claim the URL after updating the FB Page option so the fb:pages meta tag is rendered.
+		self::claim_url();
+
 		return update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
 	}
 
+	/**
+	 * Transition for when the user confirms he has selected the style for the articles.
+	 */
 	private static function transition_select_style() {
 		return update_option( 'instant-articles-current-state', self::STATE_REVIEW_SUBMISSION );
 	}
 
+	/**
+	 * Transition for when the user decides to change the FB App.
+	 */
 	private static function transition_edit_app() {
 		Instant_Articles_Option_FB_App::delete_option();
 		Instant_Articles_Option_FB_Page::delete_option();
 		return update_option( 'instant-articles-current-state', self::STATE_APP_SETUP );
 	}
 
+	/**
+	 * Transition for when the user decides to change the selected page.
+	 */
 	private static function transition_edit_page() {
 		Instant_Articles_Option_FB_Page::delete_option();
 
@@ -270,6 +329,9 @@ class Instant_Articles_Wizard_State {
 		return update_option( 'instant-articles-current-state', self::STATE_PAGE_SELECTION );
 	}
 
+	/**
+	 * Transition for when the user decides to edit the style.
+	 */
 	private static function transition_edit_style() {
 		return update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
 	}
