@@ -1,4 +1,12 @@
-/* Put CSS for Wizard here */
+#instant_articles_wizard a {
+  color: #4080ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+#instant_articles_wizard a:hover {
+  text-decoration: underline;
+}
+
 .instant-articles-card {
   background: white;
   border: solid 1px #dddfe2;
@@ -87,7 +95,7 @@
   position: absolute;
   top: 0;
   margin-top: 7px;
-  right: -83px;
+  right: -84px;
   width: 146px;
   height: 2px;
   background-color: #d8d8d8;
@@ -188,7 +196,7 @@
 }
 .instant-articles-card-content-box p {
   color: #9ca0a7;
-  font-size: 0.9em;
+  font-size: 1em;
   margin: 0.7em 0;
 }
 .instant-articles-card-content-box ol {
@@ -198,7 +206,7 @@
 }
 .instant-articles-card-content-box li {
   color: #9ca0a7;
-  font-size: 0.9em;
+  font-size: 1em;
   margin: 0.7em 0;
 }
 .instant-articles-page-img {
