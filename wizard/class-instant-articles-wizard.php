@@ -176,6 +176,7 @@ class Instant_Articles_Wizard {
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 		$fb_helper = new Instant_Articles_Wizard_FB_Helper();
+		$settings_url = self::get_url();
 
 		// Handle redirection from Login flow
 		// ----------------------------------

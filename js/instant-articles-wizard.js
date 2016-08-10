@@ -59,26 +59,6 @@ function instant_articles_wizard_bind_events () {
 		var input = jQuery( this );
 		var page_id = jQuery('input[name=page_id]:checked').val();
 		var signed_up = ( jQuery('input[name=page_id]:checked').attr( 'data-signed-up' ) === 'yes' );
-		if ( page_id && ! signed_up ) {
-			jQuery( '#instant-articles-wizard-signup' ).show();
-			window.pollPageSignUpStatus = setInterval(function () {
-				var data = {
-					'action': 'instant_articles_wizard_is_page_signed_up',
-					'page_id': page_id
-				};
-				jQuery.post( ajaxurl, data, function( response ) {
-					if ( response === 'yes' ) {
-						clearInterval( window.pollPageSignUpStatus );
-						input.attr( 'data-signed-up', 'yes' );
-						input.trigger( 'change' );
-					}
-				}, 'text' );
-			}, 3000);
-		}
-		else {
-			clearInterval( window.pollPageSignUpStatus );
-			jQuery( '#instant-articles-wizard-signup' ).hide();
-		}
 		if ( page_id && signed_up ) {
 			jQuery( '#instant-articles-wizard-select-page' ).removeClass( 'instant-articles-button-disabled' );
 		}

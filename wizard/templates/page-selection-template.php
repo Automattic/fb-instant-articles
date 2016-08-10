@@ -41,14 +41,20 @@
 							data-signed-up="<?php echo $page[ 'supports_instant_articles' ] ? 'yes' : 'no'; ?>"
 						/>
 						<img class="instant-articles-page-img" src="<?php echo esc_attr( $page[ 'page_picture' ] ) ?>"/>
-						<label><?php echo esc_html( $page[ 'page_name' ] ) ?></label>
+						<label>
+							<?php echo esc_html( $page[ 'page_name' ] ) ?>
+							<?php if ( $page[ 'supports_instant_articles' ] ) : ?>
+								<span class="page-enabled">✔ Enabled</span>
+							<?php else : ?>
+								<span class="page-not-enabled">
+									This page has not been signed up yet.
+									<a href="https://web.facebook.com/instant_articles/signup?redirect_uri=<?php echo urlencode( $settings_url ) ?>&page_id=<?php echo urlencode( $page[ 'page_id' ] ) ?>">Sign Up</a>.
+								</span>
+							<?php endif; ?>
+						</label>
 					</li>
 				<?php } ?>
 			</ul>
-			<p id="instant-articles-wizard-signup">
-				The selected page is not yet enabled for Instant Articles.
-				<a href="https://web.facebook.com/instant_articles/signup" target="_blank">Sign up now</a>.
-			</p>
 			<button id="instant-articles-wizard-select-page" class="instant-articles-button instant-articles-button-highlight instant-articles-button-disabled">
 				<label>Select</label>
 			</button>
