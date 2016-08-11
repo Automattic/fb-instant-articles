@@ -233,10 +233,17 @@ class Instant_Articles_Wizard_State {
 			$fb_page_settings[ 'page_id' ]
 		);
 
+
 		// We need the home URL without the protocol for claiming
 		$url = preg_replace( '/^https?:\/\//i', '', esc_url_raw( home_url( '/' ) ) );
 
-		$client->claimURL( $url );
+		try {
+			$client->claimURL( $url );
+		} catch (Exception $e) {
+			// Here we override the error message to give an actionable
+			// instruction to the user that is specific for WordPress.
+			throw new Exception("Could not claim the URL for the selected page, please make sure your site is publicly available.");
+		}
 	}
 
 	//---------------------------
