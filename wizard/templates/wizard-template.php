@@ -65,7 +65,11 @@
 		</div>
 		<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ] ); ?>">
 			<div class="instant-articles-card-bullet"></div>
-			<h4>Submit for Review</h4>
+			<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
+				<h4>Review Complete</h4>
+			<?php else : ?>
+				<h4>Submit for Review</h4>
+			<?php endif; ?>
 			<p>Submit your Instant Articles for review and start publishing.</p>
 		</div>
 	</div>

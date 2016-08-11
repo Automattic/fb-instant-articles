@@ -107,6 +107,12 @@ class Instant_Articles_Wizard_State {
 		if ( self::$timeline[ $current_state ] > self::$timeline[ $state ] ) {
 			return self::TIMELINE_PAST;
 		} elseif ( $state === $current_state ) {
+			if (
+				$current_state === self::STATE_REVIEW_SUBMISSION &&
+				Instant_Articles_Wizard_Review_Submission::getReviewSubmissionStatus() === Instant_Articles_Wizard_Review_Submission::STATUS_APPROVED
+			) {
+				return self::TIMELINE_PAST;
+			}
 			return self::TIMELINE_CURRENT;
 		} else {
 			return self::TIMELINE_FUTURE;

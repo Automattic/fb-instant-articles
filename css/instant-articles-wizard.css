@@ -14,6 +14,12 @@
 	margin: 20px 20px 0 0;
 	overflow: hidden;
 }
+.instant-articles-card-success {
+	border: solid 1px #42b72a;
+}
+.instant-articles-card-fail {
+	border: solid 1px #eb4145;
+}
 .instant-articles-card-collapsed {
 	border: solid 1px #42b72a;
 	padding-bottom: 0;
@@ -54,6 +60,7 @@
 }
 .instant-articles-card-bullet-bar {
 	margin: 80px auto 20px auto;
+	min-height: 50px;
 	overflow: hidden;
 	width: 660px;
 }
@@ -129,6 +136,14 @@
 .instant-articles-card-collapsed .instant-articles-card-title {
 	border-bottom: none;
 	background: #f6faf1;
+}
+.instant-articles-card-success .instant-articles-card-title {
+	border-bottom: solid 1px #42b72a;
+	background: #f6faf1;
+}
+.instant-articles-card-fail .instant-articles-card-title {
+	border-bottom: solid 1px #eb4145;
+	background: #fcebe8;
 }
 .instant-articles-card-title h3 {
 	margin: 0 20px 0 20px;

@@ -25,15 +25,15 @@ class Instant_Articles_Wizard_Review_Submission {
 	const STATUS_PENDING = 'PENDING';
 	const STATUS_NOT_SUBMITTED = 'NOT_SUBMITTED';
 
-	public static function getUnsubmittedArticles( $submitted_articles_urls ) {
-		$recent_posts = wp_get_recent_posts(
-		 	array( 'numberposts' => '20' ),
+	public static function getArticlesForReview() {
+		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+		return wp_get_recent_posts(
+		 	array(
+				'numberposts' => self::MIN_ARTICLES,
+				'post_type' => $post_types
+			),
 			'OBJECT'
 		);
-		return array_filter( $recent_posts, function ( $post ) use ($submitted_articles_urls) {
-			$instant_articles_post = new Instant_Articles_Post( $post );
-			return ! in_array( $instant_articles_post->get_canonical_url(), $submitted_articles_urls );
-		} );
 	}
 
 	public static function getPageID() {

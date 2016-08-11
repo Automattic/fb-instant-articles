@@ -14,6 +14,10 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.p
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-state.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-fb-helper.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-review-submission.php' );
+
+use Facebook\InstantArticles\Client\Client;
+use Facebook\InstantArticles\Client\ClientException;
 
 /**
 * Controller for Set-up Wizard
@@ -54,6 +58,11 @@ class Instant_Articles_Wizard {
 		add_action(
 			'wp_ajax_instant_articles_wizard_is_page_signed_up',
 			array( 'Instant_Articles_Wizard', 'is_page_signed_up' )
+		);
+
+		add_action(
+			'wp_ajax_instant_articles_wizard_submit_for_review',
+			array( 'Instant_Articles_Wizard', 'submit_for_review' )
 		);
 	}
 
@@ -139,6 +148,47 @@ class Instant_Articles_Wizard {
 	}
 
 	/**
+	 * Submits the select page for review
+	 */
+	public static function submit_for_review() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
+		}
+
+		$current_state = Instant_Articles_Wizard_State::get_current_state();
+		if ( $current_state !== Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
+			die();
+		}
+
+		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+
+		$client = Client::create(
+			$fb_app_settings[ 'app_id' ],
+			$fb_app_settings[ 'app_secret' ],
+			$fb_page_settings[ 'page_access_token' ],
+			$fb_page_settings[ 'page_id' ]
+		);
+
+		try {
+			// Bulk upload articles for review
+			$articles_for_review = Instant_Articles_Wizard_Review_Submission::getArticlesForReview();
+			foreach ( $articles_for_review as $post ) {
+				Instant_Articles_Publisher::submit_article( $post->ID, $post );
+			}
+
+			// Trigger review submission
+			$client->submitForReview();
+		} catch ( Exception $e ) {
+			// If something went wrong, simply render the error + the same state.
+			echo '<div class="error settings-error notice is-dismissible"><p><strong>' . esc_html( $e->getMessage() ) . '</strong></p></div>';
+		}
+
+		self::render( true );
+		die();
+	}
+
+	/**
 	 * Edits the App ID and App Secret within the APP_SETUP state.
 	 */
 	public static function edit_app() {
@@ -202,6 +252,17 @@ class Instant_Articles_Wizard {
 			}
 		}
 		// ----------------------------------
+
+
+		// Check submission status
+		// ----------------------------------
+		// Only during STATE_REVIEW_SUBMISSION
+		if ( $current_state === Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
+			$review_submission_status = Instant_Articles_Wizard_Review_Submission::getReviewSubmissionStatus();
+			if ( $review_submission_status === Instant_Articles_Wizard_Review_Submission::STATUS_NOT_SUBMITTED ) {
+				$articles_for_review = Instant_Articles_Wizard_Review_Submission::getArticlesForReview();
+			}
+		}
 		// ----------------------------------
 
 		include( dirname( __FILE__ ) . '/templates/wizard-template.php' );

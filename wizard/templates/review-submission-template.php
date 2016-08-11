@@ -41,23 +41,116 @@
 	</div>
 </div>
 
-<div class="instant-articles-card">
-	<div class="instant-articles-card-title">
-		<h3>Submit for Review</h3>
-	</div>
-	<div class="instant-articles-card-content">
-		<div class="instant-articles-card-content-box instant-articles-card-content-full">
-			<p>
-				The Instant Articles team will review a sample batch of your Instant Articles before you can
-				begin to publish. Click the 'Submit for Review" button below to send the last 5 articles
-				you've published to the team for review.
-			</p>
-			<p>
-				It will take us 2 business days to complete the review. Once we've had a chance to take a look, we'll let you know if you're ready to start publishing or if you need to make some updates.
-			</p>
-			<button class="instant-articles-button instant-articles-button-highlight">
-				<label>Submit for Review</label>
-			</button>
+<?php
+switch ( $review_submission_status ) :
+
+	case Instant_Articles_Wizard_Review_Submission::STATUS_NOT_SUBMITTED : ?>
+
+		<?php if ( count($articles_for_review) >=  Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ) : ?>
+			<div class="instant-articles-card">
+				<div class="instant-articles-card-title">
+					<h3>Submit for Review</h3>
+				</div>
+				<div class="instant-articles-card-content">
+					<div class="instant-articles-card-content-box instant-articles-card-content-full">
+						<p>
+							The Instant Articles team will review a sample batch of your Instant Articles before you can begin to publish.
+							Click the 'Submit for Review" button below to send the last <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?>
+							articles you've published to the team for review.
+						</p>
+						<p>
+							It will take us 2 business days to complete the review.
+							Once we've had a chance to take a look, we'll let you know if you're ready to start publishing or if you need to make some updates.
+						</p>
+						<button id="instant-articles-wizard-submit-for-review" class="instant-articles-button instant-articles-button-highlight">
+							<label>Submit for Review</label>
+						</button>
+					</div>
+				</div>
+			</div>
+		<?php else: ?>
+			<div class="instant-articles-card">
+				<div class="instant-articles-card-title">
+					<h3>Create More Articles to Submit for Review</h3>
+				</div>
+				<div class="instant-articles-card-content">
+					<div class="instant-articles-card-content-box instant-articles-card-content-full">
+						<p>
+							In order to begin publishing Instant Articles, our team needs to review a sample batch of <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?>
+							of your Instant Articles. It looks like you don't have <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?> articles available yet.
+						</p>
+						<p>
+							Once you've created the additional articles and have <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?> available to send,
+							please return to this page and click the 'Submit for Review" button below.
+						</p>
+						<button id="instant-articles-wizard-submit-for-review" class="instant-articles-button-disabled instant-articles-button instant-articles-button-highlight">
+							<label>Submit for Review</label>
+						</button>
+					</div>
+				</div>
+			</div>
+		<?php endif; ?>
+
+
+	<?php break; ?>
+
+	<?php case Instant_Articles_Wizard_Review_Submission::STATUS_APPROVED : ?>
+		<div class="instant-articles-card instant-articles-card-success">
+			<div class="instant-articles-card-title">
+				<h3>Review Complete: Begin Publishing Your Instant Articles</h3>
+			</div>
+			<div class="instant-articles-card-content">
+				<div class="instant-articles-card-content-box instant-articles-card-content-full">
+					<p>
+						We reviewed some of your articles and they look great.
+						You're now ready to begin publishing your Instant Articles to Facebook and sharing them with your audience.
+					</p>
+					<p>
+						Next, set up monetization and analytics in Advanced Settings. Or explore the
+						<a href="https://www.facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS" target="_blank">Instant Articles publishing tools</a>
+						through your selected Facebook Page.
+					</p>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
+	<?php break; ?>
+
+	<?php case Instant_Articles_Wizard_Review_Submission::STATUS_REJECTED : ?>
+		<div class="instant-articles-card instant-articles-card-fail">
+			<div class="instant-articles-card-title">
+				<h3>Review Complete: Updates Needed</h3>
+			</div>
+			<div class="instant-articles-card-content">
+				<div class="instant-articles-card-content-box instant-articles-card-content-full">
+					<p>
+						We reviewed some of your articles and found a few things that need to be updated.
+					</p>
+					<p>
+						Please go to your selected
+						<a href="https://www.facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS#Step-2" target="_blank">Facebook Page's Publishing Tools</a>
+						to get more specifics on the issues identified. Once these have been cleared up in WordPress, you'll be ready to begin publishing your Instant Articles.
+					</p>
+				</div>
+			</div>
+		</div>
+	<?php break; ?>
+
+	<?php case Instant_Articles_Wizard_Review_Submission::STATUS_PENDING : ?>
+		<div class="instant-articles-card">
+			<div class="instant-articles-card-title">
+				<h3>Review Articles Submitted</h3>
+			</div>
+			<div class="instant-articles-card-content">
+				<div class="instant-articles-card-content-box instant-articles-card-content-full">
+					<p>
+						Your articles have been submitted for review.
+					</p>
+					<p>
+						It will take us 2 business days to complete the review. Check back here to see the status of your review submission.
+					</p>
+				</div>
+			</div>
+		</div>
+	<?php break; ?>
+
+<?php endswitch; ?>

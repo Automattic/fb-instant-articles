@@ -24,9 +24,16 @@ function instant_articles_wizard_save_app ( app_id, app_secret ) {
 	} );
 }
 
-function instant_articles_wizard_edit_app ( app_id, app_secret ) {
+function instant_articles_wizard_edit_app () {
 	instant_articles_wizard_load ( {
 		'action': 'instant_articles_wizard_edit_app',
+	} );
+}
+
+
+function instant_articles_wizard_submit_for_review () {
+	instant_articles_wizard_load ( {
+		'action': 'instant_articles_wizard_submit_for_review',
 	} );
 }
 
@@ -82,6 +89,13 @@ function instant_articles_wizard_bind_events () {
 			return false;
 		}
 		instant_articles_wizard_edit_app();
+	});
+
+	jQuery( '#instant-articles-wizard-submit-for-review' ).on( 'click', function () {
+		if ( jQuery( this ).hasClass( 'instant-articles-button-disabled' ) ) {
+			return false;
+		}
+		instant_articles_wizard_submit_for_review();
 	});
 
 	jQuery( '#instant-articles-wizard-select-page' ).on( 'click', function () {
