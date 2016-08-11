@@ -75,12 +75,38 @@
 				<hr/>
 				<label>Next, log into your Facebook account</label>
 				<p>Log in with Facebook to finish connecting the Instant Articles Plugin to your account.</p>
+				<?php
+					if (
+						$user_access_token &&
+						(
+							! isset( $permissions['pages_manage_instant_articles'] ) ||
+							! isset( $permissions['pages_show_list'] )
+						)
+					) :
+				?>
+					<p>In order to finish the activation, you need to grant all the requested permissions:</p>
+					<ul>
+						<?php if ( ! isset( $permissions['pages_show_list'] ) ) : ?>
+							<li>
+								<b>Show a list of the Pages you manage</b>: allows the plugin to show the list of your
+								pages for you to select one.
+							</li>
+						<?php endif; ?>
+						<?php if ( ! isset( $permissions['pages_manage_instant_articles'] ) ) : ?>
+							<li>
+								<b>Manage Instant Articles for your Pages</b>: allows us to publish
+								Instant Articles to your selected page.
+							</li>
+						<?php endif; ?>
+					</ul>
+				<?php endif;?>
+
 				<a href="<?php echo esc_attr( $fb_helper->get_login_url() ); ?>" class="instant-articles-button">
 					<span class="instant-articles-button-icon-facebook"></span>
 					<label>Login with Facebook</label>
 				</a>
 			</div>
-			<br clear="both" />
+			<div clear="both" />
 		</div>
 	</div>
 <?php endif; ?>
