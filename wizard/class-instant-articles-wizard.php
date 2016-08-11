@@ -98,6 +98,12 @@ class Instant_Articles_Wizard {
 		return $url;
 	}
 
+
+	public static function get_admin_url() {
+		$url = parse_url( admin_url() );
+		return $url['host'];
+	}
+
 	public static function transition() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
