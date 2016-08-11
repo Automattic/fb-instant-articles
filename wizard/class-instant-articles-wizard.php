@@ -254,6 +254,20 @@ class Instant_Articles_Wizard {
 		// ----------------------------------
 
 
+		// Grabs the current configured style
+		// ----------------------------------
+		// Only during STATE_STYLE_SELECTION
+		if ( $current_state === Instant_Articles_Wizard_State::STATE_STYLE_SELECTION ) {
+			$settings_style = Instant_Articles_Option_Styles::get_option_decoded();
+			if ( isset( $settings_style['article_style'] ) && ! empty( $settings_style['article_style'] ) ) {
+				$article_style = $settings_style['article_style'];
+			} else {
+				$article_style = 'default';
+			}
+		}
+		// ----------------------------------
+
+
 		// Check submission status
 		// ----------------------------------
 		// Only during STATE_REVIEW_SUBMISSION

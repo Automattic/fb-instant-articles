@@ -52,12 +52,13 @@
 				phone.
 			</p>
 			<a
-				href="https://www.facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>/settings/?tab=instant_articles#Style-Editor"
+				id="instant-articles-wizard-customize-style"
+				href="https://www.facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS&style=<?php echo esc_attr($article_style); ?>"
 				class="instant-articles-button instant-articles-button-highlight"
 				target="_blank">
 				Customize
 			</a>
-			<button class="instant-articles-button instant-articles-wizard-transition" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ); ?>">
+			<button id="instant-articles-wizard-customize-style-next" class="instant-articles-button instant-articles-wizard-transition" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ); ?>">
 				<label>Next</label>
 			</button>
 		</div>

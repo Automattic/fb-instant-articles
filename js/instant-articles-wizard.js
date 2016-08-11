@@ -106,6 +106,10 @@ function instant_articles_wizard_bind_events () {
 		instant_articles_wizard_transition( 'STATE_STYLE_SELECTION', { page_id: page_id } );
 	});
 
+	jQuery( '#instant-articles-wizard-customize-style' ).on( 'click', function () {
+		jQuery( '#instant-articles-wizard-customize-style-next' ).show();
+	});
+
 	jQuery( '.instant-articles-card-content-box li' ).on( 'click', function () {
 		jQuery( '.instant-articles-card-content-box li.instant-articles-radio-selected' ).removeClass( 'instant-articles-radio-selected' );
 		jQuery( this ).find( 'input' ).attr( 'checked', 'checked' );
