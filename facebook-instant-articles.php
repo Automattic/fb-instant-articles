@@ -137,6 +137,9 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 */
 	function instant_articles_feed() {
 
+		// This is an FBIA response, so make sure we flag it as such
+		add_filter( 'is_fbia_response', true );
+
 		// Load the feed template.
 		include( dirname( __FILE__ ) . '/feed-template.php' );
 
