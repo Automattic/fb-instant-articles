@@ -18,7 +18,10 @@ class Instant_Articles_Co_Authors_Plus {
 	 * Init the compat layer.
 	 */
 	function init() {
-		add_filter( 'instant_articles_authors', array( $this, 'authors' ), 10, 2 );
+		// Only make changes when we're building an FBIA response
+		if ( instant_articles_is_fbia_response() ) {
+			add_filter( 'instant_articles_authors', array( $this, 'authors' ), 10, 2 );
+		}
 	}
 
 	/**
