@@ -137,6 +137,9 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 */
 	function instant_articles_feed() {
 
+		// This is an FBIA response, so make sure we flag it as such
+		add_filter( 'is_fbia_response', true );
+
 		// Load the feed template.
 		include( dirname( __FILE__ ) . '/feed-template.php' );
 
@@ -305,6 +308,29 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		}
 	}
 	add_action( 'wp_head', 'inject_url_claiming_meta_tag' );
+
+	/**
+	 * Helper which tells us if we're engaged in an FBIA response.
+	 *
+	 * During requests, we need to know if we need to generate and return FBIA-compatible
+	 * markup. If not, we shouldn't do anything to alter markup.
+	 *
+	 * @since 3.1
+	 *
+	 * @return bool True when we're returning FBIA markup
+	 */
+	function instant_articles_is_fbia_response() {
+		/**
+		 * Whether or not we're engaged in an FBIA response.
+		 *
+		 * Allows other parts of the plugin to define when we're responding with FBIA-compatible
+		 * markup, so that we can limit when we filter the content amongst other things.
+		 *
+		 * @since 3.1
+		 * @param bool Defaults to false. True when we are generating FBIA responses.
+		 */
+		return apply_filters( 'is_fbia_response', false );
+	}
 
 	// Initialize the Instant Articles settings page.
 	Instant_Articles_Settings::init();
