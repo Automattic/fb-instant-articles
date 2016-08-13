@@ -13,9 +13,12 @@ class Instant_Articles_Jetpack {
 	 *
 	 */
 	function init() {
-		$this->_fix_youtube_embed();
-		$this->_fix_facebook_embed();
-		add_filter( 'instant_articles_transformer_rules_loaded', array( 'Instant_Articles_Jetpack', 'transformer_loaded' ) );
+		// Only make changes when we're building an FBIA response
+		if ( instant_articles_is_fbia_response() ) {
+			$this->_fix_youtube_embed();
+			$this->_fix_facebook_embed();
+			add_filter( 'instant_articles_transformer_rules_loaded', array( 'Instant_Articles_Jetpack', 'transformer_loaded' ) );
+		}
 	}
 
 	/**
