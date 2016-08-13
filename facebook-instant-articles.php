@@ -110,6 +110,16 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
 
 	/**
+	 * Plugin hook to load compat layers.
+	 *
+	 * @since 2.0
+	 */
+	function instant_articles_load_compat() {
+		require_once( dirname( __FILE__ ) . '/compat.php' );
+	}
+	add_action( 'plugins_loaded', 'instant_articles_load_compat' );
+
+	/**
 	 * Register our special feed.
 	 *
 	 * @since 0.1
@@ -126,9 +136,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 * @since 0.1
 	 */
 	function instant_articles_feed() {
-
-		// Load compat layers
-		require_once( dirname( __FILE__ ) . '/compat.php' );
 
 		// Load the feed template.
 		include( dirname( __FILE__ ) . '/feed-template.php' );
