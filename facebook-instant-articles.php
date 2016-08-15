@@ -89,8 +89,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	}
 	register_activation_hook( __FILE__, 'instant_articles_activate' );
 
-	add_action( 'admin_init', 'instant_articles_redirect_settings' );
-
 	/**
 	 * Show a message to set up the plugin when it is activated
 	 */
