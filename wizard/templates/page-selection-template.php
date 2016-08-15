@@ -48,7 +48,7 @@
 							<?php else : ?>
 								<span class="page-not-enabled">
 									This page has not been signed up yet.
-									<a href="https://web.facebook.com/instant_articles/signup?redirect_uri=<?php echo urlencode( $settings_url ) ?>&page_id=<?php echo urlencode( $page[ 'page_id' ] ) ?>">Sign Up</a>.
+									<a href="https://www.facebook.com/instant_articles/signup?redirect_uri=<?php echo urlencode( $settings_url ) ?>&page_id=<?php echo urlencode( $page[ 'page_id' ] ) ?>">Sign Up</a>.
 								</span>
 							<?php endif; ?>
 						</label>
