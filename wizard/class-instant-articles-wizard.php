@@ -69,7 +69,7 @@ class Instant_Articles_Wizard {
 	public static function add_settings_link_to_plugin_actions( $links ) {
 		$link_text = __( 'Settings' );
 		$settings_href = self::get_url();
-		$settings_link = '<a href="' . esc_url( $settings_href ) . '">' . $link_text . '</a>';
+		$settings_link = '<a href="' . esc_url( $settings_href ) . '">' . esc_html( $link_text ) . '</a>';
 		array_push( $links, $settings_link );
 		return $links;
 	}
@@ -109,10 +109,14 @@ class Instant_Articles_Wizard {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
-		$new_state = filter_input( INPUT_POST, 'new_state' );
-		$params = filter_input( INPUT_POST, 'params' );
+		$new_state = sanitize_text_field( $_POST[ 'new_state' ] );
 
-		$params = json_decode( $params, true );
+		$params = $_POST[ 'params' ];
+		$params = json_decode( stripslashes( $params ), true );
+		foreach ( $params as $key => $param ) {
+			// escape every key
+			$params[ $key ] = sanitize_text_field( $param );
+		}
 
 		try {
 			Instant_Articles_Wizard_State::do_transition( $new_state, $params );
@@ -141,8 +145,8 @@ class Instant_Articles_Wizard {
 			die();
 		}
 
-		$app_id = filter_input( INPUT_POST, 'app_id' );
-		$app_secret = filter_input( INPUT_POST, 'app_secret' );
+		$app_id = sanitize_text_field( $_POST[ 'app_id' ] );
+		$app_secret = sanitize_text_field( $_POST[ 'app_secret' ] );
 
 		Instant_Articles_Option_FB_App::update_option( array(
 			'app_id' => $app_id,
@@ -214,7 +218,7 @@ class Instant_Articles_Wizard {
 	}
 
 	public static function is_page_signed_up() {
-		$page_id = filter_input( INPUT_POST, 'page_id' );
+		$page_id = sanitize_text_field( $_POST[ 'page_id' ] );
 
 		$fb_helper = new Instant_Articles_Wizard_FB_Helper();
 		$pages = $fb_helper->get_pages();

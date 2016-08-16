@@ -14,7 +14,7 @@
 			<span class="instant-articles-card-title-checkmark">✔</span>
 			<label class="instant-articles-card-title-label">App connected:</label>
 			<span class="instant-articles-card-title-value"><?php echo esc_html( $fb_app_settings[ 'app_id' ] ); ?></span>
-			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_APP_SETUP ); ?>"></a>
+			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_attr( Instant_Articles_Wizard_State::STATE_APP_SETUP ); ?>"></a>
 		</div>
 	</div>
 </div>
@@ -27,7 +27,7 @@
 			<?php if ( $fb_page_settings[ 'page_picture' ] ) : ?>
 				<img class="instant-articles-page-img" src="<?php echo esc_attr( $fb_page_settings[ 'page_picture' ] ) ?>"/>
 			<?php endif; ?>
-			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ); ?>"></a>
+			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_attr( Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ); ?>"></a>
 		</div>
 	</div>
 </div>
@@ -36,7 +36,7 @@
 	<div class="instant-articles-card-title">
 		<h3>Style Customized</h3>
 		<div class="instant-articles-card-title-right">
-			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_STYLE_SELECTION ); ?>"></a>
+			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_attr( Instant_Articles_Wizard_State::STATE_STYLE_SELECTION ); ?>"></a>
 		</div>
 	</div>
 </div>
@@ -107,7 +107,7 @@ switch ( $review_submission_status ) :
 					</p>
 					<p>
 						Next, set up monetization and analytics in Advanced Settings. Or explore the
-						<a href="https://www.facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS" target="_blank">Instant Articles publishing tools</a>
+						<a href="<?php echo esc_url( 'https://www.facebook.com/' . $fb_page_settings['page_id'] . '/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS' ); ?>" target="_blank">Instant Articles publishing tools</a>
 						through your selected Facebook Page.
 					</p>
 				</div>
@@ -127,7 +127,7 @@ switch ( $review_submission_status ) :
 					</p>
 					<p>
 						Please go to your selected
-						<a href="https://www.facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS#Step-2" target="_blank">Facebook Page's Publishing Tools</a>
+						<a href="<?php echo esc_url( 'https://www.facebook.com/' . $fb_page_settings['page_id'] . '/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS#Step-2' ); ?>" target="_blank">Facebook Page's Publishing Tools</a>
 						to get more specifics on the issues identified. Once these have been cleared up in WordPress, you'll be ready to begin publishing your Instant Articles.
 					</p>
 				</div>

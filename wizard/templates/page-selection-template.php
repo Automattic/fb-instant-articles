@@ -14,7 +14,7 @@
 			<span class="instant-articles-card-title-checkmark">✔</span>
 			<label class="instant-articles-card-title-label">App connected:</label>
 			<span class="instant-articles-card-title-value"><?php echo esc_html( $fb_app_settings[ 'app_id' ] ); ?></span>
-			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_APP_SETUP ); ?>"></a>
+			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_attr( Instant_Articles_Wizard_State::STATE_APP_SETUP ); ?>"></a>
 		</div>
 	</div>
 </div>

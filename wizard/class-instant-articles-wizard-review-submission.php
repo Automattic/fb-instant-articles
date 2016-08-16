@@ -27,9 +27,12 @@ class Instant_Articles_Wizard_Review_Submission {
 
 	public static function getArticlesForReview() {
 		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+
+		// Cap the number of articles returned to
+		// 100 because of performance concerns.
 		return wp_get_recent_posts(
 		 	array(
-				'numberposts' => self::MIN_ARTICLES,
+				'numberposts' => min( self::MIN_ARTICLES, 100 ),
 				'post_type' => $post_types
 			),
 			'OBJECT'

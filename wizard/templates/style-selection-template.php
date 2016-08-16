@@ -14,7 +14,7 @@
 			<span class="instant-articles-card-title-checkmark">✔</span>
 			<label class="instant-articles-card-title-label">App connected:</label>
 			<span class="instant-articles-card-title-value"><?php echo esc_html( $fb_app_settings[ 'app_id' ] ); ?></span>
-			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_APP_SETUP ); ?>"></a>
+			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_attr( Instant_Articles_Wizard_State::STATE_APP_SETUP ); ?>"></a>
 		</div>
 	</div>
 </div>
@@ -25,9 +25,9 @@
 		<div class="instant-articles-card-title-right">
 			<a href="" class="instant-articles-card-title-link"><?php echo esc_html( $fb_page_settings[ 'page_name' ] ) ?></a>
 			<?php if ( $fb_page_settings[ 'page_picture' ] ) : ?>
-				<img class="instant-articles-page-img" src="<?php echo esc_attr( $fb_page_settings[ 'page_picture' ] ) ?>"/>
+				<img class="instant-articles-page-img" src="<?php echo esc_url( $fb_page_settings[ 'page_picture' ] ) ?>"/>
 			<?php endif; ?>
-			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ); ?>"></a>
+			<a class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#" data-new-state="<?php echo esc_attr( Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ); ?>"></a>
 		</div>
 	</div>
 </div>
@@ -53,12 +53,12 @@
 			</p>
 			<a
 				id="instant-articles-wizard-customize-style"
-				href="https://www.facebook.com/<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS&style=<?php echo esc_attr($article_style); ?>"
+				href="<?php echo esc_url( 'https://www.facebook.com/' . $fb_page_settings['page_id'] . '/publishing_tools/?section=INSTANT_ARTICLES_SETTINGS&initial_data[style]=' . $article_style ); ?>"
 				class="instant-articles-button instant-articles-button-highlight"
 				target="_blank">
 				Customize
 			</a>
-			<button id="instant-articles-wizard-customize-style-next" class="instant-articles-button instant-articles-wizard-transition" data-new-state="<?php echo esc_html( Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ); ?>">
+			<button id="instant-articles-wizard-customize-style-next" class="instant-articles-button instant-articles-wizard-transition" data-new-state="<?php echo esc_attr( Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ); ?>">
 				<label>Next</label>
 			</button>
 		</div>

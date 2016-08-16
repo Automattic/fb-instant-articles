@@ -35,7 +35,7 @@
 					<li>Create an app name, input your email and select 'Apps for Pages' in the 'Category' dropdown menu. Click 'Create App ID' when you’re ready.</li>
 					<li>Click on 'Settings' in the left nav bar.</li>
 					<li>Click '+Add Platform' at the bottom of the page and select 'Website.'</li>
-					<li>Under both Website and App Domains enter your domain: <b><?php echo self::get_admin_url(); ?></b></li>
+					<li>Under both Website and App Domains enter your domain: <b><?php echo esc_url( self::get_admin_url() ); ?></b></li>
 					<li>Click 'Save Changes' in the lower right corner.</li>
 					<li>Select 'Show' to see your App Secret. Copy your App ID and Secret and enter them to the right.</li>
 				</ol>
