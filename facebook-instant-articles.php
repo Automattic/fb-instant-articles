@@ -99,7 +99,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		if ( $pagenow === 'plugins.php' && Instant_Articles_Wizard_State::get_current_state() !== Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
 			$settings_url = Instant_Articles_Wizard::get_url();
 			echo '<div class="updated settings-error notice is-dismissible">';
-			echo '<p>Congrats, you\'ve installed your plugin. Now <a href="' . esc_url_raw($settings_url) . '">set it up</a> to start publishing Instant Articles.';
+			echo '<p>Congrats, you\'ve installed the Instant Articles for WP plugin. Now <a href="' . esc_url_raw($settings_url) . '">set it up</a> to start publishing Instant Articles.';
 			echo '</div>';
 		}
 	}
