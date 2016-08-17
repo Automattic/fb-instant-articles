@@ -65,8 +65,8 @@ class Instant_Articles_Meta_Box {
 		$submission_status = null;
 		$published = 'publish' === $post->post_status;
 
-		Instant_Articles_Settings::menu_items();
-		$settings_page_href = Instant_Articles_Settings::get_href_to_settings_page();
+		Instant_Articles_Wizard::menu_items();
+		$settings_page_href = Instant_Articles_Wizard::get_url();
 
 		if ( $published ) {
 			try {
