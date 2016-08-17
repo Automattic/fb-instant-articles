@@ -10,11 +10,11 @@
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
 
 /**
- * FB Page configuration.
+ * The Instant Articles FB app configuration.
  */
-class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
+class Instant_Articles_Option_FB_App extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-fb-page';
+	const OPTION_KEY = 'instant-articles-option-fb-app';
 
 	public static $sections = array(
 		'title' => '',
@@ -23,34 +23,28 @@ class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 
 	public static $fields = array(
 
-	'page_id' => array(
-		'visible' => false,
-		'label' => 'Page ID',
-		'default' => '',
-	),
+		'app_id' => array(
+			'label' => 'App ID',
+			'default' => '',
+		),
 
-	'page_name' => array(
-		'visible' => false,
-		'label' => 'Page Name',
-		'default' => '',
-	),
+		'app_secret' => array(
+			'label' => 'App Secret',
+			'render' => 'password',
+			'default' => '',
+		),
 
-	'page_access_token' => array(
-		'visible' => false,
-		'label' => 'Page Access Token',
-		'default' => '',
-	),
-
-	'page_access_token_expiration' => array(
-		'visible' => false,
-		'label' => 'Page Token Expiration',
-		'default' => '',
-	),
+		'user_access_token' => array(
+			'visible' => false,
+			'label' => 'User Access Token',
+			'render' => 'password',
+			'default' => '',
+		),
 
 	);
 
 	/**
-	 * Constructor.
+	 * Consturctor.
 	 *
 	 * @since 0.4
 	 */

@@ -454,4 +454,37 @@ class Instant_Articles_Option {
 	public function sanitize_option_fields( $field_values ) {
 		return $field_values;
 	}
+
+	/**
+	 * Updates options from decoded map
+	 *
+	 * @param string $option_key to be returned.
+	 * @return array from a json decoded content.
+	 * @since 0.4
+	 */
+	public static function update_option( $option = array(), $option_key = null ) {
+		if ( ! isset( $option_key ) ) {
+			// Late Static Binding to use the const OPTION_KEY from the child class which called this function.
+			$option_key = static::OPTION_KEY;
+		}
+
+		wp_cache_delete ( 'alloptions', 'options' );
+		update_option( $option_key, $option );
+	}
+	/**
+	 * Updates options from decoded map
+	 *
+	 * @param string $option_key to be returned.
+	 * @return array from a json decoded content.
+	 * @since 0.4
+	 */
+	public static function delete_option( $option_key = null ) {
+		if ( ! isset( $option_key ) ) {
+			// Late Static Binding to use the const OPTION_KEY from the child class which called this function.
+			$option_key = static::OPTION_KEY;
+		}
+
+		wp_cache_delete ( 'alloptions', 'options' );
+		delete_option( $option_key );
+	}
 }

@@ -6,6 +6,9 @@
  *
  * @package default
  */
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-state.php' );
 
 use Facebook\PersistentData\PersistentDataInterface;
 
@@ -14,7 +17,7 @@ use Facebook\PersistentData\PersistentDataInterface;
  *
  * @since 0.4
  */
-class Instant_Articles_Settings_FB_Page implements PersistentDataInterface {
+class Instant_Articles_Wizard_FB_Helper implements PersistentDataInterface {
 
 	/**
 	* @var string Prefix to use for session options.
@@ -90,9 +93,10 @@ class Instant_Articles_Settings_FB_Page implements PersistentDataInterface {
 	public function get_login_url() {
 		if ( isset( $this->fb_sdk ) ) {
 			$helper = $this->fb_sdk->getRedirectLoginHelper();
+			$redirect_url = Instant_Articles_Wizard::get_url();
 
 			$login_url = $helper->getLoginUrl(
-				Instant_Articles_Settings::get_href_to_settings_page(),
+				$redirect_url,
 				self::$fb_app_permissions
 			);
 
@@ -177,5 +181,32 @@ class Instant_Articles_Settings_FB_Page implements PersistentDataInterface {
 			// Logged in.
 			return $access_token;
 		}
+	}
+
+	public function get_pages() {
+		$helper = new Facebook\InstantArticles\Client\Helper(
+			$this->fb_sdk
+		);
+
+		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+
+		$page_nodes = $helper->getPagesAndTokens(
+			new Facebook\Authentication\AccessToken( $fb_app_settings[ 'user_access_token' ] )
+		)->all();
+
+		$pages = array();
+
+		// Map GraphNode objects to simple value objects that are smaller when serialized.
+		foreach ( $page_nodes as $page_node ) {
+			$pages[ $page_node->getField( 'id' ) ] = array(
+				'page_id' => $page_node->getField( 'id' ),
+				'page_name' => $page_node->getField( 'name' ),
+				'page_picture' => $page_node->getField( 'picture' )->getField( 'url' ),
+				'page_access_token' => $page_node->getField( 'access_token' ),
+				'supports_instant_articles' => $page_node->getField( 'supports_instant_articles' ),
+			);
+		}
+
+		return $pages;
 	}
 }
