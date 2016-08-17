@@ -41,7 +41,7 @@
 			<?php else : ?>
 				<h4>Set Up and Log In</h4>
 			<?php endif; ?>
-			<p>If you don't have one already, set up your Facebook Developers App. Then log in to connect your plugin.</p>
+			<p>If you don't have one already, set up your Facebook Developers App. This will allow you to log in and connect your plugin.</p>
 		</div>
 		<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ] ); ?>">
 			<div class="instant-articles-card-bullet"></div>

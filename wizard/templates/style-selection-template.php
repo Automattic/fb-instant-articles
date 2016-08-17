@@ -39,7 +39,7 @@
 	<div class="instant-articles-card-content">
 		<div class="instant-articles-card-content-box instant-articles-card-content-full">
 			<p>
-				Customize the look and feel of your articles with one or more unique style templates.
+				Customize the look and feel of your articles with one or more unique styles.
 				Try to make your Instant Articles look as much like your mobile web articles as possible
 				and be sure to upload your publication or blog's logo.
 				<a href="https://developers.facebook.com/docs/instant-articles/guides/design" target="_blank">Learn more in our design guidelines</a>.
