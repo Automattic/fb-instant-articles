@@ -38,6 +38,8 @@ class Instant_Articles_Meta_Box {
 			'instant_article_meta_box',
 			'Facebook Instant Articles',
 			array( 'Instant_Articles_Meta_Box', 'render_meta_box_loader' ),
+
+			/** This filter is defined in facebook-instant-articles.php. */
 			apply_filters( 'instant_articles_post_types', array( 'post' ) ),
 			'normal',
 			'default'
