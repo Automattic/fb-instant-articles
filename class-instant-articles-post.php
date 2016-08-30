@@ -14,6 +14,7 @@ use Facebook\InstantArticles\Elements\Ad;
 use Facebook\InstantArticles\Elements\Analytics;
 use Facebook\InstantArticles\Elements\Author;
 use Facebook\InstantArticles\Elements\Image;
+use Facebook\InstantArticles\Elements\Video;
 use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\Footer;
 use Facebook\InstantArticles\Transformer\Transformer;
@@ -252,12 +253,12 @@ class Instant_Articles_Post {
 		// If post is draft, clone it to get the eventual permalink,
 		// see http://wordpress.stackexchange.com/a/42988.
 		if ( in_array( $this->_post->post_status, array( 'draft', 'pending', 'auto-draft' ), true ) ) {
-		    $post_clone = clone $this->_post;
-		    $post_clone->post_status = 'published';
-		    $post_clone->post_name = sanitize_title( $post_clone->post_name ? $post_clone->post_name : $post_clone->post_title, $post_clone->ID );
-		    $url = get_permalink( $post_clone );
+			$post_clone = clone $this->_post;
+			$post_clone->post_status = 'published';
+			$post_clone->post_name = sanitize_title( $post_clone->post_name ? $post_clone->post_name : $post_clone->post_title, $post_clone->ID );
+			$url = get_permalink( $post_clone );
 		} else {
-		    $url = get_permalink( $this->_post );
+			$url = get_permalink( $this->_post );
 		}
 
 		return $url;
@@ -333,10 +334,10 @@ class Instant_Articles_Post {
 		}
 
 		// Remove hyperlinks beginning with a # as they cause errors on Facebook (from http://wordpress.stackexchange.com/a/227332/19528)
-	        preg_match_all( '!<a[^>]*? href=[\'"]#[^<]+</a>!i', $content, $matches );
-	        foreach ( $matches[0] as $link ) {
-	                $content = str_replace( $link, strip_tags($link), $content );
-	        }
+		preg_match_all( '!<a[^>]*? href=[\'"]#[^<]+</a>!i', $content, $matches );
+		foreach ( $matches[0] as $link ) {
+			$content = str_replace( $link, strip_tags($link), $content );
+		}
 
 		/**
 		 * Filter the post content for Instant Articles.
@@ -491,12 +492,12 @@ class Instant_Articles_Post {
 	 * Get the cover media.
 	 *
 	 * @since 0.1
-	 * @return array
+	 * @return Image|Video
 	 */
 	public function get_cover_media() {
 
-		$cover_media = new stdClass;
-		$cover_media->type = 'none';
+		$cover_media = Image::create();
+
 
 		// If someone else is handling this, let them. Otherwise fall back to us trying to use the featured image.
 		if ( has_filter( 'instant_articles_cover_media' ) ) {
@@ -504,16 +505,18 @@ class Instant_Articles_Post {
 			 * Filter the cover media.
 			 *
 			 * @since 0.1
-			 * @param stdClass  $cover_media  The cover media object.
+			 * @param Image     $cover_media  The cover media object.
 			 * @param int       $post_id      The current post ID.
 			 */
 			$cover_media = apply_filters( 'instant_articles_cover_media', $cover_media, $this->_post->ID );
 		} else {
+
 			$featured_image_data = $this->get_the_featured_image();
 			if ( isset( $featured_image_data['src'] ) && strlen( $featured_image_data['src'] ) ) {
-				$cover_media->type = 'image';
-				$cover_media->src = $featured_image_data['src'];
-				$cover_media->caption = $featured_image_data['caption'];
+				$cover_media = Image::create()->withURL($featured_image_data['src']);
+				if( isset( $featured_image_data['caption'] ) && strlen( $featured_image_data['caption'] )) {
+					$cover_media->withCaption(Caption::create()->withTitle($featured_image_data['caption']));
+				}
 			}
 		}
 
@@ -584,11 +587,11 @@ class Instant_Articles_Post {
 	public function to_instant_article() {
 
 		/**
-	     * Fires before the instant article is rendered.
-	     *
-	     * @since 0.1
-	     * @param Instant_Article_Post  $instant_article_post  The instant article post.
-	     */
+		 * Fires before the instant article is rendered.
+		 *
+		 * @since 0.1
+		 * @param Instant_Article_Post  $instant_article_post  The instant article post.
+		 */
 		do_action( 'instant_articles_before_transform_post', $this );
 
 		// Get time zone configured in WordPress. Default to UTC if no time zone configured.
@@ -659,19 +662,12 @@ class Instant_Articles_Post {
 		if ( $kicker ) {
 			$header->withKicker( $kicker );
 		}
-		$cover = $this->get_the_featured_image();
-		if ( $cover['src'] ) {
-			$image = Image::create()->withURL( $cover['src'] );
-			if ( isset( $cover['caption'] ) && strlen( $cover['caption'] ) > 0 ) {
-				$document = new DOMDocument();
-				libxml_use_internal_errors(true);
-				$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $cover['caption']  . '</h1>' );
-				libxml_use_internal_errors(false);
-				$image->withCaption( $transformer->transform( Caption::create(), $document ) );
-			}
 
-			$header->withCover( $image );
+		$cover = $this->get_cover_media();
+		if ( $cover->getUrl() ) {
+			$header->withCover( $cover );
 		}
+
 		$this->instant_article =
 			InstantArticle::create()
 				->withCanonicalUrl( $this->get_canonical_url() )
