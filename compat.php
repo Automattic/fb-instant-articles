@@ -7,6 +7,11 @@
  * @package default
  */
 
+if ( !function_exists( 'is_plugin_active' ) ) {
+	require_once ( ABSPATH . '/wp-admin/includes/plugin.php' );
+}
+
+
 // Load compat layer for Co-Authors Plus.
 if ( function_exists( 'get_coauthors' ) && ! defined( 'CAP_IA_COMPAT' ) ) {
 	include( dirname( __FILE__ ) . '/compat/class-instant-articles-co-authors-plus.php' );
@@ -33,4 +38,11 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	include( dirname( __FILE__ ) . '/compat/class-instant-articles-jetpack.php' );
 	$jp = new Instant_Articles_Jetpack;
 	$jp->init();
+}
+
+// Load support for Get The Image plugin
+if ( is_plugin_active( 'get-the-image/get-the-image.php' ) ) {
+	include( dirname( __FILE__ ) . '/compat/class-instant-articles-get-the-image.php' );
+	$gti = new Instant_Articles_Get_The_Image;
+	$gti->init();
 }
