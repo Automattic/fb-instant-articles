@@ -89,6 +89,14 @@ class Instant_Articles_Publisher {
 					$dev_mode
 				);
 
+				// Don't publish posts with password protection
+				if ( post_password_required( $post ) ) {
+					// Unpublishes if already published and from now on it started to have password protection
+					$client->removeArticle( $article->getCanonicalURL() );
+					delete_post_meta( $post_id, self::SUBMISSION_ID_KEY );
+					return;
+				}
+
 				// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
 				if ( count( $adapter->transformer->getWarnings() ) > 0
 				  && isset( $publishing_settings['block_publish_with_warnings'] )
