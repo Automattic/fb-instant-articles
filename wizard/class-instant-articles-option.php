@@ -383,7 +383,7 @@ class Instant_Articles_Option {
 					<?php echo esc_attr( $attr_disabled ); ?>
 					class="large-text code"
 					rows="8"
-				><?php echo $args[ 'double_encode' ] ? htmlspecialchars( $option_value ) : esc_html( $option_value ); ?></textarea>
+				><?php echo array_key_exists( 'double_encode', $args ) && $args[ 'double_encode' ] ? htmlspecialchars( $option_value ) : esc_html( $option_value ); ?></textarea>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
 						<?php echo wp_kses_post( $field_description); ?>
