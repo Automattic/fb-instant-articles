@@ -2,7 +2,7 @@
 Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
-Tested up to: 4.5.3
+Tested up to: 4.6
 Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -91,6 +91,17 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 * Submit for review from wizard
 * Improved transformation rules
 * Option to submit only articles without warnings
+* Jetpack compatibility
+* Added Jetpack carousel rules
+* Compatibility layer for Get The Image plugin
+* Fix for relative URL checking
+* Fix for missing subtitles
+* Fix for double call of wpautop
+* Fix for loadHTML warnings
+* Fix for get_cover_media function
+* Fix to prevent publishing of password protected posts
+
+props diegoquinteiro everton-rosario gemedet jacobarriola menzow rinatkhaziev srtfisher
 
 = 3.0.1 =
 
