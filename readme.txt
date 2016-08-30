@@ -91,6 +91,17 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 * Submit for review from wizard
 * Improved transformation rules
 * Option to submit only articles without warnings
+* Jetpack compatibility
+* Added Jetpack carousel rules
+* Compatibility layer for Get The Image plugin
+* Fix for relative URL checking
+* Fix for missing subtitles
+* Fix for double call of wpautop
+* Fix for loadHTML warnings
+* Fix for get_cover_media function
+* Fix to prevent publishing of password protected posts
+
+props diegoquinteiro everton-rosario gemedet jacobarriola menzow rinatkhaziev srtfisher
 
 = 3.0.1 =
 
