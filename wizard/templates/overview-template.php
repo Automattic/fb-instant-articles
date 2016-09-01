@@ -15,7 +15,7 @@
 				<div class="instant-articles-card-step">
 					<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ); ?>../../assets/key@2x.png">
 					<h4>Set Up and Log In</h4>
-					<p>If you don't have one already, set up your Facebook Developers App. Then log in to connect your plugin.</p>
+					<p>If you don't have one already, set up your Facebook Developers App. This will allow you to log in and connect your plugin.</p>
 				</div>
 				<div class="instant-articles-card-step">
 					<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ); ?>../../assets/connect@2x.png">
