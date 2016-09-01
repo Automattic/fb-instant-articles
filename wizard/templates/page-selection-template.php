@@ -43,12 +43,10 @@
 						<img class="instant-articles-page-img" src="<?php echo esc_attr( $page[ 'page_picture' ] ) ?>"/>
 						<label>
 							<?php echo esc_html( $page[ 'page_name' ] ) ?>
-							<?php if ( $page[ 'supports_instant_articles' ] ) : ?>
-								<span class="page-enabled">✔ Enabled</span>
-							<?php else : ?>
+							<?php if ( ! $page[ 'supports_instant_articles' ] ) : ?>
 								<span class="page-not-enabled">
-									This page has not been signed up yet.
-									<a href="https://www.facebook.com/instant_articles/signup?redirect_uri=<?php echo urlencode( $settings_url ) ?>&page_id=<?php echo urlencode( $page[ 'page_id' ] ) ?>">Sign Up</a>.
+									First, <a href="https://www.facebook.com/instant_articles/signup?redirect_uri=<?php echo urlencode( $settings_url ) ?>&page_id=<?php echo urlencode( $page[ 'page_id' ] ) ?>">sign up</a>
+									this Page to access the Instant Articles tools through Facebook. Then select it here.
 								</span>
 							<?php endif; ?>
 						</label>
