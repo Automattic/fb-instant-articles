@@ -27,7 +27,7 @@
 
 				<p><strong>Need to create one?</strong></p>
 
-				<p>Click on the 'Get App ID' button below to begin the process of getting your App ID and Secret.  This will open the App set up page in a new tab. Then, follow these steps:</p>
+				<p>Click on the 'Get App ID' button below to begin the process of getting your App ID and Secret. This will open the app set up page in a new tab. Then, follow these steps:</p>
 
 				<ol>
 					<li>Click on the green '+ Add a New App' button in the upper right corner of the page.</li>
@@ -40,7 +40,7 @@
 					<li>Select 'Show' to see your App Secret. Copy your App ID and Secret and enter them to the right.</li>
 				</ol>
 
-				<p><strong>Need more help?</strong> <a href="https://developers.facebook.com/docs/instant-articles/wordpress-quickstart#appid" target="_blank">See detailed instructions on setting up your App ID in our documentation</a>.</p>
+				<p>For more detailed instructions on setting up your App ID, <a href="https://developers.facebook.com/docs/instant-articles/wordpress-quickstart#appid" target="_blank">check out the docs</a>.</p>
 
 				<a class="instant-articles-button" href="https://developers.facebook.com/apps" target="_blank">
 					Get App ID
