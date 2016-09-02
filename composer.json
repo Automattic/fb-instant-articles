@@ -3,6 +3,29 @@
         "php": ">=5.4",
         "facebook/php-sdk-v4": "~5.0",
         "apache/log4php": "2.3.0",
-        "facebook/facebook-instant-articles-sdk-php": "^1.1.0"
+        "facebook/facebook-instant-articles-sdk-php": "^1.5.0"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "^1.6.0",
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Facebook\\InstantArticles\\": "src/Facebook/InstantArticles/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Facebook\\InstantArticles\\": "tests/Facebook/InstantArticles/"
+        }
+    },
+    "scripts": {
+        "all": [
+            "@test"
+        ],
+        "test": [
+            "composer install",
+            "phpunit"
+        ]
     }
 }
