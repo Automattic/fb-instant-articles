@@ -12,7 +12,7 @@
 	<!-- Step 1: grab your App ID and App Secret -->
 	<div class="instant-articles-card">
 		<div class="instant-articles-card-title">
-			<h3>Log In with Your Developers App and Facebook Account</h3>
+			<h3>Log In With Your Developers App and Facebook Account</h3>
 			<div class="instant-articles-card-title-right">
 				<span class="instant-articles-card-title-step">Step 1 of 2</span>
 			</div>
