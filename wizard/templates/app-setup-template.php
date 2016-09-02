@@ -23,11 +23,11 @@
 
 				<p>You'll need to log in with your Facebook Developers App ID to connect your plugin to the Facebook Page you'll use to publish your Instant Articles.</p>
 
-				<p><strong>Already have an App ID and Secret?</strong> Just enter them to the right.</p>
+				<p><strong>Already have an App ID and App Secret?</strong> Just enter them to the right.</p>
 
 				<p><strong>Need to create one?</strong></p>
 
-				<p>Click on the 'Get App ID' button below to begin the process of getting your App ID and Secret. This will open the app set up page in a new tab. Then, follow these steps:</p>
+				<p>Click on the 'Get App ID' button below to begin the process of getting your App ID and App Secret. This will open the app set up page in a new tab. Then, follow these steps:</p>
 
 				<ol>
 					<li>Click on the green '+ Add a New App' button in the upper right corner of the page.</li>
@@ -37,7 +37,7 @@
 					<li>Click '+Add Platform' at the bottom of the page and select 'Website.'</li>
 					<li>Under both the 'App Domains' in the main section and 'Site URL' in the 'Website' section, enter this domain: <b><?php echo esc_url( self::get_admin_url() ); ?></b></li>
 					<li>Click 'Save Changes' in the lower right corner.</li>
-					<li>Select 'Show' to see your App Secret. Copy your App ID and Secret and enter them to the right.</li>
+					<li>Select 'Show' to see your App Secret. Copy your App ID and App Secret and enter them to the right.</li>
 				</ol>
 
 				<p>For more detailed instructions on setting up your App ID, <a href="https://developers.facebook.com/docs/instant-articles/wordpress-quickstart#appid" target="_blank">check out the docs</a>.</p>
