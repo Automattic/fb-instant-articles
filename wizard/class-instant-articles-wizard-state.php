@@ -305,7 +305,9 @@ class Instant_Articles_Wizard_State {
 		$success = update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
 
 		// You should always claim the URL after updating the FB Page option so the fb:pages meta tag is rendered.
-		self::claim_url();
+		if ( $success ) {
+			self::claim_url();
+		}
 
 		return $success;
 	}
