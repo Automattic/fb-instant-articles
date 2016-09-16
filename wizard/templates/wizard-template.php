@@ -98,7 +98,7 @@
 
 <?php if ( ! $ajax ) : ?>
 	</div>
-	<?php if ( ! empty( get_settings_errors() ) ) : ?>
+	<?php if ( count( get_settings_errors() ) !== 0 ) : ?>
 		<a class="instant-articles-advanced-settings instant-articles-wizard-toggle" href="#">▼ Advanced Settings</a>
 		<div class="instant-articles-wizard-advanced-settings-box" style="display: block;">
 			<?php include( dirname( __FILE__ ) . '/advanced-template.php' ); ?>
