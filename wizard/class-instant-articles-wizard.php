@@ -263,6 +263,18 @@ class Instant_Articles_Wizard {
 		}
 		// ----------------------------------
 
+		// Handle redirection from Login flow
+		// ----------------------------------
+		// Only during STATE_PAGE_SELECTION
+		if ( $current_state === Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ) {
+			$fb_helper = new Instant_Articles_Wizard_FB_Helper();
+			try {
+				$pages = $fb_helper->get_pages();
+			} catch ( Facebook\Exceptions\FacebookSDKException $e ) {
+				// If we couldn't fetch the pages, revert to the App setup
+				Instant_Articles_Wizard_State::do_transition( Instant_Articles_Wizard_State::STATE_APP_SETUP );
+			}
+		}
 
 		// Grabs the current configured style
 		// ----------------------------------
