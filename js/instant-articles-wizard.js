@@ -122,15 +122,14 @@ function instant_articles_wizard_bind_events () {
 jQuery( document ).ready( function () {
 	instant_articles_wizard_bind_events();
 
-	jQuery( '.instant-articles-wizard-toggle' ).on( 'click', function () {
-		var text = jQuery( this ).text();
-		if ( text.indexOf( '►' ) !==  -1 ) {
-			text = text.replace( '►', '▼' );
+	jQuery( '.instant-articles-wizard-toggle a' ).on( 'click', function () {
+		$advancedSettingsContainer = jQuery('.instant-articles-advanced-settings');
+		if ( $advancedSettingsContainer.attr('data-state') === 'closed' ) {
+			$advancedSettingsContainer.attr('data-state', 'opened');
 		}
 		else {
-			text = text.replace( '▼', '►' );
+			$advancedSettingsContainer.attr('data-state', 'closed');
 		}
-		jQuery( this ).text( text ).next().slideToggle();
 		return false;
 	});
 });

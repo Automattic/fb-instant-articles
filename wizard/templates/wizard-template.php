@@ -98,15 +98,18 @@
 
 <?php if ( ! $ajax ) : ?>
 	</div>
+
 	<?php if ( ! empty( get_settings_errors() ) ) : ?>
-		<a class="instant-articles-advanced-settings instant-articles-wizard-toggle" href="#">▼ Advanced Settings</a>
-		<div class="instant-articles-wizard-advanced-settings-box" style="display: block;">
-			<?php include( dirname( __FILE__ ) . '/advanced-template.php' ); ?>
-		</div>
+		<p class="instant-articles-advanced-settings" data-state="opened">
 	<?php else: ?>
-		<a class="instant-articles-advanced-settings instant-articles-wizard-toggle" href="#">► Advanced Settings</a>
-		<div class="instant-articles-wizard-advanced-settings-box" style="display: none;">
-			<?php include( dirname( __FILE__ ) . '/advanced-template.php' ); ?>
-		</div>
+		<p class="instant-articles-advanced-settings" data-state="closed">
 	<?php endif; ?>
+
+		<span class="instant-articles-wizard-toggle instant-articles-wizard-toggle-closed">Already set up? <a href="#">Open Advanced Settings now</a></span>
+		<span class="instant-articles-wizard-toggle instant-articles-wizard-toggle-opened"><a href="#">Close Advanced Settings</a></span>
+	</p>
+
+	<div class="instant-articles-wizard-advanced-settings-box">
+		<?php include( dirname( __FILE__ ) . '/advanced-template.php' ); ?>
+	</div>
 <?php endif; ?>
