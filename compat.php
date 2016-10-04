@@ -44,6 +44,7 @@ if ( is_plugin_active( 'get-the-image/get-the-image.php' ) ) {
 	include( dirname( __FILE__ ) . '/compat/class-instant-articles-get-the-image.php' );
 	$gti = new Instant_Articles_Get_The_Image;
 	$gti->init();
+}
 
 // Load support for Playbuzz plugin
 if ( is_plugin_active( 'playbuzz/index.php' ) ) {
