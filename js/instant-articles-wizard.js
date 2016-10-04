@@ -123,12 +123,12 @@ jQuery( document ).ready( function () {
 	instant_articles_wizard_bind_events();
 
 	jQuery( '.instant-articles-wizard-toggle a' ).on( 'click', function () {
-		$advancedSettingsContainer = jQuery('.instant-articles-advanced-settings');
-		if ( $advancedSettingsContainer.attr('data-state') === 'closed' ) {
-			$advancedSettingsContainer.attr('data-state', 'opened');
+		$advancedSettingsContainer = jQuery( '.instant-articles-advanced-settings' );
+		if ( $advancedSettingsContainer.attr( 'data-state') === 'closed' ) {
+			$advancedSettingsContainer.attr( 'data-state', 'opened' );
 		}
 		else {
-			$advancedSettingsContainer.attr('data-state', 'closed');
+			$advancedSettingsContainer.attr( 'data-state', 'closed' );
 		}
 		return false;
 	});
