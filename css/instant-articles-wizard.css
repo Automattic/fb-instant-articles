@@ -190,7 +190,7 @@
 	color: #373b42;
 }
 .instant-articles-card-title-edit {
-	background: url('/wp-content/plugins/facebook-instant-articles-wp/assets/pencil.png');
+	background: url('../assets/pencil.png');
 	background-size: 13px 13px;
 	background-repeat: no-repeat;
 	width: 15px;
@@ -335,7 +335,7 @@ a.instant-articles-button {
 	outline: none;
 }
 .instant-articles-button-icon-facebook {
-	background: url('/wp-content/plugins/facebook-instant-articles-wp/assets/icon-fb-login.png');
+	background: url('../assets/icon-fb-login.png');
 	background-size: 18px 18px;
 	background-repeat: no-repeat;
 	display: inline-block;

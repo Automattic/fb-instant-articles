@@ -86,12 +86,12 @@ class Instant_Articles_Post {
 		$title = $this->_post->post_title;
 
 		/**
-		 * Apply the default filter 'the_title' for the post tite.
+		 * Apply the default filter 'the_title' for the post title.
 		 *
 		 * @since 3.1
 		 * @param string  $title  The current post title.
 		 */
-		$title = apply_filters( 'the_title', $title);
+		$title = apply_filters( 'the_title', $title, $this->_post->ID );
 
 		/**
 		 * Filter the post title for use in instant articles.

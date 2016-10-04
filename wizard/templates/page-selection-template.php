@@ -32,7 +32,7 @@
 				<strong><a href="https://www.facebook.com/pages/create" target="_blank">Create one</a>.</strong>
 			</p>
 			<ul class="instant-articles-wizard-page-selection">
-				<?php foreach ( $fb_helper->get_pages() as $page ) { ?>
+				<?php foreach ( $pages as $page ) { ?>
 					<li>
 						<input
 							type="radio"

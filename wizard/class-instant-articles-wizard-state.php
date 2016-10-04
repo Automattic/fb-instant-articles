@@ -242,7 +242,7 @@ class Instant_Articles_Wizard_State {
 		} catch (Exception $e) {
 			// Here we override the error message to give an actionable
 			// instruction to the user that is specific for WordPress.
-			throw new Exception("Could not claim the URL for the selected page, please make sure your site is publicly available.");
+			throw new Exception("Could not automatically claim the URL for this site, please claim it manually on your Page's Publishing Tools.");
 		}
 	}
 
@@ -301,10 +301,15 @@ class Instant_Articles_Wizard_State {
 
 		Instant_Articles_Option_FB_Page::update_option( $pages[ $page_id ] );
 
-		// You should always claim the URL after updating the FB Page option so the fb:pages meta tag is rendered.
-		self::claim_url();
+		// Update the option before claiming the URL.
+		$success = update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
 
-		return update_option( 'instant-articles-current-state', self::STATE_STYLE_SELECTION );
+		// You should always claim the URL after updating the FB Page option so the fb:pages meta tag is rendered.
+		if ( $success ) {
+			self::claim_url();
+		}
+
+		return $success;
 	}
 
 	/**

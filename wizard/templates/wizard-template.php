@@ -99,7 +99,7 @@
 <?php if ( ! $ajax ) : ?>
 	</div>
 
-	<?php if ( ! empty( get_settings_errors() ) ) : ?>
+	<?php if ( count( get_settings_errors() ) !== 0 ) : ?>
 		<p class="instant-articles-advanced-settings" data-state="opened">
 	<?php else: ?>
 		<p class="instant-articles-advanced-settings" data-state="closed">
