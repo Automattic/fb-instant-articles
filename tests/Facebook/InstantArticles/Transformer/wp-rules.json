@@ -1,0 +1,606 @@
+{
+    "rules":
+    [{
+        "class": "TextNodeRule"
+    }, {
+        "class": "PassThroughRule",
+        "selector": "html"
+    }, {
+        "class": "PassThroughRule",
+        "selector": "head"
+    }, {
+        "class": "PassThroughRule",
+        "selector": "body"
+    }, {
+        "class": "PassThroughRule",
+        "selector" : "code"
+    },{
+        "class": "PassThroughRule",
+        "selector" : "del"
+    },{
+        "class": "PassThroughRule",
+        "selector" : "mark"
+    }, {
+        "class": "PassThroughRule",
+        "selector" : "span"
+    }, {
+        "class": "ParagraphRule",
+        "selector": "p"
+    }, {
+        "class": "LineBreakRule",
+        "selector": "br"
+    }, {
+        "class": "AnchorRule",
+        "selector": "a",
+        "properties": {
+            "anchor.href": {
+                "type": "string",
+                "selector": "a",
+                "attribute": "href"
+            },
+            "anchor.rel": {
+                "type": "string",
+                "selector": "a",
+                "attribute": "rel"
+            }
+        }
+    }, {
+        "class": "BoldRule",
+        "selector": "b"
+    }, {
+        "class": "BoldRule",
+        "selector": "strong"
+    }, {
+        "class": "ItalicRule",
+        "selector": "i"
+    }, {
+        "class": "ItalicRule",
+        "selector": "em"
+    }, {
+        "class": "BlockquoteRule",
+        "selector": "blockquote"
+    }, {
+        "class": "PassThroughRule",
+        "selector": "blockquote p"
+    }, {
+        "class": "ImageInsideParagraphRule",
+        "selector": "img",
+        "properties": {
+            "image.url": {
+                "type": "string",
+                "selector": "img",
+                "attribute": "src"
+            }
+        }
+    },{
+        "class": "ImageRule",
+        "selector": "img",
+        "properties": {
+            "image.url": {
+                "type": "string",
+                "selector": "img",
+                "attribute": "src"
+            }
+        }
+    }, {
+        "class": "ListItemRule",
+        "selector" : "li"
+    }, {
+        "class": "ListElementRule",
+        "selector" : "ul"
+    }, {
+        "class": "ListElementRule",
+        "selector" : "ol"
+    }, {
+        "class": "BlockquoteRule",
+        "selector" : "blockquote"
+    }, {
+        "class": "H1Rule",
+        "selector" : "h1",
+        "properties" : {
+            "h1.class" : {
+                "type" : "string",
+                "selector" : "link",
+                "attribute": "class"
+            }
+        }
+    }, {
+        "class": "H1Rule",
+        "selector" : "title"
+    }, {
+        "class": "H2Rule",
+        "selector" : "h2",
+        "properties" : {
+            "h2.class" : {
+                "type" : "string",
+                "selector" : "link",
+                "attribute": "class"
+            }
+        }
+    }, {
+        "class": "H2Rule",
+        "selector" : "h3,h4,h5,h6"
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "blockquote.instagram-media",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "multiple",
+                "children": [
+                    {
+                        "type": "element",
+                        "selector": "blockquote"
+                    }, {
+                        "type": "next-sibling-element-of",
+                        "selector": "blockquote"
+                    }
+                ]
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "iframe",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe"
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "div.embed",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "div.embed"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "div.interactive",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "div.interactive"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "//div[@class='embed' and iframe]",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "//div[@class='interactive' and iframe]",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "table",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "element",
+                "selector" : "table"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "table",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "div.fb-post",
+        "properties" : {
+            "interactive.iframe" : {
+                "type": "multiple",
+                "children": [
+                    {
+                        "type": "fragment",
+                        "fragment": "<p>Extra markup</p>"
+                    },
+                    {
+                        "type" : "element",
+                        "selector" : "div.fb-post"
+                    }
+                ]
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "iframe",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    },{
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "div.embed",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "div.embed"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "div.interactive",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "div.interactive"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "//div[@class='embed' and iframe]",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "//div[@class='interactive' and iframe]",
+        "properties" : {
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.iframe" : {
+                "type" : "children",
+                "selector" : "iframe",
+                "attribute": "src"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveInsideParagraphRule",
+        "selector" : "table",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "element",
+                "selector" : "table"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "table",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "table",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "SlideshowImageRule",
+        "selector" : "figure",
+        "properties" : {
+            "image.url" : {
+                "type" : "string",
+                "selector" : "img",
+                "attribute": "src"
+            },
+            "caption.title" : {
+                "type" : "string",
+                "selector" : "figcaption"
+            }
+        }
+    }, {
+        "class": "SlideshowRule",
+        "selector" : "div.gallery"
+    }, {
+        "class": "CaptionRule",
+        "selector" : "figcaption"
+    }, {
+      "class": "CaptionRule",
+      "selector" : "p.wp-caption-text"
+    }, {
+        "class": "ImageRule",
+        "selector" : "figure",
+        "properties" : {
+            "image.url" : {
+                "type" : "string",
+                "selector" : "img",
+                "attribute": "src"
+            }
+        }
+    }, {
+        "class": "VideoRule",
+        "selector" : "div.wp-video",
+        "containsChild": "video",
+        "properties" : {
+            "video.url" : {
+                "type" : "string",
+                "selector" : "source",
+                "attribute": "src"
+            },
+            "video.type" : {
+                "type" : "string",
+                "selector" : "source",
+                "attribute": "type"
+            }
+        }
+    },
+
+
+
+    {
+      "class" : "IgnoreRule",
+      "selector" : "p.jetpack-slideshow-noscript"
+    },
+    {
+      "class": "CaptionRule",
+      "selector" : "div.wp-caption-text"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.gallery-row"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.tiled-gallery p"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.gallery-row p"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.gallery-group p"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.gallery-group"
+    },
+    {
+      "class": "ImageRule",
+      "selector" : "div.wp-caption",
+      "properties" : {
+          "image.url" : {
+              "type" : "string",
+              "selector" : "img",
+              "attribute": "src"
+          }
+      }
+    },
+    {
+      "class": "SlideshowImageRule",
+      "selector" : "div.tiled-gallery-item",
+      "properties" : {
+        "image.url" : {
+          "type" : "string",
+          "selector" : "img",
+          "attribute": "data-orig-file"
+        },
+        "caption.title" : {
+          "type" : "string",
+          "selector" : "div.tiled-gallery-caption"
+        }
+      }
+    },
+    {
+      "class": "SlideshowRule",
+      "selector" : "div.tiled-gallery"
+    },
+    {
+      "class": "SlideshowRule",
+      "selector" : "div.tiled-gallery"
+    },
+    {
+      "class": "Compat\\JetpackSlideshowRule",
+      "selector" : "div.jetpack-slideshow",
+      "properties": {
+        "jetpack.data-gallery": {
+          "type": "json",
+          "selector": "div.jetpack-slideshow",
+          "attribute": "data-gallery"
+        }
+      }
+    },
+    {
+      "class": "CaptionRule",
+      "selector" : "div.tiled-gallery-caption"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.vce-gallery-big"
+    },
+    {
+      "class" : "PassThroughRule",
+      "selector" : "div.vce-gallery-small"
+    },
+    {
+      "class" : "IgnoreRule",
+      "selector" : "div.vce-gallery-slider"
+    },
+    {
+      "class": "SlideshowImageRule",
+      "selector" : "div.big-gallery-item",
+      "properties" : {
+        "image.url" : {
+          "type" : "string",
+          "selector" : "img",
+          "attribute": "src"
+        },
+        "caption.title" : {
+          "type" : "string",
+          "selector" : "figcaption.wp-caption-text"
+        }
+      }
+    },
+
+
+    {
+        "class": "ImageInsideParagraphRule",
+        "selector": "figure.wp-caption",
+        "properties": {
+            "image.url": {
+                "type": "string",
+                "selector": "img",
+                "attribute": "src"
+            }
+        }
+    },
+
+    {
+        "class": "InteractiveRule",
+        "selector" : "iframe.sibling",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "multiple",
+                "children": [
+                    {
+                        "type": "children",
+                        "selector": "iframe"
+                    }, {
+                        "type": "next-sibling-element-of",
+                        "selector": "iframe",
+                        "sibling.selector": "script"
+                    }
+                ]
+            }
+        }
+    }
+  ]
+}
