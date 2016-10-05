@@ -444,5 +444,29 @@
                 "attribute": "type"
             }
         }
-    }]
+    }, {
+        "class" : "PassThroughRule",
+        "selector" : "div.vce-gallery-big"
+    }, {
+        "class" : "PassThroughRule",
+        "selector" : "div.vce-gallery-small"
+    }, {
+        "class" : "IgnoreRule",
+        "selector" : "div.vce-gallery-slider"
+    }, {
+        "class": "SlideshowImageRule",
+        "selector" : "div.big-gallery-item",
+        "properties" : {
+            "image.url" : {
+                "type" : "string",
+                "selector" : "img",
+                "attribute": "src"
+            },
+            "caption.title" : {
+                "type" : "string",
+                "selector" : "figcaption.wp-caption-text"
+            }
+        }
+    }
+  ]
 }
