@@ -703,8 +703,7 @@ class Instant_Articles_Post {
 				if ( ! empty( $src ) ) {
 					$explode_src = parse_url( $src );
 					if ( is_array( $explode_src ) && empty( $explode_src['scheme'] ) && ! empty( $explode_src['host'] ) && ! empty( $explode_src['path'] ) ) {
-						$src = 'https://' . $explode_src['host'] . $explode_src['path'];
-						$src = esc_url( $src );
+						$src = esc_url( 'https://' . $explode_src['host'] . $explode_src['path'] );
 					}
 					$script->setAttribute( 'src' , $src );
 				}
