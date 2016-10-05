@@ -47,12 +47,12 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'default' => '',
 		),
 
-		'block_publish_with_warnings' => array(
+		'publish_with_warnings' => array(
 			'label' => 'Transformation warnings',
-			'description' => 'Articles won\'t be available as Instant Articles if transformation process contains warnings. Note: All warnings should be fixed in order to have them available as Instant Articles.',
+			'description' => 'By default, articles won\'t be available as Instant Articles if transformation process contains warnings. Note: All warnings should be fixed in order to have them available as Instant Articles.',
 			'render' => 'checkbox',
-			'default' => true,
-			'checkbox_label' => 'Don\'t publish with warnings',
+			'default' => false,
+			'checkbox_label' => 'Publish articles with warnings',
 		),
 	);
 

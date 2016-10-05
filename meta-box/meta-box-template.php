@@ -163,6 +163,13 @@ use Facebook\InstantArticles\Client\ServerMessage;
 			</li>
 		<?php endforeach; ?>
 	</ul>
+	<?php if ( ! $publish_with_warnings ) : ?>
+		<hr />
+		<p>
+			<input type="checkbox" id="instant_articles_force_submit" <?php if ( $force_submit ) : ?>checked<?php endif; ?> />
+			Submit this article even with warnings
+		</p>
+	<?php endif; ?>
 
 <?php else : ?>
 	<p>

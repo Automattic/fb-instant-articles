@@ -21,6 +21,7 @@ class Instant_Articles_Publisher {
 	 * Key to store the submission status ID on meta data
 	 */
 	 const SUBMISSION_ID_KEY = 'instant_articles_submission_id';
+	 const FORCE_SUBMIT_KEY = 'instant_articles_force_submit';
 
 	/**
 	 * Inits publisher.
@@ -71,6 +72,7 @@ class Instant_Articles_Publisher {
 			$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+			$force_submit = get_post_meta( $post_id, self::FORCE_SUBMIT_KEY, true );
 
 			$dev_mode = isset( $publishing_settings['dev_mode'] )
 				? ( $publishing_settings['dev_mode'] ? true : false )
@@ -99,12 +101,14 @@ class Instant_Articles_Publisher {
 
 				// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
 				if ( count( $adapter->transformer->getWarnings() ) > 0
-				  && isset( $publishing_settings['block_publish_with_warnings'] )
-					&& $publishing_settings['block_publish_with_warnings'] ) {
+				  && ( ( ! isset( $publishing_settings[ 'publish_with_warnings' ] ) ) || ! $publishing_settings[ 'publish_with_warnings' ] )
+					&& ( ! $force_submit )
+					) {
 
 					// Unpublishes if already published
 					$client->removeArticle( $article->getCanonicalURL() );
 					delete_post_meta( $post_id, self::SUBMISSION_ID_KEY );
+
 					return;
 				}
 
