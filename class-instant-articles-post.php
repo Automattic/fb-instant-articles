@@ -90,6 +90,7 @@ class Instant_Articles_Post {
 		 *
 		 * @since 3.1
 		 * @param string  $title  The current post title.
+		 * @param int     $id     The current post ID.
 		 */
 		$title = apply_filters( 'the_title', $title, $this->_post->ID );
 
