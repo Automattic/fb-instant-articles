@@ -2,7 +2,8 @@ function instant_articles_force_submit ( post_ID ) {
 	var data = {
 		'action': 'instant_articles_force_submit',
 		'post_ID': post_ID,
-		'force': jQuery( '#instant_articles_force_submit' ).is( ':checked' )
+		'force': jQuery( '#instant_articles_force_submit' ).is( ':checked' ),
+		'security': jQuery( '#instant_articles_force_submit' ).attr( 'data-security' )
 	};
 	jQuery.post( ajaxurl, data, function(response) {
 		instant_articles_load_meta_box( post_ID );

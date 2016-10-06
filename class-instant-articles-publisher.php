@@ -101,7 +101,7 @@ class Instant_Articles_Publisher {
 
 				// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
 				if ( count( $adapter->transformer->getWarnings() ) > 0
-				  && ( ( ! isset( $publishing_settings[ 'publish_with_warnings' ] ) ) || ! $publishing_settings[ 'publish_with_warnings' ] )
+				  && ( ! isset( $publishing_settings[ 'publish_with_warnings' ] ) || ! $publishing_settings[ 'publish_with_warnings' ] )
 					&& ( ! $force_submit )
 					) {
 
