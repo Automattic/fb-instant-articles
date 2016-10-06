@@ -634,11 +634,7 @@ class Instant_Articles_Post {
 
 		$title = $this->get_the_title();
 		if ( $title ) {
-			$document = new DOMDocument();
-			libxml_use_internal_errors(true);
-			$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $title . '</h1>' );
-			libxml_use_internal_errors(false);
-			$transformer->transform( $header, $document );
+			$transformer->transformString( $header, '<h1>' . $title . '</h1>', $blog_charset );
 		}
 
 		if ( $this->has_subtitle() ) {
@@ -683,40 +679,7 @@ class Instant_Articles_Post {
 			$this->instant_article->withStyle( 'default' );
 		}
 
-		$libxml_previous_state = libxml_use_internal_errors( true );
-		$document = new DOMDocument( '1.0', get_option( 'blog_charset' ) );
-		$content = $this->get_the_content();
-
-		// DOMDocument isn’t handling encodings too well, so let’s help it a little.
-		if ( function_exists( 'mb_convert_encoding' ) ) {
-			$content = mb_convert_encoding( $content, 'HTML-ENTITIES', get_option( 'blog_charset' ) );
-		} else {
-			$content = htmlspecialchars_decode( utf8_decode( htmlentities( $content, ENT_COMPAT, 'utf-8', false ) ) );
-		}
-
-		$result = $document->loadHTML( '<!doctype html><html><body>' . $content . '</body></html>' );
-
-		// We need to make sure that scripts use absolute URLs and not relative URLs.
-		$scripts = $document->getElementsByTagName('script');
-		if ( ! empty( $scripts ) ) {
-			foreach ( $scripts as $script ){
-				$src = $script->getAttribute( 'src' );
-				$explode_src = parse_url( $src );
-				if ( is_array( $explode_src ) && empty( $explode_src['scheme'] ) && ! empty( $explode_src['host'] ) && ! empty( $explode_src['path'] ) ) {
-					$src = 'https://' . $explode_src['host'] . $explode_src['path'];
-				}
-				$script->setAttribute( 'src' , $src );
-			}
-		}
-
-		libxml_clear_errors();
-		libxml_use_internal_errors( $libxml_previous_state );
-
-		$document = apply_filters( 'instant_articles_parsed_document', $document );
-
-		if ( $result ) {
-			$transformer->transform( $this->instant_article, $document );
-		}
+		$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
 
 		$this->add_ads_from_settings();
 		$this->add_analytics_from_settings();
