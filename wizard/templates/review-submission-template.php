@@ -46,28 +46,62 @@ switch ( $review_submission_status ) :
 
 	case Instant_Articles_Wizard_Review_Submission::STATUS_NOT_SUBMITTED : ?>
 
-		<?php if ( count($articles_for_review) >=  Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ) : ?>
-			<div class="instant-articles-card">
-				<div class="instant-articles-card-title">
-					<h3>Submit for Review</h3>
-				</div>
-				<div class="instant-articles-card-content">
-					<div class="instant-articles-card-content-box instant-articles-card-content-full">
-						<p>
-							The Instant Articles team will review a sample batch of your Instant Articles before you can begin to publish.
-							Click the 'Submit for Review" button below to send the last <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?>
-							articles you've published to the team for review.
-						</p>
-						<p>
-							It will take us 2 business days to complete the review.
-							Once we've had a chance to take a look, we'll let you know if you're ready to start publishing or if you need to make some updates.
-						</p>
-						<button id="instant-articles-wizard-submit-for-review" class="instant-articles-button instant-articles-button-highlight">
-							<label>Submit for Review</label>
-						</button>
+		<?php if ( count( $articles_for_review ) >=  Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ) : ?>
+			<?php if ( count( $instant_articles_with_warnings ) > 0 ) : ?>
+				<div class="instant-articles-card">
+					<div class="instant-articles-card-title">
+						<h3>Submit for Review</h3>
+					</div>
+					<div class="instant-articles-card-content">
+						<div class="instant-articles-card-content-box instant-articles-card-content-full">
+							<p>
+								In order to begin publishing Instant Articles, our team needs to review a sample
+								batch of <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?> of your Instant Articles.
+							</p>
+							<p>
+								The plugin tried to automatically transform your last <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?>
+								posts into Instant Articles as a sample to submit for review, but some of these posts contained elements the plugin didn't know how to convert.
+							</p>
+							<p>
+								Before submitting for review, you'll need to handle the warnings on these articles by looking at the "Instant Articles" box on the post edit screen:
+							</p>
+							<ul>
+								<?php foreach ($instant_articles_with_warnings as $article): ?>
+									<li><?php edit_post_link( $article->get_the_title(), '- ', '', $article->get_the_id() ); ?> </li>
+								<?php endforeach; ?>
+							</ul>
+							<p>
+								Once you've handled these warnings, please return to this page and click the 'Submit for Review" button below.
+							</p>
+							<button id="instant-articles-wizard-submit-for-review" class="instant-articles-button-disabled instant-articles-button instant-articles-button-highlight">
+								<label>Submit for Review</label>
+							</button>
+						</div>
 					</div>
 				</div>
-			</div>
+			<?php else: ?>
+				<div class="instant-articles-card">
+					<div class="instant-articles-card-title">
+						<h3>Submit for Review</h3>
+					</div>
+					<div class="instant-articles-card-content">
+						<div class="instant-articles-card-content-box instant-articles-card-content-full">
+							<p>
+								The Instant Articles team will review a sample batch of your Instant Articles before you can begin to publish.
+								Click the 'Submit for Review" button below to send the last <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?>
+								articles you've published to the team for review.
+							</p>
+							<p>
+								It will take us 2 business days to complete the review.
+								Once we've had a chance to take a look, we'll let you know if you're ready to start publishing or if you need to make some updates.
+							</p>
+							<button id="instant-articles-wizard-submit-for-review" class="instant-articles-button instant-articles-button-highlight">
+								<label>Submit for Review</label>
+							</button>
+						</div>
+					</div>
+				</div>
+			<?php endif; ?>
 		<?php else: ?>
 			<div class="instant-articles-card">
 				<div class="instant-articles-card-title">
