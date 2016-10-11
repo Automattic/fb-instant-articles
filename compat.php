@@ -7,11 +7,6 @@
  * @package default
  */
 
-if ( !function_exists( 'is_plugin_active' ) ) {
-	require_once ( ABSPATH . '/wp-admin/includes/plugin.php' );
-}
-
-
 // Load compat layer for Co-Authors Plus.
 if ( function_exists( 'get_coauthors' ) && ! defined( 'CAP_IA_COMPAT' ) ) {
 	include( dirname( __FILE__ ) . '/compat/class-instant-articles-co-authors-plus.php' );
@@ -41,8 +36,15 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 }
 
 // Load support for Get The Image plugin
-if ( is_plugin_active( 'get-the-image/get-the-image.php' ) ) {
+if ( function_exists( 'get_the_image' ) ) {
 	include( dirname( __FILE__ ) . '/compat/class-instant-articles-get-the-image.php' );
 	$gti = new Instant_Articles_Get_The_Image;
 	$gti->init();
+}
+
+// Load support for Playbuzz plugin
+if ( function_exists( 'playbuzz_settings_link' ) ) {
+	include( dirname( __FILE__ ) . '/compat/class-instant-articles-playbuzz.php' );
+	$playbuzz = new Instant_Articles_Playbuzz;
+	$playbuzz->init();
 }

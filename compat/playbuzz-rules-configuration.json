@@ -1,0 +1,23 @@
+{
+  "rules": [{
+      "class" : "IgnoreRule",
+      "selector": "//p/script[contains(@src,'playbuzz')]"
+    }, {
+      "class": "InteractiveRule",
+      "selector" : "div.pb_feed",
+      "properties" : {
+        "interactive.iframe" : {
+          "type" : "multiple",
+          "children": [{
+              "type": "fragment",
+              "fragment": "<script type='text/javascript' src='//cdn.playbuzz.com/widget/feed.js'></script>"
+            }, {
+              "type": "element",
+              "selector": "div.pb_feed"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
