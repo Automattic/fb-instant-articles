@@ -3,7 +3,7 @@ Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 4.6
-Stable tag: 3.1.3
+Stable tag: 3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,23 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 1. Customized transformer rules enabled on the main Settings page. The particular configuration shown here would cause `<u>` and `<bold>` tags in the source markup to be rendered in *italics* and **bold**, respectively, in the generated Instant Article.
 
 == Changelog ==
+
+= 3.2 =
+* Adds development mode support to post meta box (props simonengelhardt)
+* Adds rule configuration for Instagram blockquotes (props everton-rosario)
+* Adds rules for galleries (props everton-rosario)
+* Migrates some unit tests (props everton-rosario)
+* Switches to Facebook Graph SDK (props everton-rosario)
+* Improves token invalidation flow (props everton-rosario)
+* Fixes use of `the_title` filter (props srtfisher)
+* Improves encoding handling (props yssk22)
+* Adds post type filter to the post meta box (props technosailor)
+* Adds Playbuzz support (props everton-rosario)
+* Rename SDK getter to avert apocalypse (props diegoquinteiro)
+* Wizard copy improvements (props demoive)
+* Fixes issue with captions (props everton-rosario)
+* Adds publication block for articles with transformation warnings (props everton-rosario)
+* Fix https src attribute on some scripts (props goldenapples)
 
 = 3.1.3 =
 * Fix for expiring token issue
