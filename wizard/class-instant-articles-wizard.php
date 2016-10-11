@@ -296,8 +296,24 @@ class Instant_Articles_Wizard {
 			// Only during STATE_REVIEW_SUBMISSION
 			if ( $current_state === Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
 				$review_submission_status = Instant_Articles_Wizard_Review_Submission::getReviewSubmissionStatus();
+
 				if ( $review_submission_status === Instant_Articles_Wizard_Review_Submission::STATUS_NOT_SUBMITTED ) {
 					$articles_for_review = Instant_Articles_Wizard_Review_Submission::getArticlesForReview();
+
+					// Map to Instant_Articles_Post instances
+					$instant_articles_for_review = array_map( function ( $article ) {
+						$instant_articles_post = new Instant_Articles_Post( $article );
+						// Call transformation to load warnings
+						$instant_articles_post->to_instant_article();
+						return $instant_articles_post;
+					}, $articles_for_review );
+
+					// Filter articles with warnings and not forced
+					$instant_articles_with_warnings = array_filter( $instant_articles_for_review, function ( $article ) {
+						$has_warnings = ( count( $article->transformer->getWarnings() ) > 0 );
+						$force_submit = get_post_meta( $article->get_the_id(), Instant_Articles_Publisher::FORCE_SUBMIT_KEY, true );
+						return $has_warnings && ! $force_submit;
+					} );
 				}
 			}
 			// ----------------------------------

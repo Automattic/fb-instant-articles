@@ -28,6 +28,10 @@ class Instant_Articles_Meta_Box {
 			'wp_ajax_instant_articles_meta_box',
 			array( 'Instant_Articles_Meta_Box', 'render_meta_box' )
 		);
+		add_action(
+			'wp_ajax_instant_articles_force_submit',
+			array( 'Instant_Articles_Meta_Box', 'force_submit' )
+		);
 	}
 
 	/**
@@ -58,8 +62,20 @@ class Instant_Articles_Meta_Box {
 	/**
 	 * Renderer for the Metabox.
 	 */
+	public static function force_submit() {
+		check_ajax_referer( 'instant-articles-force-submit', 'security' );
+		$post_id = intval( $_POST[ 'post_ID' ] );
+		$force = sanitize_text_field( $_POST[ 'force' ] ) === 'true';
+		update_post_meta( $post_id, Instant_Articles_Publisher::FORCE_SUBMIT_KEY, $force );
+		Instant_Articles_Publisher::submit_article( $post_id, get_post( $post_id ) );
+	}
+
+	/**
+	 * Renderer for the Metabox.
+	 */
 	public static function render_meta_box() {
-		$post_id = intval( filter_input( INPUT_POST, 'post_ID' ) );
+		$ajax_nonce = wp_create_nonce( "instant-articles-force-submit" );
+		$post_id = intval( $_POST[ 'post_ID' ] );
 		$post = get_post( $post_id );
 		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
@@ -67,10 +83,13 @@ class Instant_Articles_Meta_Box {
 		$submission_status = null;
 		$published = 'publish' === $post->post_status;
 		$dev_mode = false;
+		$force_submit = get_post_meta( $post_id, Instant_Articles_Publisher::FORCE_SUBMIT_KEY, true );
 
 		Instant_Articles_Wizard::menu_items();
 		$settings_page_href = Instant_Articles_Wizard::get_url();
 
+		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+		$publish_with_warnings = $publishing_settings[ 'publish_with_warnings' ];
 		if ( $published ) {
 			try {
 				$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
