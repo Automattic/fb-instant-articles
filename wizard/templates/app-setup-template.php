@@ -12,7 +12,7 @@
 	<!-- Step 1: grab your App ID and App Secret -->
 	<div class="instant-articles-card">
 		<div class="instant-articles-card-title">
-			<h3>Log In with Your Developers App and Facebook Account</h3>
+			<h3>Log In With Your Developers App and Facebook Account</h3>
 			<div class="instant-articles-card-title-right">
 				<span class="instant-articles-card-title-step">Step 1 of 2</span>
 			</div>
@@ -23,11 +23,11 @@
 
 				<p>You'll need to log in with your Facebook Developers App ID to connect your plugin to the Facebook Page you'll use to publish your Instant Articles.</p>
 
-				<p><strong>Already have an App ID and Secret?</strong> Just enter them to the right.</p>
+				<p><strong>Already have an App ID and App Secret?</strong> Just enter them to the right.</p>
 
 				<p><strong>Need to create one?</strong></p>
 
-				<p>Click on the 'Get App ID' button below to begin the process of getting your App ID and Secret.  This will open the App set up page in a new tab. Then, follow these steps:</p>
+				<p>Click on the 'Get App ID' button below to begin the process of getting your App ID and App Secret. This will open the app set up page in a new tab. Then, follow these steps:</p>
 
 				<ol>
 					<li>Click on the green '+ Add a New App' button in the upper right corner of the page.</li>
@@ -37,10 +37,10 @@
 					<li>Click '+Add Platform' at the bottom of the page and select 'Website.'</li>
 					<li>Under both the 'App Domains' in the main section and 'Site URL' in the 'Website' section, enter this domain: <b><?php echo esc_url( self::get_admin_url() ); ?></b></li>
 					<li>Click 'Save Changes' in the lower right corner.</li>
-					<li>Select 'Show' to see your App Secret. Copy your App ID and Secret and enter them to the right.</li>
+					<li>Select 'Show' to see your App Secret. Copy your App ID and App Secret and enter them to the right.</li>
 				</ol>
 
-				<p><strong>Need more help?</strong> <a href="https://developers.facebook.com/docs/instant-articles/wordpress-quickstart#appid" target="_blank">See detailed instructions on setting up your App ID in our documentation</a>.</p>
+				<p>For more detailed instructions on setting up your App ID, <a href="https://developers.facebook.com/docs/instant-articles/wordpress-quickstart#appid" target="_blank">check out the docs</a>.</p>
 
 				<a class="instant-articles-button" href="https://developers.facebook.com/apps" target="_blank">
 					Get App ID

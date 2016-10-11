@@ -40,12 +40,12 @@
 		<div class="instant-articles-card-content-box instant-articles-card-content-full">
 			<p>
 				Customize the look and feel of your articles with one or more unique styles.
-				Try to make your Instant Articles look as much like your mobile web articles as possible
-				and be sure to upload your publication or blog's logo.
+				Try to have design consistency between your Instant Articles and mobile
+				web articles and also ensure you upload your publication or blog's logo.
 				<a href="https://developers.facebook.com/docs/instant-articles/guides/design" target="_blank">Learn more in our design guidelines</a>.
 			</p>
 			<p>
-				Want to preview your style? Download Facebook Pages Manager on your
+				Want to preview how your articles will look? Download Facebook Pages Manager on your
 				<a href="https://itunes.apple.com/us/app/facebook-pages-manager/id514643583?mt=8" target="_blank">iPhone</a>
 				or
 				<a href="https://play.google.com/store/apps/details?id=com.facebook.pages.app" target="_blank">Android</a>

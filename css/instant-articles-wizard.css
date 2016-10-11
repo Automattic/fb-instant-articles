@@ -350,18 +350,27 @@ a.instant-articles-button {
 	font-weight: bold;
 }
 .instant-articles-advanced-settings {
-	text-decoration: none;
 	font-weight: bold;
 	margin-top: 20px;
-	display: block;
 }
-.instant-articles-advanced-settings:active,
-.instant-articles-advanced-settings:focus {
+.instant-articles-wizard-toggle a,
+.instant-articles-wizard-toggle a:active,
+.instant-articles-wizard-toggle a:focus {
+	text-decoration: none;
 	outline: none;
 	box-shadow: none;
 }
-
-.instant-articles-wizard-advanced-settings-box {
+.instant-articles-wizard-toggle-opened::before {
+	content: "▼ ";
+}
+.instant-articles-wizard-toggle-closed::before {
+	content: "▶︎ ";
+}
+.instant-articles-advanced-settings[data-state='opened'] .instant-articles-wizard-toggle-closed {
+	display: none;
+}
+.instant-articles-advanced-settings[data-state='closed'] .instant-articles-wizard-toggle-opened,
+.instant-articles-advanced-settings[data-state='closed'] + .instant-articles-wizard-advanced-settings-box {
 	display: none;
 }
 
