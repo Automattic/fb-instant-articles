@@ -131,7 +131,7 @@
                         "type": "element",
                         "selector": "blockquote"
                     }, {
-                        "type": "sibling-element",
+                        "type": "next-sibling-element-of",
                         "selector": "blockquote"
                     }
                 ]
