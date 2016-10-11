@@ -417,8 +417,10 @@
     }, {
         "class": "CaptionRule",
         "selector" : "figcaption"
-    },
-    {
+    }, {
+        "class": "CaptionRule",
+        "selector" : "p.wp-caption-text"
+    }, {
         "class": "ImageRule",
         "selector" : "figure",
         "properties" : {
