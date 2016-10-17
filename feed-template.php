@@ -21,6 +21,11 @@ $last_modified = null;
 			<?php
 			$instant_article_post = new Instant_Articles_Post( get_post( get_the_id() ) );
 
+			// Allow to disable post submit via filter
+			if ( false === apply_filters( 'instant_articles_should_submit_post', true, $instant_article_post ) ) {
+				continue;
+			}
+
 			// If we’re OK with a limited post set: Do not include posts with empty content -- FB will complain.
 			if ( defined( 'INSTANT_ARTICLES_LIMIT_POSTS' ) && INSTANT_ARTICLES_LIMIT_POSTS && ! strlen( trim( $instant_article_post->get_the_content() ) ) ) {
 				continue;

@@ -57,6 +57,11 @@ class Instant_Articles_Publisher {
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 
+		// Allow to disable post submit via filter
+		if ( false === apply_filters( 'instant_articles_should_submit_post', true, $adapter ) ) {
+			return;
+		}
+
 		$article = $adapter->to_instant_article();
 
 		// Skip empty articles or articles missing title.
