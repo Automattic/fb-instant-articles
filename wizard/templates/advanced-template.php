@@ -16,6 +16,8 @@
 					<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP ); ?>
 					<p>Configure settings for your styles, ads, analytics and publishing in Instant Articles. Review our <a href="https://developers.facebook.com/docs/instant-articles" target="_blank">developer documentation</a> to learn more.</p>
 					<hr />
+					<?php do_settings_sections( Instant_Articles_Option_Configuration_Flow::OPTION_KEY ); ?>
+					<hr />
 					<?php do_settings_sections( Instant_Articles_Option_Styles::OPTION_KEY ); ?>
 					<hr />
 					<?php do_settings_sections( Instant_Articles_Option_Ads::OPTION_KEY ); ?>

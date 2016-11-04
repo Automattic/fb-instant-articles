@@ -118,7 +118,6 @@ function instant_articles_wizard_bind_events () {
 	});
 }
 
-
 jQuery( document ).ready( function () {
 	instant_articles_wizard_bind_events();
 
