@@ -81,6 +81,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	require_once( dirname( __FILE__ ) . '/embeds.php' );
 	require_once( dirname( __FILE__ ) . '/class-instant-articles-post.php' );
 	require_once( dirname( __FILE__ ) . '/wizard/class-instant-articles-wizard.php' );
+	require_once( dirname( __FILE__ ) . '/wizard/class-instant-articles-setup.php' );
 	require_once( dirname( __FILE__ ) . '/meta-box/class-instant-articles-meta-box.php' );
 	require_once( dirname( __FILE__ ) . '/class-instant-articles-publisher.php' );
 
@@ -278,6 +279,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			IA_PLUGIN_VERSION,
 			false
 		);
+		wp_register_style(
+			'instant-articles-setup-opengraph',
+			plugins_url( '/css/instant-articles-wizard.css', __FILE__ )
+		);
 
 		wp_register_script(
 			'instant-articles-meta-box',
@@ -321,6 +326,13 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			IA_PLUGIN_VERSION,
 			false
 		);
+		wp_register_script(
+			'instant-articles-setup',
+			plugins_url( '/js/instant-articles-setup-opengraph.js', __FILE__ ),
+			null,
+			null,
+			true
+		);
 	}
 	add_action( 'init', 'instant_articles_register_scripts' );
 
@@ -334,6 +346,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		wp_enqueue_style( 'instant-articles-settings-wizard' );
 		wp_enqueue_style( 'instant-articles-settings' );
 		wp_enqueue_style( 'instant-articles-wizard' );
+		wp_enqueue_style( 'instant-articles-setup-opengraph' );
 
 		wp_enqueue_script( 'instant-articles-meta-box' );
 		wp_enqueue_script( 'instant-articles-option-ads' );
@@ -341,6 +354,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		wp_enqueue_script( 'instant-articles-option-publishing' );
 		wp_enqueue_script( 'instant-articles-settings' );
 		wp_enqueue_script( 'instant-articles-wizard' );
+		wp_enqueue_script( 'instant-articles-setup' );
 	}
 	add_action( 'admin_enqueue_scripts', 'instant_articles_enqueue_scripts' );
 
@@ -362,12 +376,41 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	}
 	add_action( 'wp_head', 'inject_url_claiming_meta_tag' );
 
+	/**
+	 * Automatically add meta tag for Instant Articles Open Publish scraper
+	 *
+	 * @since 4.0
+	 */
+	function inject_op_markup_meta_tag() {
+		$post = get_post();
+		// Transform the post to an Instant Article.
+		$adapter = new Instant_Articles_Post( $post );
+		$url = $adapter->get_canonical_url();
+		?>
+		<meta property="op:markup_url" content="<?php echo esc_attr( $url ); ?>?op=1" />
+		<?php
+	}
+	add_action( 'wp_head', 'inject_op_markup_meta_tag' );
+
 	// Initialize the Instant Articles meta box.
 	Instant_Articles_Meta_Box::init();
 
 	// Initialize the Instant Articles publisher.
 	Instant_Articles_Publisher::init();
 
-	// Initialize the Instant Articles Wizard page.
-	Instant_Articles_Wizard::init();
+	function op_markup_version( ) {
+		$post = get_post();
+
+		if (isset($_GET['op']) && $_GET['op']) {
+			// Transform the post to an Instant Article.
+			$adapter = new Instant_Articles_Post( $post );
+			$article = $adapter->to_instant_article();
+			echo $article->render(null, true);
+
+			die();
+		}
+	}
+	add_action( 'wp', 'op_markup_version' );
+
+	Instant_Articles_Setup::init();
 }
