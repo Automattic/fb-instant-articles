@@ -11,6 +11,7 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.ph
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-configuration-flow.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-state.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-fb-helper.php' );
@@ -34,6 +35,7 @@ class Instant_Articles_Wizard {
 		add_action( 'admin_init', function () {
 			new Instant_Articles_Option_FB_App();
 			new Instant_Articles_Option_FB_Page();
+			new Instant_Articles_Option_Configuration_Flow();
 			new Instant_Articles_Option_Styles();
 			new Instant_Articles_Option_Ads();
 			new Instant_Articles_Option_Analytics();
