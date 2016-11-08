@@ -28,6 +28,26 @@ use Facebook\InstantArticles\Client\ClientException;
 class Instant_Articles_Wizard {
 
 	public static function init() {
+
+		// If setup is already complete on API, it means a migration,
+		//   set the configuration as API and the flow goes that way
+		// otherwise
+		//   set the configuration as Open Graph and flow goes this way
+		$flow = Instant_Articles_Option_Configuration_Flow::get_option_decoded();
+		if ( !$flow[ 'configuration_flow' ] || $flow[ 'configuration_flow' ] === '' ) {
+			$current_state = Instant_Articles_Wizard_State::get_current_state();
+			if ( $current_state === Instant_Articles_Wizard_State::STATE_APP_SETUP ) {
+				Instant_Articles_Option_Configuration_Flow::update_option( array(
+					'configuration_flow' => 'api'
+				) );
+			}
+			else {
+				Instant_Articles_Option_Configuration_Flow::update_option( array(
+					'configuration_flow' => 'opengraph'
+				) );
+			}
+		}
+
 		add_action( 'admin_menu', array( 'Instant_Articles_Wizard', 'menu_items' ) );
 
 		add_filter( 'plugin_action_links_' . IA_PLUGIN_PATH, array( 'Instant_Articles_Wizard', 'add_settings_link_to_plugin_actions' ) );
@@ -66,6 +86,17 @@ class Instant_Articles_Wizard {
 			'wp_ajax_instant_articles_wizard_submit_for_review',
 			array( 'Instant_Articles_Wizard', 'submit_for_review' )
 		);
+
+		add_action(
+			'wp_ajax_instant_articles_setup_opengraph_save_page',
+			array( 'Instant_Articles_Wizard', 'save_page' )
+		);
+
+		add_action(
+			'wp_ajax_instant_articles_setup_opengraph_edit_page',
+			array( 'Instant_Articles_Wizard', 'edit_page' )
+		);
+
 	}
 
 	public static function add_settings_link_to_plugin_actions( $links ) {
@@ -233,6 +264,38 @@ class Instant_Articles_Wizard {
 		}
 	}
 
+	/**
+	 * Saves the Page ID for Open Graph Ingestion.
+	 */
+	public static function save_page() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
+		}
+
+		$page_id = sanitize_text_field( $_POST[ 'page_id' ] );
+
+		Instant_Articles_Option_FB_Page::update_option( array(
+			'page_id' => $page_id
+		) );
+
+		self::render( true );
+		die();
+	}
+
+	/**
+	 * Resets the Page ID for Open Graph Ingestion.
+	 */
+	public static function edit_page() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
+		}
+
+		Instant_Articles_Option_FB_Page::delete_option();
+
+		self::render( true );
+		die();
+	}
+
 	public static function render( $ajax = false ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
@@ -244,6 +307,8 @@ class Instant_Articles_Wizard {
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 			$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 			$fb_helper = new Instant_Articles_Wizard_FB_Helper();
+			$fb_flow_settings = Instant_Articles_Option_Configuration_Flow::get_option_decoded();
+			$flow = $fb_flow_settings[ 'configuration_flow' ];
 			$settings_url = self::get_url();
 
 			// Handle redirection from Login flow
