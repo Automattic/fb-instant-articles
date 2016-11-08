@@ -33,22 +33,29 @@ class Instant_Articles_Setup {
 		//   set the configuration as API and the flow goes that way
 		// otherwise
 		//   set the configuration as Open Graph and flow goes this way
+		// TODO Check 100% of this flow
 
 		$flow = Instant_Articles_Option_Configuration_Flow::get_option_decoded();
 		if ( !$flow[ 'configuration_flow' ] || $flow[ 'configuration_flow' ] === '' ) {
-			Instant_Articles_Option_Configuration_Flow::update_option( array(
-				'configuration_flow' => 'opengraph'
-			) );
+			$current_state = Instant_Articles_Wizard_State::get_current_state();
+			if ( $current_state === Instant_Articles_Wizard_State::STATE_APP_SETUP ) {
+				Instant_Articles_Option_Configuration_Flow::update_option( array(
+					'configuration_flow' => 'api'
+				) );
+			}
+			else {
+				Instant_Articles_Option_Configuration_Flow::update_option( array(
+					'configuration_flow' => 'opengraph'
+				) );
+			}
 		}
 
+		// Get refreshed option
 		$flow = Instant_Articles_Option_Configuration_Flow::get_option_decoded();
 		if ( $flow[ 'configuration_flow' ] === 'api' ) {
 			// Initialize the Instant Articles Wizard page.
 			Instant_Articles_Wizard::init();
 			$current_state = Instant_Articles_Wizard_State::get_current_state();
-			if ( $current_state !== Instant_Articles_Wizard_State::STATE_APP_SETUP ) {
-				die();
-			}
 		}
 		else {
 			add_action( 'admin_menu', array( 'Instant_Articles_Setup', 'menu_items' ) );
@@ -109,12 +116,6 @@ class Instant_Articles_Setup {
 		return $url;
 	}
 
-
-	public static function get_admin_url() {
-		$url = parse_url( admin_url() );
-		return $url['host'];
-	}
-
 	/**
 	 * Saves the Page ID for Open Graph Ingestion.
 	 */
@@ -142,31 +143,6 @@ class Instant_Articles_Setup {
 		}
 
 		Instant_Articles_Option_FB_Page::delete_option();
-
-		self::render( true );
-		die();
-	}
-
-	public static function transition() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
-		}
-
-		$new_state = sanitize_text_field( $_POST[ 'new_state' ] );
-
-		$params = $_POST[ 'params' ];
-		$params = json_decode( stripslashes( $params ), true );
-		foreach ( $params as $key => $param ) {
-			// escape every key
-			$params[ $key ] = sanitize_text_field( $param );
-		}
-
-		try {
-			Instant_Articles_Wizard_State::do_transition( $new_state, $params );
-		} catch ( Exception $e ) {
-			// If something went wrong, simply render the error + the same state.
-			echo '<div class="error settings-error notice is-dismissible"><p><strong>' . esc_html( $e->getMessage() ) . '</strong></p></div>';
-		}
 
 		self::render( true );
 		die();
