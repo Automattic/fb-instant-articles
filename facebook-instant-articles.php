@@ -248,10 +248,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			'instant-articles-wizard',
 			plugins_url( '/css/instant-articles-wizard.css', __FILE__ )
 		);
-		wp_register_style(
-			'instant-articles-setup-opengraph',
-			plugins_url( '/css/instant-articles-wizard.css', __FILE__ )
-		);
 
 		wp_register_script(
 			'instant-articles-meta-box',
@@ -292,13 +288,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			null,
 			true
 		);
-		wp_register_script(
-			'instant-articles-setup',
-			plugins_url( '/js/instant-articles-setup-opengraph.js', __FILE__ ),
-			null,
-			null,
-			true
-		);
 	}
 	add_action( 'init', 'instant_articles_register_scripts' );
 
@@ -312,7 +301,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		wp_enqueue_style( 'instant-articles-settings-wizard' );
 		wp_enqueue_style( 'instant-articles-settings' );
 		wp_enqueue_style( 'instant-articles-wizard' );
-		wp_enqueue_style( 'instant-articles-setup-opengraph' );
 
 		wp_enqueue_script( 'instant-articles-meta-box' );
 		wp_enqueue_script( 'instant-articles-option-ads' );
@@ -320,7 +308,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		wp_enqueue_script( 'instant-articles-option-publishing' );
 		wp_enqueue_script( 'instant-articles-settings' );
 		wp_enqueue_script( 'instant-articles-wizard' );
-		wp_enqueue_script( 'instant-articles-setup' );
 	}
 	add_action( 'admin_enqueue_scripts', 'instant_articles_enqueue_scripts' );
 
