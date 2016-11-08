@@ -13,88 +13,92 @@
 	<div id="instant_articles_wizard">
 <?php endif; ?>
 
-<?php if ( $current_state !== Instant_Articles_Wizard_State::STATE_OVERVIEW ): ?>
+<?php if ( $flow === 'opengraph' ) : ?>
+	<?php include( dirname( __FILE__ ) . '/setup-opengraph-template.php' ); ?>
+<?php else : ?>
+	<?php if ( $current_state !== Instant_Articles_Wizard_State::STATE_OVERVIEW ) : ?>
+		<?php
+		// Calculate classes for the timeline
+		$state_css_classes = array();
+		foreach ( Instant_Articles_Wizard_State::$timeline as $state => $order ) {
+			switch ( Instant_Articles_Wizard_State::get_timeline_position( $state ) ) {
+				case Instant_Articles_Wizard_State::TIMELINE_PAST:
+					$state_css_classes[ $state ] = 'instant-articles-card-bullet-step-completed';
+					break;
+				case Instant_Articles_Wizard_State::TIMELINE_CURRENT:
+					$state_css_classes[ $state ] = 'instant-articles-card-bullet-step-current';
+					break;
+				case Instant_Articles_Wizard_State::TIMELINE_FUTURE:
+					$state_css_classes[ $state ] = '';
+					break;
+			}
+		}
+		?>
+
+		<div class="instant-articles-card-bullet-bar">
+			<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_APP_SETUP ] ); ?>">
+				<div class="instant-articles-card-bullet"></div>
+				<div class="instant-articles-card-bullet-path"></div>
+				<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_APP_SETUP  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
+					<h4>Logged In</h4>
+				<?php else : ?>
+					<h4>Set Up and Log In</h4>
+				<?php endif; ?>
+				<p>If you don't have one already, set up your Facebook Developers App. This will allow you to log in and connect your plugin.</p>
+			</div>
+			<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ] ); ?>">
+				<div class="instant-articles-card-bullet"></div>
+				<div class="instant-articles-card-bullet-path"></div>
+				<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_PAGE_SELECTION  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
+					<h4>Page Selected</h4>
+				<?php else : ?>
+					<h4>Select Your Page</h4>
+				<?php endif; ?>
+				<p>Select the Page you'll use to publish your Instant Articles.</p>
+			</div>
+			<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_STYLE_SELECTION ] ); ?>">
+				<div class="instant-articles-card-bullet"></div>
+				<div class="instant-articles-card-bullet-path"></div>
+				<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_STYLE_SELECTION  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
+					<h4>Style Customized</h4>
+				<?php else : ?>
+					<h4>Customize Your Style</h4>
+				<?php endif; ?>
+				<p>Use our Style Editor to make your Instant Articles look just how you want them to.</p>
+			</div>
+			<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ] ); ?>">
+				<div class="instant-articles-card-bullet"></div>
+				<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
+					<h4>Review Complete</h4>
+				<?php else : ?>
+					<h4>Submit for Review</h4>
+				<?php endif; ?>
+				<p>Submit your Instant Articles for review and start publishing.</p>
+			</div>
+		</div>
+
+	<?php endif; ?>
+
 	<?php
-	// Calculate classes for the timeline
-	$state_css_classes = array();
-	foreach ( Instant_Articles_Wizard_State::$timeline as $state => $order ) {
-		switch ( Instant_Articles_Wizard_State::get_timeline_position( $state ) ) {
-			case Instant_Articles_Wizard_State::TIMELINE_PAST:
-				$state_css_classes[ $state ] = 'instant-articles-card-bullet-step-completed';
+		switch ( $current_state ) {
+			case Instant_Articles_Wizard_State::STATE_OVERVIEW:
+				include( dirname( __FILE__ ) . '/overview-template.php' );
 				break;
-			case Instant_Articles_Wizard_State::TIMELINE_CURRENT:
-				$state_css_classes[ $state ] = 'instant-articles-card-bullet-step-current';
+			case Instant_Articles_Wizard_State::STATE_APP_SETUP:
+				include( dirname( __FILE__ ) . '/app-setup-template.php' );
 				break;
-			case Instant_Articles_Wizard_State::TIMELINE_FUTURE:
-				$state_css_classes[ $state ] = '';
+			case Instant_Articles_Wizard_State::STATE_PAGE_SELECTION:
+				include( dirname( __FILE__ ) . '/page-selection-template.php' );
+				break;
+			case Instant_Articles_Wizard_State::STATE_STYLE_SELECTION:
+				include( dirname( __FILE__ ) . '/style-selection-template.php' );
+				break;
+			case Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION:
+				include( dirname( __FILE__ ) . '/review-submission-template.php' );
 				break;
 		}
-	}
 	?>
-
-	<div class="instant-articles-card-bullet-bar">
-		<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_APP_SETUP ] ); ?>">
-			<div class="instant-articles-card-bullet"></div>
-			<div class="instant-articles-card-bullet-path"></div>
-			<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_APP_SETUP  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
-				<h4>Logged In</h4>
-			<?php else : ?>
-				<h4>Set Up and Log In</h4>
-			<?php endif; ?>
-			<p>If you don't have one already, set up your Facebook Developers App. This will allow you to log in and connect your plugin.</p>
-		</div>
-		<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_PAGE_SELECTION ] ); ?>">
-			<div class="instant-articles-card-bullet"></div>
-			<div class="instant-articles-card-bullet-path"></div>
-			<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_PAGE_SELECTION  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
-				<h4>Page Selected</h4>
-			<?php else : ?>
-				<h4>Select Your Page</h4>
-			<?php endif; ?>
-			<p>Select the Page you'll use to publish your Instant Articles.</p>
-		</div>
-		<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_STYLE_SELECTION ] ); ?>">
-			<div class="instant-articles-card-bullet"></div>
-			<div class="instant-articles-card-bullet-path"></div>
-			<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_STYLE_SELECTION  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
-				<h4>Style Customized</h4>
-			<?php else : ?>
-				<h4>Customize Your Style</h4>
-			<?php endif; ?>
-			<p>Use our Style Editor to make your Instant Articles look just how you want them to.</p>
-		</div>
-		<div class="instant-articles-card-bullet-step <?php echo esc_attr( $state_css_classes[ Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ] ); ?>">
-			<div class="instant-articles-card-bullet"></div>
-			<?php if ( Instant_Articles_Wizard_State::get_timeline_position( Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION  ) === Instant_Articles_Wizard_State::TIMELINE_PAST ) : ?>
-				<h4>Review Complete</h4>
-			<?php else : ?>
-				<h4>Submit for Review</h4>
-			<?php endif; ?>
-			<p>Submit your Instant Articles for review and start publishing.</p>
-		</div>
-	</div>
-
 <?php endif; ?>
-
-<?php
-	switch ( $current_state ) {
-		case Instant_Articles_Wizard_State::STATE_OVERVIEW:
-			include( dirname( __FILE__ ) . '/overview-template.php' );
-			break;
-		case Instant_Articles_Wizard_State::STATE_APP_SETUP:
-			include( dirname( __FILE__ ) . '/app-setup-template.php' );
-			break;
-		case Instant_Articles_Wizard_State::STATE_PAGE_SELECTION:
-			include( dirname( __FILE__ ) . '/page-selection-template.php' );
-			break;
-		case Instant_Articles_Wizard_State::STATE_STYLE_SELECTION:
-			include( dirname( __FILE__ ) . '/style-selection-template.php' );
-			break;
-		case Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION:
-			include( dirname( __FILE__ ) . '/review-submission-template.php' );
-			break;
-	}
-?>
 
 <?php if ( ! $ajax ) : ?>
 	</div>
