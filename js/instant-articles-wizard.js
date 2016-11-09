@@ -37,6 +37,44 @@ function instant_articles_wizard_submit_for_review () {
 	} );
 }
 
+function instant_articles_setup_opengraph_load ( data ) {
+	jQuery( '#instant_articles_wizard' ).addClass( 'loading' );
+	jQuery.post( ajaxurl, data, function( response ) {
+		jQuery( '#instant_articles_wizard' ).html( response );
+		instant_articles_setup_opengraph_bind_events();
+		jQuery( '#instant_articles_wizard' ).removeClass( 'loading' );
+		window.scrollTo(0, 0);
+	}, 'html' );
+}
+
+function instant_articles_wizard_save_page ( page_id ) {
+	instant_articles_wizard_load ( {
+		'action': 'instant_articles_wizard_save_page',
+		'page_id': page_id
+	} );
+}
+
+function instant_articles_wizard_edit_page () {
+	instant_articles_wizard_load ( {
+		'action': 'instant_articles_wizard_edit_page',
+	} );
+}
+
+function refresh_save_page_button_status () {
+	var input = jQuery( '#page_opengraph' );
+	if ( input !== undefined ) {
+		input.val( input.val().replace( /[^\d\.\-]/g, '' ) );
+		var page_id = input.val();
+
+		if ( page_id && page_id !== '' ) {
+			jQuery( '#instant-articles-opengraph-save-page' ).removeClass( 'instant-articles-button-disabled' );
+		}
+		else {
+			jQuery( '#instant-articles-opengraph-save-page' ).addClass( 'instant-articles-button-disabled' );
+		}
+	}
+}
+
 function instant_articles_wizard_bind_events () {
 
 	jQuery( '#instant_articles_wizard a' ).on( 'click', function () {
@@ -115,6 +153,23 @@ function instant_articles_wizard_bind_events () {
 		jQuery( this ).find( 'input' ).attr( 'checked', 'checked' );
 		jQuery( this ).find( 'input' ).trigger( 'change' );
 		jQuery( this ).toggleClass( 'instant-articles-radio-selected' );
+	});
+
+	jQuery( '#page_opengraph' ).on( 'input', refresh_save_page_button_status);
+
+	jQuery( '#instant-articles-opengraph-save-page' ).on( 'click', function () {
+		if ( jQuery( this ).hasClass( 'instant-articles-button-disabled' ) ) {
+			return false;
+		}
+		var page_id = jQuery( '#page_opengraph' ).val();
+		instant_articles_wizard_save_page( page_id );
+	});
+
+	jQuery( '#instant-articles-opengraph-edit-page' ).on( 'click', function () {
+		if ( jQuery( this ).hasClass( 'instant-articles-button-disabled' ) ) {
+			return false;
+		}
+		instant_articles_wizard_edit_page();
 	});
 }
 

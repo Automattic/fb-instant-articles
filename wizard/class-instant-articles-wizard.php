@@ -10,6 +10,7 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option-ads.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
+require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page-opengraph.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-configuration-flow.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
@@ -21,7 +22,7 @@ use Facebook\InstantArticles\Client\Client;
 use Facebook\InstantArticles\Client\ClientException;
 
 /**
-* Controller for Set-up Wizard
+* Controller for Set-up Wizard (API) and Open Graph
 *
 * @since 3.1
 */
@@ -55,6 +56,7 @@ class Instant_Articles_Wizard {
 		add_action( 'admin_init', function () {
 			new Instant_Articles_Option_FB_App();
 			new Instant_Articles_Option_FB_Page();
+			new Instant_Articles_Option_FB_Page_OpenGraph();
 			new Instant_Articles_Option_Configuration_Flow();
 			new Instant_Articles_Option_Styles();
 			new Instant_Articles_Option_Ads();
@@ -88,12 +90,12 @@ class Instant_Articles_Wizard {
 		);
 
 		add_action(
-			'wp_ajax_instant_articles_setup_opengraph_save_page',
+			'wp_ajax_instant_articles_wizard_save_page',
 			array( 'Instant_Articles_Wizard', 'save_page' )
 		);
 
 		add_action(
-			'wp_ajax_instant_articles_setup_opengraph_edit_page',
+			'wp_ajax_instant_articles_wizard_edit_page',
 			array( 'Instant_Articles_Wizard', 'edit_page' )
 		);
 
@@ -146,9 +148,14 @@ class Instant_Articles_Wizard {
 
 		$params = $_POST[ 'params' ];
 		$params = json_decode( stripslashes( $params ), true );
-		foreach ( $params as $key => $param ) {
-			// escape every key
-			$params[ $key ] = sanitize_text_field( $param );
+		if ( $params && !empty( $params ) ) {
+			foreach ( $params as $key => $param ) {
+				// escape every key
+				$params[ $key ] = sanitize_text_field( $param );
+			}
+		}
+		else {
+			$params = array();
 		}
 
 		try {
@@ -274,8 +281,9 @@ class Instant_Articles_Wizard {
 
 		$page_id = sanitize_text_field( $_POST[ 'page_id' ] );
 
-		Instant_Articles_Option_FB_Page::update_option( array(
-			'page_id' => $page_id
+		Instant_Articles_Option_FB_Page_OpenGraph::update_option( array(
+			'page_id' => $page_id,
+			'editing' => false,
 		) );
 
 		self::render( true );
@@ -290,7 +298,12 @@ class Instant_Articles_Wizard {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
-		Instant_Articles_Option_FB_Page::delete_option();
+		$previous = Instant_Articles_Option_FB_Page_OpenGraph::get_option_decoded();
+
+		Instant_Articles_Option_FB_Page_OpenGraph::update_option( array(
+			'page_id' => $previous[ 'page_id' ],
+			'editing' => true,
+		) );
 
 		self::render( true );
 		die();
@@ -305,6 +318,7 @@ class Instant_Articles_Wizard {
 			// Read options (they are used on the templates)
 			$current_state = Instant_Articles_Wizard_State::get_current_state();
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+			$fb_page_opengraph_settings = Instant_Articles_Option_FB_Page_OpenGraph::get_option_decoded();
 			$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 			$fb_helper = new Instant_Articles_Wizard_FB_Helper();
 			$fb_flow_settings = Instant_Articles_Option_Configuration_Flow::get_option_decoded();
@@ -387,7 +401,7 @@ class Instant_Articles_Wizard {
 
 			include( dirname( __FILE__ ) . '/templates/wizard-template.php' );
 		} catch (Exception $e) {
-			if ( Instant_Articles_Wizard_State::get_current_state() !== Instant_Articles_Wizard_State::STATE_APP_SETUP ) {
+			if ( Instant_Articles_Wizard_State::get_current_state() !== Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
 				// Restarts the wizard
 				Instant_Articles_Wizard_State::do_transition( Instant_Articles_Wizard_State::STATE_APP_SETUP );
 				echo '<div class="error settings-error notice is-dismissible"><p><strong>'.
