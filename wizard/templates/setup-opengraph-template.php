@@ -8,7 +8,8 @@
  */
 ?>
 
-<?php if ( empty( $fb_page_settings['page_id'] ) ) : ?>
+<?php
+if ( $fb_page_opengraph_settings[ 'editing' ] === true ) : ?>
 <div class="instant-articles-card">
 	<div class="instant-articles-card-title">
 		<h3>Which Page Would You Like to Use for Instant Articles?</h3>
@@ -46,8 +47,9 @@
 		</div>
 		<div class="instant-articles-card-content-box instant-articles-card-content-right">
 			<label class="instant-articles-label">Page ID</label>
-			<input name="page_id" class="instant-articles-input-text" type="text" />
-			<button id="instant-articles-opengraph-save-page" class="instant-articles-button instant-articles-button-highlight instant-articles-button-disabled">
+			<input id="page_opengraph" name="page_id" class="instant-articles-input-text" type="text" value="<?php echo esc_html( $fb_page_opengraph_settings[ 'page_id' ] ); ?>"/>
+			<?php $save_page_active = empty($fb_page_opengraph_settings[ 'page_id' ] ) ? 'instant-articles-button-disabled' : ''; ?>
+			<button id="instant-articles-opengraph-save-page" class="instant-articles-button instant-articles-button-highlight <?php echo esc_html( $save_page_active ); ?>">
 				<label>Update</label>
 			</button>
 		</div>
@@ -62,7 +64,7 @@
 		<div class="instant-articles-card-title-right">
 			<span class="instant-articles-card-title-checkmark">✔</span>
 			<label class="instant-articles-card-title-label">Page ID:</label>
-			<span class="instant-articles-card-title-value"><?php echo esc_html( $fb_page_settings[ 'page_id' ] ); ?></span>
+			<span class="instant-articles-card-title-value"><?php echo esc_html( $fb_page_opengraph_settings[ 'page_id' ] ); ?></span>
 			<a id="instant-articles-opengraph-edit-page" class="instant-articles-wizard-transition instant-articles-card-title-edit" href="#"></a>
 		</div>
 	</div>
