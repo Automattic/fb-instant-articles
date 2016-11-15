@@ -14,7 +14,7 @@
 
 ---
 
-** Version Info **
+**Version Info**
 
 * Plugin version: 
 * WordPress version: 
