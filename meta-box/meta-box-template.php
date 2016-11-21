@@ -18,7 +18,14 @@ use Facebook\InstantArticles\Client\ServerMessage;
 </a>
 <?php endif; ?>
 
-<?php if ( ! $published ) : ?>
+<?php if ( ! $shoud_publish_post ) : ?>
+<p>
+	<b>
+		<span class="dashicons dashicons-no-alt"></span>
+		This post will not be submitted to Instant Articles due to a rule created in your site.
+	</b>
+</p>
+<?php elseif ( ! $published ) : ?>
 <p>
 	<b>
 		<span class="dashicons dashicons-media-document"></span>
