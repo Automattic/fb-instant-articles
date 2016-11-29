@@ -11,7 +11,6 @@ require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.ph
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-configuration-flow.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-invalid-wizard-transition-exception.php' );
 require_once( dirname( __FILE__ ) . '/class-instant-articles-wizard-fb-helper.php' );
