@@ -18,7 +18,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 </a>
 <?php endif; ?>
 
-<?php if ( ! $shoud_publish_post ) : ?>
+<?php if ( ! $should_submit_post ) : ?>
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
