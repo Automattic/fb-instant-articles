@@ -17,39 +17,15 @@ class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 	const OPTION_KEY = 'instant-articles-option-fb-page';
 
 	public static $sections = array(
-		'title' => '',
-		'description' => '',
+		'title' => 'Facebook Page',
+		'description' => '<p>Fill in with your page ID. You can find your <a href="https://www.facebook.com/bookmarks/pages?__mref=facebook-instant-articles-wp" target="_blank">Page ID here</a></p>',
 	);
 
 	public static $fields = array(
 
 	'page_id' => array(
-		'visible' => false,
+		'visible' => true,
 		'label' => 'Page ID',
-		'default' => '',
-	),
-
-	'page_name' => array(
-		'visible' => false,
-		'label' => 'Page Name',
-		'default' => '',
-	),
-
-	'page_picture' => array(
-		'visible' => false,
-		'label' => 'Page Picture',
-		'default' => '',
-	),
-
-	'page_access_token' => array(
-		'visible' => false,
-		'label' => 'Page Access Token',
-		'default' => '',
-	),
-
-	'page_access_token_expiration' => array(
-		'visible' => false,
-		'label' => 'Page Token Expiration',
 		'default' => '',
 	),
 
@@ -64,14 +40,7 @@ class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 		$this->options_manager = new parent(
 			self::OPTION_KEY,
 			self::$sections,
-			self::$fields,
-			/**
-			 * Register this Option on a specific page group (used as the first
-			 * argument of `register_setting()` and called by `settings_fields()`).
-			 *
-			 * @since 0.5
-			 */
-			Instant_Articles_Option::PAGE_OPTION_GROUP_WIZARD
+			self::$fields
 		);
 	}
 }

@@ -296,13 +296,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			null,
 			true
 		);
-		wp_register_script(
-			'instant-articles-wizard',
-			plugins_url( '/js/instant-articles-wizard.js', __FILE__ ),
-			null,
-			null,
-			true
-		);
 	}
 	add_action( 'init', 'instant_articles_register_scripts' );
 
@@ -335,17 +328,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function inject_url_claiming_meta_tag() {
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
-		$fb_page_opengraph_settings = Instant_Articles_Option_FB_Page_OpenGraph::get_option_decoded();
-		$fb_flow_settings = Instant_Articles_Option_Configuration_Flow::get_option_decoded();
 
-		if ( isset( $fb_page_settings[ 'page_id' ] ) && $fb_flow_settings[ 'configuration_flow' ] === 'api' ) {
+		if ( isset( $fb_page_settings[ 'page_id' ] ) ) {
 			?>
 			<meta property="fb:pages" content="<?php echo esc_attr( $fb_page_settings[ 'page_id' ] ); ?>" />
-			<?php
-		}
-		else if ( isset( $fb_page_opengraph_settings[ 'page_id' ] ) && $fb_flow_settings[ 'configuration_flow' ] === 'opengraph' ) {
-			?>
-			<meta property="fb:pages" content="<?php echo esc_attr( $fb_page_opengraph_settings[ 'page_id' ] ); ?>" />
 			<?php
 		}
 	}
