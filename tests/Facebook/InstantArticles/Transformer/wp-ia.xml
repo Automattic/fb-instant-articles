@@ -170,7 +170,7 @@
       <figure class="op-interactive">
         <iframe class="no-margin">
       <h1>Sibling content</h1>
-      <div>sibling body</div></iframe>
+      <div>sibling body</div><script src="//sibling.com/brother.js"></script></iframe>
       </figure>
       <p>Standard paragraph that <b>shouldn't</b> lie within the interactive block.</p>
       <figure class="op-interactive">
