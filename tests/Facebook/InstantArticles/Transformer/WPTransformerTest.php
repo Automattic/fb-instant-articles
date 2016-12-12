@@ -6,7 +6,7 @@
  * This source code is licensed under the license found in the
  * LICENSE file in the root directory of this source tree.
  */
-namespace Facebook\InstantArticles\Transformer\CMS;
+namespace Facebook\InstantArticles\Transformer;
 
 use Facebook\InstantArticles\Transformer\Transformer;
 use Facebook\InstantArticles\Elements\InstantArticle;
@@ -73,8 +73,7 @@ class WPTransformerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $result);
         // there must be 3 warnings related to <img> inside <li> that is not supported by IA
-        // And 1 warning related to the getter
-        $this->assertEquals(4, count($transformer->getWarnings()));
+        $this->assertEquals(3, count($transformer->getWarnings()));
     }
 
     public function testTitleTransformedWithBold()

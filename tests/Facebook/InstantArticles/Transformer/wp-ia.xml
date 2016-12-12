@@ -170,7 +170,7 @@
       <figure class="op-interactive">
         <iframe class="no-margin">
       <h1>Sibling content</h1>
-      <div>sibling body</div></iframe>
+      <div>sibling body</div><script src="//sibling.com/brother.js"></script></iframe>
       </figure>
       <p>Standard paragraph that <b>shouldn't</b> lie within the interactive block.</p>
       <figure class="op-interactive">
@@ -196,6 +196,27 @@
       <figure>
         <img src="http://example.com/image.jpg"/>
         <figcaption>caption</figcaption>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+          <script type="text/javascript" src="//cdn.playbuzz.com/widget/feed.js"></script>
+          <div class="pb_feed" data-key="oembed" data-game="https://www.playbuzz.com/sportsillustrated/can-you-guess-the-olympic-sport-by-the-athlete-s-facial-expression" data-recommend="False" data-tags="ALL"></div>
+        </iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+          <script type="text/javascript" src="//cdn.playbuzz.com/widget/feed.js"></script>
+          <div class="pb_feed" data-key="oembed" data-game="https://www.playbuzz.com/finnmorgan10/hugh-jackman-is-officially-saying-goodbye-to-wolverine" data-recommend="False" data-tags="ALL"></div>
+        </iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe src="https://www.youtube.com/embed/UO_9KWa9LSc?feature=oembed" class="no-margin" width="840" height="473"></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+          <script type="text/javascript" src="//cdn.playbuzz.com/widget/feed.js"></script>
+          <div class="pb_feed" data-key="oembed" data-game="http://www.playbuzz.com/valeriemack10/13-things-that-happen-to-people-who-are-learning-another-language" data-recommend="False" data-tags="ALL"></div>
+        </iframe>
       </figure>
     </article>
   </body>
