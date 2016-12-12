@@ -45,4 +45,4 @@ if ( function_exists( 'get_the_image' ) ) {
 // Load support for Playbuzz plugin by default #515
 include( dirname( __FILE__ ) . '/compat/class-instant-articles-playbuzz.php' );
 $playbuzz = new Instant_Articles_Playbuzz;
-$playbuzz->init( function_exists( 'playbuzz_settings_link' ) );
+$playbuzz->init();
