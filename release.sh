@@ -140,6 +140,9 @@ function revert_repo {
     message "Applying stashed changes"
     run git stash apply $stash_ref
   fi
+  if [[ -e resty ]]; then
+    rm resty
+  fi
 }
 
 function confirm {
@@ -158,6 +161,15 @@ function confirm {
     exit -1
   fi
   printf $reset
+}
+
+function prompt {
+  user_response=''
+  printf $blue
+  printf "%b" "$*"
+  printf $red
+  read user_response
+  printf "\n"
 }
 
 #----------------------
@@ -201,8 +213,8 @@ run sed -i -e "s/^ \* Version: .*/ * Version: $version/" facebook-instant-articl
 run sed -i -e "s/define( 'IA_PLUGIN_VERSION', '[0-9.]*' );/define( 'IA_PLUGIN_VERSION', '$version' );/" facebook-instant-articles.php
 run git diff
 confirm "Add changes to commit?"
-run git add facebook-instant-articles-wp.php
-rum rm facebook-instant-articles-wp.php-e
+run git add facebook-instant-articles.php
+run rm facebook-instant-articles.php-e
 
 confirm "Commit version bump on master with message 'Bump version to $version'?"
 run git commit -m "Bump version to $version"
@@ -212,5 +224,28 @@ run git tag $version
 
 confirm "Push tag and commit to GitHub?"
 run git push && git push --tags
+
+confirm "Download resty from master to automatically generate release?"
+run curl -L http://github.com/micha/resty/raw/master/resty > resty
+
+prompt "GitHub username:"
+github_username=$user_response
+
+prompt "GitHub password:"
+github_password=$user_response
+
+run . resty -W 'https://api.github.com' -u $github_username:$github_password
+
+confirm "Create a new release for $version?"
+run POST /repos/automattic/facebook-instant-articles-wp/releases "
+{
+  \"tag_name\": \"$version\",
+  \"target_commitish\": \"master\",
+  \"name\": \"$version\",
+  \"body\": \"Version $version\",
+  \"draft\": false,
+  \"prerelease\": false
+}
+";
 
 revert_repo
