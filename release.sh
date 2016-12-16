@@ -12,15 +12,20 @@ function show_help {
 cat <<EOF
 
 Usage:
-  release.sh [-hvs] [version]
+  release.sh [-hvs] [-c <command>] [version]
 
 Arguments:
-  version - The target version (ex: 3.2.1)
+  release      - Creates a GitHub released based on existing version tag
+  bump_version - Creates a new version tag
+  version      - The target version (ex: 3.2.1)
 
 Options:
-  -h Display this help message
-  -v Verbose mode
-  -s Simulate only (do not release)
+  -h            Display this help message
+  -v            Verbose mode
+  -s            Simulate only (do not release)
+  -c <command>  Runs only a single command. Possible commands are:
+                  - bump_version: generate a new version tag
+                  - release: release a new version
 
 EOF
 }
@@ -66,8 +71,9 @@ OPTIND=1
 # Read options:
 verbose=0
 simulate=0
+selected_cmd='all'
 
-while getopts "hvs" opt; do
+while getopts "hvc:s" opt; do
     case "$opt" in
     h|\?)
         show_help
@@ -76,6 +82,8 @@ while getopts "hvs" opt; do
     v)  verbose=1
         ;;
     s)  simulate=1
+        ;;
+    c)  selected_cmd="${OPTARG}"
         ;;
     esac
 done
@@ -110,6 +118,12 @@ else
   message "Found git: $(git --version)"
 fi
 
+if ! type "js" > /dev/null; then
+  error_message "SpiderMonkey interpreter not found, please install SpiderMonkey before continuing"
+else
+  message "Found SpiderMonkey"
+fi
+
 #------------------------------------
 # Check if we are in the right folder
 #------------------------------------
@@ -140,9 +154,6 @@ function revert_repo {
     message "Applying stashed changes"
     run git stash apply $stash_ref
   fi
-  if [[ -e resty ]]; then
-    rm resty
-  fi
 }
 
 function confirm {
@@ -169,83 +180,151 @@ function prompt {
   printf "%b" "$*"
   printf $red
   read user_response
-  printf "\n"
+  printf $reset
+}
+
+function prompt_password {
+  user_response=''
+  printf $blue
+  printf "%b" "$*"
+  printf $red
+  read -s user_response
+  printf $reset
 }
 
 #----------------------
-# Ok, let's get started
+# Commands
 #----------------------
-message "Stashing current work..."
+function bump_version {
 
-stash_ref=$(git stash create)
-run_message git stash create
+  message "Stashing current work..."
 
-if [[ $stash_ref ]]; then
-  run git reset --hard
-  message "Stashed current work to: $stash_ref"
-else
-  message "Nothing to stash"
-fi
+  stash_ref=$(git stash create)
+  run_message git stash create
 
-branch_name="$(git symbolic-ref HEAD 2>/dev/null)"
-branch_name=${branch_name##refs/heads/}
-message "Current branch: $branch_name"
+  if [[ $stash_ref ]]; then
+    run git reset --hard
+    message "Stashed current work to: $stash_ref"
+  else
+    message "Nothing to stash"
+  fi
 
-if [[ $branch_name != 'master' ]]; then
-  message "Switching to master..."
-  run git checkout master
-fi
+  branch_name="$(git symbolic-ref HEAD 2>/dev/null)"
+  branch_name=${branch_name##refs/heads/}
+  message "Current branch: $branch_name"
 
-message "Pulling latest version from GitHub"
-run git pull --rebase
+  if [[ $branch_name != 'master' ]]; then
+    message "Switching to master..."
+    run git checkout master
+  fi
 
-confirm "Replace stable tag on readme.txt with $version?"
-message "Replacing stable tag on readme.txt"
-run sed -i -e "s/Stable tag: .*/Stable tag: $version/" ./readme.txt
-run git diff
-confirm "Add changes to commit?"
-run git add readme.txt
-run rm readme.txt-e
+  message "Pulling latest version from GitHub"
+  run git pull --rebase
 
-confirm "Replace version on facebook-instant-articles-wp.php with $version?"
-message "Replacing version on facebook-instant-articles-wp.php"
-run sed -i -e "s/^ \* Version: .*/ * Version: $version/" facebook-instant-articles.php
-run sed -i -e "s/define( 'IA_PLUGIN_VERSION', '[0-9.]*' );/define( 'IA_PLUGIN_VERSION', '$version' );/" facebook-instant-articles.php
-run git diff
-confirm "Add changes to commit?"
-run git add facebook-instant-articles.php
-run rm facebook-instant-articles.php-e
+  confirm "Replace stable tag on readme.txt with $version?"
+  message "Replacing stable tag on readme.txt"
+  run sed -i -e "s/Stable tag: .*/Stable tag: $version/" ./readme.txt
+  run git diff
+  confirm "Add changes to commit?"
+  run git add readme.txt
+  run rm readme.txt-e
 
-confirm "Commit version bump on master with message 'Bump version to $version'?"
-run git commit -m "Bump version to $version"
+  confirm "Replace version on facebook-instant-articles-wp.php with $version?"
+  message "Replacing version on facebook-instant-articles-wp.php"
+  run sed -i -e "s/^ \* Version: .*/ * Version: $version/" facebook-instant-articles.php
+  run sed -i -e "s/define( 'IA_PLUGIN_VERSION', '[0-9.]*' );/define( 'IA_PLUGIN_VERSION', '$version' );/" facebook-instant-articles.php
+  run git diff
+  confirm "Add changes to commit?"
+  run git add facebook-instant-articlesg.php
+  run rm facebook-instant-articles.php-e
 
-confirm "Create tag $version?"
-run git tag $version
+  confirm "Commit version bump on master with message 'Bump version to $version'?"
+  run git commit -m "Bump version to $version"
 
-confirm "Push tag and commit to GitHub?"
-run git push && git push --tags
+  confirm "Create tag $version?"
+  run git tag $version
 
-confirm "Download resty from master to automatically generate release?"
-run curl -L http://github.com/micha/resty/raw/master/resty > resty
+  confirm "Push tag and commit to GitHub?"
+  run git push
+  run git push --tags
 
-prompt "GitHub username:"
-github_username=$user_response
+  revert_repo
 
-prompt "GitHub password:"
-github_password=$user_response
-
-run . resty -W 'https://api.github.com' -u $github_username:$github_password
-
-confirm "Create a new release for $version?"
-run POST /repos/automattic/facebook-instant-articles-wp/releases "
-{
-  \"tag_name\": \"$version\",
-  \"target_commitish\": \"master\",
-  \"name\": \"$version\",
-  \"body\": \"Version $version\",
-  \"draft\": false,
-  \"prerelease\": false
+  message "🍺  Tag $version created!"
 }
-";
 
-revert_repo
+function release {
+
+  confirm "Create a new release for $version?"
+
+  if [[ ! -e resty ]]; then
+    message "Downloading resty to connect to GitHub API"
+    run curl -L http://github.com/micha/resty/raw/master/resty > resty
+  fi
+  if [[ ! -e jsawk ]]; then
+    message "Downloading jsawk to parse info from GitHub API"
+    run curl -L http://github.com/micha/jsawk/raw/master/jsawk > jsawk
+  fi
+
+  prompt "GitHub access-token (required only for 2fac):"
+  github_access_token=$user_response
+
+  if [[ github_access_token ]]; then
+    run . resty -W 'https://api.github.com' -H "Authorization: token $github_access_token"
+  else
+    prompt "GitHub username:"
+    github_username=$user_response
+
+    prompt_password "GitHub password:"
+    github_password=$user_response
+
+    run . resty -W 'https://api.github.com' -u $github_username:$github_password
+  fi
+
+  response=$(run POST /repos/Automattic/facebook-instant-articles-wp/releases "
+  {
+    \"tag_name\": \"$version\",
+    \"target_commitish\": \"master\",
+    \"name\": \"$version\",
+    \"body\": \"Version $version\",
+    \"draft\": false,
+    \"prerelease\": false
+  }
+  ");
+
+  if [[ $response ]]; then
+    message "Release $version created!"
+  else
+    error_message "Couldn't create release"
+  fi
+
+  upload_url=$( echo $response | . jsawk -n 'out(this.upload_url)' |  sed -e "s/{[^}]*}//g" )
+  release_id=$( echo $response | . jsawk -n 'out(this.id)'  )
+
+  message "Upload URL: $upload_url"
+
+  message "Creating binary file"
+  run composer install
+  run zip -qr facebook-instant-articles-wp.zip .
+
+  message "Uploading binary for release..."
+
+  if [[ github_access_token ]]; then
+    response=$(run curl -H "Authorization: token $github_access_token" -H "Content-Type: application/zip" --data-binary @facebook-instant-articles-wp.zip $upload_url\?name=facebook-instant-articles-wp-$version.zip )
+  else
+    response=$(run curl -u $github_username:$github_password -H "Content-Type: application/zip" --data-binary @facebook-instant-articles-wp.zip $upload_url\?name=facebook-instant-articles-wp-$version.zip )
+  fi
+
+  if [[ $response ]]; then
+    message "🍺  Binary file upload complete"
+  else
+    error_message "Couldn't upload file"
+  fi
+
+}
+
+# Run right command
+if [[ $selected_cmd == 'bump_version' ]]; then bump_version; exit 0; fi
+if [[ $selected_cmd == 'release' ]]; then release; exit 0; fi
+if [[ $selected_cmd == 'all' ]]; then bump_version; release; exit 0; fi
+error_message "Invalid command $selected_cmd"
