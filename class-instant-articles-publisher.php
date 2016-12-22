@@ -62,7 +62,11 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		is_instant_article( true );
+
 		$article = $adapter->to_instant_article();
+
+		is_instant_article( false );
 
 		// Skip empty articles or articles missing title.
 		// This is important because the save_post action is also triggered by bulk updates, but in this case

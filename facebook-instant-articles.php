@@ -151,12 +151,29 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 * @since 0.1
 	 */
 	function instant_articles_feed() {
+		is_instant_article( true );
 
 		// Load the feed template.
 		include( dirname( __FILE__ ) . '/feed-template.php' );
 
+		is_instant_article( false );
 	}
 
+	/**
+	 * Whether currently processing an instant article.
+	 *
+	 * @param bool Set the status
+	 * @return bool
+	 */
+	function is_instant_article( $set_status = null ) {
+		static $is_instant_article = false;
+
+		if ( isset( $set_status ) ) {
+			$is_instant_article = (bool) $set_status;
+		}
+
+		return $is_instant_article;
+	}
 
 	/**
 	 * Modify the main query for our feed.
