@@ -151,12 +151,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 * @since 0.1
 	 */
 	function instant_articles_feed() {
-		is_instant_article( true );
 
 		// Load the feed template.
 		include( dirname( __FILE__ ) . '/feed-template.php' );
 
-		is_instant_article( false );
 	}
 
 	/**
@@ -174,6 +172,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 		return $is_instant_article;
 	}
+	add_action( 'instant_articles_before_transform_post', function() { is_instant_article( true ); } );
+	add_action( 'instant_articles_after_transform_post', function() { is_instant_article( false ); } );
 
 	/**
 	 * Modify the main query for our feed.
