@@ -4,6 +4,7 @@ green=`tput setaf 2`
 yellow=`tput setaf 3`
 blue=`tput setaf 4`
 reset=`tput sgr0`
+me='./'`basename "$0"`
 
 #--------------------------------
 # Functions
@@ -11,21 +12,42 @@ reset=`tput sgr0`
 function show_help {
 cat <<EOF
 
-Usage:
-  release.sh [-hvs] [-c <command>] [version]
+${green}Usage:${reset}
+  ${blue}${me} [-hvs] [-c <command>] [version]${reset}
 
-Arguments:
+${green}Arguments:${reset}
   release      - Creates a GitHub released based on existing version tag
   bump_version - Creates a new version tag
   version      - The target version (ex: 3.2.1)
 
-Options:
+${green}Options:${reset}
   -h            Display this help message
   -v            Verbose mode
   -s            Simulate only (do not release)
   -c <command>  Runs only a single command. Possible commands are:
-                  - bump_version: generate a new version tag
-                  - release: release a new version
+                  - bump_version: generate a new version tag on the repository
+                  - release: release a new version on GitHub
+
+${green}Examples:${reset}
+
+  ${blue}${me} 3.3.0${reset}
+    Runs bump_version then release for 3.3.0. This is the default use case.
+
+  ${blue}${me} -c bump_version 3.3.0${reset}
+    Generates a new commit on master changing the version to 3.3.0 in
+    all relevant files, tags the commit and pushes to remote.
+
+  ${blue}${me} -c release 3.3.0${reset}
+    Creates a new Release on GitHub based on the tag 3.3.0 and uploads
+    the binary package based on master.
+    ${red}IMPORTANT: this will create a new tag if tag 3.3.0 doesn't exist,
+    so make sure to bump_version beforehand.${reset}
+
+  ${blue}${me} -v 3.3.0${reset}
+    Releases 3.3.0 in verbose mode.
+
+  ${blue}${me} -s 3.3.0${reset}
+    Simulates a 3.3.0 release: prints the commands instead of running them.
 
 EOF
 }
@@ -33,7 +55,7 @@ EOF
 function invalid_usage {
   printf $red
   echo $@
-  echo "Aborting..."
+  echo "Aborted"
   printf $reset
   show_help
   exit -1;
@@ -41,7 +63,7 @@ function invalid_usage {
 function error_message {
   printf $red
   echo $@
-  echo "Aborting..."
+  echo "Aborted"
   printf $reset
   exit -1
 }
@@ -250,7 +272,7 @@ function bump_version {
 
   revert_repo
 
-  message "🍺  Tag $version created!"
+  echo "🍺  Tag $version created!"
 }
 
 function release {
@@ -316,7 +338,7 @@ function release {
   fi
 
   if [[ $response ]]; then
-    message "🍺  Binary file upload complete"
+    echo "🍺  Release $version successfully created"
   else
     error_message "Couldn't upload file"
   fi
