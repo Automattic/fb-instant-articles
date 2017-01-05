@@ -156,6 +156,8 @@ if [[ ! $( cat .git/config | grep -i 'automattic/facebook-instant-articles-wp') 
   error_message "You should run this command from the root directory of the facebook-instant-articles-wp repository."
 fi
 
+repo_dir=$(pwd)
+
 #-------------------
 # Manages simulation
 #-------------------
@@ -168,6 +170,7 @@ function run {
 }
 
 function revert_repo {
+  run cd $repo_dir
   if [[ $branch_name != 'master' ]]; then
     message "Going back to $branch_name"
     run git checkout $branch_name
@@ -193,6 +196,19 @@ function confirm {
     error_message 'Execution aborted by the user'
     exit -1
   fi
+  printf $reset
+}
+
+function ask {
+  user_response=''
+  while [[ $user_response != 'n' && $user_response != 'y' ]]; do
+    printf $blue
+    printf "%b" "$*"
+    printf ' (y)es/(n)o: '
+    printf $red
+    read -n 1 user_response
+    printf "\n"
+  done
   printf $reset
 }
 
@@ -279,6 +295,30 @@ function release {
 
   confirm "Create a new release for $version?"
 
+  message "Stashing current work..."
+
+  stash_ref=$(git stash create)
+  run_message git stash create
+
+  if [[ $stash_ref ]]; then
+    run git reset --hard
+    message "Stashed current work to: $stash_ref"
+  else
+    message "Nothing to stash"
+  fi
+
+  branch_name="$(git symbolic-ref HEAD 2>/dev/null)"
+  branch_name=${branch_name##refs/heads/}
+  message "Current branch: $branch_name"
+
+  if [[ $branch_name != 'master' ]]; then
+    message "Switching to master..."
+    run git checkout master
+  fi
+
+  message "Pulling latest version from GitHub"
+  run git pull --rebase
+
   if [[ ! -e resty ]]; then
     message "Downloading resty to connect to GitHub API"
     run curl -L http://github.com/micha/resty/raw/master/resty > resty
@@ -337,16 +377,88 @@ function release {
     response=$(run curl -u $github_username:$github_password -H "Content-Type: application/zip" --data-binary @facebook-instant-articles-wp.zip $upload_url\?name=facebook-instant-articles-wp-$version.zip )
   fi
 
+  run rm facebook-instant-articles-wp.zip
+  revert_repo
+
   if [[ $response ]]; then
     echo "🍺  Release $version successfully created"
   else
     error_message "Couldn't upload file"
   fi
 
+
+}
+
+function publish {
+  confirm "Publish $version to WordPress plugin repository?"
+
+  message "Stashing current work..."
+
+  stash_ref=$(git stash create)
+  run_message git stash create
+
+  if [[ $stash_ref ]]; then
+    run git reset --hard
+    message "Stashed current work to: $stash_ref"
+  else
+    message "Nothing to stash"
+  fi
+
+  branch_name="$(git symbolic-ref HEAD 2>/dev/null)"
+  branch_name=${branch_name##refs/heads/}
+  message "Current branch: $branch_name"
+
+  if [[ $branch_name != 'master' ]]; then
+    message "Switching to master..."
+    run git checkout master
+  fi
+
+  message "Pulling latest version from GitHub"
+  run git pull --rebase
+
+  tmp_dir=$(mktemp -d)
+
+  message "Updating composer dependencies"
+  composer install
+
+  message "Checking out SVN repository..."
+  run cd $tmp_dir
+  run svn checkout -q https://plugins.svn.wordpress.org/fb-instant-articles/
+  run cd fb-instant-articles/trunk/
+
+  confirm "Copy new version to trunk?"
+  run cp -rf $repo_dir/* ./
+  run rm -rf .[!.]*
+  run rm -rf bin
+  run rm -rf tests
+  run rm -rf composer*
+  run rm -rf phpunit*
+  run rm -rf vendor/apache/log4php/src/test
+  run rm -rf facebook-instant-articles-wp.zip
+  run rm -rf jsawk
+  run rm -rf resty
+  run rm -rf vendor/apache/log4php/.git
+  run svn st | grep '^\?' | sed 's/^\? *//' | xargs -I% svn add %
+  run svn status
+  ask "Review changes?"
+  if [[ $user_response == 'y' ]]; then
+    run svn diff
+  fi
+  confirm "Commit changes to trunk?"
+  run svn commit -m "Release $version"
+  confirm "Tag version $version?"
+  run svn cp ../trunk ../tags/$version
+  run cd ..
+  run svn commit -m "Tag $version"
+
+  revert_repo
+
+  echo "🍺  Published $version successfully"
 }
 
 # Run right command
 if [[ $selected_cmd == 'bump_version' ]]; then bump_version; exit 0; fi
 if [[ $selected_cmd == 'release' ]]; then release; exit 0; fi
-if [[ $selected_cmd == 'all' ]]; then bump_version; release; exit 0; fi
+if [[ $selected_cmd == 'publish' ]]; then publish; exit 0; fi
+if [[ $selected_cmd == 'all' ]]; then bump_version; release; publish; exit 0; fi
 error_message "Invalid command $selected_cmd"
