@@ -173,6 +173,8 @@ function revert_repo {
   run cd $repo_dir
   if [[ $branch_name != 'master' ]]; then
     message "Going back to $branch_name"
+    # stashes anything possibly left from the script execution
+    run git stash
     run git checkout $branch_name
   fi
   if [[ $stash_ref ]]; then
@@ -321,11 +323,11 @@ function release {
 
   if [[ ! -e resty ]]; then
     message "Downloading resty to connect to GitHub API"
-    run curl -L http://github.com/micha/resty/raw/master/resty > resty
+    run curl -L http://github.com/micha/resty/raw/2.2/resty > resty
   fi
   if [[ ! -e jsawk ]]; then
     message "Downloading jsawk to parse info from GitHub API"
-    run curl -L http://github.com/micha/jsawk/raw/master/jsawk > jsawk
+    run curl -L http://github.com/micha/jsawk/raw/1.4/jsawk > jsawk
   fi
 
   prompt "GitHub access-token (required only for 2fac):"
@@ -428,7 +430,9 @@ function publish {
 
   confirm "Copy new version to trunk?"
   run cp -rf $repo_dir/* ./
-  run rm -rf .[!.]*
+
+  # Removes development files we know shouldn't make to the SVN repo
+  run rm -rf .[!.]* # this will remove all hidden files
   run rm -rf bin
   run rm -rf tests
   run rm -rf composer*
@@ -438,6 +442,7 @@ function publish {
   run rm -rf jsawk
   run rm -rf resty
   run rm -rf vendor/apache/log4php/.git
+
   run svn st | grep '^\?' | sed 's/^\? *//' | xargs -I% svn add %
   run svn status
   ask "Review changes?"
