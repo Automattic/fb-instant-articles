@@ -25,9 +25,10 @@ class Instant_Articles_Publisher {
 
 	/**
 	 * Inits publisher.
+	 * Change by cmjaimet submitted Jan 3, 2016: Delay save_post action hook (3rd param 10 => 999) so that all custom meta data is processed and saved before submission to FBIA
 	 */
 	public static function init() {
-		add_action( 'save_post', array( 'Instant_Articles_Publisher', 'submit_article' ), 10, 2 );
+		add_action( 'save_post', array( 'Instant_Articles_Publisher', 'submit_article' ), 999, 2 );
 	}
 
 	/**
