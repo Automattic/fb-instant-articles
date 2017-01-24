@@ -41,11 +41,11 @@ function instant_articles_embed_oembed_html( $html, $url, $attr, $post_ID ) {
 		$provider_name = 'twitter';
 	} elseif( false !== strpos( $providerURL, 'youtube.com' ) ) {
 		$provider_name = 'youtube';
-    } elseif( false !== strpos( $providerURL, 'vimeo.com' ) ) {
-        $provider_name = 'vimeo';
+	} elseif( false !== strpos( $providerURL, 'vimeo.com' ) ) {
+		$provider_name = 'vimeo';
 	} elseif( false !== strpos( $providerURL, 'vine.co' ) ) {
 		$provider_name = 'vine';
-    } elseif( false !== strpos( $providerURL, 'facebook.com' ) ) {
+	} elseif( false !== strpos( $providerURL, 'facebook.com' ) ) {
 		$provider_name = 'facebook';
 	}
 
