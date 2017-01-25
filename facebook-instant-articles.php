@@ -157,6 +157,21 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 	}
 
+	/**
+	 * Whether currently processing an instant article.
+	 *
+	 * @param bool Set the status
+	 * @return bool
+	 */
+	function is_transforming_instant_article( $set_status = null ) {
+		static $is_instant_article = false;
+
+		if ( isset( $set_status ) ) {
+			$is_instant_article = (bool) $set_status;
+		}
+
+		return $is_instant_article;
+	}
 
 	/**
 	 * Modify the main query for our feed.
