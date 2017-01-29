@@ -1,0 +1,223 @@
+<html>
+  <head>
+    <link rel="canonical" href="http://localhost/article"/>
+    <meta charset="utf-8"/>
+    <meta property="op:generator" content="facebook-instant-articles-sdk-php"/>
+    <meta property="op:generator:version" content="1.0.0"/>
+    <meta property="op:generator:transformer" content="facebook-instant-articles-sdk-php"/>
+    <meta property="op:generator:transformer:version" content="1.0.0"/>
+    <meta property="op:markup_version" content="v1.0"/>
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Peace on &lt;b&gt;earth&lt;/b&gt;</h1>
+        <time class="op-published" datetime="2016-04-12T19:46:51+00:00">April 12th, 7:46pm</time>
+        <address><a>bill</a></address>
+      </header>
+      <p>Yes, peace is good for everybody!<br/>
+  Man kind.</p>
+      <figure>
+        <img src="http://example.com/image0.jpg"/>
+      </figure>
+      <p>Some text after img.</p>
+      <p>Some text before img</p>
+      <figure>
+        <img src="http://example.com/image1.jpg"/>
+      </figure>
+      <p>Some text before img</p>
+      <figure>
+        <img src="http://example.com/image2.jpg"/>
+      </figure>
+      <p> and some after img.</p>
+      <figure class="op-interactive">
+        <iframe src="http://example.com/0/" class="no-margin" width="300" height="200"></iframe>
+      </figure>
+      <p>Some text before iframe</p>
+      <figure class="op-interactive">
+        <iframe src="http://example.com/1/" class="no-margin" width="300" height="200"></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe src="http://example.com/2/" class="no-margin" width="300" height="200"></iframe>
+      </figure>
+      <p> some after iframe.</p>
+      <p>Some text before iframe</p>
+      <figure class="op-interactive">
+        <iframe src="http://example.com/3/" class="no-margin" width="300" height="200"></iframe>
+      </figure>
+      <p> and some after iframe.</p>
+      <figure class="op-interactive">
+        <iframe src="http://example.com/loose/with_url" class="no-margin" width="300" height="200"></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+      <div>
+        <h1>Iframe loose without url</h1>
+      </div>
+    </iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+      <div>
+        <h1>some embed here</h1>
+      </div>
+    </iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+      <div>
+        <h1>some embed here</h1>
+      </div>
+    </iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+        <div>some content</div>
+        <script>alert('hi & hello to you @ testing!');</script></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe src="http://example.com/4/" class="no-margin" width="300" height="200"></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+        <div>some content</div>
+        <script>alert('hi & hello to you @ testing!');</script></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe src="http://example.com/4/" class="no-margin" width="300" height="200"></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+        <div>some content</div>
+        <script>alert('hi & hello to you @ testing!');</script></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin" height="200">
+          <table width="200" height="200">
+            <thead><td>header 1</td>
+        <td>header 2</td>
+      </thead>
+            <tbody>
+              <tr><td>Line 1 column 1</td>
+          <td>Line 1 column 2</td>
+        </tr>
+              <tr><td>Line 2 column 1</td>
+          <td>Line 2 column 2</td>
+        </tr>
+            </tbody>
+          </table>
+        </iframe>
+      </figure>
+      <ul>
+        <li>Some text on li before img</li>
+        <li>Some text on li before imgand after img</li>
+        <li>Some text after img</li>
+      </ul>
+      <figure class="op-slideshow">
+        <figure>
+          <img src="http://example.com/img0.jpg"/>
+        </figure>
+        <figure>
+          <img src="http://example.com/img1.jpg"/>
+        </figure>
+        <figure>
+          <img src="http://example.com/img2.jpg"/>
+          <figcaption>Image 2</figcaption>
+        </figure>
+        <figure>
+          <img src="http://example.com/img3.jpg"/>
+          <figcaption>Image 3</figcaption>
+        </figure>
+        <figure>
+          <img src="http://example.com/img4.jpg"/>
+        </figure>
+      </figure>
+      <figure class="op-slideshow">
+        <figure>
+          <img src="http://example.com/img1.jpg"/>
+          <figcaption> Image 1 </figcaption>
+        </figure>
+        <figure>
+          <img src="http://example.com/img2.jpg"/>
+          <figcaption> Image 2 </figcaption>
+        </figure>
+        <figure>
+          <img src="http://example.com/img3.jpg"/>
+          <figcaption> Image 3 </figcaption>
+        </figure>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+          <blockquote class="instagram-media" data-instgrm-captioned="" data-instgrm-version="6" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+      <div style="padding:8px;">
+        <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;">
+          <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div>
+        </div>
+        <p style=" margin:8px 0 0 0; padding:0 4px;">
+          <a href="https://www.instagram.com/p/BAXbKP1POQe/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">ð¸ @natthaponwuttipetch</a>
+        </p>
+        <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
+          A photo posted by Ann Hathairat Vidhyaphum (@annvidh) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2016-01-10T16:56:06+00:00">Jan 10, 2016 at 8:56am PST</time></p>
+      </div>
+    </blockquote>
+          <script async="" defer="defer" src="//platform.instagram.com/en_US/embeds.js"></script>
+        </iframe>
+      </figure>
+      <figure>
+        <img src="http://example.com/img.jpg"/>
+        <figcaption>blue eyes</figcaption>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+      <h1>Sibling content</h1>
+      <div>sibling body</div><script src="//sibling.com/brother.js"></script></iframe>
+      </figure>
+      <p>Standard paragraph that <b>shouldn't</b> lie within the interactive block.</p>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+          <p>Extra markup</p>
+          <div class="fb-post" data-href="https://www.facebook.com/some-page/posts/some-post"></div>
+        </iframe>
+      </figure>
+      <figure class="op-slideshow">
+        <figure>
+          <img src="http://example.com/konservnye-banki-osobenno-lyubyat-yaponcy-810x471.jpg"/>
+          <figcaption>Caption Img 1</figcaption>
+        </figure>
+        <figure>
+          <img src="http://example.com/a-vot-chto-vnutri.jpg"/>
+          <figcaption>Alternative text </figcaption>
+        </figure>
+        <figure>
+          <img src="http://example.com/brelok-s-bezopasnostyu-vsegda-s-soboj.jpg"/>
+          <figcaption>Caption img 3</figcaption>
+        </figure>
+      </figure>
+      <figure>
+        <img src="http://example.com/image.jpg"/>
+        <figcaption>caption</figcaption>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+          <script type="text/javascript" src="//cdn.playbuzz.com/widget/feed.js"></script>
+          <div class="pb_feed" data-key="oembed" data-game="https://www.playbuzz.com/sportsillustrated/can-you-guess-the-olympic-sport-by-the-athlete-s-facial-expression" data-recommend="False" data-tags="ALL"></div>
+        </iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+          <script type="text/javascript" src="//cdn.playbuzz.com/widget/feed.js"></script>
+          <div class="pb_feed" data-key="oembed" data-game="https://www.playbuzz.com/finnmorgan10/hugh-jackman-is-officially-saying-goodbye-to-wolverine" data-recommend="False" data-tags="ALL"></div>
+        </iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe src="https://www.youtube.com/embed/UO_9KWa9LSc?feature=oembed" class="no-margin" width="840" height="473"></iframe>
+      </figure>
+      <figure class="op-interactive">
+        <iframe class="no-margin">
+          <script type="text/javascript" src="//cdn.playbuzz.com/widget/feed.js"></script>
+          <div class="pb_feed" data-key="oembed" data-game="http://www.playbuzz.com/valeriemack10/13-things-that-happen-to-people-who-are-learning-another-language" data-recommend="False" data-tags="ALL"></div>
+        </iframe>
+      </figure>
+    </article>
+  </body>
+</html>

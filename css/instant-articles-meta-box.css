@@ -1,0 +1,98 @@
+.instant-articles-dev-mode-indicator {
+	float: right;
+	text-decoration: none;
+	font-size: smaller;
+}
+
+.instant-articles-messages {
+	margin-left: 15px;
+	margin-top: 0px;
+}
+
+.instant-articles-messages li {
+	display: table-row;
+}
+
+.instant-articles-messages li > div,
+.instant-articles-messages li > span {
+	display: table-cell;
+}
+
+.instant-articles-messages li > div {
+	padding-left: 5px;
+}
+
+.instant-articles-transformer-markup {
+	display: none;
+}
+
+.instant-articles-show-debug .instant-articles-transformer-markup {
+	display: block;
+}
+
+.instant-articles-messages li .message span {
+	display: none;
+}
+
+.instant-articles-messages li:hover .message span {
+	display: block;
+	position: absolute;
+	width: 50%;
+	height: auto;
+	border: 1px solid #bb9;
+	padding: 5px;
+	background: #ffe;
+	overflow-y: auto;
+	color: #666;
+	margin: 10px;
+}
+.instant-articles-transformer-markup {
+	border-top: 1px dashed #ccc;
+	padding-top: 10px;
+	margin-top: 10px;
+}
+.instant-articles-transformer-markup div {
+	width: 50%;
+	float: left;
+	box-sizing: padding-box;
+}
+
+.instant-articles-transformer-markup div textarea {
+	width: 100%;
+	height: 400px;
+}
+
+/* Spinner code */
+@keyframes instant_articles_spinner {
+	to {transform: rotate(360deg);}
+}
+
+@-webkit-keyframes instant_articles_spinner {
+	to {-webkit-transform: rotate(360deg);}
+}
+
+.instant_articles_spinner {
+	min-width: 24px;
+	min-height: 24px;
+	margin: 20px;
+}
+
+.instant_articles_spinner:before {
+	content: 'Loading…';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 16px;
+	height: 16px;
+	margin-top: -10px;
+	margin-left: -10px;
+}
+
+.instant_articles_spinner:not(:required):before {
+	content: '';
+	border-radius: 50%;
+	border-top: 2px solid #03ade0;
+	border-right: 2px solid transparent;
+	animation: instant_articles_spinner .6s linear infinite;
+	-webkit-animation: instant_articles_spinner .6s linear infinite;
+}

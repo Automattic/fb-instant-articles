@@ -1,4 +1,6 @@
 <phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
 	bootstrap="tests/bootstrap.php"
 	backupGlobals="false"
 	colors="true"
@@ -7,8 +9,13 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
-			<directory prefix="test-" suffix=".php">./tests/</directory>
+		<testsuite name="The project's test suite">
+				<directory>./tests</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+			<whitelist>
+					<directory>./src</directory>
+			</whitelist>
+	</filter>
 </phpunit>
