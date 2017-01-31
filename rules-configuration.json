@@ -63,6 +63,9 @@
         "class": "PassThroughRule",
         "selector": "blockquote p"
     }, {
+        "class": "ItalicRule",
+        "selector": "cite"
+    }, {
         "class": "ImageRule",
         "selector": "img",
         "properties": {
