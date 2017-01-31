@@ -275,7 +275,7 @@ function bump_version {
   run sed -i -e "s/define( 'IA_PLUGIN_VERSION', '[0-9.]*' );/define( 'IA_PLUGIN_VERSION', '$version' );/" facebook-instant-articles.php
   run git diff
   confirm "Add changes to commit?"
-  run git add facebook-instant-articlesg.php
+  run git add facebook-instant-articles.php
   run rm facebook-instant-articles.php-e
 
   confirm "Commit version bump on master with message 'Bump version to $version'?"
