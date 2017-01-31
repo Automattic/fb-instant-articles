@@ -39,10 +39,11 @@ class Instant_Articles_Jetpack {
 	 */
 	private function _fix_facebook_embed() {
 
-		// Don't try to fix facebook embeds unless we're in Instant Articles context
-		// to prevent mangled output on frontend
-		if ( !doing_action( 'instant_articles_before_transform_post' ) )
-			return;
+		// Don't try to fix facebook embeds unless we're in Instant Articles context.
+		// This prevents mangled output on frontend.
+		if ( ! is_transforming_instant_article() ) {
+		    return;
+		}
 
 		// All of these are registered in jetpack/modules/shortcodes/facebook.php
 

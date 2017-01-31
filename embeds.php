@@ -68,6 +68,12 @@ add_filter( 'embed_oembed_html', 'instant_articles_embed_oembed_html', 10, 4 );
  */
 function instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $post_id ) {
 
+	// Don't try to fix embeds unless we're in Instant Articles context.
+	// This prevents mangled output on frontend.
+	if ( ! is_transforming_instant_article() ) {
+			return $html;
+	}
+
 	/**
 	 * Filter the HTML that will go into the Instant Article Social Embed markup.
 	 *
