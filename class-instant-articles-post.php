@@ -345,8 +345,9 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 * @param string  $content  The post content.
+		 * @param int     $post_id  The instant article post.
 		 */
-		$content = apply_filters( 'instant_articles_content', $content );
+		$content = apply_filters( 'instant_articles_content', $content, $this->_post->ID );
 
 		// Cache the content.
 		set_transient( 'instantarticles_mod_' . $this->_post->ID, get_post_modified_time( 'Y-m-d H:i:s', true, $this->_post->ID ), WEEK_IN_SECONDS );
