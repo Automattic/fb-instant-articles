@@ -122,7 +122,7 @@ class Instant_Articles_Publisher {
 					$published = false;
 				} else {
 					// Any publish status other than 'publish' means draft for the Instant Article.
-					$published = apply_filters( 'instant_articles_post_published', true, $post->ID );
+					$published = apply_filters( 'instant_articles_post_published', true, $post_id );
 				}
 
 				try {
