@@ -760,7 +760,7 @@ class Instant_Articles_Post {
 			case 'embed':
 				if ( ! empty( $settings_ads['embed_code'] ) ) {
 					$sectionAds = $settings_ads['embed_code'];
-					$tokenizeAds = explode("<!-- Embed Ad Block -->", $sectionAds);
+					$tokenizeAds = explode("<!-- adblock -->", $sectionAds);
 					
 					foreach ($tokenizeAds as $advert) {
 						$ad = Ad::create()
