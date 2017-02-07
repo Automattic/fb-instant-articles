@@ -54,6 +54,22 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'default' => false,
 			'checkbox_label' => 'Publish articles containing warnings',
 		),
+
+		'likes_on_media' => array(
+			'label' => 'Likes',
+			'description' => 'With this option enabled, any video, image and slideshow will have the like action enabled by default.',
+			'render' => 'checkbox',
+			'default' => false,
+			'checkbox_label' => 'Enable like action on media elements by default',
+		),
+
+		'comments_on_media' => array(
+			'label' => 'Comments',
+			'description' => 'With this option enabled, any video, image and slideshow will have the comments enabled by default.',
+			'render' => 'checkbox',
+			'default' => false,
+			'checkbox_label' => 'Enable comments on media elements by default',
+		),
 	);
 
 	/**
