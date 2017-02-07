@@ -57,18 +57,18 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 
 		'likes_on_media' => array(
 			'label' => 'Likes',
-			'description' => 'With this option enabled, any video, image and slideshow will have the like action enabled by default.',
+			'description' => 'With this option enabled, any image or video will have the like action enabled by default.',
 			'render' => 'checkbox',
 			'default' => false,
-			'checkbox_label' => 'Enable like action on media elements by default',
+			'checkbox_label' => 'Enable like action on images and videos by default',
 		),
 
 		'comments_on_media' => array(
 			'label' => 'Comments',
-			'description' => 'With this option enabled, any video, image and slideshow will have the comments enabled by default.',
+			'description' => 'With this option enabled, any image or video will have the comments enabled by default.',
 			'render' => 'checkbox',
 			'default' => false,
-			'checkbox_label' => 'Enable comments on media elements by default',
+			'checkbox_label' => 'Enable comments on images and videos by default',
 		),
 	);
 
