@@ -685,6 +685,15 @@ class Instant_Articles_Post {
 			$this->instant_article->withStyle( 'default' );
 		}
 
+		if ( isset( $settings_publishing[ 'likes_on_media' ] ) ) {
+			Image::$DEFAULT_LIKE_ENABLED = $settings_publishing[ 'likes_on_media' ];
+			Video::$DEFAULT_LIKE_ENABLED = $settings_publishing[ 'likes_on_media' ];
+		}
+		if ( isset( $settings_publishing[ 'comments_on_media' ] ) ) {
+			Image::$DEFAULT_COMMENT_ENABLED = $settings_publishing[ 'comments_on_media' ];
+			Video::$DEFAULT_COMMENT_ENABLED = $settings_publishing[ 'comments_on_media' ];
+		}
+
 		$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
 
 		$this->add_ads_from_settings();
