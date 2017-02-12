@@ -47,7 +47,6 @@ include( dirname( __FILE__ ) . '/compat/class-instant-articles-playbuzz.php' );
 $playbuzz = new Instant_Articles_Playbuzz;
 $playbuzz->init();
 
-
 // Load support for Apester's plugin Medias
 include( dirname( __FILE__ ) . '/compat/class-instant-articles-apester.php' );
 $apester = new Instant_Articles_Apester;
