@@ -678,16 +678,7 @@ class Instant_Articles_Post {
 				->addMetaProperty( 'op:generator:application', 'facebook-instant-articles-wp' )
 				->addMetaProperty( 'op:generator:application:version', IA_PLUGIN_VERSION );
 
-		$settings_style = Instant_Articles_Option_Styles::get_option_decoded();
-		if ( isset( $settings_style['article_style'] ) && ! empty( $settings_style['article_style'] ) ) {
-			$this->instant_article->withStyle( $settings_style['article_style'] );
-		} else {
-			$this->instant_article->withStyle( 'default' );
-		}
-
-		if ( isset( $settings_style['rtl_enabled'] ) ) {
-			$this->instant_article->enableRTL();
-		}
+		$this->set_appearance_from_settings();
 
 		$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
 
@@ -860,6 +851,31 @@ class Instant_Articles_Post {
 					}
 				}
 			}
+		}
+	}
+
+	/**
+	 * Apply appearance settings for an InstantArticle.
+	 *
+	 * @since 3.3
+	 */
+	public function set_appearance_from_settings() {
+		$settings = Instant_Articles_Option_Styles::get_option_decoded();
+
+		if ( isset( $settings['article_style'] ) && ! empty( $settings['article_style'] ) ) {
+			$this->instant_article->withStyle( $settings['article_style'] );
+		} else {
+			$this->instant_article->withStyle( 'default' );
+		}
+
+		if ( isset( $settings['copyright'] ) && ! empty( $settings['copyright'] ) ) {
+			$this->instant_article->withFooter(
+				Footer::create()->withCopyright( $settings['copyright'] )
+			);
+		}
+
+		if ( isset( $settings['rtl_enabled'] ) ) {
+			$this->instant_article->enableRTL();
 		}
 	}
 
