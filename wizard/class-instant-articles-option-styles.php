@@ -28,6 +28,14 @@ class Instant_Articles_Option_Styles extends Instant_Articles_Option {
 			'default' => 'default',
 		),
 
+		'rtl_enabled' => array(
+			'label' => 'Right-to-Left Publishing',
+			'render' => 'checkbox',
+			'default' => false,
+			'description' => 'Body text will read right to left for all articles.',
+			'checkbox_label' => 'Enable Right-to-Left (RTL) publishing',
+		),
+
 	);
 
 	/**

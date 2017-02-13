@@ -685,6 +685,10 @@ class Instant_Articles_Post {
 			$this->instant_article->withStyle( 'default' );
 		}
 
+		if ( isset( $settings_style['rtl_enabled'] ) ) {
+			$this->instant_article->enableRTL();
+		}
+
 		$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
 
 		$this->add_ads_from_settings();
