@@ -16,8 +16,6 @@ ${green}Usage:${reset}
   ${blue}${me} [-hvs] [-c <command>] [version]${reset}
 
 ${green}Arguments:${reset}
-  release      - Creates a GitHub released based on existing version tag
-  bump_version - Creates a new version tag
   version      - The target version (ex: 3.2.1)
 
 ${green}Options:${reset}
@@ -27,6 +25,9 @@ ${green}Options:${reset}
   -c <command>  Runs only a single command. Possible commands are:
                   - bump_version: generate a new version tag on the repository
                   - release: release a new version on GitHub
+                  - publish: publishes the target version to the WordPress 
+                             plugin repository
+
 
 ${green}Examples:${reset}
 
