@@ -688,6 +688,7 @@ class Instant_Articles_Post {
 		if ( isset( $settings_style['rtl_enabled'] ) ) {
 			$this->instant_article->enableRTL();
 		}
+
 		// This block sets as default likes and/or comments based on the configuration setup,
 		// and call $transformer->transform will consider the defaults before building the Elements
 		//
