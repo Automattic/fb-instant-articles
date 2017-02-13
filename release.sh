@@ -369,6 +369,7 @@ function release {
 
   message "Creating binary file"
   run composer install
+  run composer update
   run zip -qr facebook-instant-articles-wp.zip .
 
   message "Uploading binary for release..."
@@ -421,7 +422,8 @@ function publish {
   tmp_dir=$(mktemp -d)
 
   message "Updating composer dependencies"
-  composer install
+  run composer install
+  run composer update
 
   message "Checking out SVN repository..."
   run cd $tmp_dir
