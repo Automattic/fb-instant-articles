@@ -56,6 +56,10 @@ class Instant_Articles_Meta_Box {
 	 * @param Post $post the post request content.
 	 */
 	public static function render_meta_box_loader( $post ) {
+		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
+			return;
+		}
+
 		include( dirname( __FILE__ ) . '/meta-box-loader-template.php' );
 	}
 
@@ -63,8 +67,13 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function force_submit() {
-		check_ajax_referer( 'instant-articles-force-submit', 'security' );
 		$post_id = intval( $_POST[ 'post_ID' ] );
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			wp_die( -1, 403 );
+		}
+
+		check_ajax_referer( 'instant-articles-force-submit-' . $post_id, 'security' );
 		$force = sanitize_text_field( $_POST[ 'force' ] ) === 'true';
 		update_post_meta( $post_id, Instant_Articles_Publisher::FORCE_SUBMIT_KEY, $force );
 		Instant_Articles_Publisher::submit_article( $post_id, get_post( $post_id ) );
@@ -74,8 +83,13 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function render_meta_box() {
-		$ajax_nonce = wp_create_nonce( "instant-articles-force-submit" );
 		$post_id = intval( $_POST[ 'post_ID' ] );
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			wp_die( -1, 403 );
+		}
+
+		$ajax_nonce = wp_create_nonce( "instant-articles-force-submit-" . $post_id );
 		$post = get_post( $post_id );
 		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
