@@ -1,7 +1,7 @@
 {
   "rules": [{
     "class": "IgnoreRule",
-    "selector": "//p/script[contains(@src,'apester')]"
+    "selector": "//script[contains(@src,'apester')]"
   }, {
     "class": "InteractiveRule",
     "selector": "div.apester-media",
