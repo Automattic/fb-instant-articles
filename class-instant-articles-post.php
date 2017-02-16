@@ -680,6 +680,19 @@ class Instant_Articles_Post {
 
 		$this->set_appearance_from_settings();
 
+		// This block sets as default likes and/or comments based on the configuration setup,
+		// and call $transformer->transform will consider the defaults before building the Elements
+		//
+		// Warning: if you are using pthreads or any other multithreaded engine, consider replicating this to all processes.
+		if ( isset( $settings_publishing[ 'likes_on_media' ] ) ) {
+			Image::setDefaultLikeEnabled( $settings_publishing[ 'likes_on_media' ] );
+			Video::setDefaultLikeEnabled( $settings_publishing[ 'likes_on_media' ] );
+		}
+		if ( isset( $settings_publishing[ 'comments_on_media' ] ) ) {
+			Image::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
+			Video::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
+		}
+
 		$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
 
 		$this->add_ads_from_settings();
