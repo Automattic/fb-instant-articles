@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Support class for Google Analytics for WordPress (Google Analytics by Yoast)
+ * Support class for Google Analytics for WordPress (Google Analytics by MonsterInsights)
  *
  * @since 0.1
  */
@@ -30,7 +30,7 @@ class Instant_Articles_Google_Analytics_For_WordPress {
 	 */
 	function add_to_registry( &$registry ) {
 
-		$display_name = 'Google Analytics by Yoast';
+		$display_name = 'Google Analytics by MonsterInsights';
 
 		$identifier = 'google-analytics-for-wordpress';
 
