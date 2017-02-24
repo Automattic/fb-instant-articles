@@ -636,11 +636,7 @@ class Instant_Articles_Post {
 
 		$title = $this->get_the_title();
 		if ( $title ) {
-			$document = new DOMDocument();
-			libxml_use_internal_errors(true);
-			$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $title . '</h1>' );
-			libxml_use_internal_errors(false);
-			$transformer->transform( $header, $document );
+			$transformer->transformString( $header, '<h1>' . $title . '</h1>', $blog_charset );
 		}
 
 		if ( $this->has_subtitle() ) {
