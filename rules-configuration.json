@@ -27,6 +27,9 @@
         "class": "ParagraphRule",
         "selector": "p"
     }, {
+        "class": "FooterSmallRule",
+        "selector": "small"
+    }, {
         "class": "LineBreakRule",
         "selector": "br"
     }, {

@@ -17,6 +17,7 @@ use Facebook\InstantArticles\Elements\Image;
 use Facebook\InstantArticles\Elements\Video;
 use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\Footer;
+use Facebook\InstantArticles\Elements\Small;
 use Facebook\InstantArticles\Transformer\Transformer;
 /**
  * Class responsible for constructing our content and preparing it for rendering
@@ -879,9 +880,12 @@ class Instant_Articles_Post {
 		}
 
 		if ( isset( $settings['copyright'] ) && ! empty( $settings['copyright'] ) ) {
-			$this->instant_article->withFooter(
-				Footer::create()->withCopyright( $settings['copyright'] )
-			);
+			$footer = Footer::create();
+			$this->transformer->transformString(
+				$footer,
+				'<small>' . $settings['copyright'] . '</small>',
+				get_option( 'blog_charset' ) );
+			$this->instant_article->withFooter( $footer );
 		}
 
 		if ( isset( $settings['rtl_enabled'] ) ) {
