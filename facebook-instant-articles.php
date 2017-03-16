@@ -359,34 +359,34 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 *
 	 * @since 4.0
 	 */
-	function inject_op_markup_meta_tag() {
+	function inject_ia_markup_meta_tag() {
 		$post = get_post();
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 		$url = $adapter->get_canonical_url();
-		$url = add_query_arg( 'op', '1', $url );
+		$url = add_query_arg( 'ia_markup', '1', $url );
 		?>
 		<meta property="ia:markup_url" content="<?php echo esc_attr( $url ); ?>" />
 		<?php
 	}
-	add_action( 'wp_head', 'inject_op_markup_meta_tag' );
+	add_action( 'wp_head', 'inject_ia_markup_meta_tag' );
 
 	// Initialize the Instant Articles meta box.
 	Instant_Articles_Meta_Box::init();
 
-	function op_markup_version( ) {
+	function ia_markup_version( ) {
 		$post = get_post();
 
-		if (isset($_GET['op']) && $_GET['op']) {
+		if (isset( $_GET[ 'ia_markup' ] ) && $_GET[ 'ia_markup' ]) {
 			// Transform the post to an Instant Article.
 			$adapter = new Instant_Articles_Post( $post );
 			$article = $adapter->to_instant_article();
-			echo $article->render(null, true);
+			echo $article->render( null, true );
 
 			die();
 		}
 	}
-	add_action( 'wp', 'op_markup_version' );
+	add_action( 'wp', 'ia_markup_version' );
 
 	Instant_Articles_Wizard::init();
 }
