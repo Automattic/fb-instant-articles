@@ -366,7 +366,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$url = $adapter->get_canonical_url();
 		$url = add_query_arg( 'op', '1', $url );
 		?>
-		<meta property="op:markup_url" content="<?php echo esc_attr( $url ); ?>" />
+		<meta property="ia:markup_url" content="<?php echo esc_attr( $url ); ?>" />
 		<?php
 	}
 	add_action( 'wp_head', 'inject_op_markup_meta_tag' );
