@@ -40,7 +40,7 @@ class Instant_Articles_Publisher {
 	public static function submit_article( $post_id, $post ) {
 
 		// Don't process if this is just a revision or an autosave.
-		if ( wp_is_post_revision( $post ) || wp_is_post_autosave( $post ) ) {
+		if ( wp_is_post_revision( $post ) || wp_is_post_autosave( $post->ID ) ) {
 			return;
 		}
 
