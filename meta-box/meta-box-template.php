@@ -62,8 +62,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
-		This post will not be submitted to Instant Articles because no Facebook Page was configured in the plugin.
-		Please configure your page in the
+		No Facebook Page was selected. Please configure your page in the
 		<a href="<?php echo esc_url( $settings_page_href ); ?>">Instant Articles plugin settings</a>.
 	</b>
 </p>
