@@ -690,7 +690,7 @@ class Instant_Articles_Post {
 			Video::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
 		}
 
-		if ( !empty( $this->get_the_content() ) ) {
+		if ( '' == $this->get_the_content() ) {
 			$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
 		}
 
