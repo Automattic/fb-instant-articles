@@ -104,7 +104,7 @@ class Instant_Articles_Meta_Box {
 		$settings_page_href = Instant_Articles_Wizard::get_url();
 
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
-		$publish_with_warnings = $publishing_settings[ 'publish_with_warnings' ];
+		$publish_with_warnings = array_key_exists( 'publish_with_warnings', $publishing_settings ) ? $publishing_settings[ 'publish_with_warnings' ] : false ;
 		if ( $published ) {
 			try {
 				$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
