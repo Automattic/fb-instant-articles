@@ -102,7 +102,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action( 'network_admin_notices', 'instant_articles_setup_admin_notice' ); // also show message on multisite
 	function instant_articles_setup_admin_notice() {
 		global $pagenow;
-		if ( $pagenow === 'plugins.php' && Instant_Articles_Wizard_State::get_current_state() !== Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
+		if ( $pagenow === 'plugins.php' && ! Instant_Articles_Option_FB_Page::get_option_decoded()[ "page_id" ] ) {
 			$settings_url = Instant_Articles_Wizard::get_url();
 			echo '<div class="updated settings-error notice is-dismissible">';
 			echo '<p>Congrats, you\'ve installed the Instant Articles for WP plugin. Now <a href="' . esc_url_raw($settings_url) . '">set it up</a> to start publishing Instant Articles.';

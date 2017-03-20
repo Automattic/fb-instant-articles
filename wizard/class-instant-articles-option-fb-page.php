@@ -18,15 +18,16 @@ class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 
 	public static $sections = array(
 		'title' => 'Facebook Page',
-		'description' => '<p>Fill in with your page ID. You can find your <a href="https://www.facebook.com/bookmarks/pages?__mref=facebook-instant-articles-wp" target="_blank">Page ID here</a></p>',
+		'description' => '<p>Follow <a href="https://www.facebook.com/instant_articles/signup?__mref=facebook-instant-articles-wp" target="_blank">these instructions</a> to sign up to Instant Articles and get your Facebook Page ID.</p>',
 	);
 
 	public static $fields = array(
 
 	'page_id' => array(
 		'visible' => true,
-		'label' => 'Page ID',
+		'label' => 'Facebook Page ID',
 		'default' => '',
+		'description' => 'Fill in your Facebook Page ID.'
 	),
 
 	);

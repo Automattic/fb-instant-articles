@@ -19,11 +19,11 @@
 				<div class="instant-articles-card-content-box instant-articles-card-content-full">
 					<form method="post" action="options.php">
 						<?php settings_fields( Instant_Articles_Option::PAGE_OPTION_GROUP ); ?>
-						<p>Configure settings for your styles, ads, analytics and publishing in Instant Articles. Review our <a href="https://developers.facebook.com/docs/instant-articles" target="_blank">developer documentation</a> to learn more.</p>
-						<hr />
 						<?php do_settings_sections( Instant_Articles_Option_FB_Page::OPTION_KEY ); ?>
 						<?php $fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded(); ?>
 						<div <?php if ( ! $fb_page_settings[ "page_id" ] ) : ?>style="display: none;"<?php endif; ?>>
+							<hr />
+							<p>Configure settings for your styles, ads, analytics and publishing in Instant Articles. Review our <a href="https://developers.facebook.com/docs/instant-articles" target="_blank">developer documentation</a> to learn more.</p>
 							<hr />
 							<?php do_settings_sections( Instant_Articles_Option_Styles::OPTION_KEY ); ?>
 							<hr />

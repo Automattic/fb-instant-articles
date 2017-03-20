@@ -26,7 +26,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 	</b>
 </p>
 <hr>
-<?php elseif ( ! $should_submit_post ) : ?>
+<?php elseif ( ! $instant_articles_should_submit_post_filter ) : ?>
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
@@ -54,7 +54,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
-		This post will not be submitted to Instant Articles because it is missings content.
+		This post will not be submitted to Instant Articles because it is missing content.
 	</b>
 </p>
 <hr>

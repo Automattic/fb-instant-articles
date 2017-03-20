@@ -96,7 +96,7 @@ class Instant_Articles_Meta_Box {
 		$published = ( 'publish' === $post->post_status );
 		$dev_mode = false;
 		$force_submit = get_post_meta( $post_id, IA_PLUGIN_FORCE_SUBMIT_KEY, true );
-		$should_submit_post = apply_filters( 'instant_articles_should_submit_post', true, $adapter );
+		$instant_articles_should_submit_post_filter = apply_filters( 'instant_articles_should_submit_post', true, $adapter );
 
 		Instant_Articles_Wizard::menu_items();
 		$settings_page_href = Instant_Articles_Wizard::get_url();

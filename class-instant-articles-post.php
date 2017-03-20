@@ -881,22 +881,20 @@ class Instant_Articles_Post {
 		if ( wp_is_post_revision( $this->post ) || wp_is_post_autosave( $this->post ) ) {
 			return false;
 		}
+
 		// Don't process if this post is not published
 		if ( 'publish' !== $post->post_status ) {
 			return false;
 		}
+
 		// Only process posts
 		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
 		if ( ! in_array( $post->post_type, $post_types ) ) {
-			return fasle;
-		}
-		// Transform the post to an Instant Article.
-		$adapter = new Instant_Articles_Post( $post );
-		// Allow to disable post submit via filter
-		if ( false === apply_filters( 'instant_articles_should_submit_post', true, $adapter ) ) {
 			return false;
 		}
 
+		// Transform the post to an Instant Article.
+		$adapter = new Instant_Articles_Post( $post );
 		$instant_article = $this->to_instant_article();
 
 		// Skip empty articles or articles missing title.
@@ -921,6 +919,12 @@ class Instant_Articles_Post {
 			) {
 			return false;
 		}
+
+		// Allow to disable post submit via filter
+		if ( false === apply_filters( 'instant_articles_should_submit_post', true, $adapter ) ) {
+			return false;
+		}
+
 		return true;
 	 }
 
