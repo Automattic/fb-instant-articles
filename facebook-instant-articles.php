@@ -72,6 +72,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
 	define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
 	define( 'IA_PLUGIN_TEXT_DOMAIN', 'instant-articles' );
+	define( 'IA_PLUGIN_FORCE_SUBMIT_KEY', 'instant_articles_force_submit' );
 
 	// Let users define their own feed slug.
 	if ( ! defined( 'INSTANT_ARTICLES_SLUG' ) ) {
@@ -363,11 +364,25 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$post = get_post();
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
-		$url = $adapter->get_canonical_url();
-		$url = add_query_arg( 'ia_markup', '1', $url );
-		?>
-		<meta property="ia:markup_url" content="<?php echo esc_attr( $url ); ?>" />
-		<?php
+		if ( $adapter->should_submit_post() ) {
+			$url = $adapter->get_canonical_url();
+			$url = add_query_arg( 'ia_markup', '1', $url );
+			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+			$dev_mode = isset( $publishing_settings['dev_mode'] )
+				? ( $publishing_settings['dev_mode'] ? true : false )
+				: false;
+
+			if ( $dev_mode ) {
+				?>
+				<meta property="ia:markup_url_dev" content="<?php echo esc_attr( $url ); ?>" />
+				<?php
+			} else {
+				?>
+				<meta property="ia:markup_url" content="<?php echo esc_attr( $url ); ?>" />
+				<?php
+			}
+		}
 	}
 	add_action( 'wp_head', 'inject_ia_markup_meta_tag' );
 
