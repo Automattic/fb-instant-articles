@@ -689,9 +689,10 @@ class Instant_Articles_Post {
 			Image::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
 			Video::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
 		}
-
-		if ( '' != $this->get_the_content() ) {
-			$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
+		
+		$the_content = $this->get_the_content();
+		if ( '' != $the_content ) {
+			$transformer->transformString( $this->instant_article, $the_content, get_option( 'blog_charset' ) );
 		}
 
 		$this->add_ads_from_settings();
