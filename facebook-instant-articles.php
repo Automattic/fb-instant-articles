@@ -302,13 +302,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			null,
 			true
 		);
-		wp_register_script(
-			'instant-articles-wizard',
-			plugins_url( '/js/instant-articles-wizard.js', __FILE__ ),
-			null,
-			null,
-			true
-		);
 	}
 	add_action( 'init', 'instant_articles_register_scripts' );
 
@@ -342,13 +335,30 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 
-		if ( isset( $fb_page_settings['page_id'] ) ) {
+		if ( isset( $fb_page_settings[ 'page_id' ] ) ) {
 			?>
-			<meta property="fb:pages" content="<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>" />
+			<meta property="fb:pages" content="<?php echo esc_attr( $fb_page_settings[ 'page_id' ] ); ?>" />
 			<?php
 		}
 	}
 	add_action( 'wp_head', 'inject_url_claiming_meta_tag' );
+
+	/**
+	 * Automatically add meta tag for Instant Articles Open Publish scraper
+	 *
+	 * @since 4.0
+	 */
+	function inject_op_markup_meta_tag() {
+		$post = get_post();
+		// Transform the post to an Instant Article.
+		$adapter = new Instant_Articles_Post( $post );
+		$url = $adapter->get_canonical_url();
+		$url = add_query_arg( 'op', '1', $url );
+		?>
+		<meta property="op:markup_url" content="<?php echo esc_attr( $url ); ?>" />
+		<?php
+	}
+	add_action( 'wp_head', 'inject_op_markup_meta_tag' );
 
 	// Initialize the Instant Articles meta box.
 	Instant_Articles_Meta_Box::init();
@@ -356,6 +366,19 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	// Initialize the Instant Articles publisher.
 	Instant_Articles_Publisher::init();
 
-	// Initialize the Instant Articles Wizard page.
+	function op_markup_version( ) {
+		$post = get_post();
+
+		if (isset($_GET['op']) && $_GET['op']) {
+			// Transform the post to an Instant Article.
+			$adapter = new Instant_Articles_Post( $post );
+			$article = $adapter->to_instant_article();
+			echo $article->render(null, true);
+
+			die();
+		}
+	}
+	add_action( 'wp', 'op_markup_version' );
+
 	Instant_Articles_Wizard::init();
 }
