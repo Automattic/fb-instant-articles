@@ -73,6 +73,13 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
 	define( 'IA_PLUGIN_TEXT_DOMAIN', 'instant-articles' );
 
+	// Detect the WPCOM environment, for calling alternate action hooks to plugins_loaded
+	$is_wpcom_env = false;
+	if ( defined( 'WPCOM_IS_VIP_ENV' ) && true === WPCOM_IS_VIP_ENV ) {
+		$is_wpcom_env = true;
+	}
+	define( 'IA_PLUGIN_IS_WPCOM_ENV', $is_wpcom_env );
+
 	// Let users define their own feed slug.
 	if ( ! defined( 'INSTANT_ARTICLES_SLUG' ) ) {
 		define( 'INSTANT_ARTICLES_SLUG', 'instant-articles' );
@@ -128,7 +135,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function instant_articles_load_textdomain() {
 		load_plugin_textdomain( 'instant-articles', false, plugin_dir_path( __FILE__ ) . '/languages' );
 	}
-	add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
 
 	/**
 	 * Plugin hook to load compat layers.
@@ -138,7 +144,16 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function instant_articles_load_compat() {
 		require_once( dirname( __FILE__ ) . '/compat.php' );
 	}
-	add_action( 'plugins_loaded', 'instant_articles_load_compat' );
+
+	// Use an available action hook for the text domain and compatability modules on WP.COM sites
+	if ( true === IA_PLUGIN_IS_WPCOM_ENV ) {
+		add_action( 'after_setup_theme', 'instant_articles_load_textdomain' );
+		add_action( 'after_setup_theme', 'instant_articles_load_compat' );
+	}
+	else {
+		add_action( 'plugins_loaded', 'instant_articles_load_textdomain' );
+		add_action( 'plugins_loaded', 'instant_articles_load_compat' );
+	}
 
 	/**
 	 * Register our special feed.
