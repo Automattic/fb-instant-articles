@@ -55,11 +55,11 @@ use Facebook\InstantArticles\Client\ServerMessage;
 			</p>
 			<?php break; ?>
 
-		<?php case InstantArticleStatus::IN_PROGRESS : ?>
+		<?php case InstantArticleStatus::IN_PROGRESS : /* Asset Ingestion */ ?>
 			<p>
 				<b>
-					<span class="dashicons dashicons-update"></span>
-					Your article is being submitted...
+					<span class="dashicons dashicons-update instant-articles-spin-animation"></span>
+					Your article is being published to Facebook. Please wait or refresh to update the status...
 				</b>
 			</p>
 			<script>
@@ -67,14 +67,23 @@ use Facebook\InstantArticles\Client\ServerMessage;
 					instant_articles_load_meta_box( <?php echo absint( $post->ID ); ?> );
 				}, 2000);
 			</script>
-
 			<?php break; ?>
 
 		<?php default : ?>
 			<p>
 				<b>
+				<?php if ( $article_id ) : /* Article Processing */ ?>
+					<span class="dashicons dashicons-update instant-articles-spin-animation"></span>
+					Getting the status of your article...
+					<script>
+						setTimeout(function () {
+							instant_articles_load_meta_box( <?php echo absint( $post->ID ); ?> );
+						}, 2000);
+					</script>
+				<?php else : ?>
 					<span class="dashicons dashicons-no-alt"></span>
 					This post was not yet submitted to Instant Articles.
+				<?php endif; ?>
 				</b>
 			</p>
 			<?php break; ?>
