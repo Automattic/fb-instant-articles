@@ -262,21 +262,21 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			plugins_url( '/css/instant-articles-meta-box.css', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 		wp_register_style(
 			'instant-articles-settings',
 			plugins_url( '/css/instant-articles-settings.css', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 		wp_register_style(
 			'instant-articles-wizard',
 			plugins_url( '/css/instant-articles-wizard.css', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 
 		wp_register_script(
@@ -284,42 +284,42 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			plugins_url( '/js/instant-articles-meta-box.js', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 		wp_register_script(
 			'instant-articles-option-ads',
 			plugins_url( '/js/instant-articles-option-ads.js', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 		wp_register_script(
 			'instant-articles-option-analytics',
 			plugins_url( '/js/instant-articles-option-analytics.js', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 		wp_register_script(
 			'instant-articles-option-publishing',
 			plugins_url( '/js/instant-articles-option-publishing.js', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 		wp_register_script(
 			'instant-articles-settings',
 			plugins_url( '/js/instant-articles-settings.js', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 		wp_register_script(
 			'instant-articles-wizard',
 			plugins_url( '/js/instant-articles-wizard.js', __FILE__ ),
 			null,
 			IA_PLUGIN_VERSION,
-			true
+			false
 		);
 	}
 	add_action( 'init', 'instant_articles_register_scripts' );
