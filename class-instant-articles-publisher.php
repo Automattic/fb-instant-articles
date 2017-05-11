@@ -44,6 +44,22 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		$post_types = array( 'post' );
+
+		/**
+		 * Filter the allowed post types for publishing instant articles.
+		 *
+		 * @since 2.12
+		 *
+		 * @param array $post_types Array of post types to publish.
+		 */
+		$post_types = apply_filters( 'instant_articles_publisher_post_types', $post_types );
+
+		// Don't process posts not in the allowed post types.
+		if ( ! in_array( $post->post_type, $post_types, true ) ) {
+			return;
+		}
+
 		// Don't process if this post is not published
 		if ( 'publish' !== $post->post_status ) {
 			return;
