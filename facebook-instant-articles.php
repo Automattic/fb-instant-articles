@@ -386,6 +386,35 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	}
 	add_action( 'wp_head', 'inject_ia_markup_meta_tag' );
 
+	/**
+	 * Adds the meta tag for AMP Markup if enabled
+	 *
+	 * @since 4.0
+	 */
+	function inject_amp_markup_link_rel() {
+		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+
+		$amp_markup = isset( $publishing_settings['amp_markup'] )
+                  ? ( $publishing_settings['amp_markup'] ? true : false )
+                  : false;
+
+		if (!$amp_markup)
+			return;
+
+		// Transform the post to an Instant Article.
+		$adapter = new Instant_Articles_Post( get_post() );
+
+		if (!$adapter->should_submit_post())
+			return;
+
+		$url = $adapter->get_canonical_url();
+		$url = add_query_arg('amp_markup', '1', $url );
+
+		echo '<link rel="amphtml" href="' . $url . '">';
+
+	}
+	add_action( 'wp_head', 'inject_amp_markup_link_rel' );
+
 	// Initialize the Instant Articles meta box.
 	Instant_Articles_Meta_Box::init();
 
