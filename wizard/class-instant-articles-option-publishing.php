@@ -78,6 +78,12 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'default' => false,
 			'checkbox_label' => 'Enable AMP markup generation',
 		),
+
+    'amp_stylesheet' => array(
+      'label' => 'AMP Stylesheet',
+      'description' => 'Please paste the contents of the Style JSON file (downloaded from the Publishing Tools)',
+      'render' => 'textarea',
+    ),
 	);
 
 	/**

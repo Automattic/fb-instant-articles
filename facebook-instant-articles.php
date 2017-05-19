@@ -31,6 +31,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 	$autoloader = require __DIR__ . '/vendor/autoload.php';
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-php/src' );
+  $autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-extensions-in-php/src' );
 
 	// Configures log to go through console.
 	\Logger::configure(
@@ -431,6 +432,46 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		}
 	}
 	add_action( 'wp', 'ia_markup_version' );
+
+  function amp_markup_version( ) {
+    if (!(isset($_GET[ 'amp_markup' ]) && $_GET[ 'amp_markup' ]))
+      return;
+
+    //TODO: second time I do this test, think of a better solution
+    $publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+
+    $amp_markup = isset($publishing_settings['amp_markup'])
+                  ? ( $publishing_settings['amp_markup'] ? true : false )
+                  : false;
+
+    if (!$amp_markup)
+      return;
+
+    $has_stylesheet = isset($publishing_settings['amp_stylesheet'])
+                      ? ( Facebook\InstantArticles\Validators\Type::isTextEmpty($publishing_settings['amp_stylesheet']) ? false : true )
+                      : false;
+
+    json_decode($publishing_settings['amp_stylesheet']);
+    if (json_last_error() != JSON_ERROR_NONE)
+      $has_stylesheet = false;
+
+    $properties = array();
+
+    if ($has_stylesheet) {
+      $properties['override-styles'] = $publishing_settings['amp_stylesheet'];
+    }
+
+    $post = get_post();
+    // Transform the post to an Instant Article.
+    $adapter = new Instant_Articles_Post( $post );
+		$article = $adapter->to_instant_article();
+		$article_html = $article->render();
+    $amp = Facebook\InstantArticles\AMP\AMPArticle::create($article_html, $properties);
+    echo $amp->render();
+
+		die();
+	}
+	add_action( 'wp', 'amp_markup_version' );
 
 	Instant_Articles_Wizard::init();
 
