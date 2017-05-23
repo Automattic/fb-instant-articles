@@ -451,14 +451,14 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
                       ? ( Facebook\InstantArticles\Validators\Type::isTextEmpty($publishing_settings['amp_stylesheet']) ? false : true )
                       : false;
 
-    json_decode($publishing_settings['amp_stylesheet']);
+    $styles_array = json_decode($publishing_settings['amp_stylesheet'], true);
     if (json_last_error() != JSON_ERROR_NONE)
       $has_stylesheet = false;
 
     $properties = array();
 
     if ($has_stylesheet) {
-      $properties['override-styles'] = $publishing_settings['amp_stylesheet'];
+      $properties['override-styles'] = $styles_array;
     }
 
     $post = get_post();
