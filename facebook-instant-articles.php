@@ -457,11 +457,37 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
     $properties = array();
 
+    //download images to get width and height
+    $properties['enable-download-for-media-sizing'] = false;
+
     if ($has_stylesheet) {
       $properties['override-styles'] = $styles_array;
     }
 
+    $media_sizes = array();
     $post = get_post();
+    $arrImages = get_children('post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
+    $base_image_url = wp_get_upload_dir()['baseurl'] . '/';
+
+    foreach ($arrImages as $img_id => $img) {
+      $meta = wp_get_attachment_metadata($img_id);
+      $url_chunks = explode('/', $img->guid);
+      array_pop($url_chunks);
+      $base_image_url = implode('/', $url_chunks) . '/';
+
+      // print_r($img);
+      // print_r($meta);
+
+      $media_sizes[$img->guid] = array($meta['width'], $meta['height']);
+      foreach ($meta['sizes'] as $size) {
+        $size_url = $base_image_url.$size['file'];
+        $media_sizes[$size_url] = array($size['width'], $size['height']);
+      }
+    }
+
+    $properties['media-sizes'] = $media_sizes;
+    //print_r($media_sizes);
+
     // Transform the post to an Instant Article.
     $adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
