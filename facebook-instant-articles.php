@@ -478,7 +478,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		//NOTE: this will not get images that are not hosted in the WP
 		$image_children = get_children('post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
 
-		foreach ($image_childen as $img_id => $img) {
+		foreach ($image_children as $img_id => $img) {
 			$meta = wp_get_attachment_metadata($img_id);
 
 			//Removes the file name from the URL
