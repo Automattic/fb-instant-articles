@@ -31,7 +31,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 	$autoloader = require __DIR__ . '/vendor/autoload.php';
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-php/src' );
-  $autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-extensions-in-php/src' );
+	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-extensions-in-php/src' );
 
 	// Configures log to go through console.
 	\Logger::configure(
@@ -395,9 +395,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function inject_amp_markup_link_rel() {
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 
-		$amp_markup = isset( $publishing_settings['amp_markup'] )
-                  ? ( $publishing_settings['amp_markup'] ? true : false )
-                  : false;
+		$amp_markup =
+			isset( $publishing_settings['amp_markup'] )
+			? ( $publishing_settings['amp_markup'] ? true : false )
+			: false;
 
 		if (!$amp_markup)
 			return;
@@ -433,67 +434,76 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	}
 	add_action( 'wp', 'ia_markup_version' );
 
-  function amp_markup_version( ) {
-    if (!(isset($_GET[ 'amp_markup' ]) && $_GET[ 'amp_markup' ]))
-      return;
+	function amp_markup_version( ) {
+		if (!(isset($_GET[ 'amp_markup' ]) && $_GET[ 'amp_markup' ]))
+			return;
 
-    //TODO: second time I do this test, think of a better solution
-    $publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+		//TODO: second time I do this test, think of a better solution
+		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 
-    $amp_markup = isset($publishing_settings['amp_markup'])
-                  ? ( $publishing_settings['amp_markup'] ? true : false )
-                  : false;
+		$amp_markup =
+			isset($publishing_settings['amp_markup'])
+			? ( $publishing_settings['amp_markup'] ? true : false )
+			: false;
 
-    if (!$amp_markup)
-      return;
+		if (!$amp_markup)
+			return;
 
-    $has_stylesheet = isset($publishing_settings['amp_stylesheet'])
-                      ? ( Facebook\InstantArticles\Validators\Type::isTextEmpty($publishing_settings['amp_stylesheet']) ? false : true )
-                      : false;
+		$has_stylesheet =
+			isset($publishing_settings['amp_stylesheet'])
+			? ( Facebook\InstantArticles\Validators\Type::isTextEmpty($publishing_settings['amp_stylesheet']) ? false : true )
+			: false;
 
-    $styles_array = json_decode($publishing_settings['amp_stylesheet'], true);
-    if (json_last_error() != JSON_ERROR_NONE)
-      $has_stylesheet = false;
+		$styles_array = json_decode($publishing_settings['amp_stylesheet'], true);
+		if (json_last_error() != JSON_ERROR_NONE)
+			$has_stylesheet = false;
 
-    $properties = array();
+		$properties = array();
 
-    //download images to get width and height
-    $properties['enable-download-for-media-sizing'] = false;
+		//download images to get width and height
+		//TODO: change this to an option
+		//TODO: use the new consts in the AMPArticle
+		$properties['enable-download-for-media-sizing'] = false;
 
-    if ($has_stylesheet) {
-      $properties['override-styles'] = $styles_array;
-    }
+		if ($has_stylesheet) {
+			$properties['override-styles'] = $styles_array;
+		}
 
-    $media_sizes = array();
-    $post = get_post();
-    $arrImages = get_children('post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
-    $base_image_url = wp_get_upload_dir()['baseurl'] . '/';
+		$post = get_post();
 
-    foreach ($arrImages as $img_id => $img) {
-      $meta = wp_get_attachment_metadata($img_id);
-      $url_chunks = explode('/', $img->guid);
-      array_pop($url_chunks);
-      $base_image_url = implode('/', $url_chunks) . '/';
+		//This array will hold the image sizes
+		$media_sizes = array();
 
-      // print_r($img);
-      // print_r($meta);
+		//Get all children with mime type image that are attached to the posts
+		//NOTE: this will not get images that are not hosted in the WP
+		$image_children = get_children('post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
 
-      $media_sizes[$img->guid] = array($meta['width'], $meta['height']);
-      foreach ($meta['sizes'] as $size) {
-        $size_url = $base_image_url.$size['file'];
-        $media_sizes[$size_url] = array($size['width'], $size['height']);
-      }
-    }
+		foreach ($image_childen as $img_id => $img) {
+			$meta = wp_get_attachment_metadata($img_id);
 
-    $properties['media-sizes'] = $media_sizes;
-    //print_r($media_sizes);
+			//Removes the file name from the URL
+			$url_chunks = explode('/', $img->guid);
+			array_pop($url_chunks);
+			$base_image_url = implode('/', $url_chunks) . '/';
 
-    // Transform the post to an Instant Article.
-    $adapter = new Instant_Articles_Post( $post );
+			//This is the uploaded original file
+			$media_sizes[$img->guid] = array($meta['width'], $meta['height']);
+
+			//These are the possible redimensions
+			foreach ($meta['sizes'] as $size) {
+				$size_url = $base_image_url.$size['file'];
+				$media_sizes[$size_url] = array($size['width'], $size['height']);
+			}
+		}
+
+		$properties['media-sizes'] = $media_sizes;
+
+		// Transform the post to an Instant Article.
+		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
 		$article_html = $article->render();
-    $amp = Facebook\InstantArticles\AMP\AMPArticle::create($article_html, $properties);
-    echo $amp->render();
+		$amp = Facebook\InstantArticles\AMP\AMPArticle::create($article_html, $properties);
+		echo $amp->render();
 
 		die();
 	}
