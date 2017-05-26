@@ -23,7 +23,7 @@ class Instant_Articles_Amp_Markup {
 
 		$amp_markup =
 			isset( $publishing_settings['amp_markup'] )
-			? ( $publishing_settings['amp_markup'] ? true : false )
+			? (bool) $publishing_settings['amp_markup']
 			: false;
 
 		if (!$amp_markup)
@@ -49,7 +49,7 @@ class Instant_Articles_Amp_Markup {
 	 * @since 4.0
 	 */
 	static function markup_version( ) {
-		if (!(isset($_GET[ 'amp_markup' ]) && $_GET[ 'amp_markup' ]))
+		if (!isset($_GET[ 'amp_markup' ]) && $_GET[ 'amp_markup' ])
 			return;
 
 		//TODO: second time I do this test, think of a better solution
@@ -57,7 +57,7 @@ class Instant_Articles_Amp_Markup {
 
 		$amp_markup =
 			isset($publishing_settings['amp_markup'])
-			? ( $publishing_settings['amp_markup'] ? true : false )
+			? (bool) $publishing_settings['amp_markup']
 			: false;
 
 		if (!$amp_markup)
@@ -65,7 +65,7 @@ class Instant_Articles_Amp_Markup {
 
 		$has_stylesheet =
 			isset($publishing_settings['amp_stylesheet'])
-			? ( Type::isTextEmpty($publishing_settings['amp_stylesheet']) ? false : true )
+			? !Type::isTextEmpty($publishing_settings['amp_stylesheet'])
 			: false;
 
 		$styles_array = json_decode($publishing_settings['amp_stylesheet'], true);
@@ -77,10 +77,10 @@ class Instant_Articles_Amp_Markup {
 		// download images to get width and height
 		// TODO: change this to an option
 		// TODO: use the new consts in the AMPArticle
-		$properties['enable-download-for-media-sizing'] = false;
+		$properties[AMPArticle::ENABLE_DOWNLOAD_FOR_MEDIA_SIZING_KEY] = false;
 
 		if ($has_stylesheet) {
-			$properties['override-styles'] = $styles_array;
+			$properties[AMPArticle::OVERRIDE_STYLES_KEY] = $styles_array;
 		}
 
 		$post = get_post();
@@ -110,7 +110,7 @@ class Instant_Articles_Amp_Markup {
 			}
 		}
 
-		$properties['media-sizes'] = $media_sizes;
+		$properties[AMPArticle::MEDIA_SIZES_KEY] = $media_sizes;
 
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
