@@ -87,12 +87,8 @@ class Instant_Articles_Amp_Markup {
 
 		$has_stylesheet =
 			isset($settings[self::SETTING_STYLE])
-			? !Type::isTextEmpty($settings[self::SETTING_STYLE])
+			? self::validate_json($settings[self::SETTING_STYLE])
 			: false;
-
-		$styles_array = json_decode($settings[self::SETTING_STYLE], true);
-		if (json_last_error() != JSON_ERROR_NONE)
-			$has_stylesheet = false;
 
 		$properties = array();
 
@@ -104,7 +100,8 @@ class Instant_Articles_Amp_Markup {
 		$properties[AMPArticle::ENABLE_DOWNLOAD_FOR_MEDIA_SIZING_KEY] = $download_media;
 
 		if ($has_stylesheet) {
-			$properties[AMPArticle::OVERRIDE_STYLES_KEY] = $styles_array;
+			$properties[AMPArticle::OVERRIDE_STYLES_KEY] =
+				json_decode($settings[self::SETTING_STYLE], true);
 		}
 
 		$post = get_post();
@@ -144,5 +141,23 @@ class Instant_Articles_Amp_Markup {
 		echo $amp->render();
 
 		die();
+	 }
+
+	 /**
+		* Helper function to validate the json string
+		*
+		* @param $json_str string JSON string
+		* @return bool true for valid JSON
+		* @since 4.0
+		*/
+	 static function validate_json($json_str) {
+		 if (Type::isTextEmpty($json_str))
+			 return false;
+
+		json_decode($json_str);
+		if (json_last_error() == JSON_ERROR_NONE)
+			return true;
+
+		return false;
 	 }
  }

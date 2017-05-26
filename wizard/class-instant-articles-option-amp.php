@@ -10,6 +10,8 @@
 require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
 require_once( dirname(dirname( __FILE__ )) . '/class-instant-articles-amp-markup.php' );
 
+use Facebook\InstantArticles\Validators\Type;
+
 /**
  * AMP Generation Settings
  */
@@ -46,14 +48,45 @@ class Instant_Articles_Option_Amp extends Instant_Articles_Option {
 			'default' => false,
 		),
 	);
+	/**
+	 * Sanitize and return all the field values.
+	 *
+	 * This method receives a payload containing all value for its fields and
+	 * should return the same payload after having been sanitized.
+	 *
+	 * Do not encode the payload as this is performed by the
+	 * universal_sanitize_and_encode_handler() of the parent class.
+	 *
+	 * @param array $field_values array map with key field_id => value.
+	 * @since 4.0
+	 */
+	public function sanitize_option_fields( $field_values ) {
+		$old_settings = Instant_Articles_Amp_Markup::get_settings();
+
+		if (isset($field_values[Instant_Articles_Amp_Markup::SETTING_STYLE])) {
+			if (!Instant_Articles_Amp_Markup::validate_json($field_values[Instant_Articles_Amp_Markup::SETTING_STYLE])) {
+				add_settings_error(
+					Instant_Articles_Amp_Markup::SETTING_STYLE,
+					'invalid_json',
+					'Invalid Style JSON provided'
+				);
+
+				$field_values[Instant_Articles_Amp_Markup::SETTING_STYLE] =
+					$old_settings[Instant_Articles_Amp_Markup::SETTING_STYLE];
+			}
+
+		}
+
+		return $field_values;
+	}
 
 	/**
 	 * Constructor.
 	 *
-	 * @since 0.4
+	 * @since 4.0
 	 */
 	public function __construct() {
-		$this->options_manager = new parent(
+		parent::__construct(
 			self::OPTION_KEY,
 			self::$sections,
 			self::$fields
