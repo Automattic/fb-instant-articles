@@ -69,21 +69,8 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'render' => 'checkbox',
 			'default' => false,
 			'checkbox_label' => 'Enable comments on images and videos by default',
-		),
+		)
 
-		'amp_markup' => array(
-			'label' => 'AMP Markup',
-			'description' => 'With this option enabled, posts will also be available in AMP markup',
-			'render' => 'checkbox',
-			'default' => false,
-			'checkbox_label' => 'Enable AMP markup generation',
-		),
-
-    'amp_stylesheet' => array(
-      'label' => 'AMP Stylesheet',
-      'description' => 'Please paste the contents of the Style JSON file (downloaded from the Publishing Tools)',
-      'render' => 'textarea',
-    ),
 	);
 
 	/**

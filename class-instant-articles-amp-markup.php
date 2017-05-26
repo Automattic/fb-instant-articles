@@ -29,7 +29,7 @@ class Instant_Articles_Amp_Markup {
 	 */
 	static function get_settings() {
 		if (self::$settings === null)
-			self::$settings = Instant_Articles_Option_Publishing::get_option_decoded();
+			self::$settings = Instant_Articles_Option_Amp::get_option_decoded();
 
 		return self::$settings;
 	 }
