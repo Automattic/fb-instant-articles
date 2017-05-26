@@ -15,7 +15,7 @@ class Instant_Articles_Amp_Markup {
 
 	const SETTING_AMP_MARKUP = 'amp_markup'; /// Setting to check if AMP Markup generation is enabled
 	const SETTING_STYLE      = 'amp_stylesheet'; /// Setting that stores the JSON stylesheet
-
+	const SETTING_DL_MEDIA   = 'amp_download_media'; /// Enable or disable media download option
 	const QUERY_ARG          = 'amp_markup'; /// Query argument that will trigger the AMP markup generation
 
 	// To memoize the settings
@@ -96,10 +96,12 @@ class Instant_Articles_Amp_Markup {
 
 		$properties = array();
 
-		// download images to get width and height
-		// TODO: change this to an option
-		// TODO: use the new consts in the AMPArticle
-		$properties[AMPArticle::ENABLE_DOWNLOAD_FOR_MEDIA_SIZING_KEY] = false;
+		$download_media =
+			isset($settings[self::SETTING_DL_MEDIA])
+			? (bool) $settings[self::SETTING_DL_MEDIA]
+			: false;
+
+		$properties[AMPArticle::ENABLE_DOWNLOAD_FOR_MEDIA_SIZING_KEY] = $download_media;
 
 		if ($has_stylesheet) {
 			$properties[AMPArticle::OVERRIDE_STYLES_KEY] = $styles_array;
