@@ -13,20 +13,48 @@ use Facebook\InstantArticles\Validators\Type;
 
 class Instant_Articles_Amp_Markup {
 
+	const SETTING_AMP_MARKUP = 'amp_markup'; /// Setting to check if AMP Markup generation is enabled
+	const SETTING_STYLE      = 'amp_stylesheet'; /// Setting that stores the JSON stylesheet
+
+	const QUERY_ARG          = 'amp_markup'; /// Query argument that will trigger the AMP markup generation
+
+	// To memoize the settings
+	static $settings = null;
+
+	/**
+	 * Gets the settings
+	 *
+	 * @return array The settings, check Instant_Articles_Option::get_option_decoded()
+	 * @since 4.0
+	 */
+	static function get_settings() {
+		if (self::$settings === null)
+			self::$settings = Instant_Articles_Option_Publishing::get_option_decoded();
+
+		return self::$settings;
+	 }
+	/**
+	 * Checks if the AMP markup is enabled
+	 *
+	 * @return bool true if markup is enabled
+	 * @since 4.0
+	 */
+	static function is_markup_enabled() {
+		$settings = self::get_settings();
+
+		return
+			isset( $settings[self::SETTING_AMP_MARKUP] )
+			? (bool) $settings[self::SETTING_AMP_MARKUP]
+			: false;
+	}
 	/**
 	 * Adds the meta tag for AMP Markup if enabled
 	 *
 	 * @since 4.0
 	 */
 	static function inject_link_rel() {
-		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 
-		$amp_markup =
-			isset( $publishing_settings['amp_markup'] )
-			? (bool) $publishing_settings['amp_markup']
-			: false;
-
-		if (!$amp_markup)
+		if (!self::is_markup_enabled())
 			return;
 
 		// Transform the post to an Instant Article.
@@ -36,7 +64,7 @@ class Instant_Articles_Amp_Markup {
 			return;
 
 		$url = $adapter->get_canonical_url();
-		$url = add_query_arg('amp_markup', '1', $url );
+		$url = add_query_arg(self::QUERY_ARG, '1', $url );
 
 		echo '<link rel="amphtml" href="' . $url . '">';
 
@@ -49,26 +77,20 @@ class Instant_Articles_Amp_Markup {
 	 * @since 4.0
 	 */
 	static function markup_version( ) {
-		if (!isset($_GET[ 'amp_markup' ]) && $_GET[ 'amp_markup' ])
+		if (!(isset($_GET[ self::QUERY_ARG ]) && $_GET[ self::QUERY_ARG ]))
 			return;
 
-		//TODO: second time I do this test, think of a better solution
-		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+		$settings = self::get_settings();
 
-		$amp_markup =
-			isset($publishing_settings['amp_markup'])
-			? (bool) $publishing_settings['amp_markup']
-			: false;
-
-		if (!$amp_markup)
+		if (!self::is_markup_enabled())
 			return;
 
 		$has_stylesheet =
-			isset($publishing_settings['amp_stylesheet'])
-			? !Type::isTextEmpty($publishing_settings['amp_stylesheet'])
+			isset($settings[self::SETTING_STYLE])
+			? !Type::isTextEmpty($settings[self::SETTING_STYLE])
 			: false;
 
-		$styles_array = json_decode($publishing_settings['amp_stylesheet'], true);
+		$styles_array = json_decode($settings[self::SETTING_STYLE], true);
 		if (json_last_error() != JSON_ERROR_NONE)
 			$has_stylesheet = false;
 
