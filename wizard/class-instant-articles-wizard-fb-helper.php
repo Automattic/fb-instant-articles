@@ -190,21 +190,23 @@ class Instant_Articles_Wizard_FB_Helper implements PersistentDataInterface {
 
 		$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 
-		$page_nodes = $helper->getPagesAndTokens(
-			new Facebook\Authentication\AccessToken( $fb_app_settings[ 'user_access_token' ] )
-		)->all();
-
 		$pages = array();
 
-		// Map GraphNode objects to simple value objects that are smaller when serialized.
-		foreach ( $page_nodes as $page_node ) {
-			$pages[ $page_node->getField( 'id' ) ] = array(
-				'page_id' => $page_node->getField( 'id' ),
-				'page_name' => $page_node->getField( 'name' ),
-				'page_picture' => $page_node->getField( 'picture' )->getField( 'url' ),
-				'page_access_token' => $page_node->getField( 'access_token' ),
-				'supports_instant_articles' => $page_node->getField( 'supports_instant_articles' ),
-			);
+		for ($i = 0; $i < 250; $i += 25) {
+			$page_nodes = $helper->getPagesAndTokens(
+				new Facebook\Authentication\AccessToken( $fb_app_settings[ 'user_access_token' ] ), $i
+			)->all();
+
+			// Map GraphNode objects to simple value objects that are smaller when serialized.
+			foreach ( $page_nodes as $page_node ) {
+				$pages[ $page_node->getField( 'id' ) ] = array(
+					'page_id' => $page_node->getField( 'id' ),
+					'page_name' => $page_node->getField( 'name' ),
+					'page_picture' => $page_node->getField( 'picture' )->getField( 'url' ),
+					'page_access_token' => $page_node->getField( 'access_token' ),
+					'supports_instant_articles' => $page_node->getField( 'supports_instant_articles' ),
+				);
+			}
 		}
 
 		return $pages;
