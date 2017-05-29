@@ -44,8 +44,8 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
-		// Don't process if this post is not published
-		if ( 'publish' !== $post->post_status ) {
+		// Don't process if this post is not published nor a draft
+		if ( 'publish' !== $post->post_status && 'draft' !== $post->post_status ) {
 			return;
 		}
 
@@ -53,6 +53,13 @@ class Instant_Articles_Publisher {
 		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
 		if ( ! in_array( $post->post_type, $post_types ) ) {
 			return;
+		}
+
+		// Should import as draft if this post is not published
+		if ( 'draft' === $post->post_status ) {
+			$is_draft = true;
+		} else {
+			$is_draft = false;
 		}
 
 		// Transform the post to an Instant Article.
@@ -118,7 +125,7 @@ class Instant_Articles_Publisher {
 					return;
 				}
 
-				if ( $dev_mode ) {
+				if ( $dev_mode || $is_draft ) {
 					$published = false;
 				} else {
 					// Any publish status other than 'publish' means draft for the Instant Article.
