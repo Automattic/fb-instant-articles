@@ -17,6 +17,7 @@ use Facebook\InstantArticles\Elements\Image;
 use Facebook\InstantArticles\Elements\Video;
 use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\Footer;
+use Facebook\InstantArticles\Elements\Small;
 use Facebook\InstantArticles\Transformer\Transformer;
 /**
  * Class responsible for constructing our content and preparing it for rendering
@@ -345,8 +346,9 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 * @param string  $content  The post content.
+		 * @param int     $post_id  The instant article post.
 		 */
-		$content = apply_filters( 'instant_articles_content', $content );
+		$content = apply_filters( 'instant_articles_content', $content, $this->_post->ID );
 
 		// Cache the content.
 		set_transient( 'instantarticles_mod_' . $this->_post->ID, get_post_modified_time( 'Y-m-d H:i:s', true, $this->_post->ID ), WEEK_IN_SECONDS );
@@ -865,6 +867,69 @@ class Instant_Articles_Post {
 	}
 
 	/**
+	 * Returns whether the article should be ingested as an Instant Article.
+	 */
+	public function should_submit_post() {
+
+		$post = get_post( $this->get_the_id() );
+
+		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+		if ( ! $fb_page_settings[ "page_id" ] ) {
+			return false;
+		}
+
+		// Don't process if this is just a revision or an autosave.
+		if ( wp_is_post_revision( $this->post ) || wp_is_post_autosave( $this->post ) ) {
+			return false;
+		}
+
+		// Don't process if this post is not published
+		if ( 'publish' !== $post->post_status ) {
+			return false;
+		}
+
+		// Only process posts
+		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+		if ( ! in_array( $post->post_type, $post_types ) ) {
+			return false;
+		}
+
+		// Transform the post to an Instant Article.
+		$adapter = new Instant_Articles_Post( $post );
+		$instant_article = $this->to_instant_article();
+
+		// Skip empty articles or articles missing title.
+		// This is important because the save_post action is also triggered by bulk updates, but in this case
+		// WordPress does not load the content field from DB for performance reasons. In this case, articles
+		// will be empty here, despite of them actually having content.
+		if ( count( $instant_article->getChildren() ) === 0 || ! $instant_article->getHeader() || ! $instant_article->getHeader()->getTitle() ) {
+			return false;
+		}
+
+		// Don't publish posts with password protection
+		if ( post_password_required( $post ) ) {
+			return false;
+		}
+
+		// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
+		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+		$force_submit = get_post_meta( $post->ID, IA_PLUGIN_FORCE_SUBMIT_KEY, true );
+		if ( count( $this->transformer->getWarnings() ) > 0
+		  && ( ! isset( $publishing_settings[ 'publish_with_warnings' ] ) || ! $publishing_settings[ 'publish_with_warnings' ] )
+			&& ( ! $force_submit )
+			) {
+			return false;
+		}
+
+		// Allow to disable post submit via filter
+		if ( false === apply_filters( 'instant_articles_should_submit_post', true, $adapter ) ) {
+			return false;
+		}
+
+		return true;
+	 }
+
+	/**
 	 * Apply appearance settings for an InstantArticle.
 	 *
 	 * @since 3.3
@@ -879,9 +944,12 @@ class Instant_Articles_Post {
 		}
 
 		if ( isset( $settings['copyright'] ) && ! empty( $settings['copyright'] ) ) {
-			$this->instant_article->withFooter(
-				Footer::create()->withCopyright( $settings['copyright'] )
-			);
+			$footer = Footer::create();
+			$this->transformer->transformString(
+				$footer,
+				'<small>' . $settings['copyright'] . '</small>',
+				get_option( 'blog_charset' ) );
+			$this->instant_article->withFooter( $footer );
 		}
 
 		if ( isset( $settings['rtl_enabled'] ) ) {

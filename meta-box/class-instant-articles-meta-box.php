@@ -75,8 +75,7 @@ class Instant_Articles_Meta_Box {
 
 		check_ajax_referer( 'instant-articles-force-submit-' . $post_id, 'security' );
 		$force = sanitize_text_field( $_POST[ 'force' ] ) === 'true';
-		update_post_meta( $post_id, Instant_Articles_Publisher::FORCE_SUBMIT_KEY, $force );
-		Instant_Articles_Publisher::submit_article( $post_id, get_post( $post_id ) );
+		update_post_meta( $post_id, IA_PLUGIN_FORCE_SUBMIT_KEY, $force );
 	}
 
 	/**
@@ -94,11 +93,10 @@ class Instant_Articles_Meta_Box {
 		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
 		$canonical_url = $adapter->get_canonical_url();
-		$submission_status = null;
-		$published = 'publish' === $post->post_status;
+		$published = ( 'publish' === $post->post_status );
 		$dev_mode = false;
-		$force_submit = get_post_meta( $post_id, Instant_Articles_Publisher::FORCE_SUBMIT_KEY, true );
-		$should_submit_post = apply_filters( 'instant_articles_should_submit_post', true, $adapter );
+		$force_submit = get_post_meta( $post_id, IA_PLUGIN_FORCE_SUBMIT_KEY, true );
+		$instant_articles_should_submit_post_filter = apply_filters( 'instant_articles_should_submit_post', true, $adapter );
 
 		Instant_Articles_Wizard::menu_items();
 		$settings_page_href = Instant_Articles_Wizard::get_url();

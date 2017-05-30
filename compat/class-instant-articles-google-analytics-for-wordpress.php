@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Support class for Google Analytics for WordPress (Google Analytics by Yoast)
+ * Support class for Google Analytics for WordPress by MonsterInsights
  *
  * @since 0.1
  */
@@ -30,7 +30,7 @@ class Instant_Articles_Google_Analytics_For_WordPress {
 	 */
 	function add_to_registry( &$registry ) {
 
-		$display_name = 'Google Analytics by Yoast';
+		$display_name = 'Google Analytics by MonsterInsights';
 
 		$identifier = 'google-analytics-for-wordpress';
 
@@ -49,16 +49,22 @@ class Instant_Articles_Google_Analytics_For_WordPress {
 	 */
 	function get_raw_embed_code() {
 
-		$options = Yoast_GA_Options::instance()->options;
+		ob_start();
 
-		if ( isset( $options['enable_universal'] ) && 1 === intval( $options['enable_universal'] ) ) {
-			$tracker = new Yoast_GA_Universal;
+		if ( function_exists( 'monsterinsights_tracking_script' ) ) {
+			monsterinsights_tracking_script();
 		} else {
-			$tracker = new Yoast_GA_JS;
+			$options = Yoast_GA_Options::instance()->options;
+
+			if ( isset( $options['enable_universal'] ) && 1 === intval( $options['enable_universal'] ) ) {
+				$tracker = new Yoast_GA_Universal;
+			} else {
+				$tracker = new Yoast_GA_JS;
+			}
+
+			$tracker->tracking();
 		}
 
-		ob_start();
-		$tracker->tracking();
 		$ga_code = ob_get_clean();
 
 		return $ga_code;
