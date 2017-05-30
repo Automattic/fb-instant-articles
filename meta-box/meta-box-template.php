@@ -18,135 +18,64 @@ use Facebook\InstantArticles\Client\ServerMessage;
 </a>
 <?php endif; ?>
 
-<?php if ( ! $should_submit_post ) : ?>
+<?php if ( $adapter->should_submit_post()  ) : ?>
+<p>
+	<b>
+		<span class="dashicons dashicons-yes"></span>
+		This post will be available as an Instant Article.
+	</b>
+</p>
+<hr>
+<?php elseif ( ! $instant_articles_should_submit_post_filter ) : ?>
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
 		This post will not be submitted to Instant Articles due to a rule created in your site.
 	</b>
 </p>
+<hr>
 <?php elseif ( ! $published ) : ?>
 <p>
 	<b>
 		<span class="dashicons dashicons-media-document"></span>
-		Your post will be submitted to Instant Articles once it is published.
+		This post will be submitted to Instant Articles once it is published.
 	</b>
 </p>
-
-<?php elseif ( $submission_status ) : ?>
-
-	<!-- Display the last submission status -->
-	<?php switch ( $submission_status->getStatus() ) :
-		case InstantArticleStatus::SUCCESS : ?>
-			<p>
-				<b>
-					<span class="dashicons dashicons-yes"></span>
-					Your article was submitted to Instant Articles successfully
-				</b>
-			</p>
-			<?php break; ?>
-
-		<?php case InstantArticleStatus::FAILED : ?>
-			<p>
-				<b>
-					<span class="dashicons dashicons-no-alt"></span>
-					It wasn't possible to submit your article
-				</b>
-			</p>
-			<?php break; ?>
-
-		<?php case InstantArticleStatus::IN_PROGRESS : ?>
-			<p>
-				<b>
-					<span class="dashicons dashicons-update"></span>
-					Your article is being submitted...
-				</b>
-			</p>
-			<script>
-				setTimeout(function () {
-					instant_articles_load_meta_box( <?php echo absint( $post->ID ); ?> );
-				}, 2000);
-			</script>
-
-			<?php break; ?>
-
-		<?php default : ?>
-			<p>
-				<b>
-					<span class="dashicons dashicons-no-alt"></span>
-					This post was not yet submitted to Instant Articles.
-				</b>
-			</p>
-			<?php break; ?>
-
-	<?php endswitch; ?>
-
-
-	<!-- Display the submission messages if any -->
-	<?php if ( count( $submission_status->getMessages() ) > 0 ) : ?>
-
-		<p>The server responded with the following messages:</p>
-
-		<ul class="instant-articles-messages">
-
-			<?php foreach ( $submission_status->getMessages() as $message ) : ?>
-
-				<?php switch ( $message->getLevel() ) :
-					case ServerMessage::WARNING : ?>
-						<li class="wp-ui-text-highlight">
-							<span class="dashicons dashicons-warning"></span>
-							<div>
-								<?php echo esc_html( $message->getMessage() ); ?>
-							</div>
-						</li>
-						<?php break; ?>
-
-					<?php case ServerMessage::ERROR : ?>
-						<li class="wp-ui-text-notification">
-							<span class="dashicons dashicons-dismiss"></span>
-							<div>
-								<?php echo esc_html( $message->getMessage() ); ?>
-							</div>
-						</li>
-						<?php break; ?>
-
-					<?php case ServerMessage::FATAL : ?>
-						<li class="wp-ui-text-notification">
-							<span class="dashicons dashicons-sos"></span>
-							<div>
-								<?php echo esc_html( $message->getMessage() ); ?>
-							</div>
-						</li>
-						<?php break; ?>
-
-					<?php default: ?>
-						<li class="wp-ui-text-highlight">
-							<span class="dashicons dashicons-info"></span>
-							<div>
-								<?php echo esc_html( $message->getMessage() ); ?>
-							</div>
-						</li>
-
-				<?php endswitch; ?>
-
-			<?php endforeach; ?>
-			</ul>
-
-	<?php endif; ?>
-
-<?php else : ?>
-
-	<p>
-		<b>
-			<span class="dashicons dashicons-no-alt"></span>
-			Could not connect to your page. Please check the
-			<a href="<?php echo esc_url( $settings_page_href ); ?>">Instant Articles plugin settings</a>.
-		</b>
-	</p>
-
-<?php endif; ?>
-
 <hr>
+<?php elseif ( ! $article->getHeader() || ! $article->getHeader()->getTitle() ) : ?>
+<p>
+	<b>
+		<span class="dashicons dashicons-no-alt"></span>
+		This post will not be submitted to Instant Articles because it is missing a title.
+	</b>
+</p>
+<hr>
+<?php elseif ( count( $article->getChildren() ) === 0 ) : ?>
+<p>
+	<b>
+		<span class="dashicons dashicons-no-alt"></span>
+		This post will not be submitted to Instant Articles because it is missing content.
+	</b>
+</p>
+<hr>
+<?php elseif ( ! $fb_page_settings[ "page_id" ] ) : ?>
+<p>
+	<b>
+		<span class="dashicons dashicons-no-alt"></span>
+		No Facebook Page was selected. Please configure your page in the
+		<a href="<?php echo esc_url( $settings_page_href ); ?>">Instant Articles plugin settings</a>.
+	</b>
+</p>
+<hr>
+<?php elseif ( count( $adapter->transformer->getWarnings() ) > 0 ) : ?>
+<p>
+	<b>
+		<span class="dashicons dashicons-no-alt"></span>
+		This post will not be submitted to Instant Articles because the transformation raised some warnings.
+	</b>
+</p>
+<hr>
+<?php endif; ?>
 
 <!-- Transformer messages -->
 <?php if ( count( $adapter->transformer->getWarnings() ) > 0 ) : ?>

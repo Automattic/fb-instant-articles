@@ -72,6 +72,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
 	define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
 	define( 'IA_PLUGIN_TEXT_DOMAIN', 'instant-articles' );
+	define( 'IA_PLUGIN_FORCE_SUBMIT_KEY', 'instant_articles_force_submit' );
 
 	// Let users define their own feed slug.
 	if ( ! defined( 'INSTANT_ARTICLES_SLUG' ) ) {
@@ -82,7 +83,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	require_once( dirname( __FILE__ ) . '/class-instant-articles-post.php' );
 	require_once( dirname( __FILE__ ) . '/wizard/class-instant-articles-wizard.php' );
 	require_once( dirname( __FILE__ ) . '/meta-box/class-instant-articles-meta-box.php' );
-	require_once( dirname( __FILE__ ) . '/class-instant-articles-publisher.php' );
 
 	/**
 	 * Plugin activation hook to add our rewrite rules.
@@ -102,7 +102,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action( 'network_admin_notices', 'instant_articles_setup_admin_notice' ); // also show message on multisite
 	function instant_articles_setup_admin_notice() {
 		global $pagenow;
-		if ( $pagenow === 'plugins.php' && Instant_Articles_Wizard_State::get_current_state() !== Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
+		if ( $pagenow === 'plugins.php' && ! Instant_Articles_Option_FB_Page::get_option_decoded()[ "page_id" ] ) {
 			$settings_url = Instant_Articles_Wizard::get_url();
 			echo '<div class="updated settings-error notice is-dismissible">';
 			echo '<p>Congrats, you\'ve installed the Instant Articles for WP plugin. Now <a href="' . esc_url_raw($settings_url) . '">set it up</a> to start publishing Instant Articles.';
@@ -314,13 +314,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			IA_PLUGIN_VERSION,
 			false
 		);
-		wp_register_script(
-			'instant-articles-wizard',
-			plugins_url( '/js/instant-articles-wizard.js', __FILE__ ),
-			null,
-			IA_PLUGIN_VERSION,
-			false
-		);
 	}
 	add_action( 'init', 'instant_articles_register_scripts' );
 
@@ -354,20 +347,101 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 
-		if ( isset( $fb_page_settings['page_id'] ) ) {
+		if ( isset( $fb_page_settings[ 'page_id' ] ) ) {
 			?>
-			<meta property="fb:pages" content="<?php echo esc_attr( $fb_page_settings['page_id'] ); ?>" />
+			<meta property="fb:pages" content="<?php echo esc_attr( $fb_page_settings[ 'page_id' ] ); ?>" />
 			<?php
 		}
 	}
 	add_action( 'wp_head', 'inject_url_claiming_meta_tag' );
 
+	/**
+	 * Automatically add meta tag for Instant Articles Open Publish scraper
+	 *
+	 * @since 4.0
+	 */
+	function inject_ia_markup_meta_tag() {
+		$post = get_post();
+		// Transform the post to an Instant Article.
+		$adapter = new Instant_Articles_Post( $post );
+		if ( $adapter->should_submit_post() ) {
+			$url = $adapter->get_canonical_url();
+			$url = add_query_arg( 'ia_markup', '1', $url );
+			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+			$dev_mode = isset( $publishing_settings['dev_mode'] )
+				? ( $publishing_settings['dev_mode'] ? true : false )
+				: false;
+
+			if ( $dev_mode ) {
+				?>
+				<meta property="ia:markup_url_dev" content="<?php echo esc_attr( $url ); ?>" />
+				<?php
+			} else {
+				?>
+				<meta property="ia:markup_url" content="<?php echo esc_attr( $url ); ?>" />
+				<?php
+			}
+		}
+	}
+	add_action( 'wp_head', 'inject_ia_markup_meta_tag' );
+
 	// Initialize the Instant Articles meta box.
 	Instant_Articles_Meta_Box::init();
 
-	// Initialize the Instant Articles publisher.
-	Instant_Articles_Publisher::init();
+	function ia_markup_version( ) {
+		$post = get_post();
 
-	// Initialize the Instant Articles Wizard page.
+		if (isset( $_GET[ 'ia_markup' ] ) && $_GET[ 'ia_markup' ]) {
+			// Transform the post to an Instant Article.
+			$adapter = new Instant_Articles_Post( $post );
+			$article = $adapter->to_instant_article();
+			echo $article->render( null, true );
+
+			die();
+		}
+	}
+	add_action( 'wp', 'ia_markup_version' );
+
 	Instant_Articles_Wizard::init();
+
+	function rescrape_article( $post_id, $post ) {
+		$adapter = new Instant_Articles_Post( $post );
+		$old_slugs = get_post_meta( $post_id, '_wp_old_slug' );
+		if ( $adapter->should_submit_post() ) {
+			try {
+				$client = Facebook\HttpClients\HttpClientsFactory::createHttpClient( null );
+				$url_encoded = urlencode($adapter->get_canonical_url());
+				$client->send(
+					"https://graph.facebook.com/?id=$url_encoded&scrape=true",
+					'POST',
+					'',
+					array(),
+					60
+				);
+				foreach ( $old_slugs as $slug ) {
+					$clone_post = clone $post;
+					$clone_post->post_name = $slug;
+					$clone_adapter = new Instant_Articles_Post( $clone_post );
+
+					$url_encoded = urlencode($clone_adapter->get_canonical_url());
+					$client->send(
+						"https://graph.facebook.com/?id=$url_encoded&scrape=true",
+						'POST',
+						'',
+						array(),
+						60
+					);
+				}
+			} catch ( Exception $e ) {
+				Logger::getLogger( 'instantarticles-wp-plugin' )->error(
+					'Unable to submit article.',
+					$e->getTraceAsString()
+				);
+			}
+		}
+	}
+	add_action( 'save_post', 'rescrape_article', 999, 2 );
+
+
 }
