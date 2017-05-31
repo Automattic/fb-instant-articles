@@ -15,6 +15,9 @@ php:
 
 dist: trusty
 
+services:
+  - mysql
+
 env:
   - WP_VERSION=latest WP_MULTISITE=0
   - WP_VERSION=latest WP_MULTISITE=1
