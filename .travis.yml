@@ -13,7 +13,7 @@ php:
   - 7.1
   - hhvm
 
-dist: xenial
+dist: trusty
 
 env:
   - WP_VERSION=latest WP_MULTISITE=0
