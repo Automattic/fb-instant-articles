@@ -18,6 +18,8 @@ use Facebook\InstantArticles\Elements\Video;
 use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\Footer;
 use Facebook\InstantArticles\Transformer\Transformer;
+use Facebook\InstantArticles\Validators\Type;
+
 /**
  * Class responsible for constructing our content and preparing it for rendering
  *
@@ -691,7 +693,7 @@ class Instant_Articles_Post {
 		}
 		
 		$the_content = $this->get_the_content();
-		if ( '' != $the_content ) {
+		if (!Type::isTextEmpty($the_content)) {
 			$transformer->transformString( $this->instant_article, $the_content, get_option( 'blog_charset' ) );
 		}
 
