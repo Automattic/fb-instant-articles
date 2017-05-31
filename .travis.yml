@@ -11,9 +11,6 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - hhvm
-
-dist: trusty
 
 services:
   - mysql
@@ -23,7 +20,6 @@ env:
   - WP_VERSION=latest WP_MULTISITE=1
 
 before_script:
-  - mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('')"
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
   - composer install --prefer-source --no-interaction
 
