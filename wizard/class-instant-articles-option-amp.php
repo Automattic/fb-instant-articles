@@ -35,7 +35,7 @@ class Instant_Articles_Option_AMP extends Instant_Articles_Option {
 		),
 
 		Instant_Articles_AMP_Markup::SETTING_STYLE => array(
-			'label' => 'IA JSON Style',
+			'label' => 'Instant Article JSON Style',
 			'description' => 'Please paste the contents of the Style JSON file (<a href="https://developers.facebook.com/docs/instant-articles/other-formats#style" target="_blank">downloaded from the Publishing Tools</a>)',
 			'render' => 'textarea',
 		),
