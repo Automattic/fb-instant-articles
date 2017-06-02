@@ -37,7 +37,6 @@ class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 	 *
 	 * @since 0.4
 	 */
-	 //TODO: this seems to be bugged, please check (vk)
 	public function __construct() {
 		$this->options_manager = new parent(
 			self::OPTION_KEY,
