@@ -11,12 +11,12 @@
 use Facebook\InstantArticles\AMP\AMPArticle;
 use Facebook\InstantArticles\Validators\Type;
 
-class Instant_Articles_Amp_Markup {
+class Instant_Articles_AMP_Markup {
 
-	const SETTING_AMP_MARKUP = 'amp_markup'; /// Setting to check if AMP Markup generation is enabled
-	const SETTING_STYLE      = 'amp_stylesheet'; /// Setting that stores the JSON stylesheet
-	const SETTING_DL_MEDIA   = 'amp_download_media'; /// Enable or disable media download option
-	const QUERY_ARG          = 'amp_markup'; /// Query argument that will trigger the AMP markup generation
+	const SETTING_AMP_MARKUP = 'amp_markup'; // Setting to check if AMP Markup generation is enabled
+	const SETTING_STYLE      = 'amp_stylesheet'; // Setting that stores the JSON stylesheet
+	const SETTING_DL_MEDIA   = 'amp_download_media'; // Enable or disable media download option
+	const QUERY_ARG          = 'amp_markup'; // Query argument that will trigger the AMP markup generation
 
 	// To memoize the settings
 	static $settings = null;
@@ -28,11 +28,13 @@ class Instant_Articles_Amp_Markup {
 	 * @since 4.0
 	 */
 	static function get_settings() {
-		if (self::$settings === null)
-			self::$settings = Instant_Articles_Option_Amp::get_option_decoded();
+		if ( self::$settings === null ) {
+			self::$settings = Instant_Articles_Option_AMP::get_option_decoded();
+		}
 
 		return self::$settings;
-	 }
+	}
+
 	/**
 	 * Checks if the AMP markup is enabled
 	 *
@@ -43,10 +45,11 @@ class Instant_Articles_Amp_Markup {
 		$settings = self::get_settings();
 
 		return
-			isset( $settings[self::SETTING_AMP_MARKUP] )
-			? (bool) $settings[self::SETTING_AMP_MARKUP]
+			isset( $settings[ self::SETTING_AMP_MARKUP ] )
+			? (bool) $settings[ self::SETTING_AMP_MARKUP ]
 			: false;
 	}
+
 	/**
 	 * Adds the meta tag for AMP Markup if enabled
 	 *
@@ -54,17 +57,19 @@ class Instant_Articles_Amp_Markup {
 	 */
 	static function inject_link_rel() {
 
-		if (!self::is_markup_enabled())
+		if ( ! self::is_markup_enabled() ) {
 			return;
+		}
 
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( get_post() );
 
-		if (!$adapter->should_submit_post())
+		if ( ! $adapter->should_submit_post() ) {
 			return;
+		}
 
 		$url = $adapter->get_canonical_url();
-		$url = add_query_arg(self::QUERY_ARG, '1', $url );
+		$url = add_query_arg( self::QUERY_ARG, '1', $url );
 
 		echo '<link rel="amphtml" href="' . $url . '">';
 
@@ -74,34 +79,37 @@ class Instant_Articles_Amp_Markup {
 	 * Generates the AMP markup if post has amp_markup
 	 *
 	 * NOTE: side-effect: function calls die() in the end.
+	 *
 	 * @since 4.0
 	 */
-	static function markup_version( ) {
-		if (!(isset($_GET[ self::QUERY_ARG ]) && $_GET[ self::QUERY_ARG ]))
+	static function markup_version() {
+		if ( ! (isset( $_GET[ self::QUERY_ARG ] ) && $_GET[ self::QUERY_ARG ]) ) {
 			return;
+		}
 
 		$settings = self::get_settings();
 
-		if (!self::is_markup_enabled())
+		if ( ! self::is_markup_enabled() ) {
 			return;
+		}
 
 		$has_stylesheet =
-			isset($settings[self::SETTING_STYLE])
-			? self::validate_json($settings[self::SETTING_STYLE])
+			isset( $settings[ self::SETTING_STYLE ] )
+			? self::validate_json( $settings[ self::SETTING_STYLE ] )
 			: false;
 
 		$properties = array();
 
 		$download_media =
-			isset($settings[self::SETTING_DL_MEDIA])
-			? (bool) $settings[self::SETTING_DL_MEDIA]
+			isset( $settings[ self::SETTING_DL_MEDIA ] )
+			? (bool) $settings[ self::SETTING_DL_MEDIA ]
 			: false;
 
-		$properties[AMPArticle::ENABLE_DOWNLOAD_FOR_MEDIA_SIZING_KEY] = $download_media;
+		$properties[ AMPArticle::ENABLE_DOWNLOAD_FOR_MEDIA_SIZING_KEY ] = $download_media;
 
-		if ($has_stylesheet) {
-			$properties[AMPArticle::OVERRIDE_STYLES_KEY] =
-				json_decode($settings[self::SETTING_STYLE], true);
+		if ( $has_stylesheet ) {
+			$properties[ AMPArticle::OVERRIDE_STYLES_KEY ] =
+				json_decode( $settings[ self::SETTING_STYLE ], true );
 		}
 
 		$post = get_post();
@@ -111,53 +119,55 @@ class Instant_Articles_Amp_Markup {
 
 		// Get all children with mime type image that are attached to the posts
 		// NOTE: this will not get images that are not hosted in the WP
-		$image_children = get_children('post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
+		$image_children = get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
 
-		foreach ($image_children as $img_id => $img) {
-			$meta = wp_get_attachment_metadata($img_id);
+		foreach ( $image_children as $img_id => $img ) {
+			$meta = wp_get_attachment_metadata( $img_id );
 
 			// Removes the file name from the URL
-			$url_chunks = explode('/', $img->guid);
-			array_pop($url_chunks);
-			$base_image_url = implode('/', $url_chunks) . '/';
+			$url_chunks = explode( '/', $img->guid );
+			array_pop( $url_chunks );
+			$base_image_url = implode( '/', $url_chunks ) . '/';
 
 			// This is the uploaded original file
-			$media_sizes[$img->guid] = array($meta['width'], $meta['height']);
+			$media_sizes[ $img->guid ] = array( $meta['width'], $meta['height'] );
 
 			// These are the possible redimensions
-			foreach ($meta['sizes'] as $size) {
-				$size_url = $base_image_url.$size['file'];
-				$media_sizes[$size_url] = array($size['width'], $size['height']);
+			foreach ( $meta['sizes'] as $size ) {
+				$size_url = $base_image_url . $size['file'];
+				$media_sizes[ $size_url ] = array( $size['width'], $size['height'] );
 			}
 		}
 
-		$properties[AMPArticle::MEDIA_SIZES_KEY] = $media_sizes;
+		$properties[ AMPArticle::MEDIA_SIZES_KEY ] = $media_sizes;
 
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
 		$article_html = $article->render();
-		$amp = AMPArticle::create($article_html, $properties);
+		$amp = AMPArticle::create( $article_html, $properties );
 		echo $amp->render();
 
 		die();
-	 }
+	}
 
 	 /**
-		* Helper function to validate the json string
-		*
-		* @param $json_str string JSON string
-		* @return bool true for valid JSON
-		* @since 4.0
-		*/
-	 static function validate_json($json_str) {
-		 if (Type::isTextEmpty($json_str))
-			 return false;
+	  * Helper function to validate the json string
+	  *
+	  * @param $json_str string JSON string
+	  * @return bool true for valid JSON
+	  * @since 4.0
+	  */
+	static function validate_json( $json_str ) {
+		if ( Type::isTextEmpty( $json_str ) ) {
+			return false;
+		}
 
-		json_decode($json_str);
-		if (json_last_error() == JSON_ERROR_NONE)
+		json_decode( $json_str );
+		if ( json_last_error() == JSON_ERROR_NONE ) {
 			return true;
+		}
 
 		return false;
-	 }
- }
+	}
+}

@@ -35,7 +35,7 @@ class Instant_Articles_Wizard {
 			new Instant_Articles_Option_Ads();
 			new Instant_Articles_Option_Analytics();
 			new Instant_Articles_Option_Publishing();
-			new Instant_Articles_Option_Amp();
+			new Instant_Articles_Option_AMP();
 		});
 
 	}

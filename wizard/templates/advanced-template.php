@@ -33,7 +33,7 @@
 							<hr />
 							<?php do_settings_sections( Instant_Articles_Option_Publishing::OPTION_KEY ); ?>
 							<hr />
-							<?php do_settings_sections( Instant_Articles_Option_Amp::OPTION_KEY ); ?>
+							<?php do_settings_sections( Instant_Articles_Option_AMP::OPTION_KEY ); ?>
 							<hr />
 						</div>
 						<?php submit_button( __( 'Save changes' ) ); ?>

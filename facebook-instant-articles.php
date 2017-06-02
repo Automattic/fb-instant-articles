@@ -389,7 +389,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action( 'wp_head', 'inject_ia_markup_meta_tag' );
 
 	// Injects the <link rel...> tag if the AMP Markup is enabled
-	add_action( 'wp_head', array('Instant_Articles_Amp_Markup', 'inject_link_rel') );
+	add_action( 'wp_head', array('Instant_Articles_AMP_Markup', 'inject_link_rel') );
 
 	// Initialize the Instant Articles meta box.
 	Instant_Articles_Meta_Box::init();
@@ -409,7 +409,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action( 'wp', 'ia_markup_version' );
 
 	// Add hook for generating the AMP markup
-	add_action( 'wp', array('Instant_Articles_Amp_Markup', 'markup_version') );
+	add_action( 'wp', array('Instant_Articles_AMP_Markup', 'markup_version') );
 
 	Instant_Articles_Wizard::init();
 
