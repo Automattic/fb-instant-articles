@@ -69,7 +69,8 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'render' => 'checkbox',
 			'default' => false,
 			'checkbox_label' => 'Enable comments on images and videos by default',
-		),
+		)
+
 	);
 
 	/**
