@@ -19,6 +19,8 @@ use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\Footer;
 use Facebook\InstantArticles\Elements\Small;
 use Facebook\InstantArticles\Transformer\Transformer;
+use Facebook\InstantArticles\Validators\Type;
+
 /**
  * Class responsible for constructing our content and preparing it for rendering
  *
@@ -691,8 +693,11 @@ class Instant_Articles_Post {
 			Image::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
 			Video::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
 		}
-
-		$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
+		
+		$the_content = $this->get_the_content();
+		if (!Type::isTextEmpty($the_content)) {
+			$transformer->transformString( $this->instant_article, $the_content, get_option( 'blog_charset' ) );
+		}
 
 		$this->add_ads_from_settings();
 		$this->add_analytics_from_settings();
