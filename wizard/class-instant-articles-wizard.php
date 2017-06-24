@@ -308,12 +308,17 @@ class Instant_Articles_Wizard {
 						return $instant_articles_post;
 					}, $articles_for_review );
 
-					// Filter articles with warnings and not forced
-					$instant_articles_with_warnings = array_filter( $instant_articles_for_review, function ( $article ) {
+					// Create two arrays: one with articles that contain warnings and are not foced, and one for articles that are valid
+					foreach ($instant_articles_for_review as $article) {
+						$instant_articles_post = new Instant_Articles_Post( $article );
 						$has_warnings = ( count( $article->transformer->getWarnings() ) > 0 );
 						$force_submit = get_post_meta( $article->get_the_id(), Instant_Articles_Publisher::FORCE_SUBMIT_KEY, true );
-						return $has_warnings && ! $force_submit;
-					} );
+						if ($has_warnings && ! $force_submit) {
+							$instant_articles_with_warnings[] = $article;
+						} else {
+							$instant_articles_valid[] = $article;
+						}
+					}
 				}
 			}
 			// ----------------------------------

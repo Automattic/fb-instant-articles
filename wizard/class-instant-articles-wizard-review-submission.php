@@ -33,7 +33,8 @@ class Instant_Articles_Wizard_Review_Submission {
 		return wp_get_recent_posts(
 		 	array(
 				'numberposts' => min( self::MIN_ARTICLES, 100 ),
-				'post_type' => $post_types
+				'post_type' => $post_types,
+				'post_status' => 'publish',
 			),
 			'OBJECT'
 		);
