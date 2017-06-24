@@ -60,14 +60,21 @@ switch ( $review_submission_status ) :
 							</p>
 							<p>
 								The plugin tried to automatically transform your last <?php echo esc_html( Instant_Articles_Wizard_Review_Submission::MIN_ARTICLES ); ?>
-								posts into Instant Articles as a sample to submit for review, but some of these posts contained elements the plugin didn't know how to convert.
+								posts into Instant Articles as a sample to submit for review.
 							</p>
-							<p>
-								Before submitting for review, you'll need to handle the warnings on these articles by looking at the "Instant Articles" box on the post edit screen:
+							<?php if ( count($instant_articles_valid) > 0 ) : ?>
+								<p>The following posts were successfully transformed:</p>
+								<ul>
+									<?php foreach ($instant_articles_valid as $article): ?>
+										<li><?php edit_post_link( empty($article->get_the_title()) ? "(no title)" : $article->get_the_title(), '- ', ' <b>[VALID]</b>', $article->get_the_id() ); ?> </li>
+								<?php endforeach; ?>
+							</ul>
+							<?php endif; ?>
+							<p>However, some of these posts contained elements the plugin didn't know how to convert. Before submitting for review, you'll need to handle the warnings on these articles by looking at the "Instant Articles" box on the post edit screen:
 							</p>
 							<ul>
 								<?php foreach ($instant_articles_with_warnings as $article): ?>
-									<li><?php edit_post_link( $article->get_the_title(), '- ', '', $article->get_the_id() ); ?> </li>
+									<li><?php edit_post_link( empty($article->get_the_title()) ? "(no title)" : $article->get_the_title(), '- ', '', $article->get_the_id() ); ?> </li>
 								<?php endforeach; ?>
 							</ul>
 							<p>
