@@ -1,6 +1,5 @@
 .DS_Store
 vendor
-composer.lock
 resty
 jsawk
 facebook-instant-articles-wp.zip

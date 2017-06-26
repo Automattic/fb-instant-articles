@@ -31,7 +31,7 @@ class Instant_Articles_Option_Styles extends Instant_Articles_Option {
 		'copyright' => array(
 			'label' => 'Copyright',
 			'default' => '',
-			'description' => 'The copyright details for your articles. Note: No markup tags can be used in this field. <a href="https://developers.facebook.com/docs/instant-articles/reference/footer" target="_blank">Learn more about Footer in Instant Articles</a>.',
+			'description' => 'The copyright details for your articles. Note: Some inline html tags can be used in this field. <a href="https://developers.facebook.com/docs/instant-articles/reference/footer" target="_blank">Learn more about Footer in Instant Articles</a>.',
 		),
 
 		'rtl_enabled' => array(
