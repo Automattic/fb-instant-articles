@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6de2f1a16ac1bd4b344ba735facdb89b",
+    "hash": "6a2cc31f65a3b6fe00400e4da6e1ef5f",
+    "content-hash": "eaee25ff0d1638dc2a061e4bd67a9f47",
     "packages": [
         {
             "name": "apache/log4php",
@@ -34,20 +35,20 @@
                 "logging",
                 "php"
             ],
-            "time": "2012-10-26T09:13:25+00:00"
+            "time": "2012-10-26 09:13:25"
         },
         {
             "name": "facebook/facebook-instant-articles-sdk-extensions-in-php",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-instant-articles-sdk-extensions-in-php.git",
-                "reference": "a2c52d93ce31184ff34dcac1fef85c6fdbfc08c5"
+                "reference": "f574ad6230ced8d8159b7b59a41ac6238d8d6353"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-extensions-in-php/zipball/a2c52d93ce31184ff34dcac1fef85c6fdbfc08c5",
-                "reference": "a2c52d93ce31184ff34dcac1fef85c6fdbfc08c5",
+                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-extensions-in-php/zipball/f574ad6230ced8d8159b7b59a41ac6238d8d6353",
+                "reference": "f574ad6230ced8d8159b7b59a41ac6238d8d6353",
                 "shasum": ""
             },
             "require": {
@@ -84,20 +85,20 @@
                 "instantarticles",
                 "sdk"
             ],
-            "time": "2017-05-25T13:00:26+00:00"
+            "time": "2017-06-26 19:59:19"
         },
         {
             "name": "facebook/facebook-instant-articles-sdk-php",
-            "version": "v1.6.0",
+            "version": "v1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-instant-articles-sdk-php.git",
-                "reference": "c0d9491ad7c44ae1e96fa7d5f7f54262b9f8186d"
+                "reference": "511d15d741796c7da68742e565d98f97464d2d6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/c0d9491ad7c44ae1e96fa7d5f7f54262b9f8186d",
-                "reference": "c0d9491ad7c44ae1e96fa7d5f7f54262b9f8186d",
+                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/511d15d741796c7da68742e565d98f97464d2d6b",
+                "reference": "511d15d741796c7da68742e565d98f97464d2d6b",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +136,7 @@
                 "instant",
                 "sdk"
             ],
-            "time": "2017-05-24T22:31:08+00:00"
+            "time": "2017-06-20 13:45:09"
         },
         {
             "name": "facebook/graph-sdk",
@@ -193,29 +194,29 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2017-04-20T14:15:02+00:00"
+            "time": "2017-04-20 14:15:02"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.8.20",
+            "version": "v2.8.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "4d882dced7b995d5274293039370148e291808f2"
+                "reference": "ba3204654efa779691fac9e948a96b4a7067e4ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/4d882dced7b995d5274293039370148e291808f2",
-                "reference": "4d882dced7b995d5274293039370148e291808f2",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ba3204654efa779691fac9e948a96b4a7067e4ab",
+                "reference": "ba3204654efa779691fac9e948a96b4a7067e4ab",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -246,7 +247,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01T15:01:29+00:00"
+            "time": "2017-05-01 14:31:55"
         }
     ],
     "packages-dev": [
@@ -326,7 +327,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-05-22T02:43:20+00:00"
+            "time": "2017-05-22 02:43:20"
         },
         {
             "name": "wp-coding-standards/wpcs",
@@ -362,7 +363,7 @@
                 "standards",
                 "wordpress"
             ],
-            "time": "2017-03-20T23:17:58+00:00"
+            "time": "2017-03-20 23:17:58"
         }
     ],
     "aliases": [],
