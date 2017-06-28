@@ -693,7 +693,7 @@ class Instant_Articles_Post {
 			Image::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
 			Video::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
 		}
-		
+
 		$the_content = $this->get_the_content();
 		if (!Type::isTextEmpty($the_content)) {
 			$transformer->transformString( $this->instant_article, $the_content, get_option( 'blog_charset' ) );
@@ -879,12 +879,12 @@ class Instant_Articles_Post {
 		$post = get_post( $this->get_the_id() );
 
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
-		if ( ! $fb_page_settings[ "page_id" ] ) {
+		if ( isset( $fb_page_settings[ 'page_id' ] ) && !$fb_page_settings[ 'page_id' ] ) {
 			return false;
 		}
 
 		// Don't process if this is just a revision or an autosave.
-		if ( wp_is_post_revision( $this->post ) || wp_is_post_autosave( $this->post ) ) {
+		if ( wp_is_post_revision( $post ) || wp_is_post_autosave( $post ) ) {
 			return false;
 		}
 

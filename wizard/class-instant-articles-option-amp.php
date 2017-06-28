@@ -72,7 +72,9 @@ class Instant_Articles_Option_AMP extends Instant_Articles_Option {
 				);
 
 				$field_values[ Instant_Articles_AMP_Markup::SETTING_STYLE ] =
-					$old_settings[ Instant_Articles_AMP_Markup::SETTING_STYLE ];
+				  isset($old_settings[ Instant_Articles_AMP_Markup::SETTING_STYLE ])
+						? $old_settings[ Instant_Articles_AMP_Markup::SETTING_STYLE ]
+						: '';
 			}
 		}
 
