@@ -37,6 +37,7 @@ class Instant_Articles_Option_AMP extends Instant_Articles_Option {
 		Instant_Articles_AMP_Markup::SETTING_STYLE => array(
 			'label' => 'Instant Article JSON Style',
 			'description' => 'Please paste the contents of the Style JSON file (<a href="https://developers.facebook.com/docs/instant-articles/other-formats#style" target="_blank">downloaded from the Publishing Tools</a>)',
+			'default' => '',
 			'render' => 'textarea',
 		),
 
@@ -63,7 +64,7 @@ class Instant_Articles_Option_AMP extends Instant_Articles_Option {
 	public function sanitize_option_fields( $field_values ) {
 		$old_settings = Instant_Articles_AMP_Markup::get_settings();
 
-		if ( isset( $field_values[ Instant_Articles_AMP_Markup::SETTING_STYLE ] ) ) {
+		if ( isset( $field_values[ Instant_Articles_AMP_Markup::SETTING_STYLE ] ) && !empty($field_values[ Instant_Articles_AMP_Markup::SETTING_STYLE ]) ) {
 			if ( ! Instant_Articles_AMP_Markup::validate_json( $field_values[ Instant_Articles_AMP_Markup::SETTING_STYLE ] ) ) {
 				add_settings_error(
 					Instant_Articles_AMP_Markup::SETTING_STYLE,
