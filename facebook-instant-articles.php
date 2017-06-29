@@ -366,7 +366,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$post = get_post();
 
 		// If there's no current post, return
-		if (! $post) {
+		if ( ! $post ) {
 			return;
 		}
 
