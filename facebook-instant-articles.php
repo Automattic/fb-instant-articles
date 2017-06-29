@@ -451,5 +451,9 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	}
 	add_action( 'save_post', 'rescrape_article', 999, 2 );
 
+	function invalidate_should_submit_post_content_cache( $post_id, $post ) {
+		delete_post_meta( $this->get_the_id(), 'should_submit_post_content' );
+	}
+	add_action( 'save_post', 'invalidate_should_submit_post_content_cache', 10, 2 );
 
 }

@@ -876,12 +876,12 @@ class Instant_Articles_Post {
 	 */
 	public function should_submit_post() {
 
-		$post = get_post( $this->get_the_id() );
-
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 		if ( isset( $fb_page_settings[ 'page_id' ] ) && !$fb_page_settings[ 'page_id' ] ) {
 			return false;
 		}
+
+		$post = $this->_post;
 
 		// Don't process if this is just a revision or an autosave.
 		if ( wp_is_post_revision( $post ) || wp_is_post_autosave( $post ) ) {
@@ -899,8 +899,21 @@ class Instant_Articles_Post {
 			return false;
 		}
 
-		// Transform the post to an Instant Article.
-		$adapter = new Instant_Articles_Post( $post );
+		// Don't publish posts with password protection
+		if ( post_password_required( $post ) ) {
+			return false;
+		}
+
+		// Allow to disable post submit via filter
+		if ( false === apply_filters( 'instant_articles_should_submit_post', true, $this ) ) {
+			return false;
+		}
+
+		$cache = get_post_meta( $this->get_the_id(), 'should_submit_post_content', true );
+		if ( $cache ) {
+			return ( $cache === 'yes' );
+		}
+
 		$instant_article = $this->to_instant_article();
 
 		// Skip empty articles or articles missing title.
@@ -908,11 +921,7 @@ class Instant_Articles_Post {
 		// WordPress does not load the content field from DB for performance reasons. In this case, articles
 		// will be empty here, despite of them actually having content.
 		if ( count( $instant_article->getChildren() ) === 0 || ! $instant_article->getHeader() || ! $instant_article->getHeader()->getTitle() ) {
-			return false;
-		}
-
-		// Don't publish posts with password protection
-		if ( post_password_required( $post ) ) {
+			update_post_meta( $this->get_the_id(), 'should_submit_post_content', 'no' );
 			return false;
 		}
 
@@ -923,14 +932,11 @@ class Instant_Articles_Post {
 		  && ( ! isset( $publishing_settings[ 'publish_with_warnings' ] ) || ! $publishing_settings[ 'publish_with_warnings' ] )
 			&& ( ! $force_submit )
 			) {
+			update_post_meta( $this->get_the_id(), 'should_submit_post_content', 'no' );
 			return false;
 		}
 
-		// Allow to disable post submit via filter
-		if ( false === apply_filters( 'instant_articles_should_submit_post', true, $adapter ) ) {
-			return false;
-		}
-
+		update_post_meta( $this->get_the_id(), 'should_submit_post_content', 'yes' );
 		return true;
 	 }
 
