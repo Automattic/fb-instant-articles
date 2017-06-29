@@ -909,8 +909,12 @@ class Instant_Articles_Post {
 			return false;
 		}
 
-		$cache = get_post_meta( $this->get_the_id(), 'should_submit_post_content', true );
+		// This post meta is a cache on the calculations made to decide if
+		// a post is in good state to be converted to an Instant Article or not
+		$cache = get_post_meta( $this->get_the_id(), '_should_submit_post_content', true );
 		if ( $cache ) {
+			// We use 'yes' or 'no' to avoid booleans because
+			// get_post_meta() returns false when the key is not found
 			return ( $cache === 'yes' );
 		}
 
@@ -921,7 +925,7 @@ class Instant_Articles_Post {
 		// WordPress does not load the content field from DB for performance reasons. In this case, articles
 		// will be empty here, despite of them actually having content.
 		if ( count( $instant_article->getChildren() ) === 0 || ! $instant_article->getHeader() || ! $instant_article->getHeader()->getTitle() ) {
-			update_post_meta( $this->get_the_id(), 'should_submit_post_content', 'no' );
+			update_post_meta( $this->get_the_id(), '_should_submit_post_content', 'no' );
 			return false;
 		}
 
@@ -932,11 +936,11 @@ class Instant_Articles_Post {
 		  && ( ! isset( $publishing_settings[ 'publish_with_warnings' ] ) || ! $publishing_settings[ 'publish_with_warnings' ] )
 			&& ( ! $force_submit )
 			) {
-			update_post_meta( $this->get_the_id(), 'should_submit_post_content', 'no' );
+			update_post_meta( $this->get_the_id(), '_should_submit_post_content', 'no' );
 			return false;
 		}
 
-		update_post_meta( $this->get_the_id(), 'should_submit_post_content', 'yes' );
+		update_post_meta( $this->get_the_id(), '_should_submit_post_content', 'yes' );
 		return true;
 	 }
 
