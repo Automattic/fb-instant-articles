@@ -872,6 +872,53 @@ class Instant_Articles_Post {
 	}
 
 	/**
+	 * Returns whether the transformation results in an empty document
+	 */
+	public function is_empty_after_transformation() {
+		// This post meta is a cache on the calculations made by this function
+		$cache = get_post_meta( $this->get_the_id(), '_is_empty_after_transformation', true );
+		if ( $cache ) {
+			// We use 'yes' or 'no' to avoid booleans because
+			// get_post_meta() returns false when the key is not found
+			return ( $cache === 'yes' );
+		}
+
+		$instant_article = $this->to_instant_article();
+		// Skip empty articles or articles missing title.
+		// This is important because the save_post action is also triggered by bulk updates, but in this case
+		// WordPress does not load the content field from DB for performance reasons. In this case, articles
+		// will be empty here, despite of them actually having content.
+		if ( count( $instant_article->getChildren() ) === 0 || ! $instant_article->getHeader() || ! $instant_article->getHeader()->getTitle() ) {
+			update_post_meta( $this->get_the_id(), '_is_empty_after_transformation', 'yes' );
+			return true;
+		}
+		update_post_meta( $this->get_the_id(), '_is_empty_after_transformation', 'no' );
+		return false;
+	}
+
+
+	/**
+	 * Returns whether the transformation raises warnings
+	 */
+	public function has_warnings_after_transformation() {
+		// This post meta is a cache on the calculations made by this function
+		$cache = get_post_meta( $this->get_the_id(), '_has_warnings_after_transformation', true );
+		if ( $cache ) {
+			// We use 'yes' or 'no' to avoid booleans because
+			// get_post_meta() returns false when the key is not found
+			return ( $cache === 'yes' );
+		}
+
+		$instant_article = $this->to_instant_article();
+		if ( count( $this->transformer->getWarnings() ) > 0 ) {
+			update_post_meta( $this->get_the_id(), '_has_warnings_after_transformation', 'yes' );
+			return true;
+		}
+		update_post_meta( $this->get_the_id(), '_has_warnings_after_transformation', 'no' );
+		return false;
+	}
+
+	/**
 	 * Returns whether the article should be ingested as an Instant Article.
 	 */
 	public function should_submit_post() {
@@ -909,38 +956,26 @@ class Instant_Articles_Post {
 			return false;
 		}
 
-		// This post meta is a cache on the calculations made to decide if
-		// a post is in good state to be converted to an Instant Article or not
-		$cache = get_post_meta( $this->get_the_id(), '_should_submit_post_content', true );
-		if ( $cache ) {
-			// We use 'yes' or 'no' to avoid booleans because
-			// get_post_meta() returns false when the key is not found
-			return ( $cache === 'yes' );
-		}
-
 		$instant_article = $this->to_instant_article();
 
 		// Skip empty articles or articles missing title.
 		// This is important because the save_post action is also triggered by bulk updates, but in this case
 		// WordPress does not load the content field from DB for performance reasons. In this case, articles
 		// will be empty here, despite of them actually having content.
-		if ( count( $instant_article->getChildren() ) === 0 || ! $instant_article->getHeader() || ! $instant_article->getHeader()->getTitle() ) {
-			update_post_meta( $this->get_the_id(), '_should_submit_post_content', 'no' );
+		if ( $this->is_empty_after_transformation() ) {
 			return false;
 		}
 
 		// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$force_submit = get_post_meta( $post->ID, IA_PLUGIN_FORCE_SUBMIT_KEY, true );
-		if ( count( $this->transformer->getWarnings() ) > 0
+		if ( $this->has_warnings_after_transformation()
 		  && ( ! isset( $publishing_settings[ 'publish_with_warnings' ] ) || ! $publishing_settings[ 'publish_with_warnings' ] )
 			&& ( ! $force_submit )
 			) {
-			update_post_meta( $this->get_the_id(), '_should_submit_post_content', 'no' );
 			return false;
 		}
 
-		update_post_meta( $this->get_the_id(), '_should_submit_post_content', 'yes' );
 		return true;
 	 }
 
