@@ -454,8 +454,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function invalidate_post_transformation_info_cache( $post_id, $post ) {
 		// These post metas are caches on the calculations made to decide if
 		// a post is in good state to be converted to an Instant Article or not
-		delete_post_meta( $this->get_the_id(), '_has_warnings_after_transformation' );
-		delete_post_meta( $this->get_the_id(), '_is_empty_after_transformation' );
+		delete_post_meta( $post_id, '_has_warnings_after_transformation' );
+		delete_post_meta( $post_id, '_is_empty_after_transformation' );
 	}
 	add_action( 'save_post', 'invalidate_post_transformation_info_cache', 10, 2 );
 
