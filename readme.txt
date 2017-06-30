@@ -85,7 +85,11 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 
 == Changelog ==
 
-### 4.0.1 (2017/06/28 18:41 +00:00)
+### 4.0.2 (2017/06/30 19:32 +00:00)
+- [#708](https://github.com/automattic/facebook-instant-articles-wp/pull/708) Do not process non-post pages. Fixes #707 (@diegoquinteiro)
+- [#709](https://github.com/automattic/facebook-instant-articles-wp/pull/709) Add cache layer for avoiding transforming the article at page render (@diegoquinteiro)
+
+### 4.0.1 (2017/06/28 18:48 +00:00)
 - [#706](https://github.com/automattic/facebook-instant-articles-wp/pull/706) Check for array index before using it (@diegoquinteiro)
 - [#705](https://github.com/automattic/facebook-instant-articles-wp/pull/705) Enable deletion of JSON AMP Style and removes an undef index (@vkama)
 - [#704](https://github.com/automattic/facebook-instant-articles-wp/pull/704) Fixed several php notices. Also fixed a bug in should_subit_post() (@vkama)
