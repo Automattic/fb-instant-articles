@@ -451,5 +451,24 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	}
 	add_action( 'save_post', 'rescrape_article', 999, 2 );
 
+	function invalidate_post_transformation_info_cache( $post_id, $post ) {
+		// These post metas are caches on the calculations made to decide if
+		// a post is in good state to be converted to an Instant Article or not
+		delete_post_meta( $post_id, '_has_warnings_after_transformation' );
+		delete_post_meta( $post_id, '_is_empty_after_transformation' );
+	}
+	add_action( 'save_post', 'invalidate_post_transformation_info_cache', 10, 2 );
+
+	// We also need to invalidate the transformation caches when the option containing
+	// the custom transformer rules is updated
+	function invalidate_all_posts_transformation_info_cache( $option ) {
+		if ( $option === Instant_Articles_Option_Publishing::OPTION_KEY ) {
+			// These post metas are caches on the calculations made to decide if
+			// a post is in good state to be converted to an Instant Article or not
+			delete_post_meta_by_key( '_has_warnings_after_transformation' );
+			delete_post_meta_by_key( '_is_empty_after_transformation' );
+		}
+	}
+	add_action( 'updated_option', 'invalidate_all_posts_transformation_info_cache', 10, 1 );
 
 }
