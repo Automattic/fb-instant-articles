@@ -22,6 +22,7 @@ function wpcom_fbia_remove_stats_pixel() {
 add_action( 'template_redirect', 'wpcom_fbia_remove_stats_pixel' );
 
 function wpcom_fbia_add_stats_pixel( $ia_post ) {
+	global $current_blog;
 
 	// Get the IA article.
 	$instant_article = $ia_post->instant_article;
