@@ -22,6 +22,7 @@ function wpcom_fbia_remove_stats_pixel() {
 add_action( 'template_redirect', 'wpcom_fbia_remove_stats_pixel' );
 
 function wpcom_fbia_add_stats_pixel( $ia_post ) {
+	global $current_blog;
 
 	// Get the IA article.
 	$instant_article = $ia_post->instant_article;
@@ -29,7 +30,7 @@ function wpcom_fbia_add_stats_pixel( $ia_post ) {
 	// Create the wpcom stats code.
 	$hostname = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : ''; // input var okay
 
-	$url = 'https://pixel.wp.com/b.gif?host=' . $hostname . '&blog=' . $current_blog->blog_id . '&post=' . $post->ID . '&subd=' . str_replace( '.wordpress.com', '', $current_blog->domain ) . '&ref=&feed=1';
+	$url = 'https://pixel.wp.com/b.gif?host=' . $hostname . '&blog=' . $current_blog->blog_id . '&post=' . $ia_post->get_the_id() . '&subd=' . str_replace( '.wordpress.com', '', $current_blog->domain ) . '&ref=&feed=1';
 
 	$pixel_html = '<script>
 		var x = new Image(); x.src = "' . esc_js( $url ) . '&rand=" +Math.random();
