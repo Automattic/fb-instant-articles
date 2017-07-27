@@ -89,16 +89,16 @@
         },
         {
             "name": "facebook/facebook-instant-articles-sdk-php",
-            "version": "v1.6.1",
+            "version": "v1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-instant-articles-sdk-php.git",
-                "reference": "511d15d741796c7da68742e565d98f97464d2d6b"
+                "reference": "f18461923e17af6f05120c687c9f20a540f3d420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/511d15d741796c7da68742e565d98f97464d2d6b",
-                "reference": "511d15d741796c7da68742e565d98f97464d2d6b",
+                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/f18461923e17af6f05120c687c9f20a540f3d420",
+                "reference": "f18461923e17af6f05120c687c9f20a540f3d420",
                 "shasum": ""
             },
             "require": {
@@ -136,20 +136,20 @@
                 "instant",
                 "sdk"
             ],
-            "time": "2017-06-20 13:45:09"
+            "time": "2017-07-27 19:19:51"
         },
         {
             "name": "facebook/graph-sdk",
-            "version": "5.5.0",
+            "version": "5.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-graph-sdk.git",
-                "reference": "93d7dc87e55a541d2e27d38f3aed40abbffdf6e1"
+                "reference": "34f5e5993c67acd264017373f23848961585dcac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/93d7dc87e55a541d2e27d38f3aed40abbffdf6e1",
-                "reference": "93d7dc87e55a541d2e27d38f3aed40abbffdf6e1",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/34f5e5993c67acd264017373f23848961585dcac",
+                "reference": "34f5e5993c67acd264017373f23848961585dcac",
                 "shasum": ""
             },
             "require": {
@@ -194,11 +194,11 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2017-04-20 14:15:02"
+            "time": "2017-07-23 14:06:52"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.8.22",
+            "version": "v2.8.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -331,22 +331,25 @@
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "0.11.0",
+            "version": "0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
-                "reference": "407e4b85f547a5251185f89ceae6599917343388"
+                "reference": "300c15796584d6b63f31841daf674886303af573"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/407e4b85f547a5251185f89ceae6599917343388",
-                "reference": "407e4b85f547a5251185f89ceae6599917343388",
+                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/300c15796584d6b63f31841daf674886303af573",
+                "reference": "300c15796584d6b63f31841daf674886303af573",
                 "shasum": ""
             },
             "require": {
-                "squizlabs/php_codesniffer": "^2.8.1"
+                "squizlabs/php_codesniffer": "^2.9.0"
             },
-            "type": "library",
+            "suggest": {
+                "dealerdirect/phpcodesniffer-composer-installer": "*"
+            },
+            "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -363,7 +366,7 @@
                 "standards",
                 "wordpress"
             ],
-            "time": "2017-03-20 23:17:58"
+            "time": "2017-07-20 20:11:03"
         }
     ],
     "aliases": [],
