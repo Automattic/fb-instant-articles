@@ -25,7 +25,7 @@ ${green}Options:${reset}
   -c <command>  Runs only a single command. Possible commands are:
                   - bump_version: generate a new version tag on the repository
                   - release: release a new version on GitHub
-                  - publish: publishes the target version to the WordPress 
+                  - publish: publishes the target version to the WordPress
                              plugin repository
 
 
@@ -142,9 +142,16 @@ else
 fi
 
 if ! type "js" > /dev/null; then
-  error_message "SpiderMonkey interpreter not found, please install SpiderMonkey before continuing"
+  error_message "SpiderMonkey interpreter not found, please install SpiderMonkey before continuing: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey"
 else
   message "Found SpiderMonkey"
+fi
+
+
+if ! type "github-changes" > /dev/null; then
+  error_message "github-changes tool not found. Please run: npm install -g git-changes"
+else
+  message "Found github-changes"
 fi
 
 #------------------------------------
@@ -278,6 +285,22 @@ function bump_version {
   confirm "Add changes to commit?"
   run git add facebook-instant-articles.php
   run rm facebook-instant-articles.php-e
+
+  confirm "Update CHANGELOG.md for $version?"
+  message "Updating CHANGELOG.md for $version"
+  run github-changes -o automattic -r facebook-instant-articles-wp -a --only-pulls --use-commit-body --tag-name $version
+  run git diff
+  confirm "Add changes to commit?"
+  run git add CHANGELOG.md
+
+  confirm "Update changelog on readme.txt?"
+  message "Updating changelog on readme.txt"
+  run sed '/== Changelog ==/q' readme.txt
+  run cat ./CHANGELOG.md >> ./readme.txt
+  run git diff
+  confirm "Add changes to commit?"
+  run git add readme.txt
+  run rm readme.txt-e
 
   confirm "Commit version bump on master with message 'Bump version to $version'?"
   run git commit -m "Bump version to $version"
