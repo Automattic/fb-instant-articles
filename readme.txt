@@ -3,7 +3,7 @@ Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 4.8
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,8 +84,16 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 1. Customized transformer rules enabled on the main Settings page. The particular configuration shown here would cause `<u>` and `<bold>` tags in the source markup to be rendered in *italics* and **bold**, respectively, in the generated Instant Article.
 
 == Changelog ==
+## Change Log
 
-### 4.0.2 (2017/06/30 19:32 +00:00)
+### 4.0.4 (2017/07/27 20:13 +00:00)
+- [#738](https://github.com/automattic/facebook-instant-articles-wp/pull/738) Add changelog to script (@diegoquinteiro)
+- [#737](https://github.com/automattic/facebook-instant-articles-wp/pull/737) Updates IA SDK to 1.6.2 and dependencies (@diegoquinteiro)
+
+### 4.0.3 (2017/07/20 18:07 +00:00)
+- [#725](https://github.com/automattic/facebook-instant-articles-wp/pull/725) Restore the $current_blog global and fix the post ID reference (@kasparsd)
+
+### 4.0.2 (2017/06/30 19:36 +00:00)
 - [#708](https://github.com/automattic/facebook-instant-articles-wp/pull/708) Do not process non-post pages. Fixes #707 (@diegoquinteiro)
 - [#709](https://github.com/automattic/facebook-instant-articles-wp/pull/709) Add cache layer for avoiding transforming the article at page render (@diegoquinteiro)
 
