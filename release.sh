@@ -295,12 +295,13 @@ function bump_version {
 
   confirm "Update changelog on readme.txt?"
   message "Updating changelog on readme.txt"
-  run sed '/== Changelog ==/q' readme.txt
-  run cat ./CHANGELOG.md >> ./readme.txt
+  run sed '/== Changelog ==/q' ./readme.txt >> ./readme2.txt
+  run cat ./CHANGELOG.md >> ./readme2.txt
+  run rm ./readme.txt
+  run mv ./readme2.txt ./readme.txt
   run git diff
   confirm "Add changes to commit?"
   run git add readme.txt
-  run rm readme.txt-e
 
   confirm "Commit version bump on master with message 'Bump version to $version'?"
   run git commit -m "Bump version to $version"
@@ -393,7 +394,6 @@ function release {
 
   message "Creating binary file"
   run composer install
-  run composer update
   run zip -qr facebook-instant-articles-wp.zip .
 
   message "Uploading binary for release..."
@@ -447,7 +447,6 @@ function publish {
 
   message "Updating composer dependencies"
   run composer install
-  run composer update
 
   message "Checking out SVN repository..."
   run cd $tmp_dir
