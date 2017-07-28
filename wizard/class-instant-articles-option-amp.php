@@ -28,7 +28,7 @@ class Instant_Articles_Option_AMP extends Instant_Articles_Option {
 
 		Instant_Articles_AMP_Markup::SETTING_AMP_MARKUP => array(
 			'label' => 'Enable Markup (experimental)',
-			'description' => 'With this option enabled, posts will also be available in AMP markup',
+			'description' => 'With this option enabled, posts will also be available in AMP markup. You can check the generated markup by appending "?amp_markup=1" to a post URL.',
 			'render' => 'checkbox',
 			'default' => false,
 			'checkbox_label' => 'Enable AMP markup generation',
