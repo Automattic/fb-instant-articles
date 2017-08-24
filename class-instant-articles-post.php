@@ -778,17 +778,29 @@ class Instant_Articles_Post {
 
 			case 'embed':
 				if ( ! empty( $settings_ads['embed_code'] ) ) {
-
-					$document = new DOMDocument();
-					$fragment = $document->createDocumentFragment();
-					$valid_html = @$fragment->appendXML( $settings_ads['embed_code'] );
-
-					if ( $valid_html ) {
-						$ad->withHTML(
-							$fragment
-						);
-						$header->addAd( $ad );
+					$sectionAds = $settings_ads['embed_code'];
+					$tokenizeAds = explode("<!-- adblock -->", $sectionAds);
+					
+					foreach ($tokenizeAds as $advert) {
+						$ad = Ad::create()
+						->enableDefaultForReuse()
+						->withWidth( $width )
+						->withHeight( $height );
+						$document = new DOMDocument();
+						$fragment = $document->createDocumentFragment();
+						$valid_html = $fragment->appendXML( $advert );
+					
+						if ( $valid_html ) {
+							$ad->withHTML(
+								$fragment
+							);
+							//print_r($ad);
+							$header->addAd( $ad );
+						}					
+					
 					}
+
+
 				}
 				break;
 
