@@ -71,8 +71,9 @@ class Instant_Articles_AMP_Markup {
 		$url = $adapter->get_canonical_url();
 		$url = add_query_arg( self::QUERY_ARG, '1', $url );
 
-		echo '<link rel="amphtml" href="' . $url . '">';
-
+		?>
+		<link rel="amphtml" href="<?php echo esc_url($url); ?>">
+		<?php
 	}
 
 	/**
@@ -119,7 +120,13 @@ class Instant_Articles_AMP_Markup {
 
 		// Get all children with mime type image that are attached to the posts
 		// NOTE: this will not get images that are not hosted in the WP
-		$image_children = get_children( 'post_type=attachment&post_mime_type=image&post_parent=' . $post->ID );
+		$query_args = array(
+			'post_parent' => $post->ID,
+			'post_type'   => 'attachment',
+			'numberposts' => 100,
+			'post_mime_type' => 'image'
+		);
+		$image_children = get_children( $query_args );
 
 		foreach ( $image_children as $img_id => $img ) {
 			$meta = wp_get_attachment_metadata( $img_id );
