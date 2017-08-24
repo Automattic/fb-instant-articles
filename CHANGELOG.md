@@ -1,6 +1,9 @@
 ## Change Log
 
-### 4.0.4 (2017/07/27 20:13 +00:00)
+### 4.0.5 (2017/08/24 19:07 +00:00)
+- [#750](https://github.com/automattic/facebook-instant-articles-wp/pull/750) Fix query limit and escaping on AMP generation (@diegoquinteiro)
+
+### 4.0.4 (2017/07/27 20:14 +00:00)
 - [#738](https://github.com/automattic/facebook-instant-articles-wp/pull/738) Add changelog to script (@diegoquinteiro)
 - [#737](https://github.com/automattic/facebook-instant-articles-wp/pull/737) Updates IA SDK to 1.6.2 and dependencies (@diegoquinteiro)
 

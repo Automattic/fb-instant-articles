@@ -3,7 +3,7 @@ Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 4.8
-Stable tag: 4.0.4
+Stable tag: 4.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,7 +86,10 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 == Changelog ==
 ## Change Log
 
-### 4.0.4 (2017/07/27 20:13 +00:00)
+### 4.0.5 (2017/08/24 19:07 +00:00)
+- [#750](https://github.com/automattic/facebook-instant-articles-wp/pull/750) Fix query limit and escaping on AMP generation (@diegoquinteiro)
+
+### 4.0.4 (2017/07/27 20:14 +00:00)
 - [#738](https://github.com/automattic/facebook-instant-articles-wp/pull/738) Add changelog to script (@diegoquinteiro)
 - [#737](https://github.com/automattic/facebook-instant-articles-wp/pull/737) Updates IA SDK to 1.6.2 and dependencies (@diegoquinteiro)
 
