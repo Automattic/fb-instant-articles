@@ -6,7 +6,7 @@
  * @since 3.3.2
  *
  */
-class Themify {
+class Instant_Articles_Themify {
 
 	/**
 	 * Init the compat layer
