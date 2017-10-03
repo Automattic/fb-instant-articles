@@ -17,7 +17,10 @@ use Facebook\InstantArticles\Elements\Image;
 use Facebook\InstantArticles\Elements\Video;
 use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\Footer;
+use Facebook\InstantArticles\Elements\Small;
 use Facebook\InstantArticles\Transformer\Transformer;
+use Facebook\InstantArticles\Validators\Type;
+
 /**
  * Class responsible for constructing our content and preparing it for rendering
  *
@@ -345,8 +348,9 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 * @param string  $content  The post content.
+		 * @param int     $post_id  The instant article post.
 		 */
-		$content = apply_filters( 'instant_articles_content', $content );
+		$content = apply_filters( 'instant_articles_content', $content, $this->_post->ID );
 
 		// Cache the content.
 		set_transient( 'instantarticles_mod_' . $this->_post->ID, get_post_modified_time( 'Y-m-d H:i:s', true, $this->_post->ID ), WEEK_IN_SECONDS );
@@ -602,6 +606,7 @@ class Instant_Articles_Post {
 
 		// Initialize transformer
 		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
+		$file_path = apply_filters( 'instant_articles_transformer_rules_configuration_json_file_path', $file_path );
 		$configuration = file_get_contents( $file_path );
 
 		$transformer = new Transformer();
@@ -636,11 +641,7 @@ class Instant_Articles_Post {
 
 		$title = $this->get_the_title();
 		if ( $title ) {
-			$document = new DOMDocument();
-			libxml_use_internal_errors(true);
-			$document->loadHTML( '<?xml encoding="' . $blog_charset . '" ?><h1>' . $title . '</h1>' );
-			libxml_use_internal_errors(false);
-			$transformer->transform( $header, $document );
+			$transformer->transformString( $header, '<h1>' . $title . '</h1>', $blog_charset );
 		}
 
 		if ( $this->has_subtitle() ) {
@@ -693,7 +694,10 @@ class Instant_Articles_Post {
 			Video::setDefaultCommentEnabled( $settings_publishing[ 'comments_on_media' ] );
 		}
 
-		$transformer->transformString( $this->instant_article, $this->get_the_content(), get_option( 'blog_charset' ) );
+		$the_content = $this->get_the_content();
+		if (!Type::isTextEmpty($the_content)) {
+			$transformer->transformString( $this->instant_article, $the_content, get_option( 'blog_charset' ) );
+		}
 
 		$this->add_ads_from_settings();
 		$this->add_analytics_from_settings();
@@ -868,6 +872,112 @@ class Instant_Articles_Post {
 	}
 
 	/**
+	 * Returns whether the transformation results in an empty document
+	 */
+	public function is_empty_after_transformation() {
+		// This post meta is a cache on the calculations made by this function
+		$cache = get_post_meta( $this->get_the_id(), '_is_empty_after_transformation', true );
+		if ( $cache ) {
+			// We use 'yes' or 'no' to avoid booleans because
+			// get_post_meta() returns false when the key is not found
+			return ( $cache === 'yes' );
+		}
+
+		$instant_article = $this->to_instant_article();
+		// Skip empty articles or articles missing title.
+		// This is important because the save_post action is also triggered by bulk updates, but in this case
+		// WordPress does not load the content field from DB for performance reasons. In this case, articles
+		// will be empty here, despite of them actually having content.
+		if ( count( $instant_article->getChildren() ) === 0 || ! $instant_article->getHeader() || ! $instant_article->getHeader()->getTitle() ) {
+			update_post_meta( $this->get_the_id(), '_is_empty_after_transformation', 'yes' );
+			return true;
+		}
+		update_post_meta( $this->get_the_id(), '_is_empty_after_transformation', 'no' );
+		return false;
+	}
+
+
+	/**
+	 * Returns whether the transformation raises warnings
+	 */
+	public function has_warnings_after_transformation() {
+		// This post meta is a cache on the calculations made by this function
+		$cache = get_post_meta( $this->get_the_id(), '_has_warnings_after_transformation', true );
+		if ( $cache ) {
+			// We use 'yes' or 'no' to avoid booleans because
+			// get_post_meta() returns false when the key is not found
+			return ( $cache === 'yes' );
+		}
+
+		$instant_article = $this->to_instant_article();
+		if ( count( $this->transformer->getWarnings() ) > 0 ) {
+			update_post_meta( $this->get_the_id(), '_has_warnings_after_transformation', 'yes' );
+			return true;
+		}
+		update_post_meta( $this->get_the_id(), '_has_warnings_after_transformation', 'no' );
+		return false;
+	}
+
+	/**
+	 * Returns whether the article should be ingested as an Instant Article.
+	 */
+	public function should_submit_post() {
+
+		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+		if ( isset( $fb_page_settings[ 'page_id' ] ) && !$fb_page_settings[ 'page_id' ] ) {
+			return false;
+		}
+
+		$post = $this->_post;
+
+		// Don't process if this is just a revision or an autosave.
+		if ( wp_is_post_revision( $post ) || wp_is_post_autosave( $post ) ) {
+			return false;
+		}
+
+		// Don't process if this post is not published
+		if ( 'publish' !== $post->post_status ) {
+			return false;
+		}
+
+		// Only process posts
+		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+		if ( ! in_array( $post->post_type, $post_types ) ) {
+			return false;
+		}
+
+		// Don't publish posts with password protection
+		if ( post_password_required( $post ) ) {
+			return false;
+		}
+
+		// Allow to disable post submit via filter
+		if ( false === apply_filters( 'instant_articles_should_submit_post', true, $this ) ) {
+			return false;
+		}
+
+		// Skip empty articles or articles missing title.
+		// This is important because the save_post action is also triggered by bulk updates, but in this case
+		// WordPress does not load the content field from DB for performance reasons. In this case, articles
+		// will be empty here, despite of them actually having content.
+		if ( $this->is_empty_after_transformation() ) {
+			return false;
+		}
+
+		// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
+		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+		$force_submit = get_post_meta( $post->ID, IA_PLUGIN_FORCE_SUBMIT_KEY, true );
+		if ( $this->has_warnings_after_transformation()
+		  && ( ! isset( $publishing_settings[ 'publish_with_warnings' ] ) || ! $publishing_settings[ 'publish_with_warnings' ] )
+			&& ( ! $force_submit )
+			) {
+			return false;
+		}
+
+		return true;
+	 }
+
+	/**
 	 * Apply appearance settings for an InstantArticle.
 	 *
 	 * @since 3.3
@@ -882,9 +992,12 @@ class Instant_Articles_Post {
 		}
 
 		if ( isset( $settings['copyright'] ) && ! empty( $settings['copyright'] ) ) {
-			$this->instant_article->withFooter(
-				Footer::create()->withCopyright( $settings['copyright'] )
-			);
+			$footer = Footer::create();
+			$this->transformer->transformString(
+				$footer,
+				'<small>' . $settings['copyright'] . '</small>',
+				get_option( 'blog_charset' ) );
+			$this->instant_article->withFooter( $footer );
 		}
 
 		if ( isset( $settings['rtl_enabled'] ) ) {

@@ -22,7 +22,7 @@ if ( defined( 'WPSEO_VERSION' ) && ! defined( 'WPSEO_IA_COMPAT' ) ) {
 }
 
 // Load support for Google Analytics for WordPress (Google Analytics by MonsterInsights).
-if ( defined( 'GAWP_VERSION' ) && ! defined( 'GAWP_IA_COMPAT' ) ) {
+if ( ( defined( 'GAWP_VERSION' ) || function_exists( 'MonsterInsights' ) ) && ! defined( 'GAWP_IA_COMPAT' ) ) {
 	include( dirname( __FILE__ ) . '/compat/class-instant-articles-google-analytics-for-wordpress.php' );
 	$gawp = new Instant_Articles_Google_Analytics_For_WordPress;
 	$gawp->init();
