@@ -40,8 +40,9 @@ Facebook requires a minimum number of articles in your feed before they will rev
 More likely than not, this is because there is markup in the body of your post that is not mapped to a recognized Instant Article component. On the “Edit Post” screen for your post, look for additional information about the *transformed* output shown within the **Facebook Instant Articles** module located at the bottom of the screen.
 
 **Why doesn't my post appear in the list of Instant Articles in the publisher tools?**
-In order for your post to be imported you have to share it on your page first.
-
+Your posts are imported to your library when they are shared on Facebook for the first time.
+ 
+Alternatively, you can trigger a manual scrape by pasting your URL on our [Share Debugger](http://developers.facebook.com/tools/debug)
 **In the Instant Articles module for my post, what does the “This post was transformed into an Instant Article with some warnings” message mean?**
 
 When transforming your post into an Instant Article, this plugin will show warnings when it encounters content which might not be valid when published to Facebook. When you see this message, it is recommended to resolve each warning individually.
