@@ -22,7 +22,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-yes"></span>
-		This post will be available as Instant Article.
+		This post will be available as Instant Article once shared on Facebook.
 	</b>
 </p>
 <hr>
@@ -38,7 +38,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-media-document"></span>
-		This post will be available as Instant Article once it is published.
+		This post will be available as Instant Article once it is published and shared on Facebook.
 	</b>
 </p>
 <hr>

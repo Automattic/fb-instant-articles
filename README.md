@@ -60,7 +60,7 @@ You can propose popular transformer rules to be included in the plugin by [sugge
 
 **How do I post articles to Instant Articles after plugin is installed?**
 
-You can re-publish existing articles (simply edit + save) or post new articles in order to make them available as Instant Articles. After you have 5 articles added and shared, you will be able to submit them for review.
+You can re-publish existing articles (simply edit + save) or post new articles in order to make them available as Instant Articles. After you have 5 articles added and shared on Facebook, you will be able to submit them for review.
 
 **How do I change the feed slug/URL if I'm using the RSS integration?**
 
