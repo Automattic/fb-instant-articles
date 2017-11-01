@@ -7,4 +7,4 @@
  * @package default
  */
 ?>
-<p>An unkown error occurred while transforming the article. Please verify your rules confgiuration is correct.</p>
+<p>An unkown error occurred while transforming the article. Please verify your rules configuration is correct.</p>
