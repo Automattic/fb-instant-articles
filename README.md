@@ -39,6 +39,10 @@ Facebook requires a minimum number of articles in your feed before they will rev
 
 More likely than not, this is because there is markup in the body of your post that is not mapped to a recognized Instant Article component. On the “Edit Post” screen for your post, look for additional information about the *transformed* output shown within the **Facebook Instant Articles** module located at the bottom of the screen.
 
+**Why doesn't my post appear in the list of Instant Articles in the publisher tools?**
+Your posts are imported to your library when they are shared on Facebook for the first time.
+ 
+Alternatively, you can trigger a manual scrape by pasting your URL on our [Share Debugger](http://developers.facebook.com/tools/debug)
 **In the Instant Articles module for my post, what does the “This post was transformed into an Instant Article with some warnings” message mean?**
 
 When transforming your post into an Instant Article, this plugin will show warnings when it encounters content which might not be valid when published to Facebook. When you see this message, it is recommended to resolve each warning individually.
@@ -57,7 +61,7 @@ You can propose popular transformer rules to be included in the plugin by [sugge
 
 **How do I post articles to Instant Articles after plugin is installed?**
 
-You can re-publish existing articles (simply edit + save) or post new articles in order to submit them to Instant Articles. After you have 10 articles added, you will be able to submit them for review.
+In order to import your posts to your Instant Articles library on Facebook you need to either share them on your page or use the [Sharing Debugger](https://developers.intern.facebook.com/tools/debug/sharing/) to scrape them. After you have 10 articles imported, you will be able to submit them for review.
 
 **How do I change the feed slug/URL if I'm using the RSS integration?**
 

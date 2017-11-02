@@ -22,7 +22,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-yes"></span>
-		This post will be available as an Instant Article.
+		This post will be available as Instant Article once it is shared on Facebook.
 	</b>
 </p>
 <hr>
@@ -30,7 +30,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
-		This post will not be submitted to Instant Articles due to a rule created in your site.
+		This post will not be available as Instant Article due to a rule created in your site.
 	</b>
 </p>
 <hr>
@@ -38,7 +38,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-media-document"></span>
-		This post will be submitted to Instant Articles once it is published.
+		This post will be available as Instant Article once it is published and shared on Facebook.
 	</b>
 </p>
 <hr>
@@ -46,7 +46,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
-		This post will not be submitted to Instant Articles because it is missing a title.
+		This post will not be available as Instant Article because it is missing a title.
 	</b>
 </p>
 <hr>
@@ -54,7 +54,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
-		This post will not be submitted to Instant Articles because it is missing content.
+		This post will not be available as Instant Article because it is missing content.
 	</b>
 </p>
 <hr>
@@ -71,7 +71,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
-		This post will not be submitted to Instant Articles because the transformation raised some warnings.
+		This post will not be available as Instant Article because the transformation raised some warnings.
 	</b>
 </p>
 <hr>
