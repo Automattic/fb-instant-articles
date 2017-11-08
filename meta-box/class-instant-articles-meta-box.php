@@ -10,7 +10,6 @@
 use Facebook\InstantArticles\Client\Client;
 use Facebook\InstantArticles\Client\InstantArticleStatus;
 use Facebook\InstantArticles\Client\ServerMessage;
-use Facebook\Exceptions\FacebookResponseException;
 
 /**
  * Class responsible for drawing the meta box on the post edit page
