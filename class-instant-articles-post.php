@@ -737,14 +737,9 @@ class Instant_Articles_Post {
 			$height = intval( $dimensions_match[2] );
 		}
 
-		$ad = Ad::create()
-			->enableDefaultForReuse()
-			->withWidth( $width )
-			->withHeight( $height );
-
 		$source_of_ad = isset( $settings_ads['ad_source'] ) ? $settings_ads['ad_source'] : 'none';
 
-		$ad = $this->get_ads_for_ad_source($source_of_ad);
+		$ad = $this->get_ads_for_ad_source($source_of_ad, $width, $height);
 
 		// Hook for Ads
 		if( has_filter('instant_articles_loading_ads') ){
@@ -755,7 +750,7 @@ class Instant_Articles_Post {
 		$this->instant_article->enableAutomaticAdPlacement();
 	}
 
-	public function get_ads_for_ad_source($ads_source) {
+	public function get_ads_for_ad_source($ads_source, $width, $height) {
 		$ad = Ad::create()
 			->enableDefaultForReuse()
 			->withWidth( $width )
