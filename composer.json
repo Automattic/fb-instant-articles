@@ -25,7 +25,6 @@
   "require":
   {
     "php": ">=5.4",
-    "facebook/graph-sdk": "~5.0",
     "apache/log4php": "2.3.0",
     "facebook/facebook-instant-articles-sdk-php": "^1.6.0",
     "facebook/facebook-instant-articles-sdk-extensions-in-php": "^0.1.0",
