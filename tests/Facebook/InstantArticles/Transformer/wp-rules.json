@@ -139,6 +139,23 @@
         }
     }, {
         "class": "InteractiveRule",
+        "selector" : "blockquote.twitter-tweet",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "multiple",
+                "children": [
+                    {
+                        "type": "element",
+                        "selector": "blockquote"
+                    }, {
+                        "type": "next-sibling-element-of",
+                        "selector": "blockquote"
+                    }
+                ]
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
         "selector" : "iframe",
         "properties" : {
             "interactive.url" : {
