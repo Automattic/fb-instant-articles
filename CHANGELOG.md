@@ -1,6 +1,16 @@
 ## Change Log
 
-### 4.0.5 (2017/08/24 19:07 +00:00)
+### 4.0.6 (2017/12/04 00:26 +00:00)
+- [#814](https://github.com/automattic/facebook-instant-articles-wp/pull/814) Add default rule for Twitter blockquote (@pestevez)
+- [#806](https://github.com/automattic/facebook-instant-articles-wp/pull/806) Clarify requirement of site connection in README (@pestevez)
+- [#798](https://github.com/automattic/facebook-instant-articles-wp/pull/798) remove article rescrape code (@timjacobi)
+- [#777](https://github.com/automattic/facebook-instant-articles-wp/pull/777) update instructions (@timjacobi)
+- [#778](https://github.com/automattic/facebook-instant-articles-wp/pull/778) Add label definitions (@timjacobi)
+- [#792](https://github.com/automattic/facebook-instant-articles-wp/pull/792) Change meta box and readme so user doesn't think IAs are actually submitted to Facebook (@timjacobi)
+- [#797](https://github.com/automattic/facebook-instant-articles-wp/pull/797) Display error message if meta box can't be loaded (@timjacobi)
+- [#775](https://github.com/automattic/facebook-instant-articles-wp/pull/775) Adds caching to instant_articles_embed_oembed_html (@emrikol)
+
+### 4.0.5 (2017/08/24 19:08 +00:00)
 - [#750](https://github.com/automattic/facebook-instant-articles-wp/pull/750) Fix query limit and escaping on AMP generation (@diegoquinteiro)
 
 ### 4.0.4 (2017/07/27 20:14 +00:00)
