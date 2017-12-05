@@ -147,7 +147,9 @@ class Instant_Articles_AMP_Markup {
 		}
 
 		$properties[ AMPArticle::MEDIA_SIZES_KEY ] = $media_sizes;
-
+		$properties[lang] = 'ar';
+		$properties[encoding] = 'UTF-8';
+		
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 		$article = $adapter->to_instant_article();
