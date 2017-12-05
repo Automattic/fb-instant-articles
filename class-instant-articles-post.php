@@ -512,12 +512,12 @@ class Instant_Articles_Post {
 		}
 
 		/**
-         * Filter the cover media.
-         *
-         * @since 0.1
-         * @param Image     $cover_media  The cover media object.
-         * @param int       $post_id      The current post ID.
-         */
+		 * Filter the cover media
+		 *
+		 * @since 0.1
+		 * @param Image     $cover_media  The cover media object.
+		 * @param int       $post_id      The current post ID.
+		 */
         $cover_media = apply_filters( 'instant_articles_cover_media', $cover_media, $this->_post->ID );
 		return $cover_media;
 	}
