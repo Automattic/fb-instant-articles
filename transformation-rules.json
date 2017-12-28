@@ -1,0 +1,91 @@
+{
+  "rules": [
+    {
+      "class": "TextNodeRule"
+    },
+    {
+      "class": "PassThroughRule",
+      "selector": "div"
+    },
+    {
+      "class": "PassThroughRule",
+      "selector": "p"
+    },
+    {
+      "class": "ParagraphRule",
+      "selector": "p"
+    },
+    {
+      "class": "ItalicRule",
+      "selector" : "i"
+    },
+    {
+      "class": "EmphasizedRule",
+      "selector" : "em"
+    },
+    {
+      "class": "BoldRule",
+      "selector" : "b"
+    },
+    {
+      "class": "BoldRule",
+      "selector" : "strong"
+    },
+    {
+      "class": "BlockquoteRule",
+      "selector" : "blockquote"
+    },
+    {
+      "class": "CaptionRule",
+      "selector" : "figcaption.wp-caption-text",
+    },
+    {
+      "class": "SlideshowImageRule",
+      "selector" : "figure.gallery-item",
+      "properties": {
+        "image.url": {
+          "type": "string",
+          "selector": "img",
+          "attribute": "src"
+        }
+      }
+    },
+    {
+      "class": "SlideshowRule",
+      "selector" : "div.gallery"
+    },
+    {
+      "class": "GlobalRule",
+      "selector": "html",
+      "properties": {
+        "article.canonical": {
+          "type": "string",
+          "selector": "link[rel=canonical]",
+          "attribute": "href"
+        },
+        "article.title": {
+          "type": "element",
+          "selector": ".entry-title"
+        },
+        "article.publish": {
+          "type": "date",
+          "selector": ".entry-date",
+          "attribute": "datetime"
+        },
+        "author.name": {
+          "type": "string",
+          "selector": "span.author a"
+        },
+        "image.url": {
+          "type": "string",
+          "selector": ".attachment-twentyseventeen-featured-image",
+          "attribute": "src"
+        },
+        "article.body": {
+          "type": "element",
+          "selector": ".entry-content"
+        }
+      }
+    }
+  ]
+}
