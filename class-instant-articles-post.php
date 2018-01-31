@@ -750,11 +750,13 @@ class Instant_Articles_Post {
 		$this->instant_article->enableAutomaticAdPlacement();
 	}
 
-	public function get_ads_for_ad_source($ads_source, $width, $height) {
+	public function get_ads_for_ad_source($source_of_ad, $width, $height) {
 		$ad = Ad::create()
 			->enableDefaultForReuse()
 			->withWidth( $width )
 			->withHeight( $height );
+
+		$settings_ads = Instant_Articles_Option_Ads::get_option_decoded();
 
 		switch ( $source_of_ad ) {
 
