@@ -991,6 +991,11 @@ class Instant_Articles_Post {
 			$this->instant_article->withStyle( 'default' );
 		}
 
+		$override_style = $this->get_article_style();
+		if ($override_style != 'default') {
+			$this->instant_article->withStyle($override_style);
+		}
+
 		if ( isset( $settings['copyright'] ) && ! empty( $settings['copyright'] ) ) {
 			$footer = Footer::create();
 			$this->transformer->transformString(
