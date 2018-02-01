@@ -985,15 +985,22 @@ class Instant_Articles_Post {
 	public function set_appearance_from_settings() {
 		$settings = Instant_Articles_Option_Styles::get_option_decoded();
 
+		$article_style = 'default';
+
 		if ( isset( $settings['article_style'] ) && ! empty( $settings['article_style'] ) ) {
-			$this->instant_article->withStyle( $settings['article_style'] );
-		} else {
-			$this->instant_article->withStyle( 'default' );
+			$article_style = $settings['article_style'];
 		}
 
-		if (has_filter('instant_articles_style')) {
-			$this->instant_article->withStyle($this->get_article_style());
-		}
+		/**
+		 * Filter the article style to use.
+		 *
+		 * @since 0.1
+		 * @param string                    $template               Path to the current (default) template.
+		 * @param Instant_Article_Post      $instant_article_post   The instant article post.
+		 */
+		$article_style = apply_filters( 'instant_articles_style', $article_style, $this );
+
+		$this->instant_article->withStyle($article_style);
 
 		if ( isset( $settings['copyright'] ) && ! empty( $settings['copyright'] ) ) {
 			$footer = Footer::create();
@@ -1007,25 +1014,5 @@ class Instant_Articles_Post {
 		if ( isset( $settings['rtl_enabled'] ) ) {
 			$this->instant_article->enableRTL();
 		}
-	}
-
-	/**
-	 * Article <head> style.
-	 *
-	 * @since 0.1
-	 * @return string The article style.
-	 */
-	public function get_article_style() {
-
-		/**
-		 * Filter the article style to use.
-		 *
-		 * @since 0.1
-		 * @param string                    $template               Path to the current (default) template.
-		 * @param Instant_Article_Post      $instant_article_post   The instant article post.
-		 */
-		$article_style = apply_filters( 'instant_articles_style', 'default', $this );
-
-		return $article_style;
 	}
 }
