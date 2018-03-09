@@ -452,7 +452,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$display_warning_column = $publishing_settings[ 'display_warning_column' ];
 
-		if( $display_warning_column ) {
+		if( "1" === $display_warning_column ) {
 			$columns['FBIA'] = "<span title='Facebook Instant Article Distribution Status' class='fbia-col-heading'>FBIA Status</span>";
 		}
 		return $columns;
@@ -463,7 +463,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$display_warning_column = $publishing_settings[ 'display_warning_column' ];
 
-		if( $display_warning_column ) {
+		if( "1" === $display_warning_column ) {
 			$red_light = "<span title='Instant article is empty after transformation.' class='instant-articles-col-status error.'></span>";
 
 			$yellow_light = "<span title='Instant article has warnings after transformation.' class='instant-articles-col-status warning'></span>";
