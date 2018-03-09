@@ -457,7 +457,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		}
 		return $columns;
 	}
-	add_filter('manage_posts_columns', 'fbia_indicator_column_heading');
+	add_filter( 'manage_posts_columns', 'fbia_indicator_column_heading' );
 
 	function fbia_indication_column( $column_name, $post_ID ) {
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
@@ -474,25 +474,25 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 				$post = get_post( $post_ID );
 				$instant_articles_post = new \Instant_Articles_Post( $post );
 
-				$is_empty = esc_html( $instant_articles_post->is_empty_after_transformation() );
+				$is_empty = $instant_articles_post->is_empty_after_transformation();
 				if ( "1" === $is_empty ) {
-					echo $red_light;
+					echo wp_kses_post( $red_light );
 					return;
 				}
 
-				$has_warnings = esc_html( $instant_articles_post->has_warnings_after_transformation() );
+				$has_warnings = $instant_articles_post->has_warnings_after_transformation();
 				if ( "1" === $has_warnings ) {
-					echo $yellow_light;
+					echo wp_kses_post( $yellow_light );
 					return;
 				}
 
-				echo $green_light;
+				echo wp_kses_post( $green_light );
 
 				return;
 			}
 		}
 	}
-	add_action('manage_posts_custom_column', 'fbia_indication_column', 10, 2);
+	add_action( 'manage_posts_custom_column', 'fbia_indication_column', 10, 2 );
 
 
 
