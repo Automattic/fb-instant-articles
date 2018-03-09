@@ -453,7 +453,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$display_warning_column = $publishing_settings[ 'display_warning_column' ];
 
 		if( $display_warning_column ) {
-			$defaults['FBIA'] = "<span title='Facebook Instant Article Distribution Status' class='fbia-col-heading'>FBIA Status</span>";
+			$columns['FBIA'] = "<span title='Facebook Instant Article Distribution Status' class='fbia-col-heading'>FBIA Status</span>";
 		}
 		return $columns;
 	}
