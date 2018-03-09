@@ -1,0 +1,16 @@
+span.instant-articles-col-status {
+    border-radius: 5px;
+    width: 10px;
+    height: 10px;
+    display: block;
+}
+span.error {
+    background: red;
+}
+span.ok {
+    background: green;
+}
+span.warning {
+    background: orange;
+}
+
