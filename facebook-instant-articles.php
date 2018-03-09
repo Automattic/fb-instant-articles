@@ -464,11 +464,11 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$display_warning_column = $publishing_settings[ 'display_warning_column' ];
 
 		if( "1" === $display_warning_column ) {
-			$red_light = "<span title='Instant article is empty after transformation.' class='instant-articles-col-status error.'></span>";
+			$red_light = '<span title="Instant article is empty after transformation." class="instant-articles-col-status error."></span>';
 
-			$yellow_light = "<span title='Instant article has warnings after transformation.' class='instant-articles-col-status warning'></span>";
+			$yellow_light = '<span title="Instant article has warnings after transformation." class="instant-articles-col-status warning"></span>';
 
-			$green_light = "<span title='Instant article transformed successfully.' class='instant-articles-col-status ok'></span>";
+			$green_light = '<span title="Instant article transformed successfully." class="instant-articles-col-status ok"></span>';
 
 			if ( $column_name === "FBIA" ) {
 				$post = get_post( $post_ID );
