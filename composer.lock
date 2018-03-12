@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6a2cc31f65a3b6fe00400e4da6e1ef5f",
-    "content-hash": "eaee25ff0d1638dc2a061e4bd67a9f47",
+    "hash": "9ced014a825a211201d9e61e62b4261b",
+    "content-hash": "2c9df27aa7672a2e915ebf6e6f7c513b",
     "packages": [
         {
             "name": "apache/log4php",
@@ -140,16 +140,16 @@
         },
         {
             "name": "facebook/graph-sdk",
-            "version": "5.6.0",
+            "version": "5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-graph-sdk.git",
-                "reference": "34f5e5993c67acd264017373f23848961585dcac"
+                "reference": "030f8c5b9b1a6c09e71719fd638b66ea4daa2f10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/34f5e5993c67acd264017373f23848961585dcac",
-                "reference": "34f5e5993c67acd264017373f23848961585dcac",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/030f8c5b9b1a6c09e71719fd638b66ea4daa2f10",
+                "reference": "030f8c5b9b1a6c09e71719fd638b66ea4daa2f10",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2017-07-23 14:06:52"
+            "time": "2018-02-14 23:24:51"
         },
         {
             "name": "symfony/css-selector",
