@@ -491,7 +491,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 				$graph_api_call = add_query_arg( 'scrape', 'true', $graph_api_call);
 
 				try {
-					$fb->post( $graph_api_call, null, $access_token );
+					$fb->post( $graph_api_call, [], $access_token );
 					add_action( 'admin_notices', 'admin_notice__scrape_invalidation_success' );
 
 				} catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -500,7 +500,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 					add_action( 'admin_notices', 'admin_notice__scrape_invalidation_failed' );
 				} catch(Facebook\Exceptions\FacebookSDKException $e) {
-					
+
 					add_action( 'admin_notices', 'admin_notice__scrape_invalidation_failed' );
 				}
 			}
