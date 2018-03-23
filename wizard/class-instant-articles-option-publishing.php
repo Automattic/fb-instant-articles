@@ -56,11 +56,11 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 		),
 
 		'display_warning_column' => array(
-			'label' => 'Transformation warning column',
+			'label' => 'FB IA Status column',
 			'description' => 'With this option enabled, a column will be added to post indexes to quickly see whether an article transformation failed, succeeded, or had warnings.',
 			'render' => 'checkbox',
 			'default' => false,
-			'checkbox_label' => 'Show column',
+			'checkbox_label' => 'Enable column "FB IA Status"',
 		),
 
 		'likes_on_media' => array(

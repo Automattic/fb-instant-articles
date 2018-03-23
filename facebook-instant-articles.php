@@ -453,7 +453,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$display_warning_column = $publishing_settings[ 'display_warning_column' ];
 
 		if( "1" === $display_warning_column ) {
-			$columns[ 'FBIA' ] = "<span title='Facebook Instant Article Distribution Status' class='fbia-col-heading'>FBIA Status</span>";
+			$columns[ 'FBIA' ] = "<span title='Facebook Instant Article Distribution Status' class='fbia-col-heading'>FB IA Status</span>";
 		}
 		return $columns;
 	}
@@ -475,13 +475,13 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 				$instant_articles_post = new \Instant_Articles_Post( $post );
 
 				$is_empty = $instant_articles_post->is_empty_after_transformation();
-				if ( "1" === $is_empty ) {
+				if ( true === $is_empty ) {
 					echo wp_kses_post( $red_light );
 					return;
 				}
 
 				$has_warnings = $instant_articles_post->has_warnings_after_transformation();
-				if ( "1" === $has_warnings ) {
+				if ( true === $has_warnings ) {
 					echo wp_kses_post( $yellow_light );
 					return;
 				}
