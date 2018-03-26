@@ -40,12 +40,11 @@ class Instant_Articles_Wizard {
 
 	}
 
-    public static function load_admin_scripts_and_styles(){
+    public static function load_admin_scripts_and_styles() {
         add_action( 'admin_enqueue_scripts', array( 'Instant_Articles_Wizard', 'instant_articles_enqueue_scripts' ) );
     }
 
     public static function instant_articles_enqueue_scripts() {
-        error_log('should be loading scripts and styles now');
 		wp_enqueue_style( 'instant-articles-meta-box' );
 		wp_enqueue_style( 'instant-articles-settings-wizard' );
 		wp_enqueue_style( 'instant-articles-settings' );
