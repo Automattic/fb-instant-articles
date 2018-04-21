@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6a2cc31f65a3b6fe00400e4da6e1ef5f",
-    "content-hash": "eaee25ff0d1638dc2a061e4bd67a9f47",
+    "content-hash": "01d0240e7e9964e8190765878d7e96e9",
     "packages": [
         {
             "name": "apache/log4php",
@@ -35,7 +34,7 @@
                 "logging",
                 "php"
             ],
-            "time": "2012-10-26 09:13:25"
+            "time": "2012-10-26T09:13:25+00:00"
         },
         {
             "name": "facebook/facebook-instant-articles-sdk-extensions-in-php",
@@ -85,32 +84,33 @@
                 "instantarticles",
                 "sdk"
             ],
-            "time": "2017-06-26 19:59:19"
+            "time": "2017-06-26T19:59:19+00:00"
         },
         {
             "name": "facebook/facebook-instant-articles-sdk-php",
-            "version": "v1.6.2",
+            "version": "v1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-instant-articles-sdk-php.git",
-                "reference": "f18461923e17af6f05120c687c9f20a540f3d420"
+                "reference": "d2ccefa4da393ea33b9c095a7ebce7b352e31480"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/f18461923e17af6f05120c687c9f20a540f3d420",
-                "reference": "f18461923e17af6f05120c687c9f20a540f3d420",
+                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/d2ccefa4da393ea33b9c095a7ebce7b352e31480",
+                "reference": "d2ccefa4da393ea33b9c095a7ebce7b352e31480",
                 "shasum": ""
             },
             "require": {
-                "apache/log4php": "2.3.0",
                 "facebook/graph-sdk": "~5.0",
                 "php": "^5.4 || ^7.0",
-                "symfony/css-selector": "2.8.* || ^3.0"
+                "symfony/css-selector": "^2.8 || ^3.0"
             },
             "require-dev": {
                 "fzaninotto/faker": "^1.6.0",
-                "phpunit/phpunit": "^4.8",
-                "squizlabs/php_codesniffer": "^2.6.0"
+                "phpdocumentor/reflection-docblock": "^2.0",
+                "phpunit/phpunit": "4.8.*",
+                "squizlabs/php_codesniffer": "^2.6.0",
+                "symfony/yaml": "2.1.*"
             },
             "type": "library",
             "autoload": {
@@ -136,20 +136,20 @@
                 "instant",
                 "sdk"
             ],
-            "time": "2017-07-27 19:19:51"
+            "time": "2018-03-16T19:42:33+00:00"
         },
         {
             "name": "facebook/graph-sdk",
-            "version": "5.6.0",
+            "version": "5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-graph-sdk.git",
-                "reference": "34f5e5993c67acd264017373f23848961585dcac"
+                "reference": "030f8c5b9b1a6c09e71719fd638b66ea4daa2f10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/34f5e5993c67acd264017373f23848961585dcac",
-                "reference": "34f5e5993c67acd264017373f23848961585dcac",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/030f8c5b9b1a6c09e71719fd638b66ea4daa2f10",
+                "reference": "030f8c5b9b1a6c09e71719fd638b66ea4daa2f10",
                 "shasum": ""
             },
             "require": {
@@ -194,20 +194,20 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2017-07-23 14:06:52"
+            "time": "2018-02-14T23:24:51+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.8.25",
+            "version": "v2.8.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "ba3204654efa779691fac9e948a96b4a7067e4ab"
+                "reference": "99a4b2c2f1757d62d081b5f9f14128f23504897d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ba3204654efa779691fac9e948a96b4a7067e4ab",
-                "reference": "ba3204654efa779691fac9e948a96b4a7067e4ab",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/99a4b2c2f1757d62d081b5f9f14128f23504897d",
+                "reference": "99a4b2c2f1757d62d081b5f9f14128f23504897d",
                 "shasum": ""
             },
             "require": {
@@ -247,69 +247,42 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01 14:31:55"
+            "time": "2018-02-03T14:55:47+00:00"
         }
     ],
     "packages-dev": [
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.9.1",
+            "version": "3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "dcbed1074f8244661eecddfc2a675430d8d33f62"
+                "reference": "4842476c434e375f9d3182ff7b89059583aa8b27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/dcbed1074f8244661eecddfc2a675430d8d33f62",
-                "reference": "dcbed1074f8244661eecddfc2a675430d8d33f62",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/4842476c434e375f9d3182ff7b89059583aa8b27",
+                "reference": "4842476c434e375f9d3182ff7b89059583aa8b27",
                 "shasum": ""
             },
             "require": {
                 "ext-simplexml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
-                "php": ">=5.1.2"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "bin": [
-                "scripts/phpcs",
-                "scripts/phpcbf"
+                "bin/phpcs",
+                "bin/phpcbf"
             ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "3.x-dev"
                 }
-            },
-            "autoload": {
-                "classmap": [
-                    "CodeSniffer.php",
-                    "CodeSniffer/CLI.php",
-                    "CodeSniffer/Exception.php",
-                    "CodeSniffer/File.php",
-                    "CodeSniffer/Fixer.php",
-                    "CodeSniffer/Report.php",
-                    "CodeSniffer/Reporting.php",
-                    "CodeSniffer/Sniff.php",
-                    "CodeSniffer/Tokens.php",
-                    "CodeSniffer/Reports/",
-                    "CodeSniffer/Tokenizers/",
-                    "CodeSniffer/DocGenerators/",
-                    "CodeSniffer/Standards/AbstractPatternSniff.php",
-                    "CodeSniffer/Standards/AbstractScopeSniff.php",
-                    "CodeSniffer/Standards/AbstractVariableSniff.php",
-                    "CodeSniffer/Standards/IncorrectPatternException.php",
-                    "CodeSniffer/Standards/Generic/Sniffs/",
-                    "CodeSniffer/Standards/MySource/Sniffs/",
-                    "CodeSniffer/Standards/PEAR/Sniffs/",
-                    "CodeSniffer/Standards/PSR1/Sniffs/",
-                    "CodeSniffer/Standards/PSR2/Sniffs/",
-                    "CodeSniffer/Standards/Squiz/Sniffs/",
-                    "CodeSniffer/Standards/Zend/Sniffs/"
-                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -327,27 +300,28 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-05-22 02:43:20"
+            "time": "2018-02-20T21:35:23+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "0.12.0",
+            "version": "0.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
-                "reference": "300c15796584d6b63f31841daf674886303af573"
+                "reference": "cf6b310caad735816caef7573295f8a534374706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/300c15796584d6b63f31841daf674886303af573",
-                "reference": "300c15796584d6b63f31841daf674886303af573",
+                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/cf6b310caad735816caef7573295f8a534374706",
+                "reference": "cf6b310caad735816caef7573295f8a534374706",
                 "shasum": ""
             },
             "require": {
-                "squizlabs/php_codesniffer": "^2.9.0"
+                "php": ">=5.3",
+                "squizlabs/php_codesniffer": "^2.9.0 || ^3.0.2"
             },
             "suggest": {
-                "dealerdirect/phpcodesniffer-composer-installer": "*"
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3"
             },
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
@@ -366,7 +340,7 @@
                 "standards",
                 "wordpress"
             ],
-            "time": "2017-07-20 20:11:03"
+            "time": "2018-02-16T01:57:48+00:00"
         }
     ],
     "aliases": [],
