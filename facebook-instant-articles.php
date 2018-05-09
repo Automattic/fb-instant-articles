@@ -494,6 +494,73 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	}
 	add_action( 'manage_posts_custom_column', 'fbia_indication_column', 10, 2 );
 
+	function invalidate_scrape_on_update( $post_ID, $post_after, $post_before ) {
+		$adapter = new Instant_Articles_Post( $post_after );
+		if ( $adapter->should_submit_post() ) {
+			$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+			if (
+				( isset( $fb_app_settings[ 'page_access_token' ] ) && $fb_app_settings[ 'page_access_token' ] ) &&
+				( isset( $fb_app_settings[ 'app_id' ] ) && $fb_app_settings[ 'app_id' ] ) &&
+				( isset( $fb_app_settings[ 'app_secret' ] ) && $fb_app_settings[ 'app_secret' ] )
+			) {
+				// Fetches the right URL to invalidate
+				$url = $adapter->get_canonical_url();
 
+				// oAuth info
+				$app_id = $fb_app_settings[ 'app_id' ];
+				$app_secret = $fb_app_settings[ 'app_secret' ];
+				$access_token = $fb_app_settings[ 'page_access_token' ];
+
+				// Build Graph SDK instance
+				$fb = new \Facebook\Facebook([
+					'app_id' => $app_id,
+					'app_secret' => $app_secret,
+					'default_access_token' => $access_token
+				]);
+
+				function admin_notice__scrape_invalidation_failed() {
+					?>
+					<div class="notice notice-error is-dismissible">
+						<p>
+							<?php _e( 'It was not possible to automatically invalidate the scrape for this article.', IA_PLUGIN_TEXT_DOMAIN ) ?>
+							<?php _e( 'Please trigger a new scrape manually using the Facebook Share Debugger.', IA_PLUGIN_TEXT_DOMAIN ) ?>
+						</p>
+					</div>
+					<?php
+				}
+
+				function admin_notice__scrape_invalidation_success() {
+					?>
+					<div class="notice notice-success is-dismissible">
+						<p>
+							<?php _e( 'Successfully refreshed the Instant Articles cache for this article.', IA_PLUGIN_TEXT_DOMAIN ) ?>
+						</p>
+					</div>
+					<?php
+				}
+
+
+				// Make call
+				$graph_api_call = '/';
+				$graph_api_call = add_query_arg( 'id', rawurlencode($url), $graph_api_call);
+				$graph_api_call = add_query_arg( 'scrape', 'true', $graph_api_call);
+
+				try {
+					$fb->post( $graph_api_call, [], $access_token );
+					add_action( 'admin_notices', 'admin_notice__scrape_invalidation_success' );
+
+				} catch(Facebook\Exceptions\FacebookResponseException $e) {
+					echo '<pre>';
+					print_r($e->getTraceAsString());
+
+					add_action( 'admin_notices', 'admin_notice__scrape_invalidation_failed' );
+				} catch(Facebook\Exceptions\FacebookSDKException $e) {
+
+					add_action( 'admin_notices', 'admin_notice__scrape_invalidation_failed' );
+				}
+			}
+		}
+	}
+	add_action( 'post_updated', 'invalidate_scrape_on_update', 10, 3 );
 
 }

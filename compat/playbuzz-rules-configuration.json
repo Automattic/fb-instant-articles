@@ -18,6 +18,22 @@
           ]
         }
       }
+    }, {
+      "class": "InteractiveRule",
+      "selector" : "div.playbuzz",
+      "properties" : {
+        "interactive.iframe" : {
+          "type" : "multiple",
+          "children": [{
+              "type": "fragment",
+              "fragment": "<script type='text/javascript' src='//embed.playbuzz.com/sdk.js'></script>"
+            }, {
+              "type": "element",
+              "selector": "div.playbuzz"
+            }
+          ]
+        }
+      }
     }
   ]
 }
