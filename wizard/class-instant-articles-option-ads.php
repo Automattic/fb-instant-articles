@@ -38,9 +38,22 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 		'fan_placement_id' => array(
 			'label' => 'Audience Network Placement ID',
-			'description' => 'Find your <a href="https://developers.facebook.com/docs/audience-network/instantarticles/banner" target="_blank">Placement ID</a> for Facebook Audience Network on your app\'s Audience Network Portal',
+			'description' => 'Find your <a href="https://developers.facebook.com/docs/audience-network/instantarticles/banner" target="_blank">Placement ID</a> for Facebook Audience Network on your app\'s Audience Network Portal. You can provide multiple placement IDs separated by a comma for placement level reporting.',
 			'default' => null,
 		),
+
+    'default_placement' => array(
+      'label' => 'Placement to use as default',
+      'description' => 'The selected placement will fill all slots not defined.',
+      'render' => array( 'Instant_Articles_Option_Ads', 'custom_render_ad_default' ),
+      'select_options' => array(
+        '1' => 'First',
+        '2' => 'Second',
+        '3' => 'Third',
+        '4' => 'Fourth',
+      ),
+      'default' => '1',
+    ),
 
 		'iframe_url' => array(
 			'label' => 'Source URL',
@@ -87,6 +100,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 			'option_field_id_iframe'     => self::OPTION_KEY . '-iframe_url',
 			'option_field_id_embed'      => self::OPTION_KEY . '-embed_code',
 			'option_field_id_dimensions' => self::OPTION_KEY . '-dimensions',
+      'option_field_id_default_placement' => self::OPTION_KEY . '-default_placement',
 		) );
 	}
 
@@ -138,6 +152,35 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 		<?php
 	}
 
+  /**
+   * Renders the ad default.
+   *
+   * @param array $args configuration fields for the ad.
+   * @since 0.4
+   */
+  public static function custom_render_ad_default( $args ) {
+    $id = $args['label_for'];
+    $name = $args['serialized_with_group'] . '[default_placement]';
+
+    $description = isset( $args['description'] )
+      ? '<p class="description">' . esc_html( $args['description'] ) . '</p>'
+      : '';
+
+    ?>
+    <select id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" >
+    <?php foreach ( $args['select_options'] as $ad_default_key => $ad_default_name ) : ?>
+      <option
+        value="<?php echo esc_attr( $ad_default_key ); ?>"
+        <?php echo selected( self::$settings['default_placement'], $ad_default_key ) ?>
+      >
+      <?php echo esc_html( $ad_default_name ); ?>
+      </option>
+    <?php endforeach; ?>
+    </select>
+    <?php echo wp_kses_post( $description ); ?>
+    <?php
+  }
+
 	/**
 	 * Sanitize and return all the field values.
 	 *
@@ -181,7 +224,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 				case 'fan_placement_id':
 					if ( isset( $field_values['ad_source'] ) && 'fan' === $field_values['ad_source'] ) {
-						if ( preg_match( '/^[0-9_]+$/', $field_values[ $field_id ] ) !== 1 ) {
+						if ( preg_match( '/^[0-9_,]+$/', $field_values[ $field_id ] ) !== 1 ) {
 							add_settings_error(
 								$field_id,
 								'invalid_placement_id',

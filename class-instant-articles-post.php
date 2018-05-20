@@ -750,19 +750,30 @@ class Instant_Articles_Post {
 
 			case 'fan':
 				if ( ! empty( $settings_ads['fan_placement_id'] ) ) {
-					$placement_id = $settings_ads['fan_placement_id'];
+					$placement_ids = explode(",", $settings_ads['fan_placement_id']);
 
-					$ad->withSource(
-						add_query_arg(
-							array(
-								'placement' => $placement_id,
-								'adtype' => 'banner' . $width . 'x' . $height,
-							),
-							'https://www.facebook.com/adnw_request'
-						)
-					);
+          foreach ( $placement_ids as $key => $placement_id ) {
 
-					$header->addAd( $ad );
+            $ad = Ad::create()
+              ->withWidth( $width )
+              ->withHeight( $height )
+              ->withSource(
+                add_query_arg(
+                  array(
+                    'placement' => $placement_id,
+                    'adtype' => 'banner' . $width . 'x' . $height,
+                  ),
+                  'https://www.facebook.com/adnw_request'
+                )
+            );
+
+            if((int)$settings_ads['default_placement'] === $key+1) {
+              $ad->enableDefaultForReuse();
+            }
+
+            $header->addAd( $ad );
+          }
+
 				}
 				break;
 
