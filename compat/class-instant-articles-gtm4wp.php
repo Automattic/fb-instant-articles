@@ -21,6 +21,10 @@ class Instant_Articles_Google_Tag_Manager_For_WordPress {
    * @param array $registry Reference param. The registry where it will be stored.
    */
   function add_to_registry( &$registry ) {
+    if ( !function_exists( 'gtm4wp_wp_header_begin' ) ) {
+      include_once( WP_PLUGIN_DIR . '/duracelltomi-google-tag-manager/public/frontend.php' );
+    }
+
     $display_name = 'Google Tag Manager by DuracellTomi (will also add an instantArticle variable to dataLayer)';
     $identifier = 'duracelltomi-google-tag-manager';
     $registry[ $identifier ] = array(
