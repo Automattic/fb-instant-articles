@@ -280,6 +280,14 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			IA_PLUGIN_VERSION,
 			false
 		);
+		wp_register_style(
+			'instant-articles-index-column',
+			plugins_url( '/css/instant-articles-index-column.css', __FILE__ ),
+			null,
+			IA_PLUGIN_VERSION,
+			false
+		);
+
 
 		wp_register_script(
 			'instant-articles-meta-box',
@@ -329,6 +337,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		wp_enqueue_style( 'instant-articles-settings-wizard' );
 		wp_enqueue_style( 'instant-articles-settings' );
 		wp_enqueue_style( 'instant-articles-wizard' );
+		wp_enqueue_style( 'instant-articles-index-column' );
 
 		wp_enqueue_script( 'instant-articles-meta-box' );
 		wp_enqueue_script( 'instant-articles-option-ads' );
@@ -438,6 +447,52 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		}
 	}
 	add_action( 'updated_option', 'invalidate_all_posts_transformation_info_cache', 10, 1 );
+
+	function fbia_indicator_column_heading( $columns ) {
+		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+		$display_warning_column = $publishing_settings[ 'display_warning_column' ];
+
+		if( "1" === $display_warning_column ) {
+			$columns[ 'FBIA' ] = "<span title='Facebook Instant Article Distribution Status' class='fbia-col-heading'>FB IA Status</span>";
+		}
+		return $columns;
+	}
+	add_filter( 'manage_posts_columns', 'fbia_indicator_column_heading' );
+
+	function fbia_indication_column( $column_name, $post_ID ) {
+		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+		$display_warning_column = $publishing_settings[ 'display_warning_column' ];
+
+		if( "1" === $display_warning_column ) {
+			$red_light = '<span title="Instant article is empty after transformation." class="instant-articles-col-status error"></span>';
+
+			$yellow_light = '<span title="Instant article has warnings after transformation." class="instant-articles-col-status warning"></span>';
+
+			$green_light = '<span title="Instant article transformed successfully." class="instant-articles-col-status ok"></span>';
+
+			if ( $column_name === "FBIA" ) {
+				$post = get_post( $post_ID );
+				$instant_articles_post = new \Instant_Articles_Post( $post );
+
+				$is_empty = $instant_articles_post->is_empty_after_transformation();
+				if ( true === $is_empty ) {
+					echo wp_kses_post( $red_light );
+					return;
+				}
+
+				$has_warnings = $instant_articles_post->has_warnings_after_transformation();
+				if ( true === $has_warnings ) {
+					echo wp_kses_post( $yellow_light );
+					return;
+				}
+
+				echo wp_kses_post( $green_light );
+
+				return;
+			}
+		}
+	}
+	add_action( 'manage_posts_custom_column', 'fbia_indication_column', 10, 2 );
 
 	function invalidate_scrape_on_update( $post_ID, $post_after, $post_before ) {
 		$adapter = new Instant_Articles_Post( $post_after );

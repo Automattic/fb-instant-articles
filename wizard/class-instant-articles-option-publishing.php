@@ -55,6 +55,14 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'checkbox_label' => 'Publish articles containing warnings',
 		),
 
+		'display_warning_column' => array(
+			'label' => 'FB IA Status column',
+			'description' => 'With this option enabled, a column will be added to post indexes to quickly see whether an article transformation failed, succeeded, or had warnings.',
+			'render' => 'checkbox',
+			'default' => false,
+			'checkbox_label' => 'Enable column "FB IA Status"',
+		),
+
 		'likes_on_media' => array(
 			'label' => 'Likes',
 			'description' => 'With this option enabled, any image or video will have the like action enabled by default.',
