@@ -24,6 +24,9 @@
         "class": "PassThroughRule",
         "selector" : "span"
     }, {
+      "class": "PassThroughRule",
+      "selector": "g"
+    }, {
         "class": "ParagraphRule",
         "selector": "p"
     }, {
