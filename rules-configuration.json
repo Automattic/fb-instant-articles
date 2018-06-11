@@ -24,6 +24,9 @@
         "class": "PassThroughRule",
         "selector" : "span"
     }, {
+      "class": "PassThroughRule",
+      "selector": "g"
+    }, {
         "class": "ParagraphRule",
         "selector": "p"
     }, {
@@ -365,9 +368,6 @@
                 "selector" : "figcaption.wp-caption-text"
             }
         }
-    }, {
-      "class": "PassThroughRule",
-      "selector": "g"
     }
   ]
 }
