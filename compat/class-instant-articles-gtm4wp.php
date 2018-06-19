@@ -21,7 +21,7 @@ class Instant_Articles_Google_Tag_Manager_For_WordPress {
    * @param array $registry Reference param. The registry where it will be stored.
    */
   function add_to_registry( &$registry ) {
-    if ( !function_exists( 'gtm4wp_wp_header_begin' ) ) {
+    if ( !function_exists( 'gtm4wp_wp_header_begin' ) || !function_exists( 'gtm4wp_wp_header_top' ) ) {
       include_once( WP_PLUGIN_DIR . '/duracelltomi-google-tag-manager/public/frontend.php' );
     }
 
@@ -29,7 +29,7 @@ class Instant_Articles_Google_Tag_Manager_For_WordPress {
     $identifier = 'duracelltomi-google-tag-manager';
     $registry[ $identifier ] = array(
       'name' => $display_name,
-      'payload' => gtm4wp_wp_header_begin(false),
+      'payload' => gtm4wp_wp_header_top(false).gtm4wp_wp_header_begin(false),
     );
   }
 
