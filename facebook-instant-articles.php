@@ -582,23 +582,9 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			}
 
 			try {
-				$client = Facebook\HttpClients\HttpClientsFactory::createHttpClient( null );
-				$url_encoded = urlencode($adapter->get_canonical_url());
-				$client->send(
-					Instant_Articles_Signer::sign_request_path(
-						"https://graph.facebook.com/?id=$url_encoded&scrape=true"
-					),
-					'POST',
-					'',
-					array(),
-					60
-				);
-				foreach ( $old_slugs as $slug ) {
-					$clone_post = clone $post;
-					$clone_post->post_name = $slug;
-					$clone_adapter = new Instant_Articles_Post( $clone_post );
-
-					$url_encoded = urlencode($clone_adapter->get_canonical_url());
+				if ( extension_loaded('openssl') ) {
+					$client = Facebook\HttpClients\HttpClientsFactory::createHttpClient( null );
+					$url_encoded = urlencode($adapter->get_canonical_url());
 					$client->send(
 						Instant_Articles_Signer::sign_request_path(
 							"https://graph.facebook.com/?id=$url_encoded&scrape=true"
@@ -608,6 +594,22 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 						array(),
 						60
 					);
+					foreach ( $old_slugs as $slug ) {
+						$clone_post = clone $post;
+						$clone_post->post_name = $slug;
+						$clone_adapter = new Instant_Articles_Post( $clone_post );
+
+						$url_encoded = urlencode($clone_adapter->get_canonical_url());
+						$client->send(
+							Instant_Articles_Signer::sign_request_path(
+								"https://graph.facebook.com/?id=$url_encoded&scrape=true"
+							),
+							'POST',
+							'',
+							array(),
+							60
+						);
+					}
 				}
 			} catch ( Exception $e ) {
 				Logger::getLogger( 'instantarticles-wp-plugin' )->error(
