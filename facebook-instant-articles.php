@@ -85,6 +85,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	require_once( dirname( __FILE__ ) . '/wizard/class-instant-articles-wizard.php' );
 	require_once( dirname( __FILE__ ) . '/meta-box/class-instant-articles-meta-box.php' );
 	require_once( dirname( __FILE__ ) . '/class-instant-articles-amp-markup.php' );
+	require_once( dirname( __FILE__ ) . '/class-instant-articles-signer.php' );
 
 	/**
 	 * Plugin activation hook to add our rewrite rules.
@@ -584,9 +585,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 				$client = Facebook\HttpClients\HttpClientsFactory::createHttpClient( null );
 				$url_encoded = urlencode($adapter->get_canonical_url());
 				$client->send(
-					'https://graph.facebook.com' .
 					Instant_Articles_Signer::sign_request_path(
-						"/?id=$url_encoded&scrape=true",
+						"https://graph.facebook.com/?id=$url_encoded&scrape=true"
 					),
 					'POST',
 					'',
@@ -600,9 +600,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 					$url_encoded = urlencode($clone_adapter->get_canonical_url());
 					$client->send(
-						'https://graph.facebook.com' .
 						Instant_Articles_Signer::sign_request_path(
-							"/?id=$url_encoded&scrape=true",
+							"https://graph.facebook.com/?id=$url_encoded&scrape=true"
 						),
 						'POST',
 						'',

@@ -16,7 +16,7 @@ class Instant_Articles_Signer {
 
   const PUBLIC_KEY_OPTION = 'instant-articles-rescrape-public-key';
   const PRIVATE_KEY_OPTION = 'instant-articles-rescrape-private-key';
-  const PUBLIC_KEY_PATH = '/.well-known/graph-api/apikey.pub';
+  const PUBLIC_KEY_PATH = '.well-known/graph-api/apikey.pub';
 
   public static function init() {
     add_action( 'wp', array( 'Instant_Articles_Signer', 'output_public_key' ) );
@@ -25,6 +25,7 @@ class Instant_Articles_Signer {
   public static function output_public_key() {
     global $wp;
     if ( $wp->request == self::PUBLIC_KEY_PATH ) {
+      status_header(200);
       echo self::get_public_key();
       die();
     }
@@ -71,16 +72,16 @@ class Instant_Articles_Signer {
   }
 
   public static function get_signature( $data ) {
-    openssl_private_sign( $data, $signature, self::get_private_key() );
-    return $signature;
+    openssl_sign( $data, $signature, self::get_private_key(), OPENSSL_ALGO_SHA1 );
+    return urlencode( base64_encode( $signature ) );
   }
 
   public static function sign_request_path( $path ) {
     $now = new DateTime();
     $ts = $now->getTimestamp();
     $path = add_query_arg( 'ts', $ts, $path );
-    $signature = self::get_signature( $path );
-    $path = add_query_arg( 'signature', $signature, $path );
+    $signature = self::get_signature( urldecode($path) );
+    $path = add_query_arg( 'hmac', $signature, $path );
     return $path;
   }
 
