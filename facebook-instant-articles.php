@@ -569,8 +569,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		$adapter = new Instant_Articles_Post( $post );
 		$old_slugs = get_post_meta( $post_id, '_wp_old_slug' );
 		if ( $adapter->should_submit_post() ) {
-
-
 			$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
 			if (
 				( isset( $fb_app_settings[ 'page_access_token' ] ) && $fb_app_settings[ 'page_access_token' ] ) &&
