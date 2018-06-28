@@ -17,15 +17,20 @@ A best effort is made to generate valid Instant Article markup from your posts' 
 
 Built-in to the plugin are many [pre-defined transformer rules](https://github.com/Automattic/facebook-instant-articles-wp/blob/master/rules-configuration.json) which aims to cover standard WordPress installations. If your WordPress content contains elements which are not covered by the built-in ruleset, you can define your own additional rules to extend or override the defaults in the Settings of this plugin, under: **Plugin Configuration** > **Publishing Settings** > **Custom transformer rules**.
 
-## Feed submission to Facebook
+## Access to Instant Articles
 
-Facebook has a review process where they verify that all Instant Articles are properly formatted, have content consistency with their mobile web counterparts, and adhere to their community standards and content policies. You will not be able to publish Instant Articles in Facebook until your feed has been approved.
+The current criteria for access to Instant Articles are:
+
+- your Facebook Page must have an established presence of at least 90 days
+- your content adheres to the [Instant Article Policies](https://developers.facebook.com/docs/instant-articles/policy/)
+
+Before your Instant Articles can be published on Facebook, your feed must undergo an initial review and approval. Facebook requires a minimum number of 10 articles in your feed before being eligible for review. The review process checks that your draft Instant Articles are properly formatted, have content consistency with their mobile web counterparts, and adhere to the [community standards](https://www.facebook.com/communitystandards/) and [content policies](https://www.facebook.com/help/publisher/1348682518563619).
 
 It's important to note that if you use meta fields to add extra text, images or videos to your Posts, Facebook will expect you to add these to your Instant Articles output too. This plugin includes hooks to help you do that.
 
 [See Facebook's documentation for full details of the submission process.](https://developers.facebook.com/docs/instant-articles)
 
-Facebook requires a minimum number of articles in your feed before they will review it. Once your feed has been approved, new posts will automatically be taken live on Instant Articles, and existing posts will be taken live once you update them.
+Once your feed has been approved, new posts will automatically be taken live on Instant Articles, and existing posts will be taken live once you update them. In order to stay in the Instant Articles program, you must remain active by creating new content and maintaining a minimal readership.
 
 ## Installation
 
