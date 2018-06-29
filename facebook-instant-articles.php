@@ -377,6 +377,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			return;
 		
 		$post = get_post( get_the_ID() );
+		
+		if ( ! $post ) {
+			return;
+		}
 
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
