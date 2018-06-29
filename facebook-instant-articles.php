@@ -373,12 +373,10 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 * @since 4.0
 	 */
 	function inject_ia_markup_meta_tag() {
-		$post = get_post();
-
-		// If there's no current post, return
-		if ( ! $post ) {
+		if ( !is_singular() )
 			return;
-		}
+		
+		$post = get_post( get_the_ID() );
 
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
