@@ -376,7 +376,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		if ( !is_singular() )
 			return;
 		
-		$post = get_post( get_the_ID() );
+		$post = get_post( get_queried_object_id() );
 		
 		if ( ! $post ) {
 			return;
