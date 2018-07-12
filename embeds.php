@@ -68,6 +68,7 @@ function instant_articles_embed_oembed_html( $html, $url, $attr, $post_id ) {
 
 	if ( $provider_name ) {
 		$html = instant_articles_embed_get_html( $provider_name, $html, $url, $attr, $post_id );
+		delete_transient( $cache_key );
 	}
 
 	return $html;
