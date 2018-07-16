@@ -4,7 +4,7 @@
  * Description: Add support for Instant Articles for Facebook to your WordPress site.
  * Author: Automattic, Dekode, Facebook
  * Author URI: https://vip.wordpress.com/plugins/instant-articles/
- * Version: 4.0.6
+ * Version: 4.1.0
  * Text Domain: instant-articles
  * License: GPLv2
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -68,7 +68,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 	defined( 'ABSPATH' ) || die( 'Shame on you' );
 
-	define( 'IA_PLUGIN_VERSION', '4.0.6' );
+	define( 'IA_PLUGIN_VERSION', '4.1.0' );
 	define( 'IA_PLUGIN_PATH_FULL', __FILE__ );
 	define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
 	define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
@@ -85,6 +85,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	require_once( dirname( __FILE__ ) . '/wizard/class-instant-articles-wizard.php' );
 	require_once( dirname( __FILE__ ) . '/meta-box/class-instant-articles-meta-box.php' );
 	require_once( dirname( __FILE__ ) . '/class-instant-articles-amp-markup.php' );
+	require_once( dirname( __FILE__ ) . '/class-instant-articles-signer.php' );
 
 	/**
 	 * Plugin activation hook to add our rewrite rules.
@@ -427,6 +428,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action( 'wp', array('Instant_Articles_AMP_Markup', 'markup_version') );
 
 	Instant_Articles_Wizard::init();
+	Instant_Articles_Signer::init();
 
 	function invalidate_post_transformation_info_cache( $post_id, $post ) {
 		// These post metas are caches on the calculations made to decide if
@@ -562,5 +564,59 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		}
 	}
 	add_action( 'post_updated', 'invalidate_scrape_on_update', 10, 3 );
+
+	function rescrape_article( $post_id, $post ) {
+		$adapter = new Instant_Articles_Post( $post );
+		$old_slugs = get_post_meta( $post_id, '_wp_old_slug' );
+		if ( $adapter->should_submit_post() ) {
+			$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+			if (
+				( isset( $fb_app_settings[ 'page_access_token' ] ) && $fb_app_settings[ 'page_access_token' ] ) &&
+				( isset( $fb_app_settings[ 'app_id' ] ) && $fb_app_settings[ 'app_id' ] ) &&
+				( isset( $fb_app_settings[ 'app_secret' ] ) && $fb_app_settings[ 'app_secret' ] )
+			) {
+				// Defer to access_token if configured to ensure backwards compatibility
+				return;
+			}
+
+			try {
+				if ( extension_loaded('openssl') ) {
+					$client = Facebook\HttpClients\HttpClientsFactory::createHttpClient( null );
+					$url_encoded = urlencode($adapter->get_canonical_url());
+					$client->send(
+						Instant_Articles_Signer::sign_request_path(
+							"https://graph.facebook.com/?id=$url_encoded&scrape=true"
+						),
+						'POST',
+						'',
+						array(),
+						60
+					);
+					foreach ( $old_slugs as $slug ) {
+						$clone_post = clone $post;
+						$clone_post->post_name = $slug;
+						$clone_adapter = new Instant_Articles_Post( $clone_post );
+
+						$url_encoded = urlencode($clone_adapter->get_canonical_url());
+						$client->send(
+							Instant_Articles_Signer::sign_request_path(
+								"https://graph.facebook.com/?id=$url_encoded&scrape=true"
+							),
+							'POST',
+							'',
+							array(),
+							60
+						);
+					}
+				}
+			} catch ( Exception $e ) {
+				Logger::getLogger( 'instantarticles-wp-plugin' )->error(
+					'Unable to submit article.',
+					$e->getTraceAsString()
+				);
+			}
+		}
+	}
+	add_action( 'save_post', 'rescrape_article', 999, 2 );
 
 }
