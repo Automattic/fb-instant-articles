@@ -142,14 +142,14 @@ else
 fi
 
 if ! type "js" > /dev/null; then
-  error_message "SpiderMonkey interpreter not found, please install SpiderMonkey before continuing: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey"
+  error_message "SpiderMonkey interpreter not found, please install SpiderMonkey before continuing: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey (or with Homebrew)"
 else
   message "Found SpiderMonkey"
 fi
 
 
 if ! type "github-changes" > /dev/null; then
-  error_message "github-changes tool not found. Please run: npm install -g git-changes"
+  error_message "github-changes tool not found. Please run: npm install -g github-changes"
 else
   message "Found github-changes"
 fi
