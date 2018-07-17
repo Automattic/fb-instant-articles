@@ -90,7 +90,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 == Changelog ==
 ## Change Log
 
-### 4.1.1 (2018/07/17 15:19 +00:00)
+### 4.1.1 (2018/07/17 15:34 +00:00)
 - [#962](https://github.com/automattic/facebook-instant-articles-wp/pull/962) Updating description for the plugin on website (@Blakomen)
 - [#1](https://github.com/automattic/facebook-instant-articles-wp/pull/1) Merging into local (@diegoquinteiro, @everton-rosario, @algmelo)
 - [#957](https://github.com/automattic/facebook-instant-articles-wp/pull/957) Delete current transient with autoload=yes. (@everton-rosario, @algmelo)
