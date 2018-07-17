@@ -3,7 +3,7 @@ Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 4.8
-Stable tag: 4.1.0
+Stable tag: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,7 +90,12 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 == Changelog ==
 ## Change Log
 
-### 4.1.0 (2018/07/02 23:16 +00:00)
+### 4.1.1 (2018/07/17 15:05 +00:00)
+- [#962](https://github.com/automattic/facebook-instant-articles-wp/pull/962) Updating description for the plugin on website (@Blakomen)
+- [#1](https://github.com/automattic/facebook-instant-articles-wp/pull/1) Merging into local (@diegoquinteiro, @everton-rosario, @algmelo)
+- [#957](https://github.com/automattic/facebook-instant-articles-wp/pull/957) Delete current transient with autoload=yes. (@everton-rosario, @algmelo)
+
+### 4.1.0 (2018/07/02 23:17 +00:00)
 - [#937](https://github.com/automattic/facebook-instant-articles-wp/pull/937) Add token-less re-scrape with request signature (@diegoquinteiro)
 - [#952](https://github.com/automattic/facebook-instant-articles-wp/pull/952) Updating description for the plugin (@Blakomen)
 - [#910](https://github.com/automattic/facebook-instant-articles-wp/pull/910) Add PassThroughRule for Grammarly (@robbiet480)
