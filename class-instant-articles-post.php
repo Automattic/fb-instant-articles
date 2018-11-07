@@ -881,7 +881,7 @@ class Instant_Articles_Post {
 		if ( $cache ) {
 			// We use 'yes' or 'no' to avoid booleans because
 			// get_post_meta() returns false when the key is not found
-			return ( $cache === 'yes' );
+			return ( 'yes' === $cache );
 		}
 
 		$instant_article = $this->to_instant_article();
@@ -907,7 +907,7 @@ class Instant_Articles_Post {
 		if ( $cache ) {
 			// We use 'yes' or 'no' to avoid booleans because
 			// get_post_meta() returns false when the key is not found
-			return ( $cache === 'yes' );
+			return ( 'yes' === $cache );
 		}
 
 		$instant_article = $this->to_instant_article();

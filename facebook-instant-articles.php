@@ -105,7 +105,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action( 'network_admin_notices', 'instant_articles_setup_admin_notice' ); // also show message on multisite
 	function instant_articles_setup_admin_notice() {
 		global $pagenow;
-		if ( $pagenow === 'plugins.php' && ! Instant_Articles_Option_FB_Page::get_option_decoded()['page_id'] ) {
+		if ( 'plugins.php' === $pagenow && ! Instant_Articles_Option_FB_Page::get_option_decoded()['page_id'] ) {
 			$settings_url = Instant_Articles_Wizard::get_url();
 			echo '<div class="updated settings-error notice is-dismissible">';
 			echo '<p>Congrats, you\'ve installed the Instant Articles for WP plugin. Now <a href="' . esc_url_raw( $settings_url ) . '">set it up</a> to start publishing Instant Articles.';
@@ -444,7 +444,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	// We also need to invalidate the transformation caches when the option containing
 	// the custom transformer rules is updated
 	function invalidate_all_posts_transformation_info_cache( $option ) {
-		if ( $option === Instant_Articles_Option_Publishing::OPTION_KEY ) {
+		if ( Instant_Articles_Option_Publishing::OPTION_KEY === $option ) {
 			// These post metas are caches on the calculations made to decide if
 			// a post is in good state to be converted to an Instant Article or not
 			delete_post_meta_by_key( '_has_warnings_after_transformation' );
@@ -475,7 +475,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 
 			$green_light = '<span title="Instant article transformed successfully." class="instant-articles-col-status ok"></span>';
 
-			if ( $column_name === 'FBIA' ) {
+			if ( 'FBIA' === $column_name ) {
 				$post                  = get_post( $post_ID );
 				$instant_articles_post = new \Instant_Articles_Post( $post );
 

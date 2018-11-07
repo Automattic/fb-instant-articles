@@ -28,7 +28,7 @@ class Instant_Articles_AMP_Markup {
 	 * @since 4.0
 	 */
 	public static function get_settings() {
-		if ( self::$settings === null ) {
+		if ( null === self::$settings ) {
 			self::$settings = Instant_Articles_Option_AMP::get_option_decoded();
 		}
 
