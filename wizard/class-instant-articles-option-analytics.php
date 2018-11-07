@@ -122,8 +122,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 	 * @since 0.5
 	 */
 	public function sanitize_option_fields( $field_values ) {
-		foreach ( $field_values as $field_id => $field_value ) {
-			$field = self::$fields[ $field_id ];
+		foreach ( $field_values as $field_id ) {
 
 			switch ( $field_id ) {
 				case 'embed_code':

@@ -89,10 +89,6 @@ class Instant_Articles_Wizard {
 		}
 
 		try {
-			// Read options (they are used on the templates)
-			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
-			$settings_url     = self::get_url();
-
 			include dirname( __FILE__ ) . '/templates/advanced-template.php';
 		} catch ( Exception $e ) {
 			if ( Instant_Articles_Wizard_State::get_current_state() !== Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {

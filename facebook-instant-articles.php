@@ -359,7 +359,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 * @since 0.4
 	 */
 	function inject_url_claiming_meta_tag() {
-		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$fb_page_settings    = Instant_Articles_Option_FB_Page::get_option_decoded();
 
 		if ( isset( $fb_page_settings['page_id'] ) ) {
@@ -388,7 +387,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		if ( $adapter->should_submit_post() ) {
 			$url                 = $adapter->get_canonical_url();
 			$url                 = add_query_arg( 'ia_markup', '1', $url );
-			$fb_page_settings    = Instant_Articles_Option_FB_Page::get_option_decoded();
 			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 			$dev_mode            = isset( $publishing_settings['dev_mode'] )
 				? ( $publishing_settings['dev_mode'] ? true : false )

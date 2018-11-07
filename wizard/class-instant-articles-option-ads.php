@@ -166,10 +166,10 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 						'instant_articles_compat_registry_ads'
 					);
 
-					foreach ( $field['select_options'] as $option_id => $option_info ) {
+					foreach ( $field['select_options'] as $option_id ) {
 						$all_options[] = $option_id;
 					}
-					foreach ( $registered_compat_ads as $compat_id => $compat_info ) {
+					foreach ( $registered_compat_ads as $compat_id ) {
 						$all_options[] = $compat_id;
 					}
 

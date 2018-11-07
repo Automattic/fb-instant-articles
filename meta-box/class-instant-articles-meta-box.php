@@ -92,9 +92,7 @@ class Instant_Articles_Meta_Box {
 
 		try {
 			$article                                    = $adapter->to_instant_article();
-			$canonical_url                              = $adapter->get_canonical_url();
 			$published                                  = ( 'publish' === $post->post_status );
-			$dev_mode                                   = false;
 			$force_submit                               = get_post_meta( $post_id, IA_PLUGIN_FORCE_SUBMIT_KEY, true );
 			$instant_articles_should_submit_post_filter = apply_filters( 'instant_articles_should_submit_post', true, $adapter );
 
