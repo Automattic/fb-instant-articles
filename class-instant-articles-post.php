@@ -782,7 +782,7 @@ class Instant_Articles_Post {
 
 					$document   = new DOMDocument();
 					$fragment   = $document->createDocumentFragment();
-					$valid_html = @$fragment->appendXML( $settings_ads['embed_code'] );
+					$valid_html = $fragment->appendXML( $settings_ads['embed_code'] );
 
 					if ( $valid_html ) {
 						$ad->withHTML(
@@ -801,7 +801,7 @@ class Instant_Articles_Post {
 
 							$document   = new DOMDocument();
 							$fragment   = $document->createDocumentFragment();
-							$valid_html = @$fragment->appendXML( $compat_info['payload'] );
+							$valid_html = $fragment->appendXML( $compat_info['payload'] );
 
 							if ( $valid_html ) {
 								$ad = Ad::create()
@@ -835,7 +835,7 @@ class Instant_Articles_Post {
 
 			$document   = new DOMDocument();
 			$fragment   = $document->createDocumentFragment();
-			$valid_html = @$fragment->appendXML( $settings_analytics['embed_code'] );
+			$valid_html = $fragment->appendXML( $settings_analytics['embed_code'] );
 
 			if ( $valid_html ) {
 				$this->instant_article
@@ -856,7 +856,7 @@ class Instant_Articles_Post {
 
 					$document   = new DOMDocument();
 					$fragment   = $document->createDocumentFragment();
-					$valid_html = @$fragment->appendXML( $compat_info['payload'] );
+					$valid_html = $fragment->appendXML( $compat_info['payload'] );
 
 					if ( $valid_html ) {
 						$this->instant_article
