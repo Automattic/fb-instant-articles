@@ -139,7 +139,7 @@ class Instant_Articles_Post {
 	 */
 	public function has_subtitle() {
 
-		$has_subtitle = false;
+		$has_subtitle = false; // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
 
 		$subtitle = $this->get_the_subtitle();
 
@@ -910,7 +910,7 @@ class Instant_Articles_Post {
 			return ( 'yes' === $cache );
 		}
 
-		$instant_article = $this->to_instant_article();
+		$instant_article = $this->to_instant_article(); // phpcs:ignore WordPressVIPMinimum.Variables.VariableAnalysis.UnusedVariable
 		if ( count( $this->transformer->getWarnings() ) > 0 ) {
 			update_post_meta( $this->get_the_id(), '_has_warnings_after_transformation', 'yes' );
 			return true;
