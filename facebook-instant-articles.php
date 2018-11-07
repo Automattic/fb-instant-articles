@@ -414,7 +414,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function ia_markup_version() {
 		$post = get_post();
 
-		if ( isset( $_GET['ia_markup'] ) && $_GET['ia_markup'] ) {
+		if ( isset( $_GET['ia_markup'] ) && $_GET['ia_markup'] ) { // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected
 			// Transform the post to an Instant Article.
 			$adapter = new Instant_Articles_Post( $post );
 			$article = $adapter->to_instant_article();

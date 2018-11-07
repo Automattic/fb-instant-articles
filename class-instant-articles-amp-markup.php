@@ -83,7 +83,7 @@ class Instant_Articles_AMP_Markup {
 	 * @since 4.0
 	 */
 	public static function markup_version() {
-		if ( ! ( isset( $_GET[ self::QUERY_ARG ] ) && $_GET[ self::QUERY_ARG ] ) ) {
+		if ( ! ( isset( $_GET[ self::QUERY_ARG ] ) && $_GET[ self::QUERY_ARG ] ) ) { // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected
 			return;
 		}
 

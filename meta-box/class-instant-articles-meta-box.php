@@ -65,14 +65,14 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function force_submit() {
-		$post_id = intval( $_POST['post_ID'] );
+		$post_id = intval( $_POST['post_ID'] ); // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_die( -1, 403 );
 		}
 
 		check_ajax_referer( 'instant-articles-force-submit-' . $post_id, 'security' );
-		$force = sanitize_text_field( $_POST['force'] ) === 'true';
+		$force = sanitize_text_field( $_POST['force'] ) === 'true'; // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected
 		update_post_meta( $post_id, IA_PLUGIN_FORCE_SUBMIT_KEY, $force );
 	}
 
@@ -80,7 +80,7 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function render_meta_box() {
-		$post_id = intval( $_POST['post_ID'] );
+		$post_id = intval( $_POST['post_ID'] ); // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_die( -1, 403 );
