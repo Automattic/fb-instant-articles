@@ -13,8 +13,8 @@ class Instant_Articles_Jetpack {
 	 *
 	 */
 	public function init() {
-		$this->_fix_youtube_embed();
-		$this->_fix_facebook_embed();
+		$this->fix_youtube_embed();
+		$this->fix_facebook_embed();
 		add_filter( 'instant_articles_transformer_rules_loaded', array( 'Instant_Articles_Jetpack', 'transformer_loaded' ) );
 	}
 
@@ -22,7 +22,7 @@ class Instant_Articles_Jetpack {
 	 * Remove the YouTube embed handling in Jetpack
 	 *
 	 */
-	private function _fix_youtube_embed() {
+	private function fix_youtube_embed() {
 
 		/**
 		 * Do not "fix" bare URLs on their own line of the form
@@ -37,7 +37,7 @@ class Instant_Articles_Jetpack {
 	 * Fix the Facebook embed handling
 	 *
 	 */
-	private function _fix_facebook_embed() {
+	private function fix_facebook_embed() {
 
 		// Don't try to fix facebook embeds unless we're in Instant Articles context.
 		// This prevents mangled output on frontend.
