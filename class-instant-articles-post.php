@@ -1008,7 +1008,7 @@ class Instant_Articles_Post {
 			$this->transformer->transformString(
 				$footer,
 				'<small>' . $settings['copyright'] . '</small>',
-				get_option( 'blog_charset' ) 
+				get_option( 'blog_charset' )
 			);
 			$this->instant_article->withFooter( $footer );
 		}
