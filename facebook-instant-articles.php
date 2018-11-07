@@ -225,7 +225,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 							'column' => 'post_modified',
 							'after'  => '1 day ago',
 						),
-					) 
+					)
 				);
 			}
 		}
