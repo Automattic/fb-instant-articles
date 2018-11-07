@@ -79,7 +79,7 @@ class Instant_Articles_Wizard {
 
 
 	public static function get_admin_url() {
-		$url = parse_url( admin_url() );
+		$url = wp_parse_url( admin_url() );
 		return $url['host'];
 	}
 
