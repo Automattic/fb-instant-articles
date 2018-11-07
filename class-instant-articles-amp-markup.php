@@ -170,7 +170,7 @@ class Instant_Articles_AMP_Markup {
 		}
 
 		json_decode( $json_str );
-		if ( json_last_error() == JSON_ERROR_NONE ) {
+		if ( json_last_error() === JSON_ERROR_NONE ) {
 			return true;
 		}
 
