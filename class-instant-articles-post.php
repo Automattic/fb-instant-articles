@@ -969,7 +969,7 @@ class Instant_Articles_Post {
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$force_submit        = get_post_meta( $post->ID, IA_PLUGIN_FORCE_SUBMIT_KEY, true );
 		if ( $this->has_warnings_after_transformation()
-		  && ( ! isset( $publishing_settings['publish_with_warnings'] ) || ! $publishing_settings['publish_with_warnings'] )
+			&& ( ! isset( $publishing_settings['publish_with_warnings'] ) || ! $publishing_settings['publish_with_warnings'] )
 			&& ( ! $force_submit )
 			) {
 			return false;

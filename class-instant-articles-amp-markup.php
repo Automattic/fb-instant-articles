@@ -157,13 +157,13 @@ class Instant_Articles_AMP_Markup {
 		die();
 	}
 
-	 /**
-	  * Helper function to validate the json string
-	  *
-	  * @param $json_str string JSON string
-	  * @return bool true for valid JSON
-	  * @since 4.0
-	  */
+	/**
+	 * Helper function to validate the json string
+	 *
+	 * @param $json_str string JSON string
+	 * @return bool true for valid JSON
+	 * @since 4.0
+	 */
 	public static function validate_json( $json_str ) {
 		if ( Type::isTextEmpty( $json_str ) ) {
 			return false;

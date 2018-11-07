@@ -359,7 +359,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 * @since 0.4
 	 */
 	function inject_url_claiming_meta_tag() {
-		$fb_page_settings    = Instant_Articles_Option_FB_Page::get_option_decoded();
+		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 
 		if ( isset( $fb_page_settings['page_id'] ) ) {
 			?>
