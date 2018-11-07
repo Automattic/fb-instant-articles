@@ -73,7 +73,7 @@ class Instant_Articles_Signer {
 
 	public static function get_signature( $data ) {
 		openssl_sign( $data, $signature, self::get_private_key(), OPENSSL_ALGO_SHA1 );
-		return urlencode( base64_encode( $signature ) );
+		return rawurlencode( base64_encode( $signature ) );
 	}
 
 	public static function sign_request_path( $path ) {
