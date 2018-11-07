@@ -341,7 +341,7 @@ class Instant_Articles_Post {
 		// Remove hyperlinks beginning with a # as they cause errors on Facebook (from http://wordpress.stackexchange.com/a/227332/19528)
 		preg_match_all( '!<a[^>]*? href=[\'"]#[^<]+</a>!i', $content, $matches );
 		foreach ( $matches[0] as $link ) {
-			$content = str_replace( $link, strip_tags( $link ), $content );
+			$content = str_replace( $link, wp_strip_all_tags( $link ), $content );
 		}
 
 		/**
