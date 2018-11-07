@@ -64,7 +64,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 			array(
 				'option_field_id_embed_code_enabled' => self::OPTION_KEY . '-embed_code_enabled',
 				'option_field_id_embed_code'         => self::OPTION_KEY . '-embed_code',
-			) 
+			)
 		);
 	}
 

@@ -90,7 +90,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 				'option_field_id_iframe'     => self::OPTION_KEY . '-iframe_url',
 				'option_field_id_embed'      => self::OPTION_KEY . '-embed_code',
 				'option_field_id_dimensions' => self::OPTION_KEY . '-dimensions',
-			) 
+			)
 		);
 	}
 
