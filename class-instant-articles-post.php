@@ -943,7 +943,7 @@ class Instant_Articles_Post {
 
 		// Only process posts
 		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
-		if ( ! in_array( $post->post_type, $post_types ) ) {
+		if ( ! in_array( $post->post_type, $post_types, true ) ) {
 			return false;
 		}
 
