@@ -277,7 +277,7 @@ class Instant_Articles_Post {
 	public function get_the_content() {
 
 		if ( is_null( $this->_content ) ) {
-			$this->_content = $this->_get_the_content();
+			$this->_content = $this->assemble_content();
 		}
 
 		return $this->_content;
@@ -290,7 +290,7 @@ class Instant_Articles_Post {
 	 * @since 0.1
 	 * @return string The content
 	 */
-	protected function _get_the_content() {
+	protected function assemble_content() {
 
 		// Try to get the content from a transient, but only if the cached version have the same modtime.
 		$cache_mod_time = get_transient( 'instantarticles_mod_' . $this->_post->ID );
