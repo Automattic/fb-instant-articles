@@ -12,7 +12,7 @@ class Instant_Articles_Yoast_SEO {
 	function init() {
 		add_filter( 'instant_articles_featured_image', array( $this, 'override_featured_image' ), 10, 2 );
 		// Hook in after other author modifications (like the Co-Authors Plus plugin).
-		add_filter( 'instant_articles_authors', array( $this, 'user_url' ), 11 , 2 );
+		add_filter( 'instant_articles_authors', array( $this, 'user_url' ), 11, 2 );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Instant_Articles_Yoast_SEO {
 			if ( ! strlen( $author->user_url ) ) {
 				$facebook_profile_url = get_user_meta( $author->ID, 'facebook', true );
 				if ( strlen( $facebook_profile_url ) ) {
-					$author->user_url = $facebook_profile_url;
+					$author->user_url     = $facebook_profile_url;
 					$author->user_url_rel = 'facebook';
 				}
 			}

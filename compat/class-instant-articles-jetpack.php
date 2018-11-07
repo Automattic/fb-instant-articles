@@ -42,7 +42,7 @@ class Instant_Articles_Jetpack {
 		// Don't try to fix facebook embeds unless we're in Instant Articles context.
 		// This prevents mangled output on frontend.
 		if ( ! is_transforming_instant_article() ) {
-		    return;
+			return;
 		}
 
 		// All of these are registered in jetpack/modules/shortcodes/facebook.php
@@ -90,7 +90,7 @@ class Instant_Articles_Jetpack {
 
 	public static function transformer_loaded( $transformer ) {
 		// Appends more rules to transformer
-		$file_path = plugin_dir_path( __FILE__ ) . 'jetpack-rules-configuration.json';
+		$file_path     = plugin_dir_path( __FILE__ ) . 'jetpack-rules-configuration.json';
 		$configuration = file_get_contents( $file_path );
 		$transformer->loadRules( $configuration );
 

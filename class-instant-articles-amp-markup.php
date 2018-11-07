@@ -44,8 +44,7 @@ class Instant_Articles_AMP_Markup {
 	static function is_markup_enabled() {
 		$settings = self::get_settings();
 
-		return
-			isset( $settings[ self::SETTING_AMP_MARKUP ] )
+		return isset( $settings[ self::SETTING_AMP_MARKUP ] )
 			? (bool) $settings[ self::SETTING_AMP_MARKUP ]
 			: false;
 	}
@@ -72,7 +71,7 @@ class Instant_Articles_AMP_Markup {
 		$url = add_query_arg( self::QUERY_ARG, '1', $url );
 
 		?>
-		<link rel="amphtml" href="<?php echo esc_url($url); ?>">
+		<link rel="amphtml" href="<?php echo esc_url( $url ); ?>">
 		<?php
 	}
 
@@ -84,7 +83,7 @@ class Instant_Articles_AMP_Markup {
 	 * @since 4.0
 	 */
 	static function markup_version() {
-		if ( ! (isset( $_GET[ self::QUERY_ARG ] ) && $_GET[ self::QUERY_ARG ]) ) {
+		if ( ! ( isset( $_GET[ self::QUERY_ARG ] ) && $_GET[ self::QUERY_ARG ] ) ) {
 			return;
 		}
 
@@ -120,11 +119,11 @@ class Instant_Articles_AMP_Markup {
 
 		// Get all children with mime type image that are attached to the posts
 		// NOTE: this will not get images that are not hosted in the WP
-		$query_args = array(
-			'post_parent' => $post->ID,
-			'post_type'   => 'attachment',
-			'numberposts' => 100,
-			'post_mime_type' => 'image'
+		$query_args     = array(
+			'post_parent'    => $post->ID,
+			'post_type'      => 'attachment',
+			'numberposts'    => 100,
+			'post_mime_type' => 'image',
 		);
 		$image_children = get_children( $query_args );
 
@@ -141,7 +140,7 @@ class Instant_Articles_AMP_Markup {
 
 			// These are the possible redimensions
 			foreach ( $meta['sizes'] as $size ) {
-				$size_url = $base_image_url . $size['file'];
+				$size_url                 = $base_image_url . $size['file'];
 				$media_sizes[ $size_url ] = array( $size['width'], $size['height'] );
 			}
 		}
@@ -149,10 +148,10 @@ class Instant_Articles_AMP_Markup {
 		$properties[ AMPArticle::MEDIA_SIZES_KEY ] = $media_sizes;
 
 		// Transform the post to an Instant Article.
-		$adapter = new Instant_Articles_Post( $post );
-		$article = $adapter->to_instant_article();
+		$adapter      = new Instant_Articles_Post( $post );
+		$article      = $adapter->to_instant_article();
 		$article_html = $article->render();
-		$amp = AMPArticle::create( $article_html, $properties );
+		$amp          = AMPArticle::create( $article_html, $properties );
 		echo $amp->render();
 
 		die();

@@ -7,7 +7,7 @@
  * @package default
  */
 
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
+require_once dirname( __FILE__ ) . '/class-instant-articles-option.php';
 
 /**
  * Analytics configuration class.
@@ -17,32 +17,32 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 	const OPTION_KEY = 'instant-articles-option-analytics';
 
 	public static $sections = array(
-		'title' => 'Analytics',
+		'title'       => 'Analytics',
 		'description' => '<p>Enable 3rd-party analytics to be used with Instant Articles.</p><p>If you already use a WordPress plugin to manage analytics, you can enable it below. You can also embed code to insert your own trackers and analytics. <a href="https://developers.facebook.com/docs/instant-articles/ads-analytics#analytics" target="_blank">Learn more about Analytics in Instant Articles</a>.</p>',
 	);
 
 	public static $fields = array(
 
-		'integrations' => array(
-			'label' => '3rd party integrations',
-			'render' => array( 'Instant_Articles_Option_Analytics', 'custom_render_integrations' ),
+		'integrations'       => array(
+			'label'   => '3rd party integrations',
+			'render'  => array( 'Instant_Articles_Option_Analytics', 'custom_render_integrations' ),
 			'default' => array(),
 		),
 
 		'embed_code_enabled' => array(
-			'label' => 'Embed code',
-			'render' => 'checkbox',
-			'default' => false,
-			'description' => 'Add code for any other analytics services you wish to use.',
+			'label'          => 'Embed code',
+			'render'         => 'checkbox',
+			'default'        => false,
+			'description'    => 'Add code for any other analytics services you wish to use.',
 			'checkbox_label' => 'Enable custom embed code',
 		),
 
-		'embed_code' => array(
-			'label' => '',
-			'render' => 'textarea',
-			'placeholder' => '<script>...</script>',
-			'description' => 'Note: You do not need to include any &lt;op-tracker&gt; tags. The plugin will automatically include them in the article markup.',
-			'default' => '',
+		'embed_code'         => array(
+			'label'         => '',
+			'render'        => 'textarea',
+			'placeholder'   => '<script>...</script>',
+			'description'   => 'Note: You do not need to include any &lt;op-tracker&gt; tags. The plugin will automatically include them in the article markup.',
+			'default'       => '',
 			'double_encode' => true,
 		),
 	);
@@ -58,10 +58,14 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 			self::$sections,
 			self::$fields
 		);
-		wp_localize_script( 'instant-articles-option-analytics', 'INSTANT_ARTICLES_OPTION_ANALYTICS', array(
-			'option_field_id_embed_code_enabled' => self::OPTION_KEY . '-embed_code_enabled',
-			'option_field_id_embed_code'         => self::OPTION_KEY . '-embed_code',
-		) );
+		wp_localize_script(
+			'instant-articles-option-analytics',
+			'INSTANT_ARTICLES_OPTION_ANALYTICS',
+			array(
+				'option_field_id_embed_code_enabled' => self::OPTION_KEY . '-embed_code_enabled',
+				'option_field_id_embed_code'         => self::OPTION_KEY . '-embed_code',
+			) 
+		);
 	}
 
 	/**
@@ -93,7 +97,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 					type="checkbox"
 					name="<?php echo esc_attr( $name ); ?>"
 					value="<?php echo esc_attr( $plugin_id ); ?>"
-					<?php echo checked( in_array( $plugin_id, self::$settings['integrations'], true ) ) ?>
+					<?php echo checked( in_array( $plugin_id, self::$settings['integrations'], true ) ); ?>
 				>
 				<?php echo esc_html( $plugin_info['name'] ); ?>
 			</label>
@@ -135,7 +139,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 						}
 					}
 
-				break;
+					break;
 			}
 		}
 
