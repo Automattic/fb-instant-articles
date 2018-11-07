@@ -527,8 +527,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 					?>
 					<div class="notice notice-error is-dismissible">
 						<p>
-							<?php _e( 'It was not possible to automatically invalidate the scrape for this article.', IA_PLUGIN_TEXT_DOMAIN ); ?>
-							<?php _e( 'Please trigger a new scrape manually using the Facebook Share Debugger.', IA_PLUGIN_TEXT_DOMAIN ); ?>
+							<?php esc_html_e( 'It was not possible to automatically invalidate the scrape for this article.', IA_PLUGIN_TEXT_DOMAIN ); ?>
+							<?php esc_html_e( 'Please trigger a new scrape manually using the Facebook Share Debugger.', IA_PLUGIN_TEXT_DOMAIN ); ?>
 						</p>
 					</div>
 					<?php
@@ -538,7 +538,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 					?>
 					<div class="notice notice-success is-dismissible">
 						<p>
-							<?php _e( 'Successfully refreshed the Instant Articles cache for this article.', IA_PLUGIN_TEXT_DOMAIN ); ?>
+							<?php esc_html_e( 'Successfully refreshed the Instant Articles cache for this article.', IA_PLUGIN_TEXT_DOMAIN ); ?>
 						</p>
 					</div>
 					<?php
