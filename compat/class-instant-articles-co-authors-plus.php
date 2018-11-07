@@ -17,7 +17,7 @@ class Instant_Articles_Co_Authors_Plus {
 	/**
 	 * Init the compat layer.
 	 */
-	function init() {
+	public function init() {
 		add_filter( 'instant_articles_authors', array( $this, 'authors' ), 10, 2 );
 	}
 
@@ -27,7 +27,7 @@ class Instant_Articles_Co_Authors_Plus {
 	 * @param array $authors The current authors.
 	 * @param int   $post_id The current post ID.
 	 */
-	function authors( $authors, $post_id ) {
+	public function authors( $authors, $post_id ) {
 		if ( function_exists( 'get_coauthors' ) ) {
 			$coauthors = get_coauthors( $post_id );
 

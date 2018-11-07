@@ -27,7 +27,7 @@ class Instant_Articles_AMP_Markup {
 	 * @return array The settings, check Instant_Articles_Option::get_option_decoded()
 	 * @since 4.0
 	 */
-	static function get_settings() {
+	public static function get_settings() {
 		if ( self::$settings === null ) {
 			self::$settings = Instant_Articles_Option_AMP::get_option_decoded();
 		}
@@ -41,7 +41,7 @@ class Instant_Articles_AMP_Markup {
 	 * @return bool true if markup is enabled
 	 * @since 4.0
 	 */
-	static function is_markup_enabled() {
+	public static function is_markup_enabled() {
 		$settings = self::get_settings();
 
 		return isset( $settings[ self::SETTING_AMP_MARKUP ] )
@@ -54,7 +54,7 @@ class Instant_Articles_AMP_Markup {
 	 *
 	 * @since 4.0
 	 */
-	static function inject_link_rel() {
+	public static function inject_link_rel() {
 
 		if ( ! self::is_markup_enabled() ) {
 			return;
@@ -82,7 +82,7 @@ class Instant_Articles_AMP_Markup {
 	 *
 	 * @since 4.0
 	 */
-	static function markup_version() {
+	public static function markup_version() {
 		if ( ! ( isset( $_GET[ self::QUERY_ARG ] ) && $_GET[ self::QUERY_ARG ] ) ) {
 			return;
 		}
@@ -164,7 +164,7 @@ class Instant_Articles_AMP_Markup {
 	  * @return bool true for valid JSON
 	  * @since 4.0
 	  */
-	static function validate_json( $json_str ) {
+	public static function validate_json( $json_str ) {
 		if ( Type::isTextEmpty( $json_str ) ) {
 			return false;
 		}

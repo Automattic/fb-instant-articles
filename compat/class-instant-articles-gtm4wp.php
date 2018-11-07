@@ -9,7 +9,7 @@ class Instant_Articles_Google_Tag_Manager_For_WordPress {
 	/**
 	 * Init the compat layer and add the instantArticle variable to the GTM4WP dataLayer.
 	 */
-	function init() {
+	public function init() {
 		add_action( 'instant_articles_compat_registry_analytics', array( $this, 'add_to_registry' ), 10, 1 );
 		add_filter( 'gtm4wp_compile_datalayer', array( $this, 'add_ia_status_to_data_layer' ), 10, 1 );
 	}
@@ -20,7 +20,7 @@ class Instant_Articles_Google_Tag_Manager_For_WordPress {
 	 * @since 4.0.7
 	 * @param array $registry Reference param. The registry where it will be stored.
 	 */
-	function add_to_registry( &$registry ) {
+	public function add_to_registry( &$registry ) {
 		if ( ! function_exists( 'gtm4wp_wp_header_begin' ) ) {
 			include_once WP_PLUGIN_DIR . '/duracelltomi-google-tag-manager/public/frontend.php';
 		}
@@ -33,7 +33,7 @@ class Instant_Articles_Google_Tag_Manager_For_WordPress {
 		);
 	}
 
-	function add_ia_status_to_data_layer( $dataLayer ) {
+	public function add_ia_status_to_data_layer( $dataLayer ) {
 		$dataLayer['instantArticle'] = \is_transforming_instant_article();
 
 		return $dataLayer;
