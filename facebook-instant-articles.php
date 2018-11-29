@@ -33,39 +33,6 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-php/src' );
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-extensions-in-php/src' );
 
-	// Configures log to go through console.
-	\Logger::configure(
-		array(
-			'rootLogger' => array(
-				'appenders' => array( 'facebook-instantarticles-transformer' ),
-			),
-			'appenders' => array(
-				'facebook-instantarticles-transformer' => array(
-					'class' => 'LoggerAppenderConsole',
-					'threshold' => 'INFO',
-					'layout' => array(
-						'class' => 'LoggerLayoutSimple',
-					),
-				),
-				'facebook-instantarticles-client' => array(
-					'class' => 'LoggerAppenderConsole',
-					'threshold' => 'INFO',
-					'layout' => array(
-						'class' => 'LoggerLayoutSimple',
-					),
-				),
-				'instantarticles-wp-plugin' => array(
-					'class' => 'LoggerAppenderConsole',
-					'threshold' => 'INFO',
-					'layout' => array(
-						'class' => 'LoggerLayoutSimple',
-					),
-				),
-			),
-		)
-	);
-
-
 	defined( 'ABSPATH' ) || die( 'Shame on you' );
 
 	define( 'IA_PLUGIN_VERSION', '4.1.1' );
@@ -610,10 +577,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 					}
 				}
 			} catch ( Exception $e ) {
-				Logger::getLogger( 'instantarticles-wp-plugin' )->error(
-					'Unable to submit article.',
-					$e->getTraceAsString()
-				);
+				error_log( 'Unable to submit article.'.$e->getTraceAsString()	);
 			}
 		}
 	}
