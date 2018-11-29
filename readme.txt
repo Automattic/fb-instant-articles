@@ -90,7 +90,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 == Changelog ==
 ## Change Log
 
-### 4.2.0 (2018/11/29 16:28 +00:00)
+### 4.2.0 (2018/11/29 18:14 +00:00)
 - [#997](https://github.com/automattic/facebook-instant-articles-wp/pull/997) Removed fields from deprecated feature to enable comments/likes/share from media content (@everton-rosario)
 
 ### 4.1.1 (2018/07/17 15:45 +00:00)
