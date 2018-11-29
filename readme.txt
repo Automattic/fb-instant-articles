@@ -3,7 +3,7 @@ Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 4.8
-Stable tag: 4.1.1
+Stable tag: 4.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,9 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 
 == Changelog ==
 ## Change Log
+
+### 4.2.0 (2018/11/29 16:28 +00:00)
+- [#997](https://github.com/automattic/facebook-instant-articles-wp/pull/997) Removed fields from deprecated feature to enable comments/likes/share from media content (@everton-rosario)
 
 ### 4.1.1 (2018/07/17 15:45 +00:00)
 - [#962](https://github.com/automattic/facebook-instant-articles-wp/pull/962) Updating description for the plugin on website (@Blakomen)
