@@ -4,7 +4,7 @@
  * Description: Add support for Instant Articles for Facebook to your WordPress site.
  * Author: Automattic, Dekode, Facebook
  * Author URI: https://vip.wordpress.com/plugins/instant-articles/
- * Version: 4.1.1
+ * Version: 4.2.0
  * Text Domain: instant-articles
  * License: GPLv2
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -33,42 +33,9 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-php/src' );
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-extensions-in-php/src' );
 
-	// Configures log to go through console.
-	\Logger::configure(
-		array(
-			'rootLogger' => array(
-				'appenders' => array( 'facebook-instantarticles-transformer' ),
-			),
-			'appenders' => array(
-				'facebook-instantarticles-transformer' => array(
-					'class' => 'LoggerAppenderConsole',
-					'threshold' => 'INFO',
-					'layout' => array(
-						'class' => 'LoggerLayoutSimple',
-					),
-				),
-				'facebook-instantarticles-client' => array(
-					'class' => 'LoggerAppenderConsole',
-					'threshold' => 'INFO',
-					'layout' => array(
-						'class' => 'LoggerLayoutSimple',
-					),
-				),
-				'instantarticles-wp-plugin' => array(
-					'class' => 'LoggerAppenderConsole',
-					'threshold' => 'INFO',
-					'layout' => array(
-						'class' => 'LoggerLayoutSimple',
-					),
-				),
-			),
-		)
-	);
-
-
 	defined( 'ABSPATH' ) || die( 'Shame on you' );
 
-	define( 'IA_PLUGIN_VERSION', '4.1.1' );
+	define( 'IA_PLUGIN_VERSION', '4.2.0' );
 	define( 'IA_PLUGIN_PATH_FULL', __FILE__ );
 	define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
 	define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
@@ -610,10 +577,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 					}
 				}
 			} catch ( Exception $e ) {
-				Logger::getLogger( 'instantarticles-wp-plugin' )->error(
-					'Unable to submit article.',
-					$e->getTraceAsString()
-				);
+				error_log( 'Unable to submit article.'.$e->getTraceAsString()	);
 			}
 		}
 	}
