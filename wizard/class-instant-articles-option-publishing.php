@@ -62,23 +62,6 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'default'        => false,
 			'checkbox_label' => 'Enable column "FB IA Status"',
 		),
-
-		'likes_on_media'         => array(
-			'label'          => 'Likes',
-			'description'    => 'With this option enabled, any image or video will have the like action enabled by default.',
-			'render'         => 'checkbox',
-			'default'        => false,
-			'checkbox_label' => 'Enable like action on images and videos by default',
-		),
-
-		'comments_on_media'      => array(
-			'label'          => 'Comments',
-			'description'    => 'With this option enabled, any image or video will have the comments enabled by default.',
-			'render'         => 'checkbox',
-			'default'        => false,
-			'checkbox_label' => 'Enable comments on images and videos by default',
-		),
-
 	);
 
 	/**
@@ -98,7 +81,7 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			array(
 				'option_field_id_custom_rules_enabled' => self::OPTION_KEY . '-custom_rules_enabled',
 				'option_field_id_custom_rules'         => self::OPTION_KEY . '-custom_rules',
-			) 
+			)
 		);
 	}
 

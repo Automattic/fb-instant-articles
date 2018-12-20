@@ -1,41 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6a4644d7f6a3b2b06782f43c6ea06f7",
+    "content-hash": "6fc7e564f10f2fb780945fa88bfc9210",
     "packages": [
-        {
-            "name": "apache/log4php",
-            "version": "2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://git-wip-us.apache.org/repos/asf/logging-log4php.git",
-                "reference": "cac428b6f67d2035af39784da1d1a299ef42fcf2"
-            },
-            "require": {
-                "php": ">=5.2.7"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/main/php/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "A versatile logging framework for PHP",
-            "homepage": "http://logging.apache.org/log4php/",
-            "keywords": [
-                "log",
-                "logging",
-                "php"
-            ],
-            "time": "2012-10-26T09:13:25+00:00"
-        },
         {
             "name": "facebook/facebook-instant-articles-sdk-extensions-in-php",
             "version": "v0.1.1",
@@ -88,22 +58,22 @@
         },
         {
             "name": "facebook/facebook-instant-articles-sdk-php",
-            "version": "v1.9.2",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/facebook-instant-articles-sdk-php.git",
-                "reference": "d2ccefa4da393ea33b9c095a7ebce7b352e31480"
+                "reference": "ddd592500bd377af1965602fc008e6f593e63532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/d2ccefa4da393ea33b9c095a7ebce7b352e31480",
-                "reference": "d2ccefa4da393ea33b9c095a7ebce7b352e31480",
+                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/ddd592500bd377af1965602fc008e6f593e63532",
+                "reference": "ddd592500bd377af1965602fc008e6f593e63532",
                 "shasum": ""
             },
             "require": {
                 "facebook/graph-sdk": "~5.0",
-                "php": "^5.4 || ^7.0",
-                "symfony/css-selector": "^2.8 || ^3.0"
+                "php": "^5.4 || ^5.6 || ^7",
+                "symfony/css-selector": "^2.8 || ^3.1 || ^4.1"
             },
             "require-dev": {
                 "fzaninotto/faker": "^1.6.0",
@@ -136,7 +106,7 @@
                 "instant",
                 "sdk"
             ],
-            "time": "2018-03-16T19:42:33+00:00"
+            "time": "2018-11-29T14:50:41+00:00"
         },
         {
             "name": "facebook/graph-sdk",
@@ -198,16 +168,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.8.47",
+            "version": "v2.8.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "208aca6c35e332f87c84707dd228d404370c8835"
+                "reference": "7b1692e418d7ccac24c373528453bc90e42797de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/208aca6c35e332f87c84707dd228d404370c8835",
-                "reference": "208aca6c35e332f87c84707dd228d404370c8835",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/7b1692e418d7ccac24c373528453bc90e42797de",
+                "reference": "7b1692e418d7ccac24c373528453bc90e42797de",
                 "shasum": ""
             },
             "require": {
@@ -247,7 +217,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T16:27:16+00:00"
+            "time": "2018-11-11T11:18:13+00:00"
         }
     ],
     "packages-dev": [
@@ -416,16 +386,16 @@
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
-                "reference": "46d42828ce7355d8b3776e3171f2bda892d179b4"
+                "reference": "7aa217ab38156c5cb4eae0f04ae376027c407a9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/46d42828ce7355d8b3776e3171f2bda892d179b4",
-                "reference": "46d42828ce7355d8b3776e3171f2bda892d179b4",
+                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/7aa217ab38156c5cb4eae0f04ae376027c407a9b",
+                "reference": "7aa217ab38156c5cb4eae0f04ae376027c407a9b",
                 "shasum": ""
             },
             "require": {
@@ -433,7 +403,7 @@
                 "squizlabs/php_codesniffer": "^2.9.0 || ^3.0.2"
             },
             "require-dev": {
-                "phpcompatibility/php-compatibility": "*"
+                "phpcompatibility/php-compatibility": "^9.0"
             },
             "suggest": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3 || This Composer plugin will sort out the PHPCS 'installed_paths' automatically."
@@ -455,7 +425,7 @@
                 "standards",
                 "wordpress"
             ],
-            "time": "2018-09-10T17:04:05+00:00"
+            "time": "2018-11-12T10:13:12+00:00"
         }
     ],
     "aliases": [],
