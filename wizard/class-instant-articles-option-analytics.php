@@ -29,6 +29,12 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 			'default' => array(),
 		),
 
+		'comscore' => array(
+			'label' => 'Comscore',
+			'render' => 'text',
+			'default' => false,
+		),
+
 		'embed_code_enabled' => array(
 			'label' => 'Embed code',
 			'render' => 'checkbox',

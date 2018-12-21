@@ -58,3 +58,8 @@ $playbuzz->init();
 include( dirname( __FILE__ ) . '/compat/class-instant-articles-apester.php' );
 $apester = new Instant_Articles_Apester;
 $apester->init();
+
+// Load support for Comscore
+include( dirname( __FILE__ ) . '/compat/class-instant-articles-comscore.php' );
+$comscore = new Instant_Articles_Comscore;
+$comscore->init();
