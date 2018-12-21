@@ -30,7 +30,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 		),
 
 		'comscore_id' => array(
-			'label' => 'Comscore',
+			'label' => 'Comscore ID',
 			'render' => 'text',
 			'default' => false,
 		),
