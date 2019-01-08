@@ -25,8 +25,8 @@
   "require":
   {
     "php": ">=5.4",
-    "facebook/facebook-instant-articles-sdk-php": "^1.9.0",
-    "facebook/facebook-instant-articles-sdk-extensions-in-php": "^0.1.0",
+    "facebook/facebook-instant-articles-sdk-php": "^1.10.0",
+    "facebook/facebook-instant-articles-sdk-extensions-in-php": "^0.2.1",
     "symfony/css-selector": "2.8.*",
     "facebook/graph-sdk": "^5.6"
   },
