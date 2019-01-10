@@ -15,7 +15,7 @@
 ?>
 <div class="misc-pub-section misc-fbia-status">
 	<span class="fbia-icon"></span>
-	<?php esc_html_e( 'Instant Articles', 'instant-articles' ); ?>
+	<?php esc_html_e( 'Instant Articles:', 'instant-articles' ); ?>
 	<strong class="fbia-status-text"><?php echo esc_html( $labels[ $status ] ); ?></strong>
 	<a href="#fbia_status" class="edit-fbia-status hide-if-no-js" role="button">
 		<span aria-hidden="true"><?php esc_html_e( 'Edit', 'instant-articles' ); ?></span>
