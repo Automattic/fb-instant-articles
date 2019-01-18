@@ -85,7 +85,7 @@ class Instant_Articles_Publish_Meta_Box {
 	public static function sanitize_status( $status ) {
 		$status = strtolower( trim( $status ) );
 		if ( ! in_array( $status, array( self::ENABLED_STATUS, self::DISABLED_STATUS ), true ) ) {
-			$status = self::ENABLED_STATUS;
+			$status = apply_filters( 'instant_articles_default_status', self::ENABLED_STATUS );
 		}
 		return $status;
 	}
@@ -151,6 +151,9 @@ class Instant_Articles_Publish_Meta_Box {
 		}
 
 		$status = self::get_status( $post->ID );
+		if ( ! $status ) {
+			$status = apply_filters( 'instant_articles_default_status', self::ENABLED_STATUS );
+		}
 
 		$labels = array(
 			'enabled'  => __( 'Enabled', 'fbia' ),
