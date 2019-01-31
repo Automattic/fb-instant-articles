@@ -305,12 +305,12 @@ class Instant_Articles_Post {
 
 		// Force $more.
 		$orig_more = $more;
-		$more      = 1;
+		$more      = 1; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
 
 		// If we’re not it the loop or otherwise properly setup.
 		$reset_postdata = false;
 		if ( empty( $post ) || $this->_post->ID !== $post->ID ) {
-			$post = get_post( $this->_post->ID );
+			$post = get_post( $this->_post->ID ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
 			setup_postdata( $post );
 			$reset_postdata = true;
 		}
@@ -333,7 +333,7 @@ class Instant_Articles_Post {
 		$content = apply_filters( 'the_content', $content );
 
 		// Maybe cleanup some globals after us?
-		$more = $orig_more;
+		$more = $orig_more; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
 		if ( $reset_postdata ) {
 			wp_reset_postdata();
 		}
