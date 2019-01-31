@@ -7,7 +7,7 @@
  * @package default
  */
 
-require_once './class-instant-articles-post.php';
+require_once dirname( __DIR__ ) . '/class-instant-articles-post.php';
 
 /**
  * Test class responsible for constructing article content
