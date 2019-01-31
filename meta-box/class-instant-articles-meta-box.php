@@ -80,7 +80,7 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function render_meta_box() {
-		$post_id = isset( $_POST['post_ID'] ) ? intval( $_POST['post_ID'] ) : 0; // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected
+		$post_id = filter_input( INPUT_POST, 'post_ID', FILTER_SANITIZE_NUMBER_INT );
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_die( -1, 403 );
