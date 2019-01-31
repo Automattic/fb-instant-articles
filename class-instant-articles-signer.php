@@ -26,7 +26,7 @@ class Instant_Articles_Signer {
 		global $wp;
 		if ( self::PUBLIC_KEY_PATH === $wp->request ) {
 			status_header( 200 );
-			echo self::get_public_key();
+			echo esc_html( self::get_public_key() );
 			die();
 		}
 	}
