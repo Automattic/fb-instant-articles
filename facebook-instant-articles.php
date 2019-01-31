@@ -580,7 +580,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 					}
 				}
 			} catch ( Exception $e ) {
-				error_log( 'Unable to submit article.' . $e->getTraceAsString() );
+				error_log( 'Unable to submit article.' . $e->getTraceAsString() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			}
 		}
 	}
