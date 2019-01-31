@@ -419,8 +419,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_action( 'updated_option', 'invalidate_all_posts_transformation_info_cache', 10, 1 );
 
 	function fbia_indicator_column_heading( $columns ) {
-		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
-		$display_warning_column = isset( $publishing_settings[ 'display_warning_column' ] ) ? $publishing_settings[ 'display_warning_column' ] : '0';
+		$publishing_settings    = Instant_Articles_Option_Publishing::get_option_decoded();
+		$display_warning_column = isset( $publishing_settings['display_warning_column'] ) ? $publishing_settings['display_warning_column'] : '0';
 
 		if ( '1' === $display_warning_column ) {
 			$columns['FBIA'] = "<span title='Facebook Instant Article Distribution Status' class='fbia-col-heading'>FB IA Status</span>";
@@ -430,8 +430,8 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	add_filter( 'manage_posts_columns', 'fbia_indicator_column_heading' );
 
 	function fbia_indication_column( $column_name, $post_ID ) {
-		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
-		$display_warning_column = isset( $publishing_settings[ 'display_warning_column' ] ) ? $publishing_settings[ 'display_warning_column' ] : '0';
+		$publishing_settings    = Instant_Articles_Option_Publishing::get_option_decoded();
+		$display_warning_column = isset( $publishing_settings['display_warning_column'] ) ? $publishing_settings['display_warning_column'] : '0';
 
 		if ( '1' === $display_warning_column ) {
 			$red_light = '<span title="Instant article is empty after transformation." class="instant-articles-col-status error"></span>';
@@ -580,7 +580,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 					}
 				}
 			} catch ( Exception $e ) {
-				error_log( 'Unable to submit article.'.$e->getTraceAsString()	);
+				error_log( 'Unable to submit article.' . $e->getTraceAsString() );
 			}
 		}
 	}

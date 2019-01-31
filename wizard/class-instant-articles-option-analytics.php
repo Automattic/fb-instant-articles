@@ -29,9 +29,9 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 			'default' => array(),
 		),
 
-		'comscore_id' => array(
-			'label' => 'Comscore ID',
-			'render' => 'text',
+		'comscore_id'        => array(
+			'label'   => 'Comscore ID',
+			'render'  => 'text',
 			'default' => false,
 		),
 
