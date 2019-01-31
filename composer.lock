@@ -1,31 +1,88 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fc7e564f10f2fb780945fa88bfc9210",
+    "content-hash": "69f4d895453e09c685a27f9196241927",
     "packages": [
         {
-            "name": "facebook/facebook-instant-articles-sdk-extensions-in-php",
-            "version": "v0.1.1",
+            "name": "doctrine/instantiator",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/facebook/facebook-instant-articles-sdk-extensions-in-php.git",
-                "reference": "f574ad6230ced8d8159b7b59a41ac6238d8d6353"
+                "url": "https://github.com/doctrine/instantiator.git",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-extensions-in-php/zipball/f574ad6230ced8d8159b7b59a41ac6238d8d6353",
-                "reference": "f574ad6230ced8d8159b7b59a41ac6238d8d6353",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
                 "shasum": ""
             },
             "require": {
-                "facebook/facebook-instant-articles-sdk-php": "^1.6",
+                "php": ">=5.3,<8.0-DEV"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1.8",
+                "ext-pdo": "*",
+                "ext-phar": "*",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.com/"
+                }
+            ],
+            "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
+            "homepage": "https://github.com/doctrine/instantiator",
+            "keywords": [
+                "constructor",
+                "instantiate"
+            ],
+            "time": "2015-06-14T21:17:01+00:00"
+        },
+        {
+            "name": "facebook/facebook-instant-articles-sdk-extensions-in-php",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facebook/facebook-instant-articles-sdk-extensions-in-php.git",
+                "reference": "de4470829537326987feadad6a19445c33a20383"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-extensions-in-php/zipball/de4470829537326987feadad6a19445c33a20383",
+                "reference": "de4470829537326987feadad6a19445c33a20383",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/instantiator": "<=1.0.5",
+                "facebook/facebook-instant-articles-sdk-php": "^1.8.3",
                 "php": "^5.4 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8"
+                "phpdocumentor/reflection-docblock": "^2.0",
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "^3.0.0"
             },
             "type": "library",
             "autoload": {
@@ -54,7 +111,7 @@
                 "instantarticles",
                 "sdk"
             ],
-            "time": "2017-06-26T19:59:19+00:00"
+            "time": "2018-02-08T18:21:18+00:00"
         },
         {
             "name": "facebook/facebook-instant-articles-sdk-php",
@@ -110,16 +167,16 @@
         },
         {
             "name": "facebook/graph-sdk",
-            "version": "5.6.3",
+            "version": "5.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-graph-sdk.git",
-                "reference": "90e92bd1816fe718e55184ab85910dfcf488432c"
+                "reference": "2d8250638b33d73e7a87add65f47fabf91f8ad9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/90e92bd1816fe718e55184ab85910dfcf488432c",
-                "reference": "90e92bd1816fe718e55184ab85910dfcf488432c",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/2d8250638b33d73e7a87add65f47fabf91f8ad9b",
+                "reference": "2d8250638b33d73e7a87add65f47fabf91f8ad9b",
                 "shasum": ""
             },
             "require": {
@@ -164,11 +221,11 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2018-07-03T02:25:00+00:00"
+            "time": "2018-12-11T22:56:31+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.8.48",
+            "version": "v2.8.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -335,16 +392,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.3.2",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "6ad28354c04b364c3c71a34e4a18b629cc3b231e"
+                "reference": "379deb987e26c7cd103a7b387aea178baec96e48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/6ad28354c04b364c3c71a34e4a18b629cc3b231e",
-                "reference": "6ad28354c04b364c3c71a34e4a18b629cc3b231e",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/379deb987e26c7cd103a7b387aea178baec96e48",
+                "reference": "379deb987e26c7cd103a7b387aea178baec96e48",
                 "shasum": ""
             },
             "require": {
@@ -382,20 +439,20 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-09-23T23:08:17+00:00"
+            "time": "2018-12-19T23:57:18+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
-                "reference": "7aa217ab38156c5cb4eae0f04ae376027c407a9b"
+                "reference": "f328bcafd97377e8e5e5d7b244d5ddbf301a3a5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/7aa217ab38156c5cb4eae0f04ae376027c407a9b",
-                "reference": "7aa217ab38156c5cb4eae0f04ae376027c407a9b",
+                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/f328bcafd97377e8e5e5d7b244d5ddbf301a3a5c",
+                "reference": "f328bcafd97377e8e5e5d7b244d5ddbf301a3a5c",
                 "shasum": ""
             },
             "require": {
@@ -425,7 +482,7 @@
                 "standards",
                 "wordpress"
             ],
-            "time": "2018-11-12T10:13:12+00:00"
+            "time": "2018-12-18T09:43:51+00:00"
         }
     ],
     "aliases": [],
