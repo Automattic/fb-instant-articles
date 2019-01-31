@@ -19,7 +19,7 @@ class Instant_Articles_AMP_Markup {
 	const QUERY_ARG          = 'amp_markup'; // Query argument that will trigger the AMP markup generation
 
 	// To memoize the settings
-	static $settings = null;
+	public static $settings = null;
 
 	/**
 	 * Gets the settings
