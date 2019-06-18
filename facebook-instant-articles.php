@@ -582,5 +582,44 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		}
 	}
 	add_action( 'save_post', 'rescrape_article', 999, 2 );
+	
+	add_action('transition_post_status', function($new_status, $old_status, $post) {
+		if ( $old_status == "publish" && $new_status != "publish" ) {
+			// Un-publish the old post from Facebook
+
+			$fb_app_settings = Instant_Articles_Option_FB_App::get_option_decoded();
+			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
+			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
+
+			$dev_mode = isset( $publishing_settings['dev_mode'] )
+						? ( $publishing_settings['dev_mode'] ? true : false )
+						: false;
+
+			if ( isset( $fb_app_settings['app_id'] )
+				&& isset( $fb_app_settings['app_secret'] )
+				&& isset( $fb_app_settings['page_access_token'] )
+				&& isset( $fb_page_settings['page_id'] ) ) {
+
+				$client = Facebook\InstantArticles\Client\Client::create(
+					$fb_app_settings['app_id'],
+					$fb_app_settings['app_secret'],
+					$fb_app_settings['page_access_token'],
+					$fb_page_settings['page_id'],
+					$dev_mode
+				);
+
+				$adapter = new Instant_Articles_Post( $post );
+				$url = $adapter->get_canonical_url();
+
+				try {
+					$resp = $client->removeArticle( $url );
+					error_log("FIA Remove Article Response: " . print_r($resp, true));
+				} catch (Exception $e) {
+					error_log( 'FIA Unable to delete article.'. $e->getMessage() );
+				}
+
+			}
+		}
+	}, 10, 3);
 
 }
