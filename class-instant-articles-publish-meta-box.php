@@ -138,10 +138,14 @@ class Instant_Articles_Publish_Meta_Box {
 	 * @param WP_Post $post Post.
 	 */
 	public static function render_status( $post ) {
+		$supported_post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+
 		$verify = (
 			isset( $post->ID )
 			&&
 			is_post_type_viewable( $post->post_type )
+			&&
+			in_array( $post->post_type, $supported_post_types, true )
 			&&
 			current_user_can( 'edit_post', $post->ID )
 		);
