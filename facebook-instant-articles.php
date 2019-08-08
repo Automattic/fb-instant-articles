@@ -350,7 +350,18 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 		if ( $adapter->should_submit_post() ) {
-			$url = $adapter->get_canonical_url() . 'ia/';
+			$canonical_url = $adapter->get_canonical_url();
+			$url_parts     = wp_parse_url( $canonical_url );
+
+			if ( $url_parts ) {
+				$url = trailingslashit( $url_parts['scheme'] . $url_parts['host'] . $url_parts['path'] ) . 'ia/';
+				if ( $url_parts['query'] ) {
+					$url = $url . '?'. $url_parts['query'];
+				}
+			} else {
+				$url = $canonical_url;
+			}
+
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 			$dev_mode = isset( $publishing_settings['dev_mode'] )
