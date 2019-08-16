@@ -615,7 +615,9 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			$post = get_post();
 			$adapter = new Instant_Articles_Post( $post );
 			$article = $adapter->to_instant_article();
-			echo $article->render( null, true );
+			$result = $article->render( null, true );
+
+			echo apply_filters( 'instant_articles_rendered_content', $result );
 
 			die();
 		}
