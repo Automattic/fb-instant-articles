@@ -611,17 +611,25 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 */
 	function instant_articles_template_redirect() {
 		if ( 1 === get_query_var( 'ia' ) ) {
-			// Transform the post to an Instant Article.
-			$post = get_post();
-			$adapter = new Instant_Articles_Post( $post );
-			$article = $adapter->to_instant_article();
-			$result = $article->render( null, true );
 
-			echo apply_filters( 'instant_articles_rendered_content', $result );
+			$adapter = new Instant_Articles_Post( get_post() );
+			$post_supports_ia = apply_filters( 'instant_articles_should_submit_post', true, $adapter );
 
-			die();
+			if ( $post_supports_ia ) {
+				// Transform the post to an Instant Article.
+				$post = get_post();
+				$adapter = new Instant_Articles_Post( $post );
+				$article = $adapter->to_instant_article();
+				$result = $article->render( null, true );
+
+				echo apply_filters( 'instant_articles_rendered_content', $result );
+
+				die();
+			} else {
+				wp_safe_redirect( get_permalink() );
+				die();
+			}
 		}
-
 	}
 	add_action( 'template_redirect', 'instant_articles_template_redirect' );
 
