@@ -3,7 +3,7 @@ Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, facebook
 Tags: instant articles, facebook, mobile
 Requires at least: 4.3
 Tested up to: 5.4.1
-Stable tag: 4.2.0
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,7 +90,15 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 == Changelog ==
 ## Change Log
 
-### 4.2.0 (2018/11/29 20:47 +00:00)
+### 4.2.1 (2020/06/10 21:11 +00:00)
+- [#1049](https://github.com/automattic/facebook-instant-articles-wp/pull/1049) Add support for new guttenberg layout elements (@diegoquinteiro)
+- [#1012](https://github.com/automattic/facebook-instant-articles-wp/pull/1012) update composer modules (@paulschreiber)
+- [#1001](https://github.com/automattic/facebook-instant-articles-wp/pull/1001) Load functions which rely on `plugins_loaded` action hook in VIP Go environment (@paulschreiber)
+- [#990](https://github.com/automattic/facebook-instant-articles-wp/pull/990) avoid undefined index error in $display_warning_column (@paulschreiber)
+- [#1002](https://github.com/automattic/facebook-instant-articles-wp/pull/1002) add Comscore plugin (@paulschreiber)
+- [#1007](https://github.com/automattic/facebook-instant-articles-wp/pull/1007) Update Facebook SDK versions (@paulschreiber)
+
+### 4.2.0 (2018/11/29 18:14 +00:00)
 - [#997](https://github.com/automattic/facebook-instant-articles-wp/pull/997) Removed fields from deprecated feature to enable comments/likes/share from media content (@everton-rosario)
 
 ### 4.1.1 (2018/07/17 15:45 +00:00)
