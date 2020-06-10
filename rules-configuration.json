@@ -330,6 +330,15 @@
             }
         }
     }, {
+        "class": "SlideshowRule",
+        "selector" : "figure.wp-block-gallery"
+    }, {
+        "class": "PassThroughRule",
+        "selector" : "ul.blocks-gallery-grid"
+    }, {
+        "class": "PassThroughRule",
+        "selector" : "li.blocks-gallery-item"
+    }, {
         "class": "VideoRule",
         "selector" : "div.wp-video",
         "containsChild": "video",
@@ -351,6 +360,9 @@
     }, {
         "class" : "PassThroughRule",
         "selector" : "div.vce-gallery-small"
+    }, {
+        "class": "PassthroughRule",
+        "selector": "div.wp-block-columns, div.wp-block-column"
     }, {
         "class" : "IgnoreRule",
         "selector" : "div.vce-gallery-slider"
