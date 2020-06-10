@@ -288,7 +288,7 @@ function bump_version {
 
   confirm "Update CHANGELOG.md for $version?"
   message "Updating CHANGELOG.md for $version"
-  run github-changes -o automattic -r facebook-instant-articles-wp --only-pulls --use-commit-body --tag-name $version
+  run github-changes -o automattic -r facebook-instant-articles-wp -a --only-pulls --use-commit-body --tag-name $version
   run git diff
   confirm "Add changes to commit?"
   run git add CHANGELOG.md
