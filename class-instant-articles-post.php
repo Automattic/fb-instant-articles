@@ -294,7 +294,8 @@ class Instant_Articles_Post {
 
 		// Try to get the content from a transient, but only if the cached version have the same modtime.
 		$cache_mod_time = get_transient( 'instantarticles_mod_' . $this->_post->ID );
-		if ( get_post_modified_time( 'Y-m-d H:i:s', true, $this->_post->ID ) === $cache_mod_time ) {
+		if ( apply_filters( 'instant_articles_cache_content', true, $this->_post->ID )
+			&& get_post_modified_time( 'Y-m-d H:i:s', true, $this->_post->ID ) === $cache_mod_time ) {
 			$content = get_transient( 'instantarticles_content_' . $this->_post->ID );
 			if ( false !== $content && strlen( $content ) ) {
 				return $content;
