@@ -73,24 +73,10 @@
         "selector": "cite"
     }, {
         "class": "ImageRule",
-        "selector": "img",
-        "properties": {
-            "image.url": {
-                "type": "string",
-                "selector": "img",
-                "attribute": "src"
-            }
-        }
+        "selector": "img"
     }, {
         "class": "ImageRule",
-        "selector": "//a[img and not(*[not(self::img)])]",
-        "properties": {
-            "image.url": {
-                "type": "string",
-                "selector": "img",
-                "attribute": "src"
-            }
-        }
+        "selector": "//a[img and not(*[not(self::img)])]"
     }, {
         "class": "ListItemRule",
         "selector" : "li"
@@ -192,11 +178,11 @@
         }
     }, {
         "class": "InteractiveRule",
-        "selector" : "div.embed",
+        "selector" : "figure.wp-block-embed",
         "properties" : {
             "interactive.iframe" : {
                 "type" : "children",
-                "selector" : "div.embed"
+                "selector" : "iframe"
             },
             "interactive.height" : {
                 "type" : "int",
@@ -207,6 +193,11 @@
                 "type" : "int",
                 "selector" : "iframe",
                 "attribute": "width"
+            },
+            "interactive.url" : {
+                "type" : "string",
+                "selector" : "iframe",
+                "attribute": "src"
             }
         }
     }, {
@@ -280,6 +271,25 @@
     }, {
         "class": "InteractiveRule",
         "selector" : "table",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "element",
+                "selector" : "table"
+            },
+            "interactive.height" : {
+                "type" : "int",
+                "selector" : "table",
+                "attribute": "height"
+            },
+            "interactive.width" : {
+                "type" : "int",
+                "selector" : "iframe",
+                "attribute": "width"
+            }
+        }
+    }, {
+        "class": "InteractiveRule",
+        "selector" : "figure.wp-block-table",
         "properties" : {
             "interactive.iframe" : {
                 "type" : "element",
