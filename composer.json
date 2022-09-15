@@ -22,15 +22,32 @@
   [
     "wordpress", "facebook", "instant", "articles", "amp"
   ],
+  "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/whyisjake/facebook-instant-articles-sdk-php"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/whyisjake/facebook-instant-articles-sdk-extensions-in-php"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/whyisjake/php-graph-sdk"
+    }
+  ],
   "require":
   {
     "php": ">=5.4",
-    "facebook/facebook-instant-articles-sdk-php": "^1.10.0",
-    "facebook/facebook-instant-articles-sdk-extensions-in-php": "^0.2.1",
+    "facebook/facebook-instant-articles-sdk-php": "dev-php8",
+    "facebook/facebook-instant-articles-sdk-extensions-in-php": "dev-php8",
     "symfony/css-selector": "2.8.*",
-    "facebook/graph-sdk": "^5.6"
+    "facebook/graph-sdk": "dev-php8"
   },
   "require-dev": {
-    "wp-coding-standards/wpcs": "*"
+    "wp-coding-standards/wpcs": "*",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "automattic/vipwpcs": "^2.3"
   }
 }
