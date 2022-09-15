@@ -46,7 +46,7 @@
     "phpunit/phpunit": "^9.5"
   },
   "require-dev": {
-    "wp-coding-standards/wpcs": "*",
+    "wp-coding-standards/wpcs": "^2",
     "phpcompatibility/phpcompatibility-wp": "*",
     "automattic/vipwpcs": "^2.3"
   }
