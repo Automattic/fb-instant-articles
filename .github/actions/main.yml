@@ -1,7 +1,6 @@
 name: CI
 
-on:
-  push:
+on: [push]
 
 permissions:
   contents: read
