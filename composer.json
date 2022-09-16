@@ -36,18 +36,18 @@
       "url": "https://github.com/whyisjake/php-graph-sdk"
     }
   ],
-  "require":
-  {
+  "require": {
     "php": ">=5.4",
     "facebook/facebook-instant-articles-sdk-php": "dev-php8",
     "facebook/facebook-instant-articles-sdk-extensions-in-php": "dev-php8",
     "symfony/css-selector": "2.8.*",
     "facebook/graph-sdk": "dev-php8",
-    "phpunit/phpunit": "^9.5",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2"
   },
   "require-dev": {
     "phpcompatibility/phpcompatibility-wp": "*",
-    "automattic/vipwpcs": "^2.3"
+    "automattic/vipwpcs": "^2.3",
+    "yoast/phpunit-polyfills": "^1.0",
+    "phpunit/phpunit": "^9.5"
   }
 }
