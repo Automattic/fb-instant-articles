@@ -719,7 +719,7 @@ class Instant_Articles_Post {
 		$height = 250;
 
 		$dimensions_match = array();
-		$dimensions_raw = isset( $settings_ads['dimensions'] ) ? $settings_ads['dimensions'] : null;
+		$dimensions_raw = isset( $settings_ads['dimensions'] ) ? $settings_ads['dimensions'] : '';
 		if ( preg_match( '/^(?:\s)*(\d+)x(\d+)(?:\s)*$/', $dimensions_raw, $dimensions_match ) ) {
 			$width = intval( $dimensions_match[1] );
 			$height = intval( $dimensions_match[2] );
