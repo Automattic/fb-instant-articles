@@ -1,0 +1,81 @@
+name: CS & Lint
+
+on:
+  # Run on all pushes and on all pull requests.
+  # Prevent the "push" build from running when there are only irrelevant changes.
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checkcs:
+    name: 'Basic CS and QA checks'
+    runs-on: ubuntu-20.04
+
+    env:
+      XMLLINT_INDENT: '	'
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: cs2pr
+
+      # Show PHP lint violations inline in the file diff.
+      # @link https://github.com/marketplace/actions/xmllint-problem-matcher
+      - name: Register PHP lint violations to appear as file diff comments
+        uses: korelstar/phplint-problem-matcher@v1
+
+      # Show XML violations inline in the file diff.
+      # @link https://github.com/marketplace/actions/xmllint-problem-matcher
+      - name: Register XML violations to appear as file diff comments
+        uses: korelstar/xmllint-problem-matcher@v1
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Validate the composer.json file.
+      # @link https://getcomposer.org/doc/03-cli.md#validate
+      - name: Validate Composer installation
+        run: composer validate --no-check-all --strict --no-interaction
+
+      # Install dependencies and handle caching in one go.
+      # @link https://github.com/marketplace/actions/install-composer-dependencies
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v2
+
+      # Lint PHP.
+      - name: Lint PHP against parse errors
+        run: composer lint-ci --no-interaction | cs2pr
+
+      # Needed as runs-on: system doesn't have xml-lint by default.
+      # @link https://github.com/marketplace/actions/xml-lint
+      - name: Lint phpunit.xml.dist
+        uses: ChristophWurst/xmllint-action@v1
+        with:
+          xml-file: ./phpunit.xml.dist
+          xml-schema-file: ./vendor/phpunit/phpunit/phpunit.xsd
+
+      - name: Lint .phpcs.xml.dist
+        uses: ChristophWurst/xmllint-action@v1
+        with:
+          xml-file: ./.phpcs.xml.dist
+          xml-schema-file: ./vendor/squizlabs/php_codesniffer/phpcs.xsd
+
+      # Check the code-style consistency of the PHP files.
+#      - name: Check PHP code style
+#        run: composer cs -- --report-full --report-checkstyle=./phpcs-report.xml
+#
+#      - name: Show PHPCS results in PR
+#        run: cs2pr ./phpcs-report.xml

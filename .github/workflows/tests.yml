@@ -1,0 +1,91 @@
+name: Integration Tests
+
+on:
+  # Run on all pushes and on all pull requests.
+  # Prevent the "push" build from running when there are only irrelevant changes.
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-20.04
+
+    env:
+      WP_VERSION: ${{ matrix.wp }}
+
+    strategy:
+      # PHP 7.1 uses PHPUnit 7.5.20
+      # PHP 7.2 uses PHPUnit 8.5.21
+      # PHP 7.3 uses PHPUnit 9.5.10
+      # PHP 7.4 uses PHPUnit 9.5.10
+      # PHP 8.0 uses PHPUnit 9.5.10
+      # PHP 8.1 uses PHPUnit 9.5.10
+      # PHP 8.2 uses PHPUnit 9.5.10
+      # Keys:
+      # - experimental: Whether the build is "allowed to fail".
+      matrix:
+        php: ['7.2', '7.3', '7.4', '8.0', '8.1']
+        wp: ['latest']
+        experimental: [false]
+        include:
+          - php: '7.1'
+            wp: '5.8.3'
+            experimental: false
+          - php: '8.2'
+            wp: 'trunk'
+            experimental: true
+      fail-fast: false
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ matrix.extensions }}
+          ini-values: ${{ matrix.ini-values }}
+
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Setup Problem Matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Install Composer dependencies
+        if: ${{ matrix.php < 8.2 }}
+        uses: ramsey/composer-install@v2
+
+      - name: Install Composer dependencies for PHP >= 8.2
+        if: ${{ matrix.php >= 8.2 }}
+        uses: ramsey/composer-install@v2
+        with:
+          composer-options: --ignore-platform-reqs
+
+      - name: Start MySQL Service
+        run: sudo systemctl start mysql.service
+
+      - name: Setting mysql_native_password for PHP <= 7.3
+        if: ${{ matrix.php <= 7.3 }}
+        run: mysql -u root -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
+
+      - name: Prepare environment for integration tests
+        run: composer prepare-ci --no-interaction
+
+      - name: Run integration tests (single site)
+        if: ${{ matrix.php != 8.0 && ! matrix.experimental }}
+        run: composer test --no-interaction
+
+      - name: Run integration tests (multi site)
+        if: ${{ matrix.php != 8.0 && ! matrix.experimental }}
+        run: composer test-ms --no-interaction
