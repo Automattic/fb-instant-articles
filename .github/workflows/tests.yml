@@ -38,7 +38,13 @@ jobs:
         experimental: [false]
         include:
           - php: '7.1'
-            wp: '5.8.3'
+            wp: '5.8.5'
+            experimental: false
+          - php: '7.0'
+            wp: '5.8.5'
+            experimental: false
+          - php: '5.6'
+            wp: '5.8.5'
             experimental: false
           - php: '8.2'
             wp: 'trunk'
