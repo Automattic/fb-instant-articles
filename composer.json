@@ -1,7 +1,7 @@
 {
 	"name": "automattic/facebook-instant-articles-wp",
 	"description": "Add support for Instant Articles for Facebook to your WordPress site.",
-	"license": "GPL-2.0",
+	"license": "GPL-2.0-or-later",
 	"type": "wordpress-plugin",
 	"keywords": [
 		"wordpress",
@@ -26,7 +26,6 @@
 	],
 	"require": {
 		"php": ">=5.4",
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
 		"facebook/facebook-instant-articles-sdk-extensions-in-php": "dev-php8",
 		"facebook/facebook-instant-articles-sdk-php": "dev-php8",
 		"facebook/graph-sdk": "dev-php8",
@@ -34,10 +33,13 @@
 	},
 	"require-dev": {
 		"automattic/vipwpcs": "^2.3",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7",
+		"php-parallel-lint/php-parallel-lint": "^1.0",
 		"phpcompatibility/php-compatibility": "dev-develop as 9.99.99",
-		"phpcompatibility/phpcompatibility-wp": "*",
-		"phpunit/phpunit": "^9.5",
-		"yoast/phpunit-polyfills": "^1.0"
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"squizlabs/php_codesniffer": "^3.7",
+		"wp-coding-standards/wpcs": "^2.3.0",
+		"yoast/wp-test-utils": "^1"
 	},
 	"repositories": [
 		{
@@ -59,5 +61,34 @@
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
+	},
+	"scripts": {
+		"cs": [
+			"@php ./vendor/bin/phpcs --severity=1"
+		],
+		"lint": [
+			"@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
+		],
+		"lint-ci": [
+			"@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git --checkstyle"
+		],
+		"prepare-ci": [
+			"bash bin/install-wp-tests.sh wordpress_test root root localhost"
+		],
+		"test": [
+			"@php ./vendor/bin/phpunit --no-coverage --order-by=random -v"
+		],
+		"test-ms": [
+			"@putenv WP_MULTISITE=1",
+			"@composer test"
+		]
+	},
+	"scripts-descriptions": {
+		"cs": "Run PHPCS to checking coding standards for the Facebook Instant Articles plugin.",
+		"lint": "Run PHP linting on the Facebook Instant Articles plugin.",
+		"lint-ci": "Run PHP linting on the Facebook Instant Articles plugin with checkstyle output for CI.",
+		"prepare-ci": "Install the files and setup a database needed to run tests for the Facebook Instant Articles plugin for CI.",
+		"test": "Run the unit tests for the Facebook Instant Articles plugin.",
+		"test-ms": "Run the unit tests for the Facebook Instant Articles plugin on a multisite install."
 	}
 }
