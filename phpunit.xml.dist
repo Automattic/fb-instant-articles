@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+		bootstrap="./tests/bootstrap.php"
+		backupGlobals="false"
+		beStrictAboutCoversAnnotation="true"
+		beStrictAboutTestsThatDoNotTestAnything="false"
+		colors="true"
+		convertDeprecationsToExceptions="true"
+		forceCoversAnnotation="false"
+		testdox="true"
+>
+	<php>
+		<server name="SERVER_PORT" value="80"/>
+		<server name="HTTP_HOST" value="localhost"/>
+		<server name="REMOTE_ADDR" value="127.0.0.1"/>
+	</php>
+	<testsuites>
+		<testsuite name="integration">
+			<directory>./tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

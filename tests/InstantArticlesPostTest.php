@@ -14,11 +14,11 @@ require_once( './class-instant-articles-post.php' );
  *
  * @since 0.1
  */
-class InstantArticlesPost extends WP_UnitTestCase {
+class InstantArticlesPostTest extends WP_UnitTestCase {
 
 	protected $post_id;
 
-	public function setup() {
+	public function set_up() {
 		$user_id = $this->factory->user->create();
 		$post = $this->factory->post->create_and_get( array(
 			'post_author' => $user_id,
