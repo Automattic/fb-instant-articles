@@ -1,15 +1,22 @@
 <?php
 /**
- * Plugin Name: Instant Articles for WP
- * Description: Add support for Instant Articles for Facebook to your WordPress site.
- * Author: Automattic, Dekode, Facebook
- * Author URI: https://vip.wordpress.com/plugins/instant-articles/
- * Version: 4.2.1
- * Text Domain: instant-articles
- * License: GPLv2
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Facebook Instant Articles
  *
- * @package default
+ * @package   Automattic\FacebookInstantArticles
+ * @author    Automattic, Dekode, Facebook
+ * @license   GPL-2.0-or-later
+ *
+ * @wordpress-plugin
+ * Plugin Name:       Instant Articles for WP
+ * Description:       Add support for Instant Articles for Facebook to your WordPress site.
+ * Author:            Automattic, Dekode, Facebook
+ * Version:           4.2.1
+ * Text Domain:       instant-articles
+ * License:           GPL-2.0-or-later
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
+ * GitHub Plugin URI: https://github.com/Automattic/fb-instant-articles
+ * Requires PHP:      7.1
+ * Requires WP:       4.3.0
  */
 
 /**

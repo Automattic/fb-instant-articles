@@ -96,7 +96,7 @@ The SDK is also under development @ GitHub: <https://github.com/facebook/faceboo
 #### Setup
 Clone both repositories into your developer folder (ex: ~/instant-articles).
 ```
-git clone git@github.com:Automattic/facebook-instant-articles-wp.git
+git clone git@github.com:Automattic/fb-instant-articles.git
 git clone git@github.com:facebook/facebook-instant-articles-sdk-php.git
 ```
 
@@ -105,7 +105,7 @@ Build both source folders:
 cd facebook-instant-articles-sdk-php
 composer install
 
-cd ../facebook-instant-articles-wp
+cd ../fb-instant-articles
 composer install
 ```
 
@@ -117,5 +117,5 @@ ln -s ~/facebook-instant-articles-sdk-php vendor/facebook/facebook-instant-artic
 
 and now you can create a link inside your /wp-content/plugins to your folder 
 ```
-ln -s ~/facebook-instant-articles-wp wp-content/plugins/facebook-instant-articles-wp
+ln -s ~/fb-instant-articles wp-content/plugins/fb-instant-articles
 ```

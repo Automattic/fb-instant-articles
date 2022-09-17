@@ -25,7 +25,7 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4",
+		"php": ">=7.1",
 		"facebook/facebook-instant-articles-sdk-extensions-in-php": "dev-php8",
 		"facebook/facebook-instant-articles-sdk-php": "dev-php8",
 		"facebook/graph-sdk": "dev-php8",
