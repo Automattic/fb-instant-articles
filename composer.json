@@ -1,63 +1,63 @@
 {
-  "name": "automattic/facebook-instant-articles-wp",
-  "description": "Add support for Instant Articles for Facebook to your WordPress site.",
-  "license": "GPL-2.0",
-  "type": "wordpress-plugin",
-  "keywords": [
-    "wordpress",
-    "facebook",
-    "instant",
-    "articles",
-    "amp"
-  ],
-  "authors": [
-    {
-      "name": "Automattic",
-      "homepage": "https://automattic.com/"
-    },
-    {
-      "name": "Dekode",
-      "homepage": "https://dekode.no/"
-    },
-    {
-      "name": "Facebook",
-      "homepage": "https://github.com/facebook"
-    }
-  ],
-  "require": {
-    "php": ">=5.4",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-    "facebook/facebook-instant-articles-sdk-extensions-in-php": "dev-php8",
-    "facebook/facebook-instant-articles-sdk-php": "dev-php8",
-    "facebook/graph-sdk": "dev-php8",
-    "symfony/css-selector": "2.8.*"
-  },
-  "require-dev": {
-    "automattic/vipwpcs": "^2.3",
-    "phpcompatibility/php-compatibility": "dev-develop as 9.99.99",
-    "phpcompatibility/phpcompatibility-wp": "*",
-    "phpunit/phpunit": "^9.5",
-    "yoast/phpunit-polyfills": "^1.0"
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/whyisjake/facebook-instant-articles-sdk-php"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/whyisjake/facebook-instant-articles-sdk-extensions-in-php"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/whyisjake/php-graph-sdk"
-    }
-  ],
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "config": {
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
-    }
-  }
+	"name": "automattic/facebook-instant-articles-wp",
+	"description": "Add support for Instant Articles for Facebook to your WordPress site.",
+	"license": "GPL-2.0",
+	"type": "wordpress-plugin",
+	"keywords": [
+		"wordpress",
+		"facebook",
+		"instant",
+		"articles",
+		"amp"
+	],
+	"authors": [
+		{
+			"name": "Automattic",
+			"homepage": "https://automattic.com/"
+		},
+		{
+			"name": "Dekode",
+			"homepage": "https://dekode.no/"
+		},
+		{
+			"name": "Facebook",
+			"homepage": "https://github.com/facebook"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+		"facebook/facebook-instant-articles-sdk-extensions-in-php": "dev-php8",
+		"facebook/facebook-instant-articles-sdk-php": "dev-php8",
+		"facebook/graph-sdk": "dev-php8",
+		"symfony/css-selector": "2.8.*"
+	},
+	"require-dev": {
+		"automattic/vipwpcs": "^2.3",
+		"phpcompatibility/php-compatibility": "dev-develop as 9.99.99",
+		"phpcompatibility/phpcompatibility-wp": "*",
+		"phpunit/phpunit": "^9.5",
+		"yoast/phpunit-polyfills": "^1.0"
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/whyisjake/facebook-instant-articles-sdk-php"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/whyisjake/facebook-instant-articles-sdk-extensions-in-php"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/whyisjake/php-graph-sdk"
+		}
+	],
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }
