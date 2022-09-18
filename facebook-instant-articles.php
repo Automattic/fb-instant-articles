@@ -82,7 +82,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		if ( $pagenow === 'plugins.php' && ! isset( Instant_Articles_Option_FB_Page::get_option_decoded()['page_id'] ) ) {
 			$settings_url = Instant_Articles_Wizard::get_url();
 			echo '<div class="updated settings-error notice is-dismissible">';
-			echo '<p>Congrats, you\'ve installed the Instant Articles for WP plugin. Now <a href="' . esc_url_raw($settings_url) . '">set it up</a> to start publishing Instant Articles.';
+			echo '<p>Congrats, you\'ve installed the Instant Articles for WP plugin. Now <a href="' . esc_url( $settings_url ) . '">set it up</a> to start publishing Instant Articles.';
 			echo '</div>';
 		}
 	}
