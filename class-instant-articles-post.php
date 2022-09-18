@@ -187,7 +187,6 @@ class Instant_Articles_Post {
 	 * @return string  The excerpt.
 	 */
 	public function get_the_excerpt() {
-
 		$post = get_post( $this->get_the_id() );
 
 		// This should ideally not happen, but it may do so if someone tampers with the query.
@@ -201,12 +200,14 @@ class Instant_Articles_Post {
 
 		/**
 		 * Apply the default WP Filters for the post excerpt.
+		 * https://developer.wordpress.org/reference/hooks/get_the_excerpt/
 		 *
 		 * @since 0.1
 		 *
 		 * @param string  $post_excerpt  The post excerpt.
+		 * @param WP_Post $post          The post object.
 		 */
-		$excerpt = apply_filters( 'get_the_excerpt', $post->post_excerpt );
+		$excerpt = apply_filters( 'get_the_excerpt', $post->post_excerpt, $post );
 
 		/**
 		 * Filter the post excerpt for instant articles.
