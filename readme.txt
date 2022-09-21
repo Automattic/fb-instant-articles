@@ -24,13 +24,13 @@ Built-in to the plugin are many [pre-defined transformer rules](https://github.c
 
 The current criteria for access to Instant Articles are:
 * your Facebook Page must have an established presence of at least 90 days
-* your content adheres to the [Instant Article Policies](https://developers.fb.com/docsstant-articles/policy/)
+* your content adheres to the [Instant Article Policies](https://developers.facebook.com/docs/instant-articles/policy/)
 
-Before your Instant Articles can be published on Facebook, your feed must undergo an initial review and approval. Facebook requires a minimum number of 10 articles in your feed before being eligible for review. The review process checks that your draft Instant Articles are properly formatted, have content consistency with their mobile web counterparts, and adhere to the [community standards](https://www.fb.com/communitystandardsand [content policies](https://www.fb.com/helpblisher/1348682518563619).
+Before your Instant Articles can be published on Facebook, your feed must undergo an initial review and approval. Facebook requires a minimum number of 10 articles in your feed before being eligible for review. The review process checks that your draft Instant Articles are properly formatted, have content consistency with their mobile web counterparts, and adhere to the [community standards](https://www.facebook.com/communitystandards/) and [content policies](https://www.facebook.com/help/publisher/1348682518563619).
 
 It's important to note that if you use meta fields to add extra text, images or videos to your Posts, Facebook will expect you to add these to your Instant Articles output too. This plugin includes hooks to help you do that.
 
-[See Facebook's documentation for full details of the submission process.](https://developers.fb.com/docsstant-articles)
+[See Facebook's documentation for full details of the submission process.](https://developers.facebook.com/docs/instant-articles)
 
 Once your feed has been approved, new posts will automatically be taken live on Instant Articles, and existing posts will be taken live once you update them. In order to stay in the Instant Articles program, you must remain active by creating new content and maintaining a minimal readership.
 
@@ -61,11 +61,11 @@ When transforming your post into an Instant Article, this plugin will show warni
 
 = What does the “No rules defined for ____ in the context of  ____” warning mean? =
 
-This plugin transforms your post into an Instant Article by matching markup in your content to one of the [components available](https://github.com/fb/fb-instantticlesk-php/blob/master/docs/QuickStart.md#transformer-classes) in Instant Articles markup. Although the plugin contains many [built-in rules](https://github.com/Automattic/fb-instant-articles/blob/master/rules-configuration.json) to handle common cases, there may be markup in your post which is not recognized by these existing rules. In this case, you may be required to define some of your own rules. See below for more details about where and how.
+This plugin transforms your post into an Instant Article by matching markup in your content to one of the [components available](https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/docs/QuickStart.md#transformer-classes) in Instant Articles markup. Although the plugin contains many [built-in rules](https://github.com/Automattic/fb-instant-articles/blob/master/rules-configuration.json) to handle common cases, there may be markup in your post which is not recognized by these existing rules. In this case, you may be required to define some of your own rules. See below for more details about where and how.
 
 = How do I define my own transformer rules so that content from my site is rendered appropriately in an Instant Article? =
 
-Your custom rules can be defined in the Settings of this plugin, under: **Plugin Configuration** > **Publishing Settings** > **Custom transformer rules**. More detailed instructions about all the options available is documented in the [Custom Transformer Rules](https://github.com/fb/fb-instantticlesk-php/blob/master/docs/QuickStart.md#custom-transformer-rules) section of the Facebook Instant Articles SDK.
+Your custom rules can be defined in the Settings of this plugin, under: **Plugin Configuration** > **Publishing Settings** > **Custom transformer rules**. More detailed instructions about all the options available is documented in the [Custom Transformer Rules](https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/docs/QuickStart.md#custom-transformer-rules) section of the Facebook Instant Articles SDK.
 
 = I know of a custom transformer rule which is pretty common in the community. How can it be included by default in the plugin? =
 
