@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/Automattic/facebook-instant-articles-wp.svg?branch=master)](https://travis-ci.org/Automattic/facebook-instant-articles-wp)
-
+[![CS & Lint](https://github.com/Automattic/fb-instant-articles/actions/workflows/cs-lint.yml/badge.svg?branch=php8)](https://github.com/Automattic/fb-instant-articles/actions/workflows/cs-lint.yml) [![Integration Tests](https://github.com/Automattic/fb-instant-articles/actions/workflows/tests.yml/badge.svg?branch=php8)](https://github.com/Automattic/fb-instant-articles/actions/workflows/tests.yml)[![Stale monitor](https://github.com/Automattic/fb-instant-articles/actions/workflows/stale.yml/badge.svg?branch=php8)](https://github.com/Automattic/fb-instant-articles/actions/workflows/stale.yml)
 # Instant Articles for WP
 
 Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/instant-articles) on your WordPress site.
@@ -46,7 +45,7 @@ More likely than not, this is because there is markup in the body of your post t
 
 **Why doesn't my post appear in the list of Instant Articles in the publisher tools?**
 Your posts are imported to your library when they are shared on Facebook for the first time.
- 
+
 Alternatively, you can trigger a manual scrape by pasting your URL on our [Share Debugger](http://developers.facebook.com/tools/debug)
 
 Only Instant Articles with URLs in [domains you have claimed](https://developers.facebook.com/docs/instant-articles/guides/publishertools#connect) will show up in the Publishing Tools section.
@@ -83,7 +82,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 You are more than welcome to help us to make this plugin even better!
 
 ### Setup SDK and WP to use the Github code
-Most of development and debugging we use the master or any feature branch for the development of WP plugin. 
+Most of development and debugging we use the master or any feature branch for the development of WP plugin.
 Sometimes it needs specific or newest version of the SDK to match all the new features that are release candidates to every new release of SDK and WP plugin.
 
 The SDK is also under development @ GitHub: <https://github.com/facebook/facebook-instant-articles-sdk-php>
@@ -115,7 +114,7 @@ rm -rf vendor/facebook/facebook-instant-articles-sdk-php
 ln -s ~/facebook-instant-articles-sdk-php vendor/facebook/facebook-instant-articles-sdk-php
 ```
 
-and now you can create a link inside your /wp-content/plugins to your folder 
+and now you can create a link inside your /wp-content/plugins to your folder
 ```
 ln -s ~/fb-instant-articles wp-content/plugins/fb-instant-articles
 ```
