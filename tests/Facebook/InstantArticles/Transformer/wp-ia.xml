@@ -13,7 +13,9 @@
       <header>
         <h1>Peace on &lt;b&gt;earth&lt;/b&gt;</h1>
         <time class="op-published" datetime="2016-04-12T19:46:51+00:00">April 12th, 7:46pm</time>
-        <address><a>bill</a></address>
+        <address>
+          <a>bill</a>
+        </address>
       </header>
       <p>Yes, peace is good for everybody!<br/>
   Man kind.</p>
