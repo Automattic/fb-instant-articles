@@ -3,6 +3,9 @@
 
 Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/instant-articles) on your WordPress site.
 
+## Maintenace 🚩
+Support for this plugin is provided for PHP 8 migrations, but both Automattic/WPVIP and Facebook have stopped all active development. At this point in the product lifecycle, publishers should be advised to stop using this plugin, and instead, use direct site traffic for Facebook content.
+
 ## Description
 
 This plugin adds support for Instant Articles for Facebook, which is a new way for publishers to distribute fast, interactive stories on Facebook. Instant Articles are preloaded in the Facebook mobile app so they load instantly.
