@@ -3,9 +3,6 @@
 
 Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/instant-articles) on your WordPress site.
 
-## Plugin activity
-[![Throughput Graph](https://graphs.waffle.io/Automattic/facebook-instant-articles-wp/throughput.svg)](https://waffle.io/Automattic/facebook-instant-articles-wp/metrics/throughput)
-
 ## Description
 
 This plugin adds support for Instant Articles for Facebook, which is a new way for publishers to distribute fast, interactive stories on Facebook. Instant Articles are preloaded in the Facebook mobile app so they load instantly.
