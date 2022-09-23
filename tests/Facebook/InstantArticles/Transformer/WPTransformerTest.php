@@ -16,7 +16,7 @@ use Facebook\InstantArticles\Elements\Author;
 
 class WPTransformerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTransformerLikeWPContent()
+    public function testTransformContent()
     {
         $json_file = file_get_contents(__DIR__ . '/wp-rules.json');
 

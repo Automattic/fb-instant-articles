@@ -13,7 +13,9 @@
       <header>
         <h1>Peace on &lt;b&gt;earth&lt;/b&gt;</h1>
         <time class="op-published" datetime="2016-04-12T19:46:51+00:00">April 12th, 7:46pm</time>
-        <address><a>bill</a></address>
+        <address>
+          <a>bill</a>
+        </address>
       </header>
       <p>Yes, peace is good for everybody!<br/>
   Man kind.</p>
@@ -73,7 +75,8 @@
       <figure class="op-interactive">
         <iframe class="no-margin">
         <div>some content</div>
-        <script>alert('hi & hello to you @ testing!');</script></iframe>
+        <script>alert('hi & hello to you @ testing!');</script>
+      </iframe>
       </figure>
       <figure class="op-interactive">
         <iframe src="http://example.com/4/" class="no-margin" width="300" height="200"></iframe>
@@ -81,7 +84,8 @@
       <figure class="op-interactive">
         <iframe class="no-margin">
         <div>some content</div>
-        <script>alert('hi & hello to you @ testing!');</script></iframe>
+        <script>alert('hi & hello to you @ testing!');</script>
+      </iframe>
       </figure>
       <figure class="op-interactive">
         <iframe src="http://example.com/4/" class="no-margin" width="300" height="200"></iframe>
@@ -89,23 +93,27 @@
       <figure class="op-interactive">
         <iframe class="no-margin">
         <div>some content</div>
-        <script>alert('hi & hello to you @ testing!');</script></iframe>
+        <script>alert('hi & hello to you @ testing!');</script>
+      </iframe>
       </figure>
       <figure class="op-interactive">
         <iframe class="no-margin" height="200">
           <table width="200" height="200">
-            <thead><td>header 1</td>
+      <thead>
+        <td>header 1</td>
         <td>header 2</td>
       </thead>
-            <tbody>
-              <tr><td>Line 1 column 1</td>
+      <tbody>
+        <tr>
+          <td>Line 1 column 1</td>
           <td>Line 1 column 2</td>
         </tr>
-              <tr><td>Line 2 column 1</td>
+        <tr>
+          <td>Line 2 column 1</td>
           <td>Line 2 column 2</td>
         </tr>
-            </tbody>
-          </table>
+      </tbody>
+    </table>
         </iframe>
       </figure>
       <ul>
@@ -157,7 +165,8 @@
           <a href="https://www.instagram.com/p/BAXbKP1POQe/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">ð¸ @natthaponwuttipetch</a>
         </p>
         <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
-          A photo posted by Ann Hathairat Vidhyaphum (@annvidh) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2016-01-10T16:56:06+00:00">Jan 10, 2016 at 8:56am PST</time></p>
+          A photo posted by Ann Hathairat Vidhyaphum (@annvidh) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2016-01-10T16:56:06+00:00">Jan 10, 2016 at 8:56am PST</time>
+        </p>
       </div>
     </blockquote>
           <script async="" defer="defer" src="//platform.instagram.com/en_US/embeds.js"></script>

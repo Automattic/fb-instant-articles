@@ -1,5 +1,9 @@
 ## Change Log
 
+### 5.0.0 (2022/09/21 22:00 +00:00)
+- [#1092](https://github.com/Automattic/fb-instant-articles/pull/1092) Add support for PHP 8.
+- [#1095](https://github.com/Automattic/fb-instant-articles/pull/1095) Add GitHub workflow to mark issues and PR as stale
+
 ### 4.2.1 (2020/06/10 21:11 +00:00)
 - [#1049](https://github.com/automattic/facebook-instant-articles-wp/pull/1049) Add support for new guttenberg layout elements (@diegoquinteiro)
 - [#1012](https://github.com/automattic/facebook-instant-articles-wp/pull/1012) update composer modules (@paulschreiber)
