@@ -60,6 +60,11 @@ class Instant_Articles_Post {
 	public $transformer = null;
 
 	/**
+	 * @var InstantArticle|mixed|null
+	 */
+	private $instant_article;
+
+	/**
 	 * Setup data and build the content
 	 *
 	 * @since 0.1
