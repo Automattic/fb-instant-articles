@@ -63,14 +63,7 @@ jobs:
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install Composer dependencies
-        if: ${{ matrix.php < 8.2 }}
         uses: ramsey/composer-install@v2
-
-      - name: Install Composer dependencies for PHP >= 8.2
-        if: ${{ matrix.php >= 8.2 }}
-        uses: ramsey/composer-install@v2
-        with:
-          composer-options: --ignore-platform-reqs
 
       - name: Start MySQL Service
         run: sudo systemctl start mysql.service
