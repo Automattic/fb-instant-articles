@@ -82,10 +82,5 @@ jobs:
       - name: Prepare environment for integration tests
         run: composer prepare-ci --no-interaction
 
-      - name: Run integration tests (single site)
-        if: ${{ matrix.php != 8.0 && ! matrix.experimental }}
-        run: composer test --no-interaction
-
       - name: Run integration tests (multi site)
-        if: ${{ matrix.php != 8.0 && ! matrix.experimental }}
         run: composer test-ms --no-interaction
