@@ -24,15 +24,14 @@
 *
 * @since 3.3.4
 */
-function show_version_incompatible_warning() {
-	echo '<div class="error"><p>' .
-		esc_html__( 'Instant Articles for WP requires PHP 5.4 to function properly. Please upgrade PHP or deactivate Instant Articles for WP.', 'instant-articles' ) . '</p></div>';
-}
-if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
-	add_action(
-		'admin_notices',
-		'show_version_incompatible_warning'
-	);
+
+if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
+	add_action( 'admin_notices', 'fbia_show_version_incompatible_warning' );
+	function fbia_show_version_incompatible_warning() {
+		echo '<div class="error"><p>' .
+			esc_html__( 'Instant Articles for WP requires PHP 7.1 to function properly. Please upgrade PHP or deactivate Instant Articles for WP.', 'instant-articles' ) . '</p></div>';
+	}
+
 	return;
 } else {
 
