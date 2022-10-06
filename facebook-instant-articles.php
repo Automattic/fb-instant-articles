@@ -10,18 +10,18 @@
  * Plugin Name:       Instant Articles for WP
  * Description:       Add support for Instant Articles for Facebook to your WordPress site.
  * Author:            Automattic, Dekode, Facebook
- * Version:           4.3.0-beta
+ * Version:           5.0.0-beta
  * Text Domain:       instant-articles
  * License:           GPL-2.0-or-later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
  * GitHub Plugin URI: https://github.com/Automattic/fb-instant-articles
  * Requires PHP:      7.1
- * Requires WP:       4.3.0
+ * Requires WP:       4.7.0
  */
 
 defined( 'ABSPATH' ) || die();
 
-const IA_PLUGIN_VERSION          = '4.3.0-beta';
+const IA_PLUGIN_VERSION          = '5.0.0-beta';
 const IA_PLUGIN_FILE             = __FILE__;
 const IA_PLUGIN_FORCE_SUBMIT_KEY = 'instant_articles_force_submit';
 
