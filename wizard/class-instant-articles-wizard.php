@@ -28,7 +28,7 @@ class Instant_Articles_Wizard {
 
 		add_action( 'admin_menu', array( 'Instant_Articles_Wizard', 'menu_items' ) );
 
-		add_filter( 'plugin_action_links_' . IA_PLUGIN_PATH, array( 'Instant_Articles_Wizard', 'add_settings_link_to_plugin_actions' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( IA_PLUGIN_FILE ), array( 'Instant_Articles_Wizard', 'add_settings_link_to_plugin_actions' ) );
 
 		add_action( 'admin_init', function () {
 			new Instant_Articles_Option_FB_Page();

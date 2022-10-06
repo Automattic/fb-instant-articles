@@ -22,11 +22,8 @@
 defined( 'ABSPATH' ) || die();
 
 const IA_PLUGIN_VERSION          = '4.3.0-beta';
-const IA_PLUGIN_PATH_FULL        = __FILE__;
-const IA_PLUGIN_TEXT_DOMAIN      = 'instant-articles';
+const IA_PLUGIN_FILE             = __FILE__;
 const IA_PLUGIN_FORCE_SUBMIT_KEY = 'instant_articles_force_submit';
-define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
-define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
 
 // Let users define their own feed slug.
 if ( ! defined( 'INSTANT_ARTICLES_SLUG' ) ) {
@@ -500,8 +497,8 @@ function invalidate_scrape_on_update( $post_ID, $post_after, $post_before ) {
 				?>
 				<div class="notice notice-error is-dismissible">
 					<p>
-						<?php _e( 'It was not possible to automatically invalidate the scrape for this article.', IA_PLUGIN_TEXT_DOMAIN ) ?>
-						<?php _e( 'Please trigger a new scrape manually using the Facebook Share Debugger.', IA_PLUGIN_TEXT_DOMAIN ) ?>
+						<?php _e( 'It was not possible to automatically invalidate the scrape for this article.', 'instant-articles' ) ?>
+						<?php _e( 'Please trigger a new scrape manually using the Facebook Share Debugger.', 'instant-articles' ) ?>
 					</p>
 				</div>
 				<?php
@@ -511,7 +508,7 @@ function invalidate_scrape_on_update( $post_ID, $post_after, $post_before ) {
 				?>
 				<div class="notice notice-success is-dismissible">
 					<p>
-						<?php _e( 'Successfully refreshed the Instant Articles cache for this article.', IA_PLUGIN_TEXT_DOMAIN ) ?>
+						<?php _e( 'Successfully refreshed the Instant Articles cache for this article.', 'instant-articles' ) ?>
 					</p>
 				</div>
 				<?php
