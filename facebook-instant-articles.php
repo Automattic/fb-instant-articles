@@ -19,14 +19,27 @@
  * Requires WP:       4.3.0
  */
 
-/**
-* Prints error about incompatible version. Extracted as function issue: #390
-*
-* @since 3.3.4
-*/
+defined( 'ABSPATH' ) || die();
+
+const IA_PLUGIN_VERSION          = '4.3.0-beta';
+const IA_PLUGIN_PATH_FULL        = __FILE__;
+const IA_PLUGIN_TEXT_DOMAIN      = 'instant-articles';
+const IA_PLUGIN_FORCE_SUBMIT_KEY = 'instant_articles_force_submit';
+define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
+define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
+
+// Let users define their own feed slug.
+if ( ! defined( 'INSTANT_ARTICLES_SLUG' ) ) {
+	define( 'INSTANT_ARTICLES_SLUG', 'instant-articles' );
+}
 
 if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
 	add_action( 'admin_notices', 'fbia_show_version_incompatible_warning' );
+	/**
+	* Prints error about incompatible version. Extracted as function issue: #390
+	*
+	* @since 3.3.4
+	*/
 	function fbia_show_version_incompatible_warning() {
 		echo '<div class="error"><p>' .
 			esc_html__( 'Instant Articles for WP requires PHP 7.1 to function properly. Please upgrade PHP or deactivate Instant Articles for WP.', 'instant-articles' ) . '</p></div>';
@@ -39,20 +52,6 @@ if ( ! class_exists( 'Facebook\\Facebook' ) && file_exists( __DIR__ . '/vendor/a
 	$autoloader = require __DIR__ . '/vendor/autoload.php';
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-php/src' );
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-extensions-in-php/src' );
-}
-
-defined( 'ABSPATH' ) || die( 'Shame on you' );
-
-define( 'IA_PLUGIN_VERSION', '4.3.0-beta' );
-define( 'IA_PLUGIN_PATH_FULL', __FILE__ );
-define( 'IA_PLUGIN_PATH', plugin_basename( __FILE__ ) );
-define( 'IA_PLUGIN_FILE_BASENAME', pathinfo( __FILE__, PATHINFO_FILENAME ) );
-define( 'IA_PLUGIN_TEXT_DOMAIN', 'instant-articles' );
-define( 'IA_PLUGIN_FORCE_SUBMIT_KEY', 'instant_articles_force_submit' );
-
-// Let users define their own feed slug.
-if ( ! defined( 'INSTANT_ARTICLES_SLUG' ) ) {
-	define( 'INSTANT_ARTICLES_SLUG', 'instant-articles' );
 }
 
 require_once __DIR__ . '/embeds.php';
