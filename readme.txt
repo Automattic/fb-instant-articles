@@ -1,9 +1,9 @@
 === Instant Articles for WP ===
 Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, fb
 Tags: instantticles, fb, mobile
-Requires least: 4.3
+Requires least: 4.7
 Requires PHP: 7.1
-Tested up to: 5.4.1
+Tested up to: 6.0.2
 Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
