@@ -6,13 +6,13 @@
  *
  * @package default
  */
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-ads.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-analytics.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-page.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-fb-app.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-publishing.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-styles.php' );
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option-amp.php' );
+require_once __DIR__ . '/class-instant-articles-option-ads.php';
+require_once __DIR__ . '/class-instant-articles-option-analytics.php';
+require_once __DIR__ . '/class-instant-articles-option-fb-page.php';
+require_once __DIR__ . '/class-instant-articles-option-fb-app.php';
+require_once __DIR__ . '/class-instant-articles-option-publishing.php';
+require_once __DIR__ . '/class-instant-articles-option-styles.php';
+require_once __DIR__ . '/class-instant-articles-option-amp.php';
 
 use Facebook\InstantArticles\Client\Client;
 use Facebook\InstantArticles\Client\ClientException;
@@ -90,7 +90,7 @@ class Instant_Articles_Wizard {
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 			$settings_url = self::get_url();
 
-			include( dirname( __FILE__ ) . '/templates/advanced-template.php' );
+			include( __DIR__ . '/templates/advanced-template.php' );
 		} catch (Exception $e) {
 			if ( Instant_Articles_Wizard_State::get_current_state() !== Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
 				// Restarts the wizard

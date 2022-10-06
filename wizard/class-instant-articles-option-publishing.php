@@ -7,7 +7,7 @@
  * @package default
  */
 
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
+require_once __DIR__ . '/class-instant-articles-option.php';
 
 /**
  * Class for publishing configuration.

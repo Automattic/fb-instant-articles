@@ -7,8 +7,8 @@
  * @package default
  */
 
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
-require_once( dirname( dirname( __FILE__ ) ) . '/class-instant-articles-amp-markup.php' );
+require_once __DIR__ . '/class-instant-articles-option.php';
+require_once dirname( __FILE__, 2 ) . '/class-instant-articles-amp-markup.php';
 
 use Facebook\InstantArticles\Validators\Type;
 

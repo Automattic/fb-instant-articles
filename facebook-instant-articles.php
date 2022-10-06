@@ -56,12 +56,12 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 		define( 'INSTANT_ARTICLES_SLUG', 'instant-articles' );
 	}
 
-	require_once( dirname( __FILE__ ) . '/embeds.php' );
-	require_once( dirname( __FILE__ ) . '/class-instant-articles-post.php' );
-	require_once( dirname( __FILE__ ) . '/wizard/class-instant-articles-wizard.php' );
-	require_once( dirname( __FILE__ ) . '/meta-box/class-instant-articles-meta-box.php' );
-	require_once( dirname( __FILE__ ) . '/class-instant-articles-amp-markup.php' );
-	require_once( dirname( __FILE__ ) . '/class-instant-articles-signer.php' );
+	require_once __DIR__ . '/embeds.php';
+	require_once __DIR__ . '/class-instant-articles-post.php';
+	require_once __DIR__ . '/wizard/class-instant-articles-wizard.php';
+	require_once __DIR__ . '/meta-box/class-instant-articles-meta-box.php';
+	require_once __DIR__ . '/class-instant-articles-amp-markup.php';
+	require_once __DIR__ . '/class-instant-articles-signer.php';
 
 	/**
 	 * Plugin activation hook to add our rewrite rules.
@@ -115,7 +115,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 * @since 2.0
 	 */
 	function instant_articles_load_compat() {
-		require_once( dirname( __FILE__ ) . '/compat.php' );
+		require_once __DIR__ . '/compat.php';
 	}
 	add_action( 'plugins_loaded', 'instant_articles_load_compat' );
 
@@ -138,7 +138,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	function instant_articles_feed() {
 
 		// Load the feed template.
-		include( dirname( __FILE__ ) . '/feed-template.php' );
+		include( __DIR__ . '/feed-template.php' );
 
 	}
 
