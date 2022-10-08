@@ -65,7 +65,7 @@ class Instant_Articles_Signer {
 
     // Extract the public key from $result to $public_key
     $public_key = openssl_pkey_get_details( $result );
-    $public_key = $public_key["key"];
+    $public_key = $public_key['key'];
 
     update_option( self::PRIVATE_KEY_OPTION, $private_key );
     update_option( self::PUBLIC_KEY_OPTION, $public_key );

@@ -36,7 +36,7 @@ class Instant_Articles_Google_Tag_Manager_For_WordPress {
 	}
 
 	public function add_ia_status_to_data_layer( $dataLayer ) {
-		$dataLayer["instantArticle"] = is_transforming_instant_article();
+		$dataLayer['instantArticle'] = is_transforming_instant_article();
 
 		return $dataLayer;
 	}
