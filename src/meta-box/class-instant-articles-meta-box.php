@@ -107,9 +107,7 @@ class Instant_Articles_Meta_Box {
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 
-			$dev_mode = isset( $publishing_settings['dev_mode'] )
-				? ( $publishing_settings['dev_mode'] ? true : false )
-				: false;
+			$dev_mode = isset( $publishing_settings['dev_mode'] ) && ( ( $publishing_settings['dev_mode'] ? true : false ) );
 
 			require __DIR__ . '/meta-box-template.php';
 		} catch (Exception $e) {
