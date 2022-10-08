@@ -12,7 +12,7 @@
  */
 class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-analytics';
+	public const OPTION_KEY = 'instant-articles-option-analytics';
 
 	public static $sections = array(
 		'title' => 'Analytics',

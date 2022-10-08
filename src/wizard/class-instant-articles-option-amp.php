@@ -14,7 +14,7 @@ use Facebook\InstantArticles\Validators\Type;
  */
 class Instant_Articles_Option_AMP extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-amp';
+	public const OPTION_KEY = 'instant-articles-option-amp';
 
 	public static $sections = array(
 		'title' => 'AMP Markup Generation',

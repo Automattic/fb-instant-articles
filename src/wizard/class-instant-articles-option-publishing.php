@@ -12,7 +12,7 @@
  */
 class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-publishing';
+	public const OPTION_KEY = 'instant-articles-option-publishing';
 
 	public static $sections = array(
 		'title' => 'Publishing Settings',

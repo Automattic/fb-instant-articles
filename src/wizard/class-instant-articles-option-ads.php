@@ -12,7 +12,7 @@
  */
 class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-ads';
+	public const OPTION_KEY = 'instant-articles-option-ads';
 
 	public static $sections = array(
 		'title' => 'Ads',

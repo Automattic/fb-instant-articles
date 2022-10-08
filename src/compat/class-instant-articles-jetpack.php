@@ -12,7 +12,7 @@ class Instant_Articles_Jetpack {
 	 * Init the compat layer
 	 *
 	 */
-	function init() {
+	public function init() {
 		$this->_fix_youtube_embed();
 		$this->_fix_facebook_embed();
 		add_filter( 'instant_articles_transformer_rules_loaded', array( 'Instant_Articles_Jetpack', 'transformer_loaded' ) );
@@ -42,7 +42,7 @@ class Instant_Articles_Jetpack {
 		// Don't try to fix facebook embeds unless we're in Instant Articles context.
 		// This prevents mangled output on frontend.
 		if ( ! is_transforming_instant_article() ) {
-		    return;
+			return;
 		}
 
 		// All of these are registered in jetpack/modules/shortcodes/facebook.php

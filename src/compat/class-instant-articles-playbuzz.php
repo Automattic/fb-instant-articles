@@ -12,7 +12,7 @@ class Instant_Articles_Playbuzz {
 	 * Init the compat layer
 	 *
 	 */
-	function init() {
+	public function init() {
 		add_filter( 'instant_articles_transformer_rules_loaded', array( 'Instant_Articles_Playbuzz', 'transformer_loaded' ) );
 	}
 

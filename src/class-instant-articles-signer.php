@@ -14,9 +14,9 @@
  */
 class Instant_Articles_Signer {
 
-  const PUBLIC_KEY_OPTION = 'instant-articles-rescrape-public-key';
-  const PRIVATE_KEY_OPTION = 'instant-articles-rescrape-private-key';
-  const PUBLIC_KEY_PATH = '.well-known/graph-api/apikey.pub';
+	public const PUBLIC_KEY_OPTION = 'instant-articles-rescrape-public-key';
+	public const PRIVATE_KEY_OPTION = 'instant-articles-rescrape-private-key';
+	public const PUBLIC_KEY_PATH = '.well-known/graph-api/apikey.pub';
 
   public static function init() {
     add_action( 'wp', array( 'Instant_Articles_Signer', 'output_public_key' ) );

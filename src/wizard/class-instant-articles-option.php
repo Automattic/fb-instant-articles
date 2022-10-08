@@ -12,8 +12,8 @@
  */
 class Instant_Articles_Option {
 
-	const PAGE_OPTION_GROUP = 'instant-articles-settings';
-	const PAGE_OPTION_GROUP_WIZARD = 'instant-articles-settings-wizard';
+	public const PAGE_OPTION_GROUP = 'instant-articles-settings';
+	public const PAGE_OPTION_GROUP_WIZARD = 'instant-articles-settings-wizard';
 	public static $fields = array();
 
 	/**

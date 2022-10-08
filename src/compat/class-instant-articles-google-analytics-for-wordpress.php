@@ -17,7 +17,7 @@ class Instant_Articles_Google_Analytics_For_WordPress {
 	/**
 	 * Init the compat layer
 	 */
-	function init() {
+	public function init() {
 		add_action( 'instant_articles_compat_registry_analytics', array( $this, 'add_to_registry' ) );
 	}
 
@@ -28,7 +28,7 @@ class Instant_Articles_Google_Analytics_For_WordPress {
 	 * @since 0.3
 	 * @param array $registry Reference param. The registry where it will be stored.
 	 */
-	function add_to_registry( &$registry ) {
+	public function add_to_registry( &$registry ) {
 
 		$display_name = 'Google Analytics by MonsterInsights';
 
@@ -47,7 +47,7 @@ class Instant_Articles_Google_Analytics_For_WordPress {
 	 *
 	 * @since 0.3
 	 */
-	function get_raw_embed_code() {
+	public function get_raw_embed_code() {
 
 		ob_start();
 
