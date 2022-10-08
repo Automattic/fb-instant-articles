@@ -459,7 +459,6 @@ class Instant_Articles_Option {
 	 * Updates options from decoded map
 	 *
 	 * @param string $option_key to be returned.
-	 * @return array from a json decoded content.
 	 * @since 0.4
 	 */
 	public static function update_option( $option = array(), $option_key = null ) {
@@ -475,7 +474,6 @@ class Instant_Articles_Option {
 	 * Updates options from decoded map
 	 *
 	 * @param string $option_key to be returned.
-	 * @return array from a json decoded content.
 	 * @since 0.4
 	 */
 	public static function delete_option( $option_key = null ) {
