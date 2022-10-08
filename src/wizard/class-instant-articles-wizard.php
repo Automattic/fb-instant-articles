@@ -45,7 +45,7 @@ class Instant_Articles_Wizard {
 		$link_text     = __( 'Settings' );
 		$settings_href = self::get_url();
 		$settings_link = '<a href="' . esc_url( $settings_href ) . '">' . esc_html( $link_text ) . '</a>';
-		array_push( $links, $settings_link );
+		$links[] = $settings_link;
 
 		return $links;
 	}
