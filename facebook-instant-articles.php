@@ -233,6 +233,10 @@ add_action( 'init', 'instant_articles_register_scripts' );
  * @since 0.4
  */
 function instant_articles_register_scripts() {
+	if ( ! is_admin() ) {
+		return;
+	}
+
 	wp_register_style(
 		'instant-articles-index-column',
 		plugins_url( '/css/instant-articles-index-column.css', __FILE__ ),
