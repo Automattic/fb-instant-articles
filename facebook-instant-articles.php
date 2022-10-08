@@ -234,6 +234,13 @@ add_action( 'init', 'instant_articles_register_scripts' );
  */
 function instant_articles_register_scripts() {
 	wp_register_style(
+		'instant-articles-index-column',
+		plugins_url( '/css/instant-articles-index-column.css', __FILE__ ),
+		null,
+		IA_PLUGIN_VERSION,
+		false
+	);
+	wp_register_style(
 		'instant-articles-meta-box',
 		plugins_url( '/css/instant-articles-meta-box.css', __FILE__ ),
 		null,
@@ -241,22 +248,8 @@ function instant_articles_register_scripts() {
 		false
 	);
 	wp_register_style(
-		'instant-articles-settings',
-		plugins_url( '/css/instant-articles-settings.css', __FILE__ ),
-		null,
-		IA_PLUGIN_VERSION,
-		false
-	);
-	wp_register_style(
 		'instant-articles-wizard',
 		plugins_url( '/css/instant-articles-wizard.css', __FILE__ ),
-		null,
-		IA_PLUGIN_VERSION,
-		false
-	);
-	wp_register_style(
-		'instant-articles-index-column',
-		plugins_url( '/css/instant-articles-index-column.css', __FILE__ ),
 		null,
 		IA_PLUGIN_VERSION,
 		false
@@ -290,13 +283,6 @@ function instant_articles_register_scripts() {
 		IA_PLUGIN_VERSION,
 		false
 	);
-	wp_register_script(
-		'instant-articles-settings',
-		plugins_url( '/js/instant-articles-settings.js', __FILE__ ),
-		null,
-		IA_PLUGIN_VERSION,
-		false
-	);
 }
 
 add_action( 'admin_enqueue_scripts', 'instant_articles_enqueue_scripts' );
@@ -306,18 +292,14 @@ add_action( 'admin_enqueue_scripts', 'instant_articles_enqueue_scripts' );
  * @since 0.4
  */
 function instant_articles_enqueue_scripts() {
-	wp_enqueue_style( 'instant-articles-meta-box' );
-	wp_enqueue_style( 'instant-articles-settings-wizard' );
-	wp_enqueue_style( 'instant-articles-settings' );
-	wp_enqueue_style( 'instant-articles-wizard' );
 	wp_enqueue_style( 'instant-articles-index-column' );
+	wp_enqueue_style( 'instant-articles-meta-box' );
+	wp_enqueue_style( 'instant-articles-wizard' );
 
 	wp_enqueue_script( 'instant-articles-meta-box' );
 	wp_enqueue_script( 'instant-articles-option-ads' );
 	wp_enqueue_script( 'instant-articles-option-analytics' );
 	wp_enqueue_script( 'instant-articles-option-publishing' );
-	wp_enqueue_script( 'instant-articles-settings' );
-	wp_enqueue_script( 'instant-articles-wizard' );
 }
 
 add_action( 'wp_head', 'inject_url_claiming_meta_tag' );
