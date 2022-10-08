@@ -102,7 +102,6 @@ use Facebook\InstantArticles\Client\ServerMessage;
 						?>
 					</span>
 				</div>
-				</dl>
 			</li>
 		<?php endforeach; ?>
 	</ul>
