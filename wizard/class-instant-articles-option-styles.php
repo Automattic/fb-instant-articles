@@ -7,8 +7,6 @@
  * @package default
  */
 
-require_once __DIR__ . '/class-instant-articles-option.php';
-
 /**
  * Configuration class for Ads.
  */

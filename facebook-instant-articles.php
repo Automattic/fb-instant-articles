@@ -53,6 +53,15 @@ if ( ! class_exists( 'Facebook\\Facebook' ) && file_exists( __DIR__ . '/vendor/a
 
 require_once __DIR__ . '/embeds.php';
 require_once __DIR__ . '/class-instant-articles-post.php';
+require_once __DIR__ . '/wizard/class-instant-articles-option.php';
+require_once __DIR__ . '/wizard/class-instant-articles-option-ads.php';
+require_once __DIR__ . '/wizard/class-instant-articles-option-analytics.php';
+require_once __DIR__ . '/wizard/class-instant-articles-option-fb-page.php';
+require_once __DIR__ . '/wizard/class-instant-articles-option-fb-app.php';
+require_once __DIR__ . '/wizard/class-instant-articles-option-publishing.php';
+require_once __DIR__ . '/wizard/class-instant-articles-option-styles.php';
+require_once __DIR__ . '/wizard/class-instant-articles-option-amp.php';
+require_once __DIR__ . '/class-instant-articles-amp-markup.php';
 require_once __DIR__ . '/wizard/class-instant-articles-wizard.php';
 require_once __DIR__ . '/meta-box/class-instant-articles-meta-box.php';
 require_once __DIR__ . '/class-instant-articles-amp-markup.php';
