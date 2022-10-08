@@ -291,15 +291,22 @@ add_action( 'admin_enqueue_scripts', 'instant_articles_enqueue_scripts' );
  *
  * @since 0.4
  */
-function instant_articles_enqueue_scripts() {
-	wp_enqueue_style( 'instant-articles-index-column' );
-	wp_enqueue_style( 'instant-articles-meta-box' );
-	wp_enqueue_style( 'instant-articles-wizard' );
-
-	wp_enqueue_script( 'instant-articles-meta-box' );
-	wp_enqueue_script( 'instant-articles-option-ads' );
-	wp_enqueue_script( 'instant-articles-option-analytics' );
-	wp_enqueue_script( 'instant-articles-option-publishing' );
+function instant_articles_enqueue_scripts( $hook_suffix ) {
+	switch ( $hook_suffix ) {
+		case 'toplevel_page_instant-articles-wizard':
+			wp_enqueue_style( 'instant-articles-wizard' );
+			wp_enqueue_script( 'instant-articles-option-ads' );
+			wp_enqueue_script( 'instant-articles-option-analytics' );
+			wp_enqueue_script( 'instant-articles-option-publishing' );
+			break;
+		case 'edit.php':
+			wp_enqueue_style( 'instant-articles-index-column' );
+			break;
+		case 'post.php':
+			wp_enqueue_style( 'instant-articles-meta-box' );
+			wp_enqueue_script( 'instant-articles-meta-box' );
+			break;
+	}
 }
 
 add_action( 'wp_head', 'inject_url_claiming_meta_tag' );
