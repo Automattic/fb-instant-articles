@@ -722,7 +722,7 @@ class Instant_Articles_Post {
 		$height = 250;
 
 		$dimensions_match = array();
-		$dimensions_raw   = isset( $settings_ads['dimensions'] ) ? $settings_ads['dimensions'] : '';
+		$dimensions_raw   = $settings_ads['dimensions'] ?? '';
 		if ( preg_match( '/^(?:\s)*(\d+)x(\d+)(?:\s)*$/', $dimensions_raw, $dimensions_match ) ) {
 			$width  = intval( $dimensions_match[1] );
 			$height = intval( $dimensions_match[2] );
@@ -733,7 +733,7 @@ class Instant_Articles_Post {
 		        ->withWidth( $width )
 		        ->withHeight( $height );
 
-		$source_of_ad = isset( $settings_ads['ad_source'] ) ? $settings_ads['ad_source'] : 'none';
+		$source_of_ad = $settings_ads['ad_source'] ?? 'none';
 		switch ( $source_of_ad ) {
 
 			case 'none':

@@ -95,9 +95,7 @@ class Instant_Articles_Option {
 		$saved_options = self::get_option_decoded( $this->key );
 
 		foreach ( $this->field_definitions as $field_key => $field ) {
-			self::$settings[ $field_key ] = isset( $saved_options[ $field_key ] )
-				? $saved_options[ $field_key ]
-				: $field['default'];
+			self::$settings[ $field_key ] = $saved_options[ $field_key ] ?? $field['default'];
 		}
 
 		$this->wp_bootstrap_register_option();
@@ -166,9 +164,7 @@ class Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	private function wp_bootstrap_create_sections() {
-		$title = isset( $this->sections['title'] )
-			? $this->sections['title']
-			: '';
+		$title = $this->sections['title'] ?? '';
 
 		$description = isset( $this->sections['description'] )
 			? wp_kses(
@@ -251,9 +247,7 @@ class Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	public static function universal_render_handler( $args = null ) {
-		$id = isset( $args['label_for'] )
-			? $args['label_for']
-			: '';
+		$id = $args['label_for'] ?? '';
 
 		$type = isset( $args['render'] ) && gettype( 'string' === $args['render'] )
 			? $args['render']
@@ -277,9 +271,7 @@ class Instant_Articles_Option {
 			$name = $id;
 		}
 
-		$placeholder = isset( $args['placeholder'] )
-			? $args['placeholder']
-			: '';
+		$placeholder = $args['placeholder'] ?? '';
 
 		$attr_disabled = isset( $args['disable'] ) && true === $args['disable']
 			? disabled()
@@ -299,9 +291,7 @@ class Instant_Articles_Option {
 			)
 			: '';
 
-		$field_checkbox_label = isset( $args['checkbox_label'] )
-			? $args['checkbox_label']
-			: '';
+		$field_checkbox_label = $args['checkbox_label'] ?? '';
 
 		switch ( $type ) {
 			case 'hidden':
