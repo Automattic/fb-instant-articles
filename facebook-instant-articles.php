@@ -51,21 +51,20 @@ if ( ! class_exists( 'Facebook\\Facebook' ) && file_exists( __DIR__ . '/vendor/a
 	$autoloader->add( 'Facebook\\', __DIR__ . '/vendor/facebook/facebook-instant-articles-sdk-extensions-in-php/src' );
 }
 
-require_once __DIR__ . '/embeds.php';
-require_once __DIR__ . '/class-instant-articles-post.php';
-require_once __DIR__ . '/wizard/class-instant-articles-option.php';
-require_once __DIR__ . '/wizard/class-instant-articles-option-ads.php';
-require_once __DIR__ . '/wizard/class-instant-articles-option-analytics.php';
-require_once __DIR__ . '/wizard/class-instant-articles-option-fb-page.php';
-require_once __DIR__ . '/wizard/class-instant-articles-option-fb-app.php';
-require_once __DIR__ . '/wizard/class-instant-articles-option-publishing.php';
-require_once __DIR__ . '/wizard/class-instant-articles-option-styles.php';
-require_once __DIR__ . '/wizard/class-instant-articles-option-amp.php';
-require_once __DIR__ . '/class-instant-articles-amp-markup.php';
-require_once __DIR__ . '/wizard/class-instant-articles-wizard.php';
-require_once __DIR__ . '/meta-box/class-instant-articles-meta-box.php';
-require_once __DIR__ . '/class-instant-articles-amp-markup.php';
-require_once __DIR__ . '/class-instant-articles-signer.php';
+require __DIR__ . '/embeds.php';
+require __DIR__ . '/class-instant-articles-post.php';
+require __DIR__ . '/wizard/class-instant-articles-option.php';
+require __DIR__ . '/wizard/class-instant-articles-option-ads.php';
+require __DIR__ . '/wizard/class-instant-articles-option-analytics.php';
+require __DIR__ . '/wizard/class-instant-articles-option-fb-page.php';
+require __DIR__ . '/wizard/class-instant-articles-option-fb-app.php';
+require __DIR__ . '/wizard/class-instant-articles-option-publishing.php';
+require __DIR__ . '/wizard/class-instant-articles-option-styles.php';
+require __DIR__ . '/wizard/class-instant-articles-option-amp.php';
+require __DIR__ . '/wizard/class-instant-articles-wizard.php';
+require __DIR__ . '/meta-box/class-instant-articles-meta-box.php';
+require __DIR__ . '/class-instant-articles-amp-markup.php';
+require __DIR__ . '/class-instant-articles-signer.php';
 
 register_activation_hook( __FILE__, 'instant_articles_activate' );
 /**
@@ -120,7 +119,7 @@ add_action( 'plugins_loaded', 'instant_articles_load_compat' );
  * @since 2.0
  */
 function instant_articles_load_compat() {
-	require_once __DIR__ . '/compat.php';
+	require __DIR__ . '/compat.php';
 }
 
 add_action( 'init', 'instant_articles_init' );
