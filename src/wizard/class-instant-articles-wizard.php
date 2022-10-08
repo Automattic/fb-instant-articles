@@ -101,7 +101,7 @@ class Instant_Articles_Wizard {
 					     'Error processing your request. Check server log for more details. Setup and login again to renew Application credentials. Error message: ' .
 					     $e->getMessage()
 				     ) . '</strong></p></div>';
-				Instant_Articles_Wizard::render( $ajax, true );
+				Instant_Articles_Wizard::render( $ajax );
 			}
 		}
 	}
