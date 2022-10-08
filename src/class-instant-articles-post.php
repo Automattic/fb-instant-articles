@@ -196,7 +196,7 @@ class Instant_Articles_Post {
 
 		// This should ideally not happen, but it may do so if someone tampers with the query.
 		// Returning the same protected post excerpt as "usual" may help them identify what’s going on.
-		if ( post_password_required( $this->get_the_ID() ) ) {
+		if ( post_password_required( $this->get_the_id() ) ) {
 			return __( 'There is no excerpt because this is a protected post.' );
 		}
 
