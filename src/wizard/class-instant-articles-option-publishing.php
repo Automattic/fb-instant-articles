@@ -99,7 +99,7 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			switch ( $field_id ) {
 				case 'dev_mode':
 					$field_values[ $field_id ] = (bool) $field_value
-						? (string) true
+						? '1'
 						: (string) $field['default'];
 				break;
 
