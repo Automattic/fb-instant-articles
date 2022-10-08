@@ -44,7 +44,7 @@ class Instant_Articles_AMP_Markup {
 	public static function is_markup_enabled() {
 		$settings = self::get_settings();
 
-		return isset( $settings[ self::SETTING_AMP_MARKUP ] ) && (bool) $settings[ self::SETTING_AMP_MARKUP ];
+		return isset( $settings[ self::SETTING_AMP_MARKUP ] ) && $settings[ self::SETTING_AMP_MARKUP ];
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Instant_Articles_AMP_Markup {
 
 		$properties = [];
 
-		$download_media = isset( $settings[ self::SETTING_DL_MEDIA ] ) && (bool) $settings[ self::SETTING_DL_MEDIA ];
+		$download_media = isset( $settings[ self::SETTING_DL_MEDIA ] ) && $settings[ self::SETTING_DL_MEDIA ];
 
 		$properties[ AMPArticle::ENABLE_DOWNLOAD_FOR_MEDIA_SIZING_KEY ] = $download_media;
 
