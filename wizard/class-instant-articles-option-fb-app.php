@@ -49,7 +49,7 @@ class Instant_Articles_Option_FB_App extends Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	public function __construct() {
-		$this->options_manager = new parent(
+		parent::__construct(
 			self::OPTION_KEY,
 			self::$sections,
 			self::$fields
