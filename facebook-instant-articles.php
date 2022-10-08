@@ -260,28 +260,28 @@ function instant_articles_register_scripts() {
 		plugins_url( '/js/instant-articles-meta-box.js', __FILE__ ),
 		null,
 		IA_PLUGIN_VERSION,
-		false
+		true
 	);
 	wp_register_script(
 		'instant-articles-option-ads',
 		plugins_url( '/js/instant-articles-option-ads.js', __FILE__ ),
 		null,
 		IA_PLUGIN_VERSION,
-		false
+		true
 	);
 	wp_register_script(
 		'instant-articles-option-analytics',
 		plugins_url( '/js/instant-articles-option-analytics.js', __FILE__ ),
 		null,
 		IA_PLUGIN_VERSION,
-		false
+		true
 	);
 	wp_register_script(
 		'instant-articles-option-publishing',
 		plugins_url( '/js/instant-articles-option-publishing.js', __FILE__ ),
 		null,
 		IA_PLUGIN_VERSION,
-		false
+		true
 	);
 }
 
