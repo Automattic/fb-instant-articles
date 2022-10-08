@@ -42,7 +42,7 @@ class Instant_Articles_Comscore {
 	 */
 	public function get_raw_embed_code() {
 		$settings_analytics = Instant_Articles_Option_Analytics::get_option_decoded();
-		if ( ! isset( $settings_analytics['comscore_id'] ) || empty( $settings_analytics['comscore_id'] ) ) {
+		if ( empty( $settings_analytics['comscore_id'] ) ) {
 			return '';
 		}
 
