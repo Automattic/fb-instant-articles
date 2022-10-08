@@ -148,7 +148,7 @@ class Instant_Articles_Post {
 
 		$subtitle = $this->get_the_subtitle();
 
-		if ( strlen( $subtitle ) ) {
+		if ( $subtitle != '' ) {
 			$has_subtitle = true;
 		}
 
@@ -164,7 +164,7 @@ class Instant_Articles_Post {
 	public function get_the_subtitle() {
 
 		// If we have already been through this function, we’ll have the result stored here
-		if ( ! is_null( $this->_subtitle ) ) {
+		if ( $this->_subtitle !== null ) {
 			return $this->_subtitle;
 		}
 
@@ -252,7 +252,7 @@ class Instant_Articles_Post {
 	/**
 	 * Get the canonical URL for this post
 	 *
-	 * A little warning here: It is extremely important that this is the same canonical URL as is used on the web site.
+	 * A little warning here: It is extremely important that this is the same canonical URL as is used on the website.
 	 * This is the identificator Facebook use to connect the "read" web article with the instant article.
 	 * Do not add any querystring params or URL fragments it. Not any. Not even for tracking.
 	 *
@@ -265,7 +265,7 @@ class Instant_Articles_Post {
 		if ( in_array( $this->_post->post_status, array( 'draft', 'pending', 'auto-draft' ), true ) ) {
 			$post_clone              = clone $this->_post;
 			$post_clone->post_status = 'published';
-			$post_clone->post_name   = sanitize_title( $post_clone->post_name ? $post_clone->post_name : $post_clone->post_title, $post_clone->ID );
+			$post_clone->post_name   = sanitize_title( $post_clone->post_name ?: $post_clone->post_title, $post_clone->ID );
 			$url                     = get_permalink( $post_clone );
 		} else {
 			$url = get_permalink( $this->_post );
@@ -282,7 +282,7 @@ class Instant_Articles_Post {
 	 */
 	public function get_the_content() {
 
-		if ( is_null( $this->_content ) ) {
+		if ( $this->_content === null ) {
 			$this->_content = $this->_get_the_content();
 		}
 
@@ -303,7 +303,7 @@ class Instant_Articles_Post {
 		if ( apply_filters( 'instant_articles_cache_content', true, $this->_post->ID )
 		     && get_post_modified_time( 'Y-m-d H:i:s', true, $this->_post->ID ) === $cache_mod_time ) {
 			$content = get_transient( 'instantarticles_content_' . $this->_post->ID );
-			if ( false !== $content && strlen( $content ) ) {
+			if ( false !== $content && $content !== '' ) {
 				return $content;
 			}
 		}
@@ -333,8 +333,9 @@ class Instant_Articles_Post {
 		 */
 
 		// Some people choose to disable wpautop. Due to the Instant Articles spec, we really want it in!
-		if ( ! has_filter( 'the_content', 'wpautop' ) )
+		if ( ! has_filter( 'the_content', 'wpautop' ) ) {
 			add_filter( 'the_content', 'wpautop' );
+		}
 
 		$content = apply_filters( 'the_content', $content );
 
@@ -426,7 +427,7 @@ class Instant_Articles_Post {
 
 		$wp_user = get_userdata( $this->_post->post_author );
 
-		if ( is_a( $wp_user, 'WP_User' ) ) {
+		if ( $wp_user instanceof \WP_User ) {
 			$author                = new stdClass();
 			$author->ID            = $wp_user->ID;
 			$author->display_name  = $wp_user->data->display_name;
@@ -479,7 +480,7 @@ class Instant_Articles_Post {
 			if ( is_array( $image_array ) ) {
 				$image_data['src'] = $image_array[0];
 				$attachment_post   = get_post( $attachment_id );
-				if ( is_a( $attachment_post, 'WP_Post' ) ) {
+				if ( $attachment_post instanceof \WP_Post ) {
 					$image_data['caption'] = $attachment_post->post_excerpt;
 				}
 			}
@@ -513,9 +514,9 @@ class Instant_Articles_Post {
 		$cover_media = Image::create();
 
 		$featured_image_data = $this->get_the_featured_image();
-		if ( isset( $featured_image_data['src'] ) && strlen( $featured_image_data['src'] ) ) {
+		if ( isset( $featured_image_data['src'] ) && $featured_image_data['src'] !== '' ) {
 			$cover_media = Image::create()->withURL( $featured_image_data['src'] );
-			if ( isset( $featured_image_data['caption'] ) && strlen( $featured_image_data['caption'] ) ) {
+			if ( isset( $featured_image_data['caption'] ) && $featured_image_data['caption'] !== '' ) {
 				$cover_media->withCaption( Caption::create()->withTitle( $featured_image_data['caption'] ) );
 			}
 		}
@@ -560,7 +561,7 @@ class Instant_Articles_Post {
 		 */
 		$category_kicker = apply_filters( 'instant_articles_cover_kicker', $category, $this->_post->ID );
 
-		return $category_kicker ? $category_kicker : '';
+		return $category_kicker ?: '';
 	}
 
 	/**
@@ -723,9 +724,9 @@ class Instant_Articles_Post {
 
 		$dimensions_match = array();
 		$dimensions_raw   = $settings_ads['dimensions'] ?? '';
-		if ( preg_match( '/^(?:\s)*(\d+)x(\d+)(?:\s)*$/', $dimensions_raw, $dimensions_match ) ) {
-			$width  = intval( $dimensions_match[1] );
-			$height = intval( $dimensions_match[2] );
+		if ( preg_match( '/^\s*(\d+)x(\d+)\s*$/', $dimensions_raw, $dimensions_match ) ) {
+			$width  = (int) $dimensions_match[1];
+			$height = (int) $dimensions_match[2];
 		}
 
 		$ad = Ad::create()
@@ -878,7 +879,7 @@ class Instant_Articles_Post {
 		// Skip empty articles or articles missing title.
 		// This is important because the save_post action is also triggered by bulk updates, but in this case
 		// WordPress does not load the content field from DB for performance reasons. In this case, articles
-		// will be empty here, despite of them actually having content.
+		// will be empty here, despite them actually having content.
 		if ( count( $instant_article->getChildren() ) === 0 || ! $instant_article->getHeader() || ! $instant_article->getHeader()->getTitle() ) {
 			update_post_meta( $this->get_the_id(), '_is_empty_after_transformation', 'yes' );
 
@@ -937,7 +938,7 @@ class Instant_Articles_Post {
 
 		// Only process posts
 		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
-		if ( ! in_array( $post->post_type, $post_types ) ) {
+		if ( ! in_array( $post->post_type, $post_types, true ) ) {
 			return false;
 		}
 
@@ -954,7 +955,7 @@ class Instant_Articles_Post {
 		// Skip empty articles or articles missing title.
 		// This is important because the save_post action is also triggered by bulk updates, but in this case
 		// WordPress does not load the content field from DB for performance reasons. In this case, articles
-		// will be empty here, despite of them actually having content.
+		// will be empty here, despite them actually having content.
 		if ( $this->is_empty_after_transformation() ) {
 			return false;
 		}
@@ -962,14 +963,10 @@ class Instant_Articles_Post {
 		// Don't process if contains warnings and blocker flag for transformation warnings is turned on.
 		$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 		$force_submit        = get_post_meta( $post->ID, IA_PLUGIN_FORCE_SUBMIT_KEY, true );
-		if ( $this->has_warnings_after_transformation()
-		     && ( ! isset( $publishing_settings['publish_with_warnings'] ) || ! $publishing_settings['publish_with_warnings'] )
-		     && ( ! $force_submit )
-		) {
-			return false;
-		}
 
-		return true;
+		return ! ( $this->has_warnings_after_transformation()
+		           && ( ! isset( $publishing_settings['publish_with_warnings'] ) || ! $publishing_settings['publish_with_warnings'] )
+		           && ( ! $force_submit ) );
 	}
 
 	/**

@@ -125,7 +125,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 		foreach ( $field_values as $field_id => $field_value ) {
 			$field = self::$fields[ $field_id ];
 
-			if ( $field_id == 'embed_code' ) {
+			if ( $field_id === 'embed_code' ) {
 				if ( isset( $field_values['embed_code_enabled'] ) && $field_values['embed_code_enabled'] ) {
 					$document = new DOMDocument();
 					$fragment = $document->createDocumentFragment();

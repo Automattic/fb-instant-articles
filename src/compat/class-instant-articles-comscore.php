@@ -46,7 +46,7 @@ class Instant_Articles_Comscore {
 			return '';
 		}
 
-		$comscore_id = intval( $settings_analytics['comscore_id'] );
+		$comscore_id = (int) $settings_analytics['comscore_id'];
 		if ( ! $comscore_id ) {
 			return '';
 		}

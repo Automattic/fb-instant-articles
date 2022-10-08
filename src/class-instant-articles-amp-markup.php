@@ -76,7 +76,7 @@ class Instant_Articles_AMP_Markup {
 	/**
 	 * Generates the AMP markup if post has amp_markup
 	 *
-	 * NOTE: side-effect: function calls die() in the end.
+	 * NOTE: side effect: function calls die() in the end.
 	 *
 	 * @since 4.0
 	 */
@@ -123,8 +123,7 @@ class Instant_Articles_AMP_Markup {
 			$meta = wp_get_attachment_metadata( $img_id );
 
 			// Removes the file name from the URL
-			$url_chunks = explode( '/', $img->guid );
-			array_pop( $url_chunks );
+			$url_chunks = explode( '/', $img->guid, -1 );
 			$base_image_url = implode( '/', $url_chunks ) . '/';
 
 			// This is the uploaded original file
@@ -163,10 +162,7 @@ class Instant_Articles_AMP_Markup {
 		}
 
 		json_decode( $json_str );
-		if ( json_last_error() == JSON_ERROR_NONE ) {
-			return true;
-		}
 
-		return false;
+		return json_last_error() == JSON_ERROR_NONE;
 	}
 }

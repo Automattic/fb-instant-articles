@@ -76,9 +76,7 @@ class Instant_Articles_Wizard {
 
 
 	public static function get_admin_url() {
-		$url = parse_url( admin_url() );
-
-		return $url['host'];
+		return parse_url( admin_url(), PHP_URL_HOST );
 	}
 
 	public static function render( $ajax = false ) {
@@ -101,7 +99,7 @@ class Instant_Articles_Wizard {
 					     'Error processing your request. Check server log for more details. Setup and login again to renew Application credentials. Error message: ' .
 					     $e->getMessage()
 				     ) . '</strong></p></div>';
-				Instant_Articles_Wizard::render( $ajax );
+				self::render( $ajax );
 			}
 		}
 	}

@@ -31,7 +31,6 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 		'custom_rules_enabled' => array(
 			'label' => 'Custom transformer rules',
 			'render' => 'checkbox',
-			'default' => '',
 			'checkbox_label' => 'Enable custom transformer rules',
 			'description' => 'Define your own rules to customize the transformation of your content into Instant Articles',
 			'default' => '',

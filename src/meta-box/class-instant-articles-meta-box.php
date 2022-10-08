@@ -66,7 +66,7 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function force_submit() {
-		$post_id = intval( $_POST[ 'post_ID' ] );
+		$post_id = (int) $_POST['post_ID'];
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_die( -1, 403 );
@@ -81,7 +81,7 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function render_meta_box() {
-		$post_id = intval( $_POST[ 'post_ID' ] );
+		$post_id = (int) $_POST['post_ID'];
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_die( -1, 403 );

@@ -27,12 +27,12 @@ class Instant_Articles_Yoast_SEO {
 
 		$image_url = get_post_meta( $post_id, '_yoast_wpseo_opengraph-image', true );
 
-		if ( strlen( $image_url ) ) {
+		if ( $image_url !== '' ) {
 			$image_data['src'] = $image_url;
 
 			$desc = get_post_meta( $post_id, '_yoast_wpseo_opengraph-description', true );
 
-			if ( strlen( $desc ) ) {
+			if ( $desc !== '' ) {
 				$image_data['caption'] = $desc;
 			}
 		}
@@ -51,9 +51,9 @@ class Instant_Articles_Yoast_SEO {
 	public function user_url( $authors, $post_id ) {
 
 		foreach ( $authors as $author ) {
-			if ( ! strlen( $author->user_url ) ) {
+			if ( $author->user_url === '' ) {
 				$facebook_profile_url = get_user_meta( $author->ID, 'facebook', true );
-				if ( strlen( $facebook_profile_url ) ) {
+				if ( $facebook_profile_url !== '' ) {
 					$author->user_url     = $facebook_profile_url;
 					$author->user_url_rel = 'facebook';
 				}

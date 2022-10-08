@@ -53,7 +53,7 @@ class Instant_Articles_Option {
 	 * serialized_with_group - String|false/null. Controls whether a particular field of a setting is serialized with the group or saved as its own independant option. Defaults to true.
 	 * label - String|null. The label for the field.
 	 * description - String. The description for the field, rendered as additional information below the field.
-	 * render - String|Function. How the field should be rendered as. Non-strings are assumed to be a function for rendering the field (third parameter of `add_settings_field()`). If a String, it is meant to be any of the standard <form> input types (checkbox, radio, textarea, hidden, select, textarea, password etc.') and the rendering will be handled by self::universal_render_handler(); if not defined, "text" is assumed
+	 * render - String|Function. How the field should be rendered as. Non-strings are assumed to be a function for rendering the field (third parameter of `add_settings_field()`). If a String, it is meant to be any of the standard <form> input types (checkbox, radio, textarea, hidden, select, textarea, password etc.) and the rendering will be handled by self::universal_render_handler(); if not defined, "text" is assumed
 	 * select_options - Array. Defines the <options> for a checkbox (key of this Array is used as its `value` attribute). Only used if the `render` is "select".
 	 * radio_options - Array. TO BE IMPLEMENTED (should mimic the "select_options" functionality)
 	 * placeholder - String. Used as the `placeholder` attribute for the <form> field.
@@ -79,9 +79,7 @@ class Instant_Articles_Option {
 		$this->key = $option_key;
 		$this->sections = $sections;
 		$this->field_definitions = $option_fields;
-		$this->page_option_group = null === $option_group
-			? self::PAGE_OPTION_GROUP
-			: $option_group;
+		$this->page_option_group = $option_group ?? self::PAGE_OPTION_GROUP;
 
 		$this->init();
 	}
@@ -184,7 +182,7 @@ class Instant_Articles_Option {
 		add_settings_section(
 			$this->key,
 			esc_html( $title ),
-			function () use ( $description ) {
+			static function () use ( $description ) {
 				echo wp_kses_post( $description );
 			},
 			$this->key
@@ -225,7 +223,7 @@ class Instant_Articles_Option {
 				}
 			}
 
-			$renderer_handle = 'string' === gettype( $renderer_args['render'] )
+			$renderer_handle = is_string( $renderer_args['render'] )
 				? array( 'Instant_Articles_Option', 'universal_render_handler' )
 				: $renderer_args['render'];
 
@@ -344,7 +342,7 @@ class Instant_Articles_Option {
 						value="<?php echo esc_attr( $option_key ) ?>"
 						<?php echo selected( $option_key, $option_value ) ?>
 						<?php echo isset( $args['disable'] )
-							&& gettype( $args['disable'] ) === 'array'
+						           && is_array( $args['disable'] )
 							&& in_array( $option_key, $args['disable'], true )
 						? disabled()
 						: '';
@@ -428,7 +426,7 @@ class Instant_Articles_Option {
 		$allowed_payload = $payload;
 
 		// Pass the value along to the Child class's method to perform sanitation on its fields.
-		$sanitized_payload = static::sanitize_option_fields( $allowed_payload );
+		$sanitized_payload = $this->sanitize_option_fields( $allowed_payload );
 
 		// Encode the payload into JSON before it's sent off to be saved.
 		return wp_json_encode( $sanitized_payload );
