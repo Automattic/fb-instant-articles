@@ -130,7 +130,7 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 					if ( isset( $field_values['embed_code_enabled'] ) && $field_values['embed_code_enabled'] ) {
 						$document = new DOMDocument();
 						$fragment = $document->createDocumentFragment();
-						if ( ! @$fragment->appendXML( $field_values[ $field_id ] ) ) {
+						if ( ! @$fragment->appendXML( $field_value ) ) {
 							add_settings_error(
 								'embed_code',
 								'invalid_markup',
