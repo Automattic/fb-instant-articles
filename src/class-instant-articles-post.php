@@ -427,7 +427,7 @@ class Instant_Articles_Post {
 		$wp_user = get_userdata( $this->_post->post_author );
 
 		if ( is_a( $wp_user, 'WP_User' ) ) {
-			$author                = new stdClass;
+			$author                = new stdClass();
 			$author->ID            = $wp_user->ID;
 			$author->display_name  = $wp_user->data->display_name;
 			$author->first_name    = $wp_user->first_name;

@@ -34,7 +34,7 @@ class Instant_Articles_Co_Authors_Plus {
 			$authors = array();
 			foreach ( $coauthors as $coauthor ) {
 
-				$author = new stdClass;
+				$author = new stdClass();
 				$author->ID            = $coauthor->ID;
 				$author->display_name  = is_a( $coauthor, 'WP_User' ) ? $coauthor->data->display_name  : $coauthor->display_name;
 				$author->first_name    = $coauthor->first_name;
