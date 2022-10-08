@@ -18,7 +18,7 @@ class Instant_Articles_Playbuzz {
 
 	public static function transformer_loaded( $transformer ) {
 		// Appends more rules to transformer
-		$file_path = plugin_dir_path( __FILE__ ) . 'playbuzz-rules-configuration.json';
+		$file_path = __DIR__ . '/playbuzz-rules-configuration.json';
 		$configuration = file_get_contents( $file_path );
 		$transformer->loadRules( $configuration );
 

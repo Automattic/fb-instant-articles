@@ -18,7 +18,7 @@ class Instant_Articles_Apester {
 
 	public static function transformer_loaded( $transformer ) {
 		// Appends more rules to transformer
-		$file_path = plugin_dir_path( __FILE__ ) . 'apester-rules-configuration.json';
+		$file_path = __DIR__ . '/apester-rules-configuration.json';
 		$configuration = file_get_contents( $file_path );
 		$transformer->loadRules( $configuration );
 
