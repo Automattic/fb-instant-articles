@@ -271,10 +271,6 @@ class Instant_Articles_Option {
 
 		$placeholder = $args['placeholder'] ?? '';
 
-		$attr_disabled = isset( $args['disable'] ) && true === $args['disable']
-			? disabled()
-			: '';
-
 		$field_description = isset( $args['description'] )
 			? wp_kses(
 				$args['description'],
@@ -318,7 +314,7 @@ class Instant_Articles_Option {
 						name="<?php echo esc_attr( $name ) ?>"
 						id="<?php echo esc_attr( $id ) ?>"
 						<?php echo esc_attr( $attr_checked ); ?>
-						<?php echo esc_attr( $attr_disabled ); ?>
+						<?php disabled( isset( $args['disable'] ) && true === $args['disable'] ); ?>
 					/>
 					<?php echo esc_html( $field_checkbox_label ); ?>
 				</label>
@@ -335,18 +331,13 @@ class Instant_Articles_Option {
 				<select
 					id="<?php echo esc_attr( $id ) ?>"
 					name="<?php echo esc_attr( $name ) ?>"
-					<?php echo esc_html( $attr_disabled ) ?>
+					<?php disabled( isset( $args['disable'] ) && true === $args['disable'] ); ?>
 				>
 				<?php foreach ( $args['select_options'] as $option_key => $option_name ) : ?>
 					<option
 						value="<?php echo esc_attr( $option_key ) ?>"
 						<?php echo selected( $option_key, $option_value ) ?>
-						<?php echo isset( $args['disable'] )
-						           && is_array( $args['disable'] )
-							&& in_array( $option_key, $args['disable'], true )
-						? disabled()
-						: '';
-						?>
+						<?php disabled( isset( $args['disable'] ) && is_array( $args['disable'] ) && in_array( $option_key, $args['disable'], true ) ); ?>
 					>
 					<?php echo esc_html( $option_name ); ?>
 					</option>
@@ -368,7 +359,7 @@ class Instant_Articles_Option {
 					<?php if ( $placeholder ) : ?>
 						placeholder="<?php echo esc_attr( $placeholder ); ?>"
 					<?php endif; ?>
-					<?php echo esc_attr( $attr_disabled ); ?>
+					<?php disabled( isset( $args['disable'] ) && true === $args['disable'] ); ?>
 					class="large-text code"
 					rows="8"
 				><?php echo array_key_exists( 'double_encode', $args ) && $args[ 'double_encode' ] ? htmlspecialchars( $option_value ) : esc_html( $option_value ); ?></textarea>
@@ -391,7 +382,7 @@ class Instant_Articles_Option {
 					<?php if ( $placeholder ) : ?>
 						placeholder="<?php echo esc_attr( $placeholder ) ?>"
 					<?php endif; ?>
-					<?php echo esc_attr( $attr_disabled ) ?>
+					<?php disabled( isset( $args['disable'] ) && true === $args['disable'] ); ?>
 					value="<?php echo esc_attr( $option_value ) ?>"
 					class="regular-text"
 				/>
