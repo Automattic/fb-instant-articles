@@ -494,48 +494,44 @@ function invalidate_scrape_on_update( $post_ID, $post_after, $post_before ) {
 				'default_access_token' => $access_token
 			]);
 
-			function admin_notice__scrape_invalidation_failed() {
-				?>
-				<div class="notice notice-error is-dismissible">
-					<p>
-						<?php _e( 'It was not possible to automatically invalidate the scrape for this article.', 'instant-articles' ) ?>
-						<?php _e( 'Please trigger a new scrape manually using the Facebook Share Debugger.', 'instant-articles' ) ?>
-					</p>
-				</div>
-				<?php
-			}
-
-			function admin_notice__scrape_invalidation_success() {
-				?>
-				<div class="notice notice-success is-dismissible">
-					<p>
-						<?php _e( 'Successfully refreshed the Instant Articles cache for this article.', 'instant-articles' ) ?>
-					</p>
-				</div>
-				<?php
-			}
-
-
 			// Make call
 			$graph_api_call = '/';
 			$graph_api_call = add_query_arg( 'id', rawurlencode($url), $graph_api_call);
 			$graph_api_call = add_query_arg( 'scrape', 'true', $graph_api_call);
 
+			// The displaying of admin notice on post_updated, would only seem to work on the classic editor.
+			// The block editor saves the content without a page reload.
 			try {
 				$fb->post( $graph_api_call, [], $access_token );
-				add_action( 'admin_notices', 'admin_notice__scrape_invalidation_success' );
-
+				add_action( 'admin_notices', 'fbia_admin_notice__scrape_invalidation_success' );
 			} catch(Facebook\Exceptions\FacebookResponseException $e) {
-				echo '<pre>';
-				print_r($e->getTraceAsString());
-
-				add_action( 'admin_notices', 'admin_notice__scrape_invalidation_failed' );
+				add_action( 'admin_notices', 'fbia_admin_notice__scrape_invalidation_failed' );
 			} catch(Facebook\Exceptions\FacebookSDKException $e) {
-
-				add_action( 'admin_notices', 'admin_notice__scrape_invalidation_failed' );
+				add_action( 'admin_notices', 'fbia_admin_notice__scrape_invalidation_failed' );
 			}
 		}
 	}
+}
+
+function fbia_admin_notice__scrape_invalidation_failed() {
+	?>
+	<div class="notice notice-error is-dismissible">
+		<p>
+			<?php _e( 'It was not possible to automatically invalidate the scrape for this article.', 'instant-articles' ) ?>
+			<?php _e( 'Please trigger a new scrape manually using the Facebook Share Debugger.', 'instant-articles' ) ?>
+		</p>
+	</div>
+	<?php
+}
+
+function fbia_admin_notice__scrape_invalidation_success() {
+	?>
+	<div class="notice notice-success is-dismissible">
+		<p>
+			<?php _e( 'Successfully refreshed the Instant Articles cache for this article.', 'instant-articles' ) ?>
+		</p>
+	</div>
+	<?php
 }
 
 add_action( 'save_post', 'rescrape_article', 999, 2 );
