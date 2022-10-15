@@ -606,7 +606,7 @@ class Instant_Articles_Post {
 		$date_time_zone = get_option( 'timezone_string' ) ? new DateTimeZone( get_option( 'timezone_string' ) ) : new DateTimeZone( 'UTC' );
 
 		// Initialize transformer
-		$file_path = plugin_dir_path( __FILE__ ) . 'rules-configuration.json';
+		$file_path = plugin_dir_path( IA_PLUGIN_FILE ) . 'rules-configuration.json';
 		$file_path = apply_filters( 'instant_articles_transformer_rules_configuration_json_file_path', $file_path );
 		$configuration = file_get_contents( $file_path );
 

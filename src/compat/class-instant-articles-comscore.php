@@ -51,7 +51,7 @@ class Instant_Articles_Comscore {
 			return;
 		}
 
-		$file_path = plugin_dir_path( __FILE__ ) . 'comscore.js';
+		$file_path = __DIR__ . '/comscore.js';
 		$js = sprintf( file_get_contents( $file_path ), $comscore_id );
 
 		$code = '<script>' . $js . '</script>';

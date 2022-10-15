@@ -9,8 +9,6 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../class-instant-articles-post.php';
-
 /**
  * Test class responsible for constructing article content
  *

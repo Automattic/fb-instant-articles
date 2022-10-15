@@ -6,13 +6,6 @@
  *
  * @package default
  */
-require_once __DIR__ . '/class-instant-articles-option-ads.php';
-require_once __DIR__ . '/class-instant-articles-option-analytics.php';
-require_once __DIR__ . '/class-instant-articles-option-fb-page.php';
-require_once __DIR__ . '/class-instant-articles-option-fb-app.php';
-require_once __DIR__ . '/class-instant-articles-option-publishing.php';
-require_once __DIR__ . '/class-instant-articles-option-styles.php';
-require_once __DIR__ . '/class-instant-articles-option-amp.php';
 
 use Facebook\InstantArticles\Client\Client;
 use Facebook\InstantArticles\Client\ClientException;

@@ -59,7 +59,7 @@ class Instant_Articles_Meta_Box {
 			return;
 		}
 
-		include( dirname( __FILE__ ) . '/meta-box-loader-template.php' );
+		require __DIR__ . '/meta-box-loader-template.php';
 	}
 
 	/**
@@ -111,9 +111,9 @@ class Instant_Articles_Meta_Box {
 				? ( $publishing_settings['dev_mode'] ? true : false )
 				: false;
 
-			include( dirname( __FILE__ ) . '/meta-box-template.php' );
+			require __DIR__ . '/meta-box-template.php';
 		} catch (Exception $e) {
-			include( dirname( __FILE__ ) . '/meta-box-error.php' );
+			require __DIR__ . '/meta-box-error.php';
 		}
 
 		die();
