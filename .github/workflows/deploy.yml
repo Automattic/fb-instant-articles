@@ -1,0 +1,20 @@
+name: Deploy to WordPress.org
+on:
+  release:
+    types: [released]
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+jobs:
+  release:
+    name: New release to WordPress.org
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build # Remove or modify this step as needed
+        run: composer install --no-dev --classmap-authoritative
+      - name: Push to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
