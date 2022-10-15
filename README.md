@@ -5,6 +5,7 @@ Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/inst
 
 ## Maintenance 🚩
 Support for this plugin is provided for PHP 8 migrations, but both Automattic/WPVIP and Facebook/Meta have stopped all active development. At this point in the product lifecycle, publishers should be advised to stop using this plugin, and instead, use direct site traffic for Facebook content.
+Meta have announced that Instant Articles will have all support dropped at April 2023.
 
 ## Description
 

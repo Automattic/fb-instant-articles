@@ -1,10 +1,10 @@
 === Instant Articles for WP ===
-Contributors: trrine, olethomas, bjornjohansen, dekode, automattic, fb
-Tags: instantticles, fb, mobile
-Requires least: 4.7
+Contributors: trrine, olethomas, bjornjohansen, dekode, GaryJ, automattic, fb
+Tags: instant-articles, fb, mobile, instant articles
+Requires at least: 4.7
 Requires PHP: 7.1
 Tested up to: 6.0.2
-Stable tag: 4.2.1
+Stable tag: 5.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,8 +23,8 @@ Built-in to the plugin are many [pre-defined transformer rules](https://github.c
 = Access to Instant Articles =
 
 The current criteria for access to Instant Articles are:
-* your Facebook Page must have an established presence of at least 90 days
-* your content adheres to the [Instant Article Policies](https://developers.facebook.com/docs/instant-articles/policy/)
+  - your Facebook Page must have an established presence of at least 90 days
+  - your content adheres to the [Instant Article Policies](https://developers.facebook.com/docs/instant-articles/policy/)
 
 Before your Instant Articles can be published on Facebook, your feed must undergo an initial review and approval. Facebook requires a minimum number of 10 articles in your feed before being eligible for review. The review process checks that your draft Instant Articles are properly formatted, have content consistency with their mobile web counterparts, and adhere to the [community standards](https://www.facebook.com/communitystandards/) and [content policies](https://www.facebook.com/help/publisher/1348682518563619).
 
@@ -89,9 +89,24 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 1. Customized transformer rules enabled on the main Settings page. The particular configuration shown here would cause `<u>` and `<bold>` tags in the source markup to be rendered in *italics* and **bold**, respectively, in the generated Instant Article.
 
 == Changelog ==
-## Change Log
+### 5.0.0 - 2022-10-18
+**Minimum PHP requirement is increased from PHP 5.4 to PHP 7.1.**
+**Minimum WordPress requirement is increased from WP 4.3.0 to WP 4.7.0.**
 
-### 4.2.1 (2020/06/10 21:11 +00:00)
+- [#683](https://github.com/Automattic/fb-instant-articles/pull/683) Fix wizard option dynamic properties for PHP 8.2.
+- [#831](https://github.com/Automattic/fb-instant-articles/pull/831) Fix the way filters are applied in get_cover_media().
+- [#1025](https://github.com/Automattic/fb-instant-articles/pull/1025) Support for installing as Composer Package.
+- [#1058](https://github.com/Automattic/fb-instant-articles/pull/1058) Allow post content caching to be disabled.
+- [#1073](https://github.com/Automattic/fb-instant-articles/pull/1073) Update release.sh.
+- [#1076](https://github.com/Automattic/fb-instant-articles/pull/1076) Reduce plugin's cache burden for remote requests.
+- [#1082](https://github.com/Automattic/fb-instant-articles/pull/1082) Fix: pass the missing $post param to the get_the_excerpt filter.
+- [#1092](https://github.com/Automattic/fb-instant-articles/pull/1092) Add support for PHP 8.
+- [#1095](https://github.com/Automattic/fb-instant-articles/pull/1095) Add GitHub workflow to mark issues and PR as stale.
+- [#1097](https://github.com/Automattic/fb-instant-articles/pull/1097) Actions: Remove separate PHP 8.2 composer install.
+- [#1098](https://github.com/Automattic/fb-instant-articles/pull/1098) Improve tests.
+- [#1099](https://github.com/Automattic/fb-instant-articles/pull/1099) Basic code maintenance improvements.
+
+### 4.2.1 - 2020-06-10
 - [#1049](https://github.com/automattic/fb-instant-articles/pull/1049) Add support for new guttenberg layout elements (@diegoquinteiro)
 - [#1012](https://github.com/automattic/fb-instant-articles/pull/1012) update composer modules (@paulschreiber)
 - [#1001](https://github.com/automattic/fb-instant-articles/pull/1001) Load functions which rely on `plugins_loaded` action hook in VIP Go environment (@paulschreiber)
@@ -99,15 +114,15 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#1002](https://github.com/automattic/fb-instant-articles/pull/1002) add Comscore plugin (@paulschreiber)
 - [#1007](https://github.com/automattic/fb-instant-articles/pull/1007) Update Facebook SDK versions (@paulschreiber)
 
-### 4.2.0 (2018/11/29 18:14 +00:00)
+### 4.2.0 - 2018-11-29
 - [#997](https://github.com/automattic/fb-instant-articles/pull/997) Removed fields from deprecated feature to enable comments/likes/share from media content (@everton-rosario)
 
-### 4.1.1 (2018/07/17 15:45 +00:00)
+### 4.1.1 - 2018-07-17
 - [#962](https://github.com/automattic/fb-instant-articles/pull/962) Updating description for the plugin on website (@Blakomen)
 - [#1](https://github.com/automattic/fb-instant-articles/pull/1) Merging into local (@diegoquinteiro, @everton-rosario, @algmelo)
 - [#957](https://github.com/automattic/fb-instant-articles/pull/957) Delete current transient with autoload=yes. (@everton-rosario, @algmelo)
 
-### 4.1.0 (2018/07/02 23:17 +00:00)
+### 4.1.0 2018-07-02
 - [#937](https://github.com/automattic/fb-instant-articles/pull/937) Add token-less re-scrape with request signature (@diegoquinteiro)
 - [#952](https://github.com/automattic/fb-instant-articles/pull/952) Updating description for the plugin (@Blakomen)
 - [#910](https://github.com/automattic/fb-instant-articles/pull/910) Add PassThroughRule for Grammarly (@robbiet480)
@@ -118,7 +133,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#740](https://github.com/automattic/fb-instant-articles/pull/740) (wizard) Update wording about AMP markup gen (@Djiit)
 - [#870](https://github.com/automattic/fb-instant-articles/pull/870) [bugfix] calling get_article_style to apply the style filter (@vkama)
 
-### 4.0.6 (2017/12/04 00:27 +00:00)
+### 4.0.6 - 2017-12-04
 - [#814](https://github.com/automattic/fb-instant-articles/pull/814) Add default rule for Twitter blockquote (@pestevez)
 - [#806](https://github.com/automattic/fb-instant-articles/pull/806) Clarify requirement of site connection in README (@pestevez)
 - [#798](https://github.com/automattic/fb-instant-articles/pull/798) remove article rescrape code (@timjacobi)
@@ -128,26 +143,26 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#797](https://github.com/automattic/fb-instant-articles/pull/797) Display error message if meta box can't be loaded (@timjacobi)
 - [#775](https://github.com/automattic/fb-instant-articles/pull/775) Adds caching to instant_articles_embed_oembed_html (@emrikol)
 
-### 4.0.5 (2017/08/24 19:08 +00:00)
+### 4.0.5 - 2017-08-24
 - [#750](https://github.com/automattic/fb-instant-articles/pull/750) Fix query limit and escaping on AMP generation (@diegoquinteiro)
 
-### 4.0.4 (2017/07/27 20:14 +00:00)
+### 4.0.4 - 2017-07-27
 - [#738](https://github.com/automattic/fb-instant-articles/pull/738) Add changelog to script (@diegoquinteiro)
 - [#737](https://github.com/automattic/fb-instant-articles/pull/737) Updates IA SDK to 1.6.2 and dependencies (@diegoquinteiro)
 
-### 4.0.3 (2017/07/20 18:07 +00:00)
+### 4.0.3 - 2017-07-20
 - [#725](https://github.com/automattic/fb-instant-articles/pull/725) Restore the $current_blog global and fix the post ID reference (@kasparsd)
 
-### 4.0.2 (2017/06/30 19:36 +00:00)
+### 4.0.2 - 2017-06-30
 - [#708](https://github.com/automattic/fb-instant-articles/pull/708) Do not process non-post pages. Fixes #707 (@diegoquinteiro)
 - [#709](https://github.com/automattic/fb-instant-articles/pull/709) Add cache layer for avoiding transforming the article at page render (@diegoquinteiro)
 
-### 4.0.1 (2017/06/28 18:48 +00:00)
+### 4.0.1 - 2017-06-28
 - [#706](https://github.com/automattic/fb-instant-articles/pull/706) Check for array index before using it (@diegoquinteiro)
 - [#705](https://github.com/automattic/fb-instant-articles/pull/705) Enable deletion of JSON AMP Style and removes an undef index (@vkama)
 - [#704](https://github.com/automattic/fb-instant-articles/pull/704) Fixed several php notices. Also fixed a bug in should_subit_post() (@vkama)
 
-### 4.0.0 (2017/06/27 17:55 +00:00)
+### 4.0.0 - 2017-06-27
 - [#702](https://github.com/automattic/fb-instant-articles/pull/702) V4.0 (@vkama, @diegoquinteiro, @everton-rosario, @sakatam, @abdusfauzi)
 - [#647](https://github.com/automattic/fb-instant-articles/pull/647) Fix "Empty string supplied as input" bug (@abdusfauzi)
 - [#680](https://github.com/automattic/fb-instant-articles/pull/680) Adding support to IA->AMP conversion (@vkama)
@@ -155,7 +170,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#643](https://github.com/automattic/fb-instant-articles/pull/643) Open Graph Ingestion Flow (@diegoquinteiro, @everton-rosario)
 - [#629](https://github.com/automattic/fb-instant-articles/pull/629) Update Google Analytics compat (@dlackty)
 
-### 3.3.4 (2017/05/10 23:17 +00:00)
+### 3.3.4 - 2017-05-10
 - [#602](https://github.com/automattic/fb-instant-articles/pull/602) Add post ID to `instant_articles_content` filter (@carlalexander)
 - [#622](https://github.com/automattic/fb-instant-articles/pull/622) Adds ver=<VERSION_TOKEN> to invalidate plugin resource files (@everton-rosario)
 - [#645](https://github.com/automattic/fb-instant-articles/pull/645) Fix wp_is_post_autosave() parameter value (@abdusfauzi)
@@ -166,12 +181,12 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#617](https://github.com/automattic/fb-instant-articles/pull/617) Switch on/off configuration for enabling comments/likes by default (@everton-rosario)
 - [#612](https://github.com/automattic/fb-instant-articles/pull/612) Add an option to set a footer (@sakatam)
 
-### 3.3.2 (2017/02/13 19:10 +00:00)
+### 3.3.2 - 2017-02-13
 - [#418](https://github.com/automattic/fb-instant-articles/pull/418) Call instant_articles_post_published hook to determine published status (@apeschar)
 - [#611](https://github.com/automattic/fb-instant-articles/pull/611) capability to toggle RTL option (@sakatam)
 - [#604](https://github.com/automattic/fb-instant-articles/pull/604) Fix typo for $provider_url at L42, L44 and L46 (@abdusfauzi)
 
-### 3.3.1 (2017/01/31 17:33 +00:00)
+### 3.3.1 - 2017-01-31
 - [#598](https://github.com/automattic/fb-instant-articles/pull/598) Fix typo on script (@diegoquinteiro)
 - [#595](https://github.com/automattic/fb-instant-articles/pull/595) Add transformer rule for cite element (@davebonds)
 - [#59](https://github.com/automattic/fb-instant-articles/pull/59) add vimeo.com into oEmbed $provider_name (@abdusfauzi)
@@ -182,15 +197,15 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#592](https://github.com/automattic/fb-instant-articles/pull/592) Add missing information to composer.json (@onnimonni)
 - [#562](https://github.com/automattic/fb-instant-articles/pull/562) Add release script (@diegoquinteiro)
 
-### 3.3 (2016/12/16 02:20 +00:00)
+### 3.3 - 2016-12-16
 - [#560](https://github.com/automattic/fb-instant-articles/pull/560) Remove deprecated rules and add rules for imgs inside links (@diegoquinteiro)
 - [#525](https://github.com/automattic/fb-instant-articles/pull/525) Update WordPress.com stats code to use FBIA SDK. (@Automattic)
 - [#535](https://github.com/automattic/fb-instant-articles/pull/535) Fixes #515 - Enables Playbuzz plugin out of the box (@everton-rosario)
 
-### 3.2.2 (2016/11/29 05:15 +00:00)
+### 3.2.2 - 2016-11-29
 - [#543](https://github.com/automattic/fb-instant-articles/pull/543) Fix variable name (@diegoquinteiro)
 
-### 3.2.1 (2016/11/25 02:58 +00:00)
+### 3.2.1 - 2016-11-25
 - [#538](https://github.com/automattic/fb-instant-articles/pull/538) Show message on meta-box when post is filtered out (@diegoquinteiro)
 - [#504](https://github.com/automattic/fb-instant-articles/pull/504) Add instant_articles_should_submit_post filter hook  to allow developers control of whether the post should be submitted to IA (@rinatkhaziev)
 - [#498](https://github.com/automattic/fb-instant-articles/pull/498) Release v3.2 (@Automattic)
@@ -201,7 +216,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#417](https://github.com/automattic/fb-instant-articles/pull/417) Support for Playbuzz plugin (@everton-rosario)
 - [#416](https://github.com/automattic/fb-instant-articles/pull/416) Use the instant_articles_post_types filter when registering metaboxes (@technosailor)
 
-### 3.2 (2016/10/05 14:23 +00:00)
+### 3.2 - 2016-10-05
 - [#484](https://github.com/automattic/fb-instant-articles/pull/484) Apply the second argument to `the_title` (@srtfisher)
 - [#481](https://github.com/automattic/fb-instant-articles/pull/481) Token Invalidation flow (@everton-rosario)
 - [#462](https://github.com/automattic/fb-instant-articles/pull/462) Migration from old fb sdk (@evertonsario)
@@ -210,7 +225,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#376](https://github.com/automattic/fb-instant-articles/pull/376) Added rule configuration for Instagram embed (@everton-rosario)
 - [#316](https://github.com/automattic/fb-instant-articles/pull/316) Add development mode support to status meta box (@simonengelhardt)
 
-### 3.1.3 (2016/09/19 17:55 +00:00)
+### 3.1.3 - 2016-09-19
 - [#469](https://github.com/automattic/fb-instant-articles/pull/469) Release stuff for v3.1.3 (@Automattic)
 - [#450](https://github.com/automattic/fb-instant-articles/pull/450) Do not block page selection if URL is not claimed (@diegoquinteiro)
 - [#464](https://github.com/automattic/fb-instant-articles/pull/464) Fixes #452 - Use of empty() on PHP prior to v5.5 (@demoive)
@@ -224,7 +239,7 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#420](https://github.com/automattic/fb-instant-articles/pull/420) Article with password protection (@everton-rosario)
 - [#409](https://github.com/automattic/fb-instant-articles/pull/409) Check for undefined index (@gemedet)
 
-### 3.1 (2016/08/17 20:17 +00:00)
+### 3.1 - 2016-08-17
 - [#413](https://github.com/automattic/fb-instant-articles/pull/413) Fix lingering reference to the old settings page on meta-box (@diegoquinteiro)
 - [#412](https://github.com/automattic/fb-instant-articles/pull/412) Content update (@diegoquinteiro)
 - [#400](https://github.com/automattic/fb-instant-articles/pull/400) New flow (@diegoquinteiro, @everton-rosario)
@@ -243,11 +258,11 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#360](https://github.com/automattic/fb-instant-articles/pull/360) Improve rules for Images inside Paragraphs and Interactive elements (@everton-rosario)
 - [#356](https://github.com/automattic/fb-instant-articles/pull/356) Ensure that relative URL checking has a host and a path. (@srtfisher)
 
-### 3.0.1 (2016/07/13 10:19 +00:00)
+### 3.0.1 - 2016-07-13
 - [#359](https://github.com/automattic/fb-instant-articles/pull/359) Release 3.0.1 (@Automattic)
 - [#358](https://github.com/automattic/fb-instant-articles/pull/358) Revert "escaping and sanitization fixes" (@diegoquinteiro)
 
-### 3.0 (2016/07/12 12:45 +00:00)
+### 3.0 - 2016-07-12
 - [#355](https://github.com/automattic/fb-instant-articles/pull/355) Release v3.0 (@Automattic)
 - [#354](https://github.com/automattic/fb-instant-articles/pull/354) Remove  to avoid breaking  elements. See #331 (@Automattic)
 - [#353](https://github.com/automattic/fb-instant-articles/pull/353) Store and use submission ID when available to fetch the status (@diegoquinteiro)
@@ -271,40 +286,46 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 - [#286](https://github.com/automattic/fb-instant-articles/pull/286) Add GitHub Issue and PR templates (@simonengelhardt)
 - [#177](https://github.com/automattic/fb-instant-articles/pull/177) Use H1 for header title and cover image caption (@gemedet)
 
-### 2.11 (2016/05/17 15:25 +00:00)
+### 2.11 - 2016-05-17
 - [#257](https://github.com/automattic/fb-instant-articles/pull/257) Fix scheduled posts with empty IA content (@Aioros)
 - [#273](https://github.com/automattic/fb-instant-articles/pull/273) Copy updated to align better with scheduled posts (@demoive)
 - [#271](https://github.com/automattic/fb-instant-articles/pull/271) Checks if it have the node to be shown as warning body (@everton-rosario)
 - [#264](https://github.com/automattic/fb-instant-articles/pull/264) Add new application header (@diegoquinteiro)
 
-### 2.10 (2016/04/29 00:01 +00:00)
+### 2.10 - 2016-04-29
 - [#179](https://github.com/automattic/fb-instant-articles/pull/179) Graphics for banner and icon (@demoive)
 - [#183](https://github.com/automattic/fb-instant-articles/pull/183) Wordpress -> WordPress (@lesterchan)
 - [#213](https://github.com/automattic/fb-instant-articles/pull/213) Labels and documentation changes re: custom transformer rules (@demoive)
 
-### 2.9 (2016/04/19 17:05 +00:00)
+### 2.9 - 2016-04-19
 - [#174](https://github.com/automattic/fb-instant-articles/pull/174) Prevents <figcaptions> from being added to images that were not saved with captions (@bobderrico80)
 - [#176](https://github.com/automattic/fb-instant-articles/pull/176) Remove unused image.caption property from ImageRule (@demoive)
 - [#180](https://github.com/automattic/fb-instant-articles/pull/180) Fix empty articles being uploaded on bulk update (@diegoquinteiro)
 - [#167](https://github.com/automattic/fb-instant-articles/pull/167) Fixes #116 encoding problem (@everton-rosario)
 - [#173](https://github.com/automattic/fb-instant-articles/pull/173) Fixed empty link to Instant Articles signup (@demoive)
 
-### 2.8 (2016/04/14 23:23 +00:00)
+### 2.8 - 2016-04-14
 - [#151](https://github.com/automattic/fb-instant-articles/pull/151) Stop publishing drafts (@diegoquinteiro)
 
-### 2.6 (2016/04/13 16:24 +00:00)
+### 2.6 - 2016-04-13
 - [#115](https://github.com/automattic/fb-instant-articles/pull/115) Added information about initial publishing (@msurguy)
 - [#105](https://github.com/automattic/fb-instant-articles/pull/105) Update template-settings-info.php (@piscis)
 
-### 2.1 (2016/04/11 20:55 +00:00)
+### 2.1 - 2016-04-11
 - [#98](https://github.com/automattic/fb-instant-articles/pull/98) Fixes #72 (@diegoquinteiro)
 - [#90](https://github.com/automattic/fb-instant-articles/pull/90) Change readme.txt to reflect changes in 2.0 (@diegoquinteiro)
 - [#87](https://github.com/automattic/fb-instant-articles/pull/87) Clean unused files + fixes for 5.4 compatibility (@diegoquinteiro)
 
-### 2.0 (2016/04/06 17:45 +00:00)
+### 2.0 - 2016-04-06
 - [#70](https://github.com/automattic/fb-instant-articles/pull/70) Use SDK engine (@diegoquinteiro)
 
-### 0.2 (2016/03/09 19:44 +00:00)
+### 0.2 - 2016-03-09
 - [#41](https://github.com/automattic/fb-instant-articles/pull/41) Add support for subtitles through the filter instant_articles_subtitle (@bjornjohansen)
 - [#39](https://github.com/automattic/fb-instant-articles/pull/39) Jetpack compat: YouTube and Facebook embeds (@bjornjohansen)
 - [#22](https://github.com/automattic/fb-instant-articles/pull/22) Migrate the wpcom-helper.php from WordPress.com. (@Automattic)
+
+== Upgrade Notice ==
+
+### 5.0.0
+- Minimum PHP requirement is increased from PHP 5.4 to PHP 7.1.
+- Minimum WordPress requirement is increased from WP 4.3.0 to WP 4.7.0.
