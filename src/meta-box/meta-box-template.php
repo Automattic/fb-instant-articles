@@ -58,7 +58,7 @@ use Facebook\InstantArticles\Client\ServerMessage;
 	</b>
 </p>
 <hr>
-<?php elseif ( ! $fb_page_settings[ "page_id" ] ) : ?>
+<?php elseif ( ! $fb_page_settings['page_id'] ) : ?>
 <p>
 	<b>
 		<span class="dashicons dashicons-no-alt"></span>
@@ -102,7 +102,6 @@ use Facebook\InstantArticles\Client\ServerMessage;
 						?>
 					</span>
 				</div>
-				</dl>
 			</li>
 		<?php endforeach; ?>
 	</ul>

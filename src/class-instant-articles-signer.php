@@ -14,9 +14,9 @@
  */
 class Instant_Articles_Signer {
 
-  const PUBLIC_KEY_OPTION = 'instant-articles-rescrape-public-key';
-  const PRIVATE_KEY_OPTION = 'instant-articles-rescrape-private-key';
-  const PUBLIC_KEY_PATH = '.well-known/graph-api/apikey.pub';
+	public const PUBLIC_KEY_OPTION = 'instant-articles-rescrape-public-key';
+	public const PRIVATE_KEY_OPTION = 'instant-articles-rescrape-private-key';
+	public const PUBLIC_KEY_PATH = '.well-known/graph-api/apikey.pub';
 
   public static function init() {
     add_action( 'wp', array( 'Instant_Articles_Signer', 'output_public_key' ) );
@@ -24,7 +24,7 @@ class Instant_Articles_Signer {
 
   public static function output_public_key() {
     global $wp;
-    if ( $wp->request == self::PUBLIC_KEY_PATH ) {
+    if ( $wp->request === self::PUBLIC_KEY_PATH ) {
       status_header(200);
       echo self::get_public_key();
       die();
@@ -65,7 +65,7 @@ class Instant_Articles_Signer {
 
     // Extract the public key from $result to $public_key
     $public_key = openssl_pkey_get_details( $result );
-    $public_key = $public_key["key"];
+    $public_key = $public_key['key'];
 
     update_option( self::PRIVATE_KEY_OPTION, $private_key );
     update_option( self::PUBLIC_KEY_OPTION, $public_key );

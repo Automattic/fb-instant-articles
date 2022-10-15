@@ -12,7 +12,7 @@
  */
 class Instant_Articles_Option_FB_App extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-fb-app';
+	public const OPTION_KEY = 'instant-articles-option-fb-app';
 
 	public static $sections = array(
 		'title' => 'Facebook App',

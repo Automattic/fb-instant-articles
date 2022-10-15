@@ -42,13 +42,13 @@ class Instant_Articles_Comscore {
 	 */
 	public function get_raw_embed_code() {
 		$settings_analytics = Instant_Articles_Option_Analytics::get_option_decoded();
-		if ( ! isset( $settings_analytics['comscore_id'] ) || empty( $settings_analytics['comscore_id'] ) ) {
-			return;
+		if ( empty( $settings_analytics['comscore_id'] ) ) {
+			return '';
 		}
 
-		$comscore_id = intval( $settings_analytics['comscore_id'] );
+		$comscore_id = (int) $settings_analytics['comscore_id'];
 		if ( ! $comscore_id ) {
-			return;
+			return '';
 		}
 
 		$file_path = __DIR__ . '/comscore.js';

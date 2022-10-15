@@ -12,7 +12,7 @@ class Instant_Articles_Get_The_Image {
 	 * Init the compat layer
 	 *
 	 */
-	function init() {
+	public function init() {
 		add_filter( 'instant_articles_transformer_rules_loaded', array( 'Instant_Articles_Get_The_Image', 'transformer_loaded' ) );
 	}
 

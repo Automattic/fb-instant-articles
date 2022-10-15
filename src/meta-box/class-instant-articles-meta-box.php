@@ -66,7 +66,7 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function force_submit() {
-		$post_id = intval( $_POST[ 'post_ID' ] );
+		$post_id = (int) $_POST['post_ID'];
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_die( -1, 403 );
@@ -81,13 +81,13 @@ class Instant_Articles_Meta_Box {
 	 * Renderer for the Metabox.
 	 */
 	public static function render_meta_box() {
-		$post_id = intval( $_POST[ 'post_ID' ] );
+		$post_id = (int) $_POST['post_ID'];
 
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_die( -1, 403 );
 		}
 
-		$ajax_nonce = wp_create_nonce( "instant-articles-force-submit-" . $post_id );
+		$ajax_nonce = wp_create_nonce( 'instant-articles-force-submit-' . $post_id );
 		$post = get_post( $post_id );
 		$adapter = new Instant_Articles_Post( $post );
 
@@ -103,13 +103,11 @@ class Instant_Articles_Meta_Box {
 			$settings_page_href = Instant_Articles_Wizard::get_url();
 
 			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
-			$publish_with_warnings = isset( $publishing_settings[ 'publish_with_warnings' ] ) ? $publishing_settings[ 'publish_with_warnings' ] : false;
+			$publish_with_warnings = $publishing_settings['publish_with_warnings'] ?? false;
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 			$publishing_settings = Instant_Articles_Option_Publishing::get_option_decoded();
 
-			$dev_mode = isset( $publishing_settings['dev_mode'] )
-				? ( $publishing_settings['dev_mode'] ? true : false )
-				: false;
+			$dev_mode = isset( $publishing_settings['dev_mode'] ) && $publishing_settings['dev_mode'];
 
 			require __DIR__ . '/meta-box-template.php';
 		} catch (Exception $e) {

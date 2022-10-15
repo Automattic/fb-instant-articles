@@ -12,7 +12,7 @@
  */
 class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-ads';
+	public const OPTION_KEY = 'instant-articles-option-ads';
 
 	public static $sections = array(
 		'title' => 'Ads',
@@ -179,7 +179,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 				case 'fan_placement_id':
 					if ( isset( $field_values['ad_source'] ) && 'fan' === $field_values['ad_source'] ) {
-						if ( preg_match( '/^[0-9_]+$/', $field_values[ $field_id ] ) !== 1 ) {
+						if ( preg_match( '/^[0-9_]+$/', $field_value ) !== 1 ) {
 							add_settings_error(
 								$field_id,
 								'invalid_placement_id',
@@ -192,8 +192,8 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 
 				case 'iframe_url':
 					if ( isset( $field_values['ad_source'] ) && 'iframe' === $field_values['ad_source'] ) {
-						$url = $field_values[ $field_id ];
-						if ( substr( $url, 0, 2 ) === '//' ) {
+						$url = $field_value;
+						if ( strpos( $url, '//' ) === 0 ) {
 							// Allow URLs without protocol prefix
 							$url = 'http:' . $url;
 						}
@@ -213,7 +213,7 @@ class Instant_Articles_Option_Ads extends Instant_Articles_Option {
 					if ( isset( $field_values['ad_source'] ) && 'embed' === $field_values['ad_source'] ) {
 						$document = new DOMDocument();
 						$fragment = $document->createDocumentFragment();
-						if ( ! @$fragment->appendXML( $field_values[ $field_id ] ) ) {
+						if ( ! @$fragment->appendXML( $field_value ) ) {
 							add_settings_error(
 								'embed_code',
 								'invalid_markup',

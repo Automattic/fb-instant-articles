@@ -12,7 +12,7 @@
  */
 class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-publishing';
+	public const OPTION_KEY = 'instant-articles-option-publishing';
 
 	public static $sections = array(
 		'title' => 'Publishing Settings',
@@ -31,7 +31,6 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 		'custom_rules_enabled' => array(
 			'label' => 'Custom transformer rules',
 			'render' => 'checkbox',
-			'default' => '',
 			'checkbox_label' => 'Enable custom transformer rules',
 			'description' => 'Define your own rules to customize the transformation of your content into Instant Articles',
 			'default' => '',
@@ -98,8 +97,8 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 
 			switch ( $field_id ) {
 				case 'dev_mode':
-					$field_values[ $field_id ] = (bool) $field_value
-						? (string) true
+					$field_values[ $field_id ] = $field_value
+						? '1'
 						: (string) $field['default'];
 				break;
 

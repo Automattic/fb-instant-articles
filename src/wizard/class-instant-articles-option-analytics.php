@@ -12,7 +12,7 @@
  */
 class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-analytics';
+	public const OPTION_KEY = 'instant-articles-option-analytics';
 
 	public static $sections = array(
 		'title' => 'Analytics',
@@ -125,21 +125,18 @@ class Instant_Articles_Option_Analytics extends Instant_Articles_Option {
 		foreach ( $field_values as $field_id => $field_value ) {
 			$field = self::$fields[ $field_id ];
 
-			switch ( $field_id ) {
-				case 'embed_code':
-					if ( isset( $field_values['embed_code_enabled'] ) && $field_values['embed_code_enabled'] ) {
-						$document = new DOMDocument();
-						$fragment = $document->createDocumentFragment();
-						if ( ! @$fragment->appendXML( $field_values[ $field_id ] ) ) {
-							add_settings_error(
+			if ( $field_id === 'embed_code' ) {
+				if ( isset( $field_values['embed_code_enabled'] ) && $field_values['embed_code_enabled'] ) {
+					$document = new DOMDocument();
+					$fragment = $document->createDocumentFragment();
+					if ( ! @$fragment->appendXML( $field_value ) ) {
+						add_settings_error(
 								'embed_code',
 								'invalid_markup',
 								'Invalid HTML markup provided for custom analytics tracker code'
-							);
-						}
+						);
 					}
-
-				break;
+				}
 			}
 		}
 

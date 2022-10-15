@@ -12,8 +12,8 @@
  */
 class Instant_Articles_Option {
 
-	const PAGE_OPTION_GROUP = 'instant-articles-settings';
-	const PAGE_OPTION_GROUP_WIZARD = 'instant-articles-settings-wizard';
+	public const PAGE_OPTION_GROUP = 'instant-articles-settings';
+	public const PAGE_OPTION_GROUP_WIZARD = 'instant-articles-settings-wizard';
 	public static $fields = array();
 
 	/**
@@ -53,7 +53,7 @@ class Instant_Articles_Option {
 	 * serialized_with_group - String|false/null. Controls whether a particular field of a setting is serialized with the group or saved as its own independant option. Defaults to true.
 	 * label - String|null. The label for the field.
 	 * description - String. The description for the field, rendered as additional information below the field.
-	 * render - String|Function. How the field should be rendered as. Non-strings are assumed to be a function for rendering the field (third parameter of `add_settings_field()`). If a String, it is meant to be any of the standard <form> input types (checkbox, radio, textarea, hidden, select, textarea, password etc.') and the rendering will be handled by self::universal_render_handler(); if not defined, "text" is assumed
+	 * render - String|Function. How the field should be rendered as. Non-strings are assumed to be a function for rendering the field (third parameter of `add_settings_field()`). If a String, it is meant to be any of the standard <form> input types (checkbox, radio, textarea, hidden, select, textarea, password etc.) and the rendering will be handled by self::universal_render_handler(); if not defined, "text" is assumed
 	 * select_options - Array. Defines the <options> for a checkbox (key of this Array is used as its `value` attribute). Only used if the `render` is "select".
 	 * radio_options - Array. TO BE IMPLEMENTED (should mimic the "select_options" functionality)
 	 * placeholder - String. Used as the `placeholder` attribute for the <form> field.
@@ -79,9 +79,7 @@ class Instant_Articles_Option {
 		$this->key = $option_key;
 		$this->sections = $sections;
 		$this->field_definitions = $option_fields;
-		$this->page_option_group = null === $option_group
-			? self::PAGE_OPTION_GROUP
-			: $option_group;
+		$this->page_option_group = $option_group ?? self::PAGE_OPTION_GROUP;
 
 		$this->init();
 	}
@@ -95,9 +93,7 @@ class Instant_Articles_Option {
 		$saved_options = self::get_option_decoded( $this->key );
 
 		foreach ( $this->field_definitions as $field_key => $field ) {
-			self::$settings[ $field_key ] = isset( $saved_options[ $field_key ] )
-				? $saved_options[ $field_key ]
-				: $field['default'];
+			self::$settings[ $field_key ] = $saved_options[ $field_key ] ?? $field['default'];
 		}
 
 		$this->wp_bootstrap_register_option();
@@ -166,9 +162,7 @@ class Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	private function wp_bootstrap_create_sections() {
-		$title = isset( $this->sections['title'] )
-			? $this->sections['title']
-			: '';
+		$title = $this->sections['title'] ?? '';
 
 		$description = isset( $this->sections['description'] )
 			? wp_kses(
@@ -188,7 +182,7 @@ class Instant_Articles_Option {
 		add_settings_section(
 			$this->key,
 			esc_html( $title ),
-			function () use ( $description ) {
+			static function () use ( $description ) {
 				echo wp_kses_post( $description );
 			},
 			$this->key
@@ -229,7 +223,7 @@ class Instant_Articles_Option {
 				}
 			}
 
-			$renderer_handle = 'string' === gettype( $renderer_args['render'] )
+			$renderer_handle = is_string( $renderer_args['render'] )
 				? array( 'Instant_Articles_Option', 'universal_render_handler' )
 				: $renderer_args['render'];
 
@@ -251,9 +245,7 @@ class Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	public static function universal_render_handler( $args = null ) {
-		$id = isset( $args['label_for'] )
-			? $args['label_for']
-			: '';
+		$id = $args['label_for'] ?? '';
 
 		$type = isset( $args['render'] ) && gettype( 'string' === $args['render'] )
 			? $args['render']
@@ -277,9 +269,7 @@ class Instant_Articles_Option {
 			$name = $id;
 		}
 
-		$placeholder = isset( $args['placeholder'] )
-			? $args['placeholder']
-			: '';
+		$placeholder = $args['placeholder'] ?? '';
 
 		$attr_disabled = isset( $args['disable'] ) && true === $args['disable']
 			? disabled()
@@ -299,9 +289,7 @@ class Instant_Articles_Option {
 			)
 			: '';
 
-		$field_checkbox_label = isset( $args['checkbox_label'] )
-			? $args['checkbox_label']
-			: '';
+		$field_checkbox_label = $args['checkbox_label'] ?? '';
 
 		switch ( $type ) {
 			case 'hidden':
@@ -354,7 +342,7 @@ class Instant_Articles_Option {
 						value="<?php echo esc_attr( $option_key ) ?>"
 						<?php echo selected( $option_key, $option_value ) ?>
 						<?php echo isset( $args['disable'] )
-							&& gettype( $args['disable'] ) === 'array'
+						           && is_array( $args['disable'] )
 							&& in_array( $option_key, $args['disable'], true )
 						? disabled()
 						: '';
@@ -438,7 +426,7 @@ class Instant_Articles_Option {
 		$allowed_payload = $payload;
 
 		// Pass the value along to the Child class's method to perform sanitation on its fields.
-		$sanitized_payload = static::sanitize_option_fields( $allowed_payload );
+		$sanitized_payload = $this->sanitize_option_fields( $allowed_payload );
 
 		// Encode the payload into JSON before it's sent off to be saved.
 		return wp_json_encode( $sanitized_payload );
@@ -459,7 +447,6 @@ class Instant_Articles_Option {
 	 * Updates options from decoded map
 	 *
 	 * @param string $option_key to be returned.
-	 * @return array from a json decoded content.
 	 * @since 0.4
 	 */
 	public static function update_option( $option = array(), $option_key = null ) {
@@ -475,7 +462,6 @@ class Instant_Articles_Option {
 	 * Updates options from decoded map
 	 *
 	 * @param string $option_key to be returned.
-	 * @return array from a json decoded content.
 	 * @since 0.4
 	 */
 	public static function delete_option( $option_key = null ) {

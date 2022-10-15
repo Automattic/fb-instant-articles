@@ -12,7 +12,7 @@
  */
 class Instant_Articles_Option_Styles extends Instant_Articles_Option {
 
-	const OPTION_KEY = 'instant-articles-option-styles';
+	public const OPTION_KEY = 'instant-articles-option-styles';
 
 	public static $sections = array(
 		'title' => 'Appearance',

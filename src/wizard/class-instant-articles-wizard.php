@@ -11,17 +11,23 @@ use Facebook\InstantArticles\Client\Client;
 use Facebook\InstantArticles\Client\ClientException;
 
 /**
-* Controller for Set-up Wizard
-*
-* @since 3.1
-*/
+ * Controller for Set-up Wizard
+ *
+ * @since 3.1
+ */
 class Instant_Articles_Wizard {
 
 	public static function init() {
 
 		add_action( 'admin_menu', array( 'Instant_Articles_Wizard', 'menu_items' ) );
 
-		add_filter( 'plugin_action_links_' . plugin_basename( IA_PLUGIN_FILE ), array( 'Instant_Articles_Wizard', 'add_settings_link_to_plugin_actions' ) );
+		add_filter(
+			'plugin_action_links_' . plugin_basename( IA_PLUGIN_FILE ),
+			array(
+				'Instant_Articles_Wizard',
+				'add_settings_link_to_plugin_actions'
+			)
+		);
 
 		add_action( 'admin_init', function () {
 			new Instant_Articles_Option_FB_Page();
@@ -36,24 +42,25 @@ class Instant_Articles_Wizard {
 	}
 
 	public static function add_settings_link_to_plugin_actions( $links ) {
-		$link_text = __( 'Settings' );
+		$link_text     = __( 'Settings' );
 		$settings_href = self::get_url();
 		$settings_link = '<a href="' . esc_url( $settings_href ) . '">' . esc_html( $link_text ) . '</a>';
-		array_push( $links, $settings_link );
+		$links[] = $settings_link;
+
 		return $links;
 	}
 
 	public static function menu_items() {
 		add_menu_page(
-			'Instant Articles Setup Wizard',
-			'Instant Articles',
-			'manage_options',
-			'instant-articles-wizard',
-			array( 'Instant_Articles_Wizard', 'render' )
-			,'dashicons-facebook'
+			  'Instant Articles Setup Wizard',
+			  'Instant Articles',
+			  'manage_options',
+			  'instant-articles-wizard',
+			  array( 'Instant_Articles_Wizard', 'render' )
+			, 'dashicons-facebook'
 		);
 		// Hack to let the URL visible to ajax handlers
-		update_option( 'instant-articles-wizard-url', menu_page_url( 'instant-articles-wizard', false) );
+		update_option( 'instant-articles-wizard-url', menu_page_url( 'instant-articles-wizard', false ) );
 	}
 
 	public static function get_url() {
@@ -69,8 +76,7 @@ class Instant_Articles_Wizard {
 
 
 	public static function get_admin_url() {
-		$url = parse_url( admin_url() );
-		return $url['host'];
+		return parse_url( admin_url(), PHP_URL_HOST );
 	}
 
 	public static function render( $ajax = false ) {
@@ -81,21 +87,21 @@ class Instant_Articles_Wizard {
 		try {
 			// Read options (they are used on the templates)
 			$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
-			$settings_url = self::get_url();
+			$settings_url     = self::get_url();
 
 			include( __DIR__ . '/templates/advanced-template.php' );
-		} catch (Exception $e) {
+		} catch ( Exception $e ) {
 			if ( Instant_Articles_Wizard_State::get_current_state() !== Instant_Articles_Wizard_State::STATE_REVIEW_SUBMISSION ) {
 				// Restarts the wizard
 				Instant_Articles_Wizard_State::do_transition( Instant_Articles_Wizard_State::STATE_APP_SETUP );
-				echo '<div class="error settings-error notice is-dismissible"><p><strong>'.
-					esc_html(
-						'Error processing your request. Check server log for more details. Setup and login again to renew Application credentials. Error message: ' .
-						$e->getMessage()
-					) . '</strong></p></div>';
-				Instant_Articles_Wizard::render( $ajax, true );
+				echo '<div class="error settings-error notice is-dismissible"><p><strong>' .
+				     esc_html(
+					     'Error processing your request. Check server log for more details. Setup and login again to renew Application credentials. Error message: ' .
+					     $e->getMessage()
+				     ) . '</strong></p></div>';
+				self::render( $ajax );
 			}
 		}
 	}
 
- }
+}

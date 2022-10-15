@@ -11,7 +11,7 @@
 <span class="instant_articles_spinner" ></span>
 
 <script>
-	jQuery( document ).ready( function( $ ) {
+	jQuery( document ).ready( function() {
 		instant_articles_load_meta_box( <?php echo absint( $post->ID ); ?> );
 	} );
 </script>
