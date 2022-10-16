@@ -14,8 +14,32 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: Automattic/vip-actions/stale@trunk
+      - name: Process stale issues and pull requests
+        uses: actions/stale@main
+        id: stale
         with:
-          days-before-stale: "7"
+          close-issue-label: "[Status] Autoclosed"
+          close-pr-label: "[Status] Autoclosed"
+          days-before-close: "7"
+          days-before-stale: "30"
           ascending: true
           operations-per-run: 200
+          exempt-all-milestones: true
+          stale-issue-label: "[Status] Stale"
+          stale-issue-message: >
+            This issue has been marked stale because it has been open for
+            30 days with no activity. If there is no activity within 7 days,
+            it will be closed.
+            This is an automation to keep issues manageable and actionable and is
+            not a comment on the quality of this issue nor on the work done so
+            far. Closed issues are still valuable to the project and are
+            available to be searched.
+          stale-pr-label: "[Status] Stale"
+          stale-pr-message: >
+            This pull request has been marked stale because it has been open for
+            30 days with no activity. If there is no activity within 7 days,
+            it will be closed.
+            This is an automation to keep pull requests manageable and actionable
+            and is not a comment on the quality of this pull request nor on the
+            work done so far. Closed PRs are still valuable to the project and
+            their branches are preserved.
