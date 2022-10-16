@@ -3,6 +3,8 @@ name: Stale monitor
 on:
   schedule:
     - cron: '0 0 * * *'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
 
 jobs:
   stale:
@@ -14,4 +16,6 @@ jobs:
     steps:
       - uses: Automattic/vip-actions/stale@trunk
         with:
-          days-before-stale: "30"
+          days-before-stale: "7"
+          ascending: true
+          operations-per-run: 200
