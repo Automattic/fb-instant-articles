@@ -49,6 +49,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # There's a known PHP 8.2 deprecation that is not fixed in the plugin.
+      - name: Setup ini config
+        if: ${{ matrix.php >= 8.2 }}
+        run: echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED' >> $GITHUB_OUTPUT
+
       - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
         with:
