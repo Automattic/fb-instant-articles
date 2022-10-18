@@ -1,22 +1,52 @@
 <?php
 /**
- * Facebook Instant Articles for WP.
- * This source code is licensed under the license found in the
- * LICENSE file in the root directory of this source tree.
+ * Integration Tests: PHPUnit bootstrap file
  *
- * @package default
+ * @package Facebook\InstantArticles\Tests
  */
 
-$_tests_dir = getenv( 'WP_TESTS_DIR' );
-if ( ! $_tests_dir ) {
-	$_tests_dir = '/tmp/wordpress-tests-lib';
+declare(strict_types=1);
+
+namespace Facebook\InstantArticles\Tests {
+
+	use Yoast\WPTestUtils\WPIntegration;
+
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+	$_tests_dir = getenv( 'WP_TESTS_DIR' );
+
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+	if ( ! $_tests_dir ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+		$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv
+		putenv( 'WP_TESTS_DIR=' . $_tests_dir );
+	}
+
+	if ( getenv( 'WP_PLUGIN_DIR' ) !== false ) {
+		define( 'WP_PLUGIN_DIR', getenv( 'WP_PLUGIN_DIR' ) );
+	} else {
+		define( 'WP_PLUGIN_DIR', dirname( __DIR__, 2 ) );
+	}
+
+	$plugin_root_file_path = 'fb-instant-articles/facebook-instant-articles.php';
+
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+	$GLOBALS['wp_tests_options'] = array(
+		'active_plugins' => array( $plugin_root_file_path ),
+	);
+
+	require_once dirname( __DIR__ ) . '/vendor/yoast/wp-test-utils/src/WPIntegration/bootstrap-functions.php';
+
+	/*
+	 * Load WordPress, which will load the Composer autoload file, and load the
+	 * MockObject autoloader after that.
+	 */
+	WPIntegration\bootstrap_it();
+
+	if ( ! defined( 'WP_PLUGIN_DIR' ) || file_exists( WP_PLUGIN_DIR . '/' . $plugin_root_file_path ) === false ) {
+		echo PHP_EOL, 'ERROR: Please check whether the WP_PLUGIN_DIR environment variable is set and set to the correct value. The unit test suite won\'t be able to run without it.', PHP_EOL;
+		exit( 1 );
+	}
+
+	// Additional necessary requires, such as custom TestCases.
 }
-
-require_once $_tests_dir . '/includes/functions.php';
-
-function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/facebook-instant-articles.php';
-}
-tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
-
-require $_tests_dir . '/includes/bootstrap.php';

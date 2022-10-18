@@ -6,9 +6,11 @@
  * This source code is licensed under the license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
+declare(strict_types=1);
+
 namespace Facebook\InstantArticles\Transformer;
 
-use Facebook\InstantArticles\Transformer\Transformer;
 use Facebook\InstantArticles\Elements\InstantArticle;
 use Facebook\InstantArticles\Elements\Header;
 use Facebook\InstantArticles\Elements\Time;
@@ -16,8 +18,7 @@ use Facebook\InstantArticles\Elements\Author;
 
 class WPTransformerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTransformerLikeWPContent()
-    {
+    public function test_transform_content(): void {
         $json_file = file_get_contents(__DIR__ . '/wp-rules.json');
 
         $instant_article = InstantArticle::create();
@@ -51,13 +52,12 @@ class WPTransformerTest extends \PHPUnit_Framework_TestCase
         $result = $instant_article->render('', true)."\n";
         $expected = file_get_contents(__DIR__ . '/wp-ia.xml');
 
-        $this->assertEquals($expected, $result);
+        self::assertSame($expected, $result);
         // there must be 3 warnings related to <img> inside <li> that is not supported by IA
-        $this->assertEquals(3, count($transformer->getWarnings()));
+        self::assertCount(3, $transformer->getWarnings());
     }
 
-    public function testTitleTransformedWithBold()
-    {
+    public function test_title_transformed_with_bold(): void {
         $transformer = new Transformer();
         $json_file = file_get_contents(__DIR__ . '/wp-rules.json');
         $transformer->loadRules($json_file);
@@ -72,6 +72,6 @@ class WPTransformerTest extends \PHPUnit_Framework_TestCase
         $header = Header::create();
         $transformer->transform($header, $document);
 
-        $this->assertEquals('<h1>Title <b>in bold</b></h1>', $header->getTitle()->render());
+        self::assertSame('<h1>Title <b>in bold</b></h1>', $header->getTitle()->render());
     }
 }

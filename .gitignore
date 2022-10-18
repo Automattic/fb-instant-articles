@@ -1,5 +1,6 @@
-.DS_Store
-vendor
-resty
-jsawk
-facebook-instant-articles-wp.zip
+/facebook-instant-articles-wp.zip
+/.phpcs.xml
+/.phpunit.result.cache
+/.wp-env.override.json
+/composer.lock
+/vendor

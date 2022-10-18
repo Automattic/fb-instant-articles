@@ -7,7 +7,7 @@
  * @package default
  */
 
-require_once( dirname( __FILE__ ) . '/class-instant-articles-option.php' );
+require_once __DIR__ . '/class-instant-articles-option.php';
 
 /**
  * FB Page configuration.
@@ -38,7 +38,7 @@ class Instant_Articles_Option_FB_Page extends Instant_Articles_Option {
 	 * @since 0.4
 	 */
 	public function __construct() {
-		$this->options_manager = new parent(
+		parent::__construct(
 			self::OPTION_KEY,
 			self::$sections,
 			self::$fields

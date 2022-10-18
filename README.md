@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/Automattic/facebook-instant-articles-wp.svg?branch=master)](https://travis-ci.org/Automattic/facebook-instant-articles-wp)
-
+[![CS & Lint](https://github.com/Automattic/fb-instant-articles/actions/workflows/cs-lint.yml/badge.svg)](https://github.com/Automattic/fb-instant-articles/actions/workflows/cs-lint.yml) [![Integration Tests](https://github.com/Automattic/fb-instant-articles/actions/workflows/tests.yml/badge.svg)](https://github.com/Automattic/fb-instant-articles/actions/workflows/tests.yml) [![Stale monitor](https://github.com/Automattic/fb-instant-articles/actions/workflows/stale.yml/badge.svg)](https://github.com/Automattic/fb-instant-articles/actions/workflows/stale.yml)
 # Instant Articles for WP
 
 Enable [Instant Articles for Facebook](https://developers.facebook.com/docs/instant-articles) on your WordPress site.
 
-## Plugin activity
-[![Throughput Graph](https://graphs.waffle.io/Automattic/facebook-instant-articles-wp/throughput.svg)](https://waffle.io/Automattic/facebook-instant-articles-wp/metrics/throughput)
+## Maintenance 🚩
+Support for this plugin is provided for PHP 8 migrations, but both Automattic/WPVIP and Facebook/Meta have stopped all active development. At this point in the product lifecycle, publishers should be advised to stop using this plugin, and instead, use direct site traffic for Facebook content.
+Meta have announced that Instant Articles will have all support dropped at April 2023.
 
 ## Description
 
@@ -46,7 +46,7 @@ More likely than not, this is because there is markup in the body of your post t
 
 **Why doesn't my post appear in the list of Instant Articles in the publisher tools?**
 Your posts are imported to your library when they are shared on Facebook for the first time.
- 
+
 Alternatively, you can trigger a manual scrape by pasting your URL on our [Share Debugger](http://developers.facebook.com/tools/debug)
 
 Only Instant Articles with URLs in [domains you have claimed](https://developers.facebook.com/docs/instant-articles/guides/publishertools#connect) will show up in the Publishing Tools section.
@@ -79,43 +79,6 @@ By default it is set to `instant-articles` which usually will give you a feed UR
 
 Usually simply visiting the permalinks settings page in the WordPress dashboard will do the trick (/wp-admin/options-permalink.php)
 
-## Development Environment
-You are more than welcome to help us to make this plugin even better!
+## Changelog
 
-### Setup SDK and WP to use the Github code
-Most of development and debugging we use the master or any feature branch for the development of WP plugin. 
-Sometimes it needs specific or newest version of the SDK to match all the new features that are release candidates to every new release of SDK and WP plugin.
-
-The SDK is also under development @ GitHub: <https://github.com/facebook/facebook-instant-articles-sdk-php>
-
-#### Pre-requisites
-- Have PHP installed (you can install with homebrew)
-- Have WebServer installed (you can use MAMP)
-- Have WP installed (downloading from wordpress.org)
-
-#### Setup
-Clone both repositories into your developer folder (ex: ~/instant-articles).
-```
-git clone git@github.com:Automattic/facebook-instant-articles-wp.git
-git clone git@github.com:facebook/facebook-instant-articles-sdk-php.git
-```
-
-Build both source folders:
-```
-cd facebook-instant-articles-sdk-php
-composer install
-
-cd ../facebook-instant-articles-wp
-composer install
-```
-
-Now remove the build from your WordPress, so it will include the code you've just built.
-```
-rm -rf vendor/facebook/facebook-instant-articles-sdk-php
-ln -s ~/facebook-instant-articles-sdk-php vendor/facebook/facebook-instant-articles-sdk-php
-```
-
-and now you can create a link inside your /wp-content/plugins to your folder 
-```
-ln -s ~/facebook-instant-articles-wp wp-content/plugins/facebook-instant-articles-wp
-```
+Please visit the [changelog](https://github.com/Automattic/fb-instant-articles/blob/develop/CHANGELOG.md).
