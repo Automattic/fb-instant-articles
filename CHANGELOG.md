@@ -4,22 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.0.0] - 2022-10-18
 
 **Minimum PHP requirement is increased from PHP 5.4 to PHP 7.1.**
 **Minimum WordPress requirement is increased from WP 4.3.0 to WP 4.7.0.**
 
+- [#683](https://github.com/Automattic/fb-instant-articles/pull/683) Fix wizard option dynamic properties for PHP 8.2.
 - [#831](https://github.com/Automattic/fb-instant-articles/pull/831) Fix the way filters are applied in get_cover_media().
 - [#1025](https://github.com/Automattic/fb-instant-articles/pull/1025) Support for installing as Composer Package.
 - [#1058](https://github.com/Automattic/fb-instant-articles/pull/1058) Allow post content caching to be disabled.
-- [#1073](https://github.com/Automattic/fb-instant-articles/pull/1073) Update release.sh
+- [#1073](https://github.com/Automattic/fb-instant-articles/pull/1073) Update release.sh.
 - [#1076](https://github.com/Automattic/fb-instant-articles/pull/1076) Reduce plugin's cache burden for remote requests.
 - [#1082](https://github.com/Automattic/fb-instant-articles/pull/1082) Fix: pass the missing $post param to the get_the_excerpt filter.
 - [#1092](https://github.com/Automattic/fb-instant-articles/pull/1092) Add support for PHP 8.
-- [#1095](https://github.com/Automattic/fb-instant-articles/pull/1095) Add GitHub workflow to mark issues and PR as stale
-- [#1097](https://github.com/Automattic/fb-instant-articles/pull/1097) Actions: Remove separate PHP 8.2 composer install
-- [#1098](https://github.com/Automattic/fb-instant-articles/pull/1098) Improve tests
-- [#1099](https://github.com/Automattic/fb-instant-articles/pull/1099) Basic code maintenance improvements
+- [#1095](https://github.com/Automattic/fb-instant-articles/pull/1095) Add GitHub workflow to mark issues and PR as stale.
+- [#1097](https://github.com/Automattic/fb-instant-articles/pull/1097) Actions: Remove separate PHP 8.2 composer install.
+- [#1098](https://github.com/Automattic/fb-instant-articles/pull/1098) Improve tests.
+- [#1099](https://github.com/Automattic/fb-instant-articles/pull/1099) Basic code maintenance improvements.
 
 ## [4.2.1] - 2020-06-10
 - [#1049](https://github.com/automattic/fb-instant-articles/pull/1049) Add support for new guttenberg layout elements (@diegoquinteiro)
@@ -239,7 +240,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - [#39](https://github.com/automattic/fb-instant-articles/pull/39) Jetpack compat: YouTube and Facebook embeds (@bjornjohansen)
 - [#22](https://github.com/automattic/fb-instant-articles/pull/22) Migrate the wpcom-helper.php from WordPress.com. (@Automattic)
 
-[Unreleased]: https://github.com/automattic/fb-instant-articles/compare/4.2.1...HEAD
+[Unreleased]: https://github.com/automattic/fb-instant-articles/compare/5.0.0...HEAD
+[5.0.0]: https://github.com/automattic/fb-instant-articles/compare/4.2.1...5.0.0
 [4.2.1]: https://github.com/automattic/fb-instant-articles/compare/4.2.0...4.2.1
 [4.2.0]: https://github.com/automattic/fb-instant-articles/compare/4.1.1...4.2.0
 [4.1.1]: https://github.com/automattic/fb-instant-articles/compare/4.1.0...4.1.1
