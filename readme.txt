@@ -3,8 +3,8 @@ Contributors: trrine, olethomas, bjornjohansen, dekode, GaryJ, automattic, fb
 Tags: instant-articles, fb, mobile, instant articles
 Requires at least: 4.7
 Requires PHP: 7.1
-Tested up to: 6.0.2
-Stable tag: 5.0.0
+Tested up to: 6.0.3
+Stable tag: 5.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,10 @@ With the plugin active, a new menu will be available for you to connect to your 
 A best effort is made to generate valid Instant Article markup from your posts' content/metadata and publish it to Facebook. The plugin knows how to transform your posts' markup from a set of rules which forms a mapping between elements in you *source markup* and the valid *Instant Article components*. We refer to this “glue” between the two as the ***Transformer Rules***.
 
 Built-in to the plugin are many [pre-defined transformer rules](https://github.com/Automattic/fb-instant-articles/blob/master/rules-configuration.json) which aims to cover standard WordPress installations. If your WordPress content contains elements which are not covered by the built-in ruleset, you can define your own additional rules to extend or override the defaults in the Settings of this plugin, under: **Plugin Configuration** > **Publishing Settings** > **Custom transformer rules**.
+
+= Maintenance =
+Support for this plugin is provided for PHP 8 migrations, but both Automattic/WPVIP and Facebook/Meta have stopped all active development. At this point in the product lifecycle, publishers should be advised to stop using this plugin, and instead, use direct site traffic for Facebook content.
+Meta have announced that Instant Articles will have all support dropped at April 2023.
 
 = Access to Instant Articles =
 
@@ -89,6 +93,10 @@ Usually simply visiting the permalinks settings page in the WordPress dashboard 
 1. Customized transformer rules enabled on the main Settings page. The particular configuration shown here would cause `<u>` and `<bold>` tags in the source markup to be rendered in *italics* and **bold**, respectively, in the generated Instant Article.
 
 == Changelog ==
+### 5.0.1 - 2022-10-18
+
+- Refresh dependency that handles fixing of transformer encodings.
+
 ### 5.0.0 - 2022-10-18
 **Minimum PHP requirement is increased from PHP 5.4 to PHP 7.1.**
 **Minimum WordPress requirement is increased from WP 4.3.0 to WP 4.7.0.**
