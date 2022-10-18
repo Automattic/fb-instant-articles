@@ -1,0 +1,14 @@
+/.distignore
+/.editorconfig
+/.git
+/.gitignore
+/.github
+/.phpcs.xml.dist
+/.phpunit.result.cache
+/.wordpress-org
+/bin
+/composer.json
+/phpunit.xml.dist
+/release.sh
+/tests
+
