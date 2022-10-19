@@ -60,9 +60,17 @@ class Instant_Articles_Post {
 	public $transformer = null;
 
 	/**
-	 * @var InstantArticle|mixed|null
+	 * Instant Article object.
+	 *
+	 * This is the object that will be used to build the Instant Article markup.
+	 *
+	 * It's public so that it can continue to be accessed by outside code.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var InstantArticle The Instant Article object.
 	 */
-	private $instant_article;
+	public $instant_article;
 
 	/**
 	 * Setup data and build the content
