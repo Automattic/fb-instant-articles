@@ -17,7 +17,6 @@ use Facebook\InstantArticles\Elements\Image;
 use Facebook\InstantArticles\Elements\Video;
 use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\Footer;
-use Facebook\InstantArticles\Elements\Small;
 use Facebook\InstantArticles\Transformer\Transformer;
 use Facebook\InstantArticles\Validators\Type;
 
@@ -29,48 +28,50 @@ use Facebook\InstantArticles\Validators\Type;
 class Instant_Articles_Post {
 
 	/**
-	 * The post
+	 * The WordPress post object.
 	 *
-	 * @var $_post
+	 * @var WP_Post $_post
 	 */
-	protected $_post = null;
+	protected $_post;
 
 	/**
 	 * The post cached content
 	 *
 	 * @var string $_content
 	 */
-	protected $_content = null;
+	protected $_content;
 
 	/** @var string The post’s optional subtitle */
-	protected $_subtitle = null;
-
-	/**
-	 * Instant Article instance object
-	 *
-	 * @var InstantArticle Last built version of the Instant Article object
-	 */
-	protected $_instant_article = null;
+	protected $_subtitle;
 
 	/**
 	 * Instant Article Transformer instance object
 	 *
 	 * @var Transformer The Transformer object
 	 */
-	public $transformer = null;
+	public $transformer;
 
 	/**
-	 * @var InstantArticle|mixed|null
+	 * Instant Article object.
+	 *
+	 * This is the object that will be used to build the Instant Article markup.
+	 *
+	 * It's public so that it can continue to be accessed by outside code.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var InstantArticle The Instant Article object.
 	 */
-	private $instant_article;
+	public $instant_article;
 
 	/**
-	 * Setup data and build the content
+	 * Construct the Instant_Articles_Post object.
 	 *
 	 * @since 0.1
-	 * @param Instant_Article_Post $post ID of the post.
+	 *
+	 * @param WP_Post $post Post object.
 	 */
-	public function __construct( $post ) {
+	public function __construct( WP_Post $post ) {
 		$this->_post = $post;
 	}
 
@@ -78,9 +79,10 @@ class Instant_Articles_Post {
 	 * Get the ID for this post.
 	 *
 	 * @since 0.1
+	 *
 	 * @return int The post ID.
 	 */
-	public function get_the_id() {
+	public function get_the_id(): int {
 		return $this->_post->ID;
 	}
 
@@ -90,7 +92,7 @@ class Instant_Articles_Post {
 	 * @since 0.1
 	 * @return string The title.
 	 */
-	public function get_the_title() {
+	public function get_the_title(): string {
 		$title = $this->_post->post_title;
 
 		/**
@@ -107,12 +109,10 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 *
-		 * @param string               $title                The current post title.
-		 * @param Instant_Article_Post $instant_article_post The instant article post.
+		 * @param string                $title                The current post title.
+		 * @param Instant_Articles_Post $instant_article_post The instant article post.
 		 */
-		$title = apply_filters( 'instant_articles_title', $title, $this );
-
-		return $title;
+		return apply_filters( 'instant_articles_title', $title, $this );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Instant_Articles_Post {
 	 * @since 0.1
 	 * @return string The title.
 	 */
-	public function get_the_title_rss() {
+	public function get_the_title_rss(): string {
 		$title = $this->get_the_title();
 
 		/**
@@ -131,37 +131,28 @@ class Instant_Articles_Post {
 		 *
 		 * @param string $title The current post title.
 		 */
-		$title = apply_filters( 'the_title_rss', $title );
-
-		return $title;
+		return apply_filters( 'the_title_rss', $title );
 	}
 
 	/**
-	 * Check if this post has a subtitle
+	 * Check if this post has a subtitle.
 	 *
 	 * @since 0.2
-	 * @return bool Whether the post has a subtitle or not
+	 *
+	 * @return bool True if the post has a subtitle.
 	 */
-	public function has_subtitle() {
-
-		$has_subtitle = false;
-
-		$subtitle = $this->get_the_subtitle();
-
-		if ( $subtitle != '' ) {
-			$has_subtitle = true;
-		}
-
-		return $subtitle;
+	public function has_subtitle(): bool {
+		return $this->get_the_subtitle() !== '';
 	}
 
 	/**
-	 * Get the subtitle for this post
+	 * Get the subtitle for this post.
 	 *
 	 * @since 0.2
+	 *
 	 * @return string The subtitle
 	 */
-	public function get_the_subtitle() {
+	public function get_the_subtitle(): string {
 
 		// If we have already been through this function, we’ll have the result stored here
 		if ( $this->_subtitle !== null ) {
@@ -189,11 +180,10 @@ class Instant_Articles_Post {
 	 * Get the excerpt for this post.
 	 *
 	 * @since 0.1
-	 * @return string  The excerpt.
+	 *
+	 * @return string  The post excerpt.
 	 */
-	public function get_the_excerpt() {
-		$post = get_post( $this->get_the_id() );
-
+	public function get_the_excerpt(): string {
 		// This should ideally not happen, but it may do so if someone tampers with the query.
 		// Returning the same protected post excerpt as "usual" may help them identify what’s going on.
 		if ( post_password_required( $this->get_the_id() ) ) {
@@ -212,7 +202,7 @@ class Instant_Articles_Post {
 		 * @param string  $post_excerpt The post excerpt.
 		 * @param WP_Post $post         The post object.
 		 */
-		$excerpt = apply_filters( 'get_the_excerpt', $post->post_excerpt, $post );
+		$excerpt = apply_filters( 'get_the_excerpt', $this->_post->post_excerpt, $this->_post );
 
 		/**
 		 * Filter the post excerpt for instant articles.
@@ -228,13 +218,13 @@ class Instant_Articles_Post {
 	}
 
 	/**
-	 * Get the excerpt for this post
+	 * Get the excerpt for this post.
 	 *
 	 * @since 0.1
+	 *
 	 * @return string The excerpt
 	 */
-	public function get_the_excerpt_rss() {
-
+	public function get_the_excerpt_rss(): string {
 		$excerpt = $this->get_the_excerpt();
 
 		/**
@@ -244,22 +234,21 @@ class Instant_Articles_Post {
 		 *
 		 * @param string $excerpt The current post excerpt.
 		 */
-		$excerpt = apply_filters( 'the_excerpt_rss', $excerpt );
-
-		return $excerpt;
+		return apply_filters( 'the_excerpt_rss', $excerpt );
 	}
 
 	/**
-	 * Get the canonical URL for this post
+	 * Get the canonical URL for this post.
 	 *
 	 * A little warning here: It is extremely important that this is the same canonical URL as is used on the website.
-	 * This is the identificator Facebook use to connect the "read" web article with the instant article.
+	 * This is the identifier Facebook use to connect the "read" web article with the instant article.
 	 * Do not add any querystring params or URL fragments it. Not any. Not even for tracking.
 	 *
 	 * @since 0.1
-	 * @return string  The canonical URL
+	 *
+	 * @return string The canonical URL.
 	 */
-	public function get_canonical_url() {
+	public function get_canonical_url(): string {
 		// If post is draft, clone it to get the eventual permalink,
 		// see http://wordpress.stackexchange.com/a/42988.
 		if ( in_array( $this->_post->post_status, array( 'draft', 'pending', 'auto-draft' ), true ) ) {
@@ -278,9 +267,10 @@ class Instant_Articles_Post {
 	 * Get the article body for this post
 	 *
 	 * @since 0.1
+	 *
 	 * @return string The content
 	 */
-	public function get_the_content() {
+	public function get_the_content(): string {
 
 		if ( $this->_content === null ) {
 			$this->_content = $this->_get_the_content();
@@ -294,9 +284,10 @@ class Instant_Articles_Post {
 	 * Put together the article body for this post
 	 *
 	 * @since 0.1
+	 *
 	 * @return string The content
 	 */
-	protected function _get_the_content() {
+	protected function _get_the_content(): string {
 
 		// Try to get the content from a transient, but only if the cached version have the same modtime.
 		$cache_mod_time = get_transient( 'instantarticles_mod_' . $this->_post->ID );
@@ -325,18 +316,18 @@ class Instant_Articles_Post {
 		// Now get the content.
 		$content = $this->_post->post_content;
 
-		/**
-		 * Apply the default filter 'the_content' for the post content.
-		 *
-		 * @since 0.1
-		 * @param string $content The current post content.
-		 */
-
 		// Some people choose to disable wpautop. Due to the Instant Articles spec, we really want it in!
 		if ( ! has_filter( 'the_content', 'wpautop' ) ) {
 			add_filter( 'the_content', 'wpautop' );
 		}
 
+		/**
+		 * Apply the default filter 'the_content' for the post content.
+		 *
+		 * @since 0.1
+		 *
+		 * @param string $content The current post content.
+		 */
 		$content = apply_filters( 'the_content', $content );
 
 		// Maybe cleanup some globals after us?
@@ -355,6 +346,7 @@ class Instant_Articles_Post {
 		 * Filter the post content for Instant Articles.
 		 *
 		 * @since 0.1
+		 *
 		 * @param string $content The post content.
 		 * @param int    $post_id The instant article post.
 		 */
@@ -371,9 +363,10 @@ class Instant_Articles_Post {
 	 * Get the published date for this post (ISO 8601).
 	 *
 	 * @since 0.1
-	 * @return string  The published date formatted suitable for use in the RSS feed and the html time elements (ISO 8601).
+	 *
+	 * @return string The published date formatted suitable for use in the RSS feed and the html time elements (ISO 8601).
 	 */
-	public function get_the_pubdate_iso() {
+	public function get_the_pubdate_iso(): string {
 
 		$published_date = mysql2date( 'c', get_post_time( 'Y-m-d H:i:s', true, $this->_post->ID ), false );
 
@@ -382,22 +375,20 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 *
-		 * @param string               $published_date       The current post published date.
-		 * @param Instant_Article_Post $instant_article_post The instant article post.
+		 * @param string                $published_date       The current post published date.
+		 * @param Instant_Articles_Post $instant_article_post The instant article post.
 		 */
-		$published_date = apply_filters( 'instant_articles_published_date_iso', $published_date, $this );
-
-		return $published_date;
-
+		return apply_filters( 'instant_articles_published_date_iso', $published_date, $this );
 	}
 
 	/**
 	 * Get the modified date for this post (ISO 8601).
 	 *
 	 * @since 0.1
+	 *
 	 * @return string  The modified date formatted suitable for use in the RSS feed and the html time elements (ISO 8601).
 	 */
-	public function get_the_moddate_iso() {
+	public function get_the_moddate_iso(): string {
 
 		$modified_date = mysql2date( 'c', get_post_modified_time( 'Y-m-d H:i:s', true, $this->_post->ID ), false );
 
@@ -406,22 +397,20 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 *
-		 * @param string               $modified_date        The current post modified date.
-		 * @param Instant_Article_Post $instant_article_post The instant article post.
+		 * @param string                $modified_date        The current post modified date.
+		 * @param Instant_Articles_Post $instant_article_post The instant article post.
 		 */
-		$modified_date = apply_filters( 'instant_articles_modified_date_iso', $modified_date, $this );
-
-		return $modified_date;
-
+		return apply_filters( 'instant_articles_modified_date_iso', $modified_date, $this );
 	}
 
 	/**
 	 * Get the author(s).
 	 *
 	 * @since 0.1
-	 * @return array  $authors  The post author(s).
+	 *
+	 * @return array $authors The post author(s).
 	 */
-	public function get_the_authors() {
+	public function get_the_authors(): array {
 
 		$authors = array();
 
@@ -448,30 +437,30 @@ class Instant_Articles_Post {
 		 * @since 0.1
 		 *
 		 * @param array $authors The current post author(s).
-		 * @param int   $post_id The instant article post.
+		 * @param int   $post_id The instant article post ID.
 		 */
-		$authors = apply_filters( 'instant_articles_authors', $authors, $this->_post->ID );
-
-		return $authors;
+		return apply_filters( 'instant_articles_authors', $authors, $this->_post->ID );
 	}
 
 	/**
 	 * Get featured image for cover.
 	 *
 	 * @since 0.1
+	 *
 	 * @return array {
 	 *     Array containing image source and caption.
 	 *
-	 * @type string $src     Image URL.
-	 * @type string $caption Image caption.
-	 *                       }
+	 *     @type string $src     Image URL.
+	 *     @type string $caption Image caption.
+	 * }
 	 */
-	public function get_the_featured_image() {
+	public function get_the_featured_image(): array {
 
 		$image_data = array(
 			'src'     => '',
 			'caption' => '',
 		);
+
 		if ( has_post_thumbnail( $this->_post->ID ) ) {
 
 			$image_array   = wp_get_attachment_image_src( get_post_thumbnail_id( $this->_post->ID ), 'full' );
@@ -490,23 +479,23 @@ class Instant_Articles_Post {
 		 * Filter the featured image.
 		 *
 		 * @since 0.1
-		 * @param array $image_data {
-		 *                          Array containg image source and caption.
 		 *
-		 * @type string $src        Image URL.
-		 * @type string $caption    Image caption.
-		 *                          }
+		 * @param array $image_data {
+		 *     Array containing image source and caption.
+		 *
+		 *     @type string $src     Image URL.
+		 *     @type string $caption Image caption.
+		 * }
 		 * @param int   $post_id    The post ID.
 		 */
-		$image_data = apply_filters( 'instant_articles_featured_image', $image_data, $this->_post->ID );
-
-		return $image_data;
+		return apply_filters( 'instant_articles_featured_image', $image_data, $this->_post->ID );
 	}
 
 	/**
 	 * Get the cover media.
 	 *
 	 * @since 0.1
+	 *
 	 * @return Image|Video
 	 */
 	public function get_cover_media() {
@@ -525,21 +514,21 @@ class Instant_Articles_Post {
 		 * Filter the cover media
 		 *
 		 * @since 0.1
+		 *
 		 * @param Image $cover_media The cover media object.
 		 * @param int   $post_id     The current post ID.
 		 */
-		$cover_media = apply_filters( 'instant_articles_cover_media', $cover_media, $this->_post->ID );
-
-		return $cover_media;
+		return apply_filters( 'instant_articles_cover_media', $cover_media, $this->_post->ID );
 	}
 
 	/**
 	 * Get kicker text.
 	 *
 	 * @since 0.1
+	 *
 	 * @return string
 	 */
-	public function get_the_kicker() {
+	public function get_the_kicker(): string {
 
 		$category = '';
 
@@ -570,7 +559,7 @@ class Instant_Articles_Post {
 	 * @since 0.1
 	 * @return string
 	 */
-	public function get_newsfeed_cover() {
+	public function get_newsfeed_cover(): string {
 
 		$type = 'image';
 
@@ -582,25 +571,24 @@ class Instant_Articles_Post {
 		 * @param string $type    Set to 'video' for video cover. Featured image (image) is default.
 		 * @param int    $post_id The post ID.
 		 */
-		$type = apply_filters( 'instant_articles_cover_type', $type, $this->_post->ID );
-
-		return $type;
+		return apply_filters( 'instant_articles_cover_type', $type, $this->_post->ID );
 	}
-
 
 	/**
 	 * Render post
 	 *
 	 * @since 0.1
+	 *
 	 * @return InstantArticle
 	 */
-	public function to_instant_article() {
+	public function to_instant_article(): InstantArticle {
 
 		/**
 		 * Fires before the instant article is rendered.
 		 *
 		 * @since 0.1
-		 * @param Instant_Article_Post $instant_article_post The instant article post.
+		 *
+		 * @param Instant_Articles_Post $instant_article_post The instant article post.
 		 */
 		do_action( 'instant_articles_before_transform_post', $this );
 
@@ -623,9 +611,7 @@ class Instant_Articles_Post {
 		$settings_publishing = Instant_Articles_Option_Publishing::get_option_decoded();
 
 		if (
-			isset( $settings_publishing['custom_rules_enabled'] ) &&
 			! empty( $settings_publishing['custom_rules_enabled'] ) &&
-			isset( $settings_publishing['custom_rules'] ) &&
 			! empty( $settings_publishing['custom_rules'] )
 		) {
 			$transformer->loadRules( $settings_publishing['custom_rules'] );
@@ -653,8 +639,7 @@ class Instant_Articles_Post {
 			$header->withSubTitle( $this->get_the_subtitle() );
 		}
 
-		$authors = $this->get_the_authors();
-		foreach ( $authors as $author ) {
+		foreach ( $this->get_the_authors() as $author ) {
 			$author_obj = Author::create();
 			if ( $author->display_name ) {
 				$author_obj->withName( $author->display_name );
@@ -702,7 +687,7 @@ class Instant_Articles_Post {
 		 * Fires after the instant article is rendered.
 		 *
 		 * @since 0.1
-		 * @param Instant_Article_Post $instant_article_post The instant article post.
+		 * @param Instant_Articles_Post $instant_article_post The instant article post.
 		 */
 		do_action( 'instant_articles_after_transform_post', $this );
 
@@ -714,7 +699,7 @@ class Instant_Articles_Post {
 	 *
 	 * @since 0.3
 	 */
-	public function add_ads_from_settings() {
+	public function add_ads_from_settings(): void {
 		$header = $this->instant_article->getHeader();
 
 		$settings_ads = Instant_Articles_Option_Ads::get_option_decoded();
@@ -819,7 +804,7 @@ class Instant_Articles_Post {
 	 *
 	 * @since 0.3
 	 */
-	public function add_analytics_from_settings() {
+	public function add_analytics_from_settings(): void {
 		$settings_analytics = Instant_Articles_Option_Analytics::get_option_decoded();
 
 		if ( isset( $settings_analytics['embed_code_enabled'] ) && ! empty( $settings_analytics['embed_code'] ) ) {
@@ -866,7 +851,7 @@ class Instant_Articles_Post {
 	/**
 	 * Returns whether the transformation results in an empty document
 	 */
-	public function is_empty_after_transformation() {
+	public function is_empty_after_transformation(): bool {
 		// This post meta is a cache on the calculations made by this function
 		$cache = get_post_meta( $this->get_the_id(), '_is_empty_after_transformation', true );
 		if ( $cache ) {
@@ -894,7 +879,7 @@ class Instant_Articles_Post {
 	/**
 	 * Returns whether the transformation raises warnings
 	 */
-	public function has_warnings_after_transformation() {
+	public function has_warnings_after_transformation(): bool {
 		// This post meta is a cache on the calculations made by this function
 		$cache = get_post_meta( $this->get_the_id(), '_has_warnings_after_transformation', true );
 		if ( $cache ) {
@@ -917,7 +902,7 @@ class Instant_Articles_Post {
 	/**
 	 * Returns whether the article should be ingested as an Instant Article.
 	 */
-	public function should_submit_post() {
+	public function should_submit_post(): bool {
 
 		$fb_page_settings = Instant_Articles_Option_FB_Page::get_option_decoded();
 		if ( isset( $fb_page_settings['page_id'] ) && ! $fb_page_settings['page_id'] ) {
@@ -974,7 +959,7 @@ class Instant_Articles_Post {
 	 *
 	 * @since 3.3
 	 */
-	public function set_appearance_from_settings() {
+	public function set_appearance_from_settings(): void {
 		$settings = Instant_Articles_Option_Styles::get_option_decoded();
 
 		$article_style = 'default';
@@ -988,7 +973,7 @@ class Instant_Articles_Post {
 		 *
 		 * @since 0.1
 		 * @param string               $template             Path to the current (default) template.
-		 * @param Instant_Article_Post $instant_article_post The instant article post.
+		 * @param Instant_Articles_Post $instant_article_post The instant article post.
 		 */
 		$article_style = apply_filters( 'instant_articles_style', $article_style, $this );
 
