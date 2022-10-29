@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.2] - 2022-10-29
+
+- Fix: Make `Instant_Articles_Post::$instant_article` property public.
+
 ## [5.0.1] - 2022-10-18
 
 - Refresh dependency that handles fixing of transformer encodings.
@@ -244,7 +248,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - [#39](https://github.com/automattic/fb-instant-articles/pull/39) Jetpack compat: YouTube and Facebook embeds (@bjornjohansen)
 - [#22](https://github.com/automattic/fb-instant-articles/pull/22) Migrate the wpcom-helper.php from WordPress.com. (@Automattic)
 
-[Unreleased]: https://github.com/automattic/fb-instant-articles/compare/5.0.1...HEAD
+[Unreleased]: https://github.com/automattic/fb-instant-articles/compare/5.0.2...HEAD
+[5.0.2]: https://github.com/automattic/fb-instant-articles/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/automattic/fb-instant-articles/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/automattic/fb-instant-articles/compare/4.2.1...5.0.0
 [4.2.1]: https://github.com/automattic/fb-instant-articles/compare/4.2.0...4.2.1
